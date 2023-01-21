@@ -11,7 +11,7 @@
 
 
 \frontmatter
-\title{Notes on Spatial Econometrics}
+\title{Intermediate Spatial Econometrics with Applications in R}
 \author{Mauricio Sarrias\\
 Universidad de Talca}
 \date{\today}
