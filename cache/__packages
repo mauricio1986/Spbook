@@ -1,0 +1,11 @@
+knitr
+sp
+maptools
+RColorBrewer
+spData
+sf
+spdep
+Matrix
+spatialreg
+expm
+DescTools

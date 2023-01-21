@@ -1,0 +1,98 @@
+%----------------------------------------------------------
+\documentclass[english,12pt]{book}
+
+%====== Main structure ========= %%
+\input{structure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+
+\frontmatter
+\title{Notes on Spatial Econometrics}
+\author{Mauricio Sarrias\\
+Universidad de Talca}
+\date{\today}
+\maketitle
+\tableofcontents
+
+\listoffigures
+\listoftables
+
+%\chapter*{Preface}
+
+%\chapter{Introduction}
+
+\mainmatter
+
+%************************************
+\part{Introduction to Spatial Dependence}
+%*************************************
+
+<<Intro, child = 'Children/Introduction.Rnw'>>=
+@
+
+<<Intro, child = 'Children/Models.Rnw'>>=
+@
+
+%************************************
+\part{Estimation Methods}
+%*************************************
+
+<<Intro, child = 'Children/Asymptotic.Rnw'>>=
+@
+
+<<Intro, child = 'Children/ML.Rnw'>>=
+@
+
+<<Intro, child = 'Children/Hypothesis.Rnw'>>=
+@
+
+%<<Intro, child = 'Children/MonteCarlo.Rnw'>>=
+%@
+
+<<Intro, child = 'Children/IV-GMM.Rnw'>>=
+@
+
+%\input{Children/Panel}
+
+%***************************************
+%\part{Models for Spatial Heterogeneity}
+%***************************************
+
+%\input{Children/intoSpatHet}
+
+
+%************** Bibliography *****************
+\bibliography{SpatEcon.bib}
+\bibliographystyle{apalike}
+
+
+%\backmatter 
+
+%\begin{appendices}
+%\appendixpage
+%\noappendicestocpagenum
+%\addappheadtotoc
+
+%\input{Children/MatrixAlgebra}
+%\input{Children/Probability}
+%\input{Children/Asymptotics}
+
+
+%\end{appendices}
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+
+\cleardoublepage
+\phantomsection
+\setlength{\columnsep}{0.75cm}
+\addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}}
+\printindex
+
+
+\end{document}

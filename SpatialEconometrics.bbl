@@ -1,0 +1,346 @@
+\begin{thebibliography}{}
+
+\bibitem[Allers and Elhorst, 2005]{allers2005tax}
+Allers, M.~A. and Elhorst, J.~P. (2005).
+\newblock {Tax Mimicking and Yardstick Competition Among Local Governments in
+  The Netherlands}.
+\newblock {\em International tax and public finance}, 12(4):493--513.
+
+\bibitem[Anselin, 1988]{anselin1988spatial}
+Anselin, L. (1988).
+\newblock {\em {Spatial Econometrics: Methods and Models}}, volume~4.
+\newblock Springer.
+
+\bibitem[Anselin, 1996]{anselin1996chapter}
+Anselin, L. (1996).
+\newblock {Chapter Eight: The Moran Scatterplot as an ESDA Tool to Assess Local
+  Instability in Spatial Association}.
+\newblock {\em Spatial Analytical}, 4:121.
+
+\bibitem[Anselin, 2003]{anselin2003spatial}
+Anselin, L. (2003).
+\newblock {Spatial Externalities, Spatial Multipliers, and Spatial
+  Econometrics}.
+\newblock {\em International regional science review}, 26(2):153--166.
+
+\bibitem[Anselin, 2007]{anselinSpatialEcon}
+Anselin, L. (2007).
+\newblock {\em {Spatial Econometrics}}, pages 310--330.
+\newblock Blackwell Publishing Ltd.
+
+\bibitem[Anselin and Bera, 1998]{AnselinBera1998}
+Anselin, L. and Bera, A. (1998).
+\newblock {Spatial Dependence in Linear Regression Models with an Introduction
+  to Spatial Econometrics}.
+\newblock In Ullah, A. and Giles, D., editors, {\em Handbook of Applied
+  Economic Statistics}, pages 237--289. Marcel Dekker, New York.
+
+\bibitem[Anselin and Lozano-Gracia, 2008]{anselin2008errors}
+Anselin, L. and Lozano-Gracia, N. (2008).
+\newblock {Errors in Variables and Spatial Effects in Hedonic House Price
+  Models of Ambient Air Quality}.
+\newblock {\em Empirical economics}, 34(1):5--34.
+
+\bibitem[Anselin and Rey, 1991]{Anselin1991properties}
+Anselin, L. and Rey, S. (1991).
+\newblock {Properties of Tests for Spatial Dependence in Linear Regression
+  Models}.
+\newblock {\em Geographical analysis}, 23(2):112--131.
+
+\bibitem[Anselin and Rey, 2014]{anselin2014modern}
+Anselin, L. and Rey, S. (2014).
+\newblock {\em {Modern Spatial Econometrics in Practice: A Guide to Geoda,
+  Geodaspace and Pysal}}.
+\newblock GeoDa Press LLC.
+
+\bibitem[Arraiz et~al., 2010]{arraiz2010spatial}
+Arraiz, I., Drukker, D.~M., Kelejian, H.~H., and Prucha, I.~R. (2010).
+\newblock {A Spatial Cliff-Ord-Type Model with Heteroskedastic Innovations:
+  Small and Large Sample Results}.
+\newblock {\em Journal of Regional Science}, 50(2):592--614.
+
+\bibitem[Baller et~al., 2001]{baller2001structural}
+Baller, R.~D., Anselin, L., Messner, S.~F., Deane, G., and Hawkins, D.~F.
+  (2001).
+\newblock {Structural Covariates of US County Homicide Rates: Incorporating
+  Spatial Effects}.
+\newblock {\em Criminology}, 39(3):561--588.
+
+\bibitem[Basdas, 2009]{basdas2009spatial}
+Basdas, U. (2009).
+\newblock {Spatial Econometric Analysis of the Determinants of Location in
+  Turkish Manufacturing Industry}.
+\newblock {\em Available at SSRN 1506888}.
+
+\bibitem[Bivand et~al., 2013]{bivand2013computing}
+Bivand, R., Hauke, J., and Kossowski, T. (2013).
+\newblock {Computing the Jacobian in Gaussian Spatial Autoregressive Models: An
+  Illustrated Comparison of Available Methods}.
+\newblock {\em Geographical Analysis}, 45(2):150--179.
+
+\bibitem[Bivand and Lewin-Koh, 2015]{maptoolsP}
+Bivand, R. and Lewin-Koh, N. (2015).
+\newblock {\em {maptools: Tools for Reading and Handling Spatial Objects}}.
+\newblock R package version 0.8-36.
+
+\bibitem[Bivand and Piras, 2015]{spdep}
+Bivand, R. and Piras, G. (2015).
+\newblock {Comparing Implementations of Estimation Methods for Spatial
+  Econometrics}.
+\newblock {\em Journal of Statistical Software}, 63(1):1--36.
+
+\bibitem[Boarnet and Glazer, 2002]{boarnet2002federal}
+Boarnet, M.~G. and Glazer, A. (2002).
+\newblock {Federal Grants and Yardstick Competition}.
+\newblock {\em Journal of urban Economics}, 52(1):53--64.
+
+\bibitem[Cliff and Ord, 1972]{cliff1972testing}
+Cliff, A. and Ord, K. (1972).
+\newblock {Testing for Spatial Autocorrelation Among Regression Residuals}.
+\newblock {\em Geographical analysis}, 4(3):267--284.
+
+\bibitem[Cliff and Ord, 1973]{cliff1973spatial}
+Cliff, A.~D. and Ord, J.~K. (1973).
+\newblock {\em {Spatial Autocorrelation}}.
+\newblock London:Pion.
+
+\bibitem[Cohen and Tita, 1999]{cohen1999diffusion}
+Cohen, J. and Tita, G. (1999).
+\newblock {Diffusion in Homicide: Exploring a General Method for Detecting
+  Spatial Diffusion Processes}.
+\newblock {\em Journal of Quantitative Criminology}, 15(4):451--493.
+
+\bibitem[Cordy and Griffith, 1993]{cordy1993efficiency}
+Cordy, C.~B. and Griffith, D.~A. (1993).
+\newblock Efficiency of least squares estimators in the presence of spatial
+  autocorrelation.
+\newblock {\em Communications in Statistics-Simulation and Computation},
+  22(4):1161--1179.
+
+\bibitem[Das et~al., 2003]{das2003finite}
+Das, D., Kelejian, H.~H., and Prucha, I.~R. (2003).
+\newblock {Finite Sample Properties of Estimators of Spatial Autoregressive
+  Models with Autoregressive Disturbances}.
+\newblock {\em Papers in Regional Science}, 82(1):1--26.
+
+\bibitem[Doreian, 1981]{doreian1981estimating}
+Doreian, P. (1981).
+\newblock {Estimating Linear Models with Spatially Distributed Data}.
+\newblock {\em Sociological methodology}, pages 359--388.
+
+\bibitem[Drukker et~al., 2013]{drukker2013two}
+Drukker, D.~M., Egger, P., and Prucha, I.~R. (2013).
+\newblock {On Two-step Estimation of a Spatial Autoregressive Model with
+  Autoregressive Disturbances and Endogenous Regressors}.
+\newblock {\em Econometric Reviews}, 32(5-6):686--733.
+
+\bibitem[Drukker et~al., 2011]{drukker2011command}
+Drukker, D.~M., Prucha, I.~R., and Raciborski, R. (2011).
+\newblock {A Command for Estimating Spatial-autoregressive Models with
+  Spatial-autoregressive Disturbances and Additional Endogenous Variables}.
+\newblock {\em Econometric Reviews}, 32:686--733.
+
+\bibitem[Elhorst, 2010]{elhorst2010applied}
+Elhorst, J.~P. (2010).
+\newblock {Applied Spatial Econometrics: Raising the Bar}.
+\newblock {\em Spatial Economic Analysis}, 5(1):9--28.
+
+\bibitem[Elhorst, 2014]{elhorst2014spatial}
+Elhorst, J.~P. (2014).
+\newblock {\em {Spatial Econometrics: From Cross-Sectional Data to Spatial
+  Panels}}.
+\newblock Springer.
+
+\bibitem[Filiztekin, 2009]{filiztekin2009regional}
+Filiztekin, A. (2009).
+\newblock {Regional Unemployment in Turkey}.
+\newblock {\em Papers in Regional Science}, 88(4):863--878.
+
+\bibitem[Fischer et~al., 2009]{fischer2009impact}
+Fischer, M.~M., Bartkowska, M., Riedl, A., Sardadvar, S., and Kunnert, A.
+  (2009).
+\newblock {The Impact of Human Capital on Regional Labor Productivity in
+  Europe}.
+\newblock {\em Letters in Spatial and Resource Sciences}, 2(2-3):97--108.
+
+\bibitem[Garretsen and Peeters, 2009]{garretsen2009fdi}
+Garretsen, H. and Peeters, J. (2009).
+\newblock {FDI and the Relevance of Spatial Linkages: Do Third-Country Effects
+  Matter for Dutch FDI?}
+\newblock {\em Review of World Economics}, 145(2):319--338.
+
+\bibitem[Garrett and Marsh, 2002]{garrett2002revenue}
+Garrett, T.~A. and Marsh, T.~L. (2002).
+\newblock The revenue impacts of cross-border lottery shopping in the presence
+  of spatial autocorrelation.
+\newblock {\em Regional Science and Urban Economics}, 32(4):501--519.
+
+\bibitem[Gibbons et~al., 2015]{gibbons2015spatial}
+Gibbons, S., Overman, H.~G., and Patacchini, E. (2015).
+\newblock {Spatial Methods}.
+\newblock {\em Handbook of Regional and Urban Economics SET}, page 115.
+
+\bibitem[Kelejian and Piras, 2017]{kelejian2017spatial}
+Kelejian, H. and Piras, G. (2017).
+\newblock {\em Spatial econometrics}.
+\newblock Academic Press.
+
+\bibitem[Kelejian and Prucha, 1998]{kelejian1998generalized}
+Kelejian, H.~H. and Prucha, I.~R. (1998).
+\newblock {A Generalized Spatial Two-Stage Least Squares Procedure for
+  Estimating a Spatial Autoregressive Model with Autoregressive Disturbances}.
+\newblock {\em The Journal of Real Estate Finance and Economics},
+  17(1):99--121.
+
+\bibitem[Kelejian and Prucha, 1999]{kelejian1999generalized}
+Kelejian, H.~H. and Prucha, I.~R. (1999).
+\newblock {A Generalized Moments Estimator for the Autoregressive Parameter in
+  a Spatial Model}.
+\newblock {\em International economic review}, 40(2):509--533.
+
+\bibitem[Kelejian and Prucha, 2001]{kelejian2001asymptotic}
+Kelejian, H.~H. and Prucha, I.~R. (2001).
+\newblock {On the Asymptotic Distribution of the Moran I Test Statistic with
+  Applications}.
+\newblock {\em Journal of Econometrics}, 104(2):219--257.
+
+\bibitem[Kelejian and Prucha, 2007]{kelejian2007relative}
+Kelejian, H.~H. and Prucha, I.~R. (2007).
+\newblock {The Relative Efficiencies of Various Predictors in Spatial
+  Econometric Models Containing Spatial Lags}.
+\newblock {\em Regional Science and Urban Economics}, 37(3):363--374.
+
+\bibitem[Kelejian and Prucha, 2010]{kelejian2010specification}
+Kelejian, H.~H. and Prucha, I.~R. (2010).
+\newblock {Specification and Estimation of Spatial Autoregressive Models with
+  Autoregressive and Heteroskedastic Disturbances}.
+\newblock {\em Journal of Econometrics}, 157(1):53--67.
+
+\bibitem[Kelejian et~al., 2004]{Keliejian2004}
+Kelejian, H.~H., Prucha, I.~R., and Yuzefovich, Y. (2004).
+\newblock {Instrumental Variable Estimation of a Spatial Autoregressive Model
+  with Autoregressive Disturbances: Large and Small Sample Results}.
+\newblock In Lesage, J. and Pace, R., editors, {\em Spatial and Spatiotemporal
+  Econometrics}, pages 163--198. Emerald Group Publishing Limited.
+
+\bibitem[Kim et~al., 2003]{kim2003measuring}
+Kim, C.~W., Phipps, T.~T., and Anselin, L. (2003).
+\newblock {Measuring the Benefits of Air Quality Improvement: A Spatial Hedonic
+  Approach}.
+\newblock {\em Journal of environmental economics and management},
+  45(1):24--39.
+
+\bibitem[Kirby and LeSage, 2009]{kirby2009changes}
+Kirby, D.~K. and LeSage, J.~P. (2009).
+\newblock {Changes in Commuting to Work Times Over the 1990 to 2000 Period}.
+\newblock {\em Regional Science and Urban Economics}, 39(4):460--471.
+
+\bibitem[Lee, 2002]{lee2002consistency}
+Lee, L.-F. (2002).
+\newblock {Consistency and Efficiency of Least Squares Estimation for Mixed
+  Regressive, Spatial Autoregressive Models}.
+\newblock {\em Econometric theory}, 18(02):252--277.
+
+\bibitem[Lee, 2003]{lee2003best}
+Lee, L.-f. (2003).
+\newblock {Best Spatial Two-Stage Least Squares Estimators for a Spatial
+  Autoregressive Model with Autoregressive Disturbances}.
+\newblock {\em Econometric Reviews}, 22(4):307--335.
+
+\bibitem[Lee, 2004]{lee2004asymptotic}
+Lee, L.-F. (2004).
+\newblock {Asymptotic Distributions of Quasi-Maximum Likelihood Estimators for
+  Spatial Autoregressive Models}.
+\newblock {\em Econometrica}, 72(6):1899--1925.
+
+\bibitem[Lee, 2007]{lee2007gmm}
+Lee, L.-f. (2007).
+\newblock {GMM and 2SLS Estimation of Mixed Regressive, Spatial Autoregressive
+  Models}.
+\newblock {\em Journal of Econometrics}, 137(2):489--514.
+
+\bibitem[LeSage and Pace, 2010]{lesage2010introduction}
+LeSage, J. and Pace, R.~K. (2010).
+\newblock {\em {Introduction to Spatial Econometrics}}.
+\newblock CRC press.
+
+\bibitem[LeSage, 1997]{lesage1997bayesian}
+LeSage, J.~P. (1997).
+\newblock {Bayesian Estimation of Spatial Autoregressive Models}.
+\newblock {\em International Regional Science Review}, 20(1-2):113--129.
+
+\bibitem[LeSage, 2014]{lesage2014regional}
+LeSage, J.~P. (2014).
+\newblock {What Regional Scientists Need to Know about Spatial Econometrics}.
+\newblock {\em The Review of Regional Studies}, 44(1):13--32.
+
+\bibitem[LeSage and Pace, 2014]{LeSage2014}
+LeSage, J.~P. and Pace, R.~K. (2014).
+\newblock {\em {Interpreting Spatial Econometric Models}}, pages 1535--1552.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg.
+
+\bibitem[Liu et~al., 2022]{liu2022consistency}
+Liu, T., Xu, X., and Lee, L.-f. (2022).
+\newblock Consistency without compactness of the parameter space in spatial
+  econometrics.
+\newblock {\em Economics Letters}, 210:110224.
+
+\bibitem[Mead, 1967]{mead1967mathematical}
+Mead, R. (1967).
+\newblock {A Mathematical Model for the Estimation of Inter-Plant Competition}.
+\newblock {\em Biometrics}, pages 189--205.
+
+\bibitem[Newey and McFadden, 1994]{newey1994large}
+Newey, W.~K. and McFadden, D. (1994).
+\newblock {Large Sample Estimation and Hypothesis Testing}.
+\newblock {\em Handbook of econometrics}, 4:2111--2245.
+
+\bibitem[Ord, 1975]{ord1975estimation}
+Ord, K. (1975).
+\newblock {Estimation Methods for Models of Spatial Interaction}.
+\newblock {\em Journal of the American Statistical Association},
+  70(349):120--126.
+
+\bibitem[Pace and LeSage, 2008]{pace2008spatial}
+Pace, R.~K. and LeSage, J.~P. (2008).
+\newblock A spatial hausman test.
+\newblock {\em Economics Letters}, 101(3):282--284.
+
+\bibitem[Pavlyuk, 2011]{pavlyuk2011spatial}
+Pavlyuk, D. (2011).
+\newblock {Spatial Analysis of Regional Employment Rates in Latvia}.
+
+\bibitem[Piras, 2010]{sphetp}
+Piras, G. (2010).
+\newblock {sphet: Spatial Models with Heteroskedastic Innovations in R}.
+\newblock {\em Journal of Statistical Software}, 35(1):1--21.
+
+\bibitem[Prucha, 2014]{pruchaHB}
+Prucha, I. (2014).
+\newblock {Instrumental Variables/Method of Moments Estimation}.
+\newblock In Fischer, M.~M. and Nijkamp, P., editors, {\em Handbook of Regional
+  Science}, pages 1597--1617. Springer Berlin Heidelberg.
+
+\bibitem[Saavedra, 2000]{saavedra2000model}
+Saavedra, L.~A. (2000).
+\newblock {A Model of Welfare Competition with Evidence from AFDC}.
+\newblock {\em Journal of Urban Economics}, 47(2):248--279.
+
+\bibitem[Smirnov and Anselin, 2001]{smirnov2001fast}
+Smirnov, O. and Anselin, L. (2001).
+\newblock {Fast Maximum Likelihood Estimation of Very Large Spatial
+  Autoregressive Models: A Characteristic Polynomial Approach}.
+\newblock {\em Computational Statistics \& Data Analysis}, 35(3):301--319.
+
+\bibitem[Stewart and Zhukov, 2010]{stewart2010choosing}
+Stewart, B.~M. and Zhukov, Y. (2010).
+\newblock {Choosing Your Neighbors: The Sensitivity of Geographical Diffusion
+  in International Relations}.
+\newblock In {\em APSA 2010 Annual Meeting Paper}.
+
+\bibitem[Tiefelsdorf et~al., 1999]{tiefelsdorf1999variance}
+Tiefelsdorf, M., Griffith, D., and Boots, B. (1999).
+\newblock {A Variance-Stabilizing Coding Scheme for Spatial Link Matrices}.
+\newblock {\em Environment and Planning A}, 31(1):165--180.
+
+\end{thebibliography}

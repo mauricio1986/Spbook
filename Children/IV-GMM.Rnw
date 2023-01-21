@@ -1,0 +1,2754 @@
+\chapter{Instrumental Variables and GMM}
+
+One of the main disadvantages of the MLE is that it may be computational intensive when the number of spatial units is large. This procedure requires the manipulation of $n \times n$ matrices, such as the matrix multiplication, matrix inversion, the computation of characteristics roots and so on. 
+
+In this chapter, we will study the instrumental variables and the generalized method of moments method (IV/GMM).  One of the reason for developing IV/GMM estimators was a response to perceived computational difficulties of the ML method \citep{kelejian1998generalized, kelejian1999generalized}.  Unlike ML, the IV/GMM procedure does not require the computation of the Jacobian, and does not rely on the normality assumption.
+
+%*************************************************
+\section{A Review of GMM}\index{Generalized method of moments}
+%*************************************************
+
+Before explaining the estimation procedure for the SLM, SEM and SAC model, we review some aspects of the GMM procedure in the spatial context. This section is heavily based on \cite{pruchaHB}.
+
+%===================================
+\subsection{Model Specification}
+%===================================
+
+Suppose the data are generated from a model
+
+\begin{equation*}
+f(y_{in}, \vx_{in}, \vtheta_0) = u_{in}\;\;i = 1,...,n. , 
+\end{equation*}
+%
+where $f(y_{in}, \vx_{in}, \vtheta_0)$ might represent a system of spatial equations, $y_{in}$ is the dependent variable corresponding to unit $i$, $\vx_{in}$ is a vector of explanatory variables, $u_{in}$ is a disturbance term, $\vtheta_0$ is the $k \times 1$ unknown parameter vector, and $f(\cdot)$ is a known function. 
+
+
+Also, assume that there exists a $1 \times s$ vector of instruments $\vh_{in}$ and let $w_{in}$ be the vector of all observables variables, including instruments, pertaining to the $i$th unit. For simplicity, assume that the disturbances are i.i.d. $(0, \sigma^2)$ and that the instruments are non-stochastic (those assumptions can be relaxed). Note that we are considering a triangular array since the variables are indexed by $n$. In particular the explanatory variables could be of the form $\vx_{in} = \left[\vx_i, \bar{\vx}_{in}, \bar{y}_{in} \right]$ where $\vx_i$ is some exogenous explanatory variable, and $\bar{\vx}_{in} = \sum_jw_{ij}\vx_j$ and $\bar{y}_{in} = \sum_jw_{ij}y_{jn}$ are spatial lags, where $w_{ij}$ denote spatial weights with $w_{ii} = 0$. 
+
+Suppose that there exists a vector $s \times 1$ of sample moments
+
+\begin{equation*}
+\vg_n(\vtheta) = \vg_n(w_1,...,w_n, \vtheta) = \begin{pmatrix}
+g_{1,n}(w_1,...,w_n, \vtheta) \\
+\vdots \\
+g_{s,n}(w_1,...,w_n, \vtheta)
+\end{pmatrix},
+\end{equation*}
+%
+with $s \geq k$ (for identification), and suppose that
+
+\begin{equation*}
+\E\left[\vg_n(w_1,...,w_n, \vtheta)\right] = \vzeros \iff \vtheta = \vtheta_0,
+\end{equation*}
+%
+that is, the model is identified. Let $\mUpsilon$ be some $s \times s$ symmetric positive semidefinite weighting matrix, then the corresponding GMM estimator is defined as:
+
+\begin{equation}\label{eq:gmm_one_step}
+\widehat{\vtheta}_n = \underset{\vtheta}{\argmin}\;\;\underset{(1\times s)}{\vg_n(w_1,...,w_n, \vtheta)}^\top\underset{(s\times s)}{\mUpsilon}\underset{(s\times 1)}{\vg_n(w_1,...,w_n, \vtheta)}.
+\end{equation}
+
+If $s = k$  the weighting matrix is irrelevant and $\widehat{\vtheta}_n$ can be found as a solution to the moment condition:
+
+\begin{equation}\label{eq:sample_moments_gmm}
+\vg_n(w_1,...,w_n, \widehat{\vtheta}) = \vzeros.
+\end{equation}
+
+The classical GMM literature exploits \textbf{linear moment conditions} of the form:
+
+\begin{equation*}
+	\E\left[\frac{1}{n}\sum_{i =1}^n\vh_{i}^\top u_i\right] = \vzeros,
+\end{equation*}
+%
+which holds since $\E\left[\vh_{i}^\top u_i\right] = \vh_{i}^\top \E\left[u_i\right] = \vzeros$ under the maintained assumptions. The spatial literature frequently considers \textbf{quadratic} moment conditions. Let $\mA_q$, with element $\left[a_{ijq}\right]$ be some $n \times n$ matrix with $\tr(\mA_q) = 0$, and assume for ease of exposition that $\mA_q$ is non-stochastic. Then the quadratic moment conditions considered in the spatial literature are of the form:
+
+\begin{equation}\label{eq:mom_review}
+	\E\left[\frac{1}{n}\sum_{i = 1}^n\sum_{j = 1} ^n a_{ijq}u_iu_j\right] = \vzeros,
+\end{equation}
+%
+which clearly holds under the maintained assumptions. To see this, let $\vu = \left[u_1,...,u_n\right]^\top$, then the moment conditions in (\ref{eq:mom_review}) can be rewritten as:
+
+\begin{equation*}
+ \E\left[\frac{\vu^\top\mA_q\vu}{n}\right] = \tr\left[\frac{\mA_q\E\left(\vu\vu^\top\right)}{n}\right] = \sigma^2\frac{\tr(\mA_q)}{n} = \vzeros,
+\end{equation*}
+%
+since under the maintained assumptions $\E\left[\vu\vu^\top\right] = \sigma^2\mI_n$ and $\tr(\mA_q) = 0$.
+
+Now let $\vtheta_0 = \left[\lambda_0, \vdelta_0\right]^\top$ and suppose the sample moment vector in (\ref{eq:sample_moments_gmm}) can be decomposed into:
+
+\begin{equation*}
+\vg_n(w_1,...,w_n, \vtheta) = \begin{pmatrix}
+\vg_n^{\vlambda}(w_1,...,w_n, \lambda, \vdelta) \\
+\vg_n^{\vdelta}(w_1,...,w_n, \lambda, \vdelta) 
+\end{pmatrix},
+\end{equation*}
+%
+where $\lambda$ is, for example, the spatial autoregressive parameter and $\vdelta$ is the rest of parameters in the model, such that:
+
+\begin{eqnarray*}
+\E\left[\vg_n^{\vlambda}(w_1,...,w_n, \lambda, \vdelta)\right] &=& \vzeros \iff \lambda = \lambda_0,\\
+\E\left[\vg_n^{\vdelta}(w_1,...,w_n, \lambda, \vdelta)\right] &=& \vzeros \iff \vdelta = \vdelta_0,
+\end{eqnarray*}
+%
+and that some easily (and consistent) computable initial estimator, say $\widehat{\vdelta}_n$, for $\vdelta_0$ is available. In this case we may consider the following GMM estimator for $\lambda_0$ corresponding to some weighting matrix $\mUpsilon^{\lambda\lambda}_n$:
+
+\begin{equation}\label{eq:gmm_two_step_a}
+\widehat{\lambda}_n = \underset{\lambda}{\argmin}\;\;\vg_n^{\lambda}(w_1,...,w_n, \lambda, \widehat{\vdelta})^\top\mUpsilon^{\lambda\lambda}_n(w_1,...,w_n, \lambda, \widehat{\vdelta}).
+\end{equation}
+
+Utilizing $\widehat{\lambda}_n$ we may further consider the following estimator for $\vdelta_0$ corresponding to some weight matrix $\mUpsilon^{\delta\delta}_n$:
+
+\begin{equation}\label{eq:gmm_two_step_b}
+\widehat{\vdelta}_n = \underset{\vdelta}{\argmin}\;\;\vg_n^{\vdelta}(w_1,...,w_n, \widehat{\lambda}, \vdelta)^\top\mUpsilon^{\delta\delta}_n(w_1,...,w_n, \widehat{\lambda}, \vdelta).
+\end{equation}
+
+GMM estimator like $\widehat{\vtheta}$ in Equation (\ref{eq:gmm_one_step}) are often referred to as \textbf{one-step estimators}. Estimators like $\widehat{\lambda}_n$ and $\widehat{\vdelta}_n$ in Equations (\ref{eq:gmm_two_step_a}) and (\ref{eq:gmm_two_step_b}) above, where the sample moments depend on some initial estimator, are often referred to as \textbf{two-step estimators}.
+
+If the model conditions are valid, we would expect the most efficient one-step estimator to be more efficient than the most efficient two-step estimators. However, as usual, there are trade-offs. One trade-off is in terms of computations. Recall that for small sample sizes ML is available as an alternative to GMM. For large sample size, statistical efficiency may be less important than computational efficiency and feasibility, and thus the use of two-step GMM estimators may be attractive. Also, Monte Carlo studies suggest that in many situations, the loss of efficiency may be relatively small. Another trade-off is that the misspecification of one moment condition will typically result in inconsistent estimates of all model parameters. 
+
+%===================================
+\subsection{One-Step GMM Estimation}
+%===================================
+
+Assuming that $\widehat{\vtheta}_n$ is an interior point, the first-order condition for maximization of the objective function is:
+
+\begin{equation}\label{eq:foc_review}
+  \underset{(k\times 1)}{\vzeros} = \underset{(k\times 1)}{\frac{\partial Q_n(\widehat{\vtheta}_n)}{\partial \vtheta}} = - \underset{(k\times s)}{\mG_n(\widehat{\vtheta})^\top}\underset{(s\times s)}{\mUpsilon}\underset{(s\times 1)}{\vg_n(\widehat{\vtheta})},
+\end{equation}
+%
+where $\mG_n(\vtheta)$ is the Jacobian of $\vg_n(\theta)$:
+
+\begin{equation*}
+  \mG_n(\vtheta) \equiv  \frac{\partial \vg_n(\vtheta)}{\partial \vtheta^\top}.
+\end{equation*}
+
+Now using Taylor expansion to $\vg_n(\vtheta)$, yields:
+
+\begin{equation}\label{eq:taylor_exp_g}
+  \vg_n(\widehat{\vtheta}) = \vg_n(\vtheta_0) + \mG_n(\overline{\vtheta})\left(\widehat{\vtheta}_n - \vtheta_0\right).
+\end{equation}
+
+Substituting (\ref{eq:taylor_exp_g}) into the first-order condition (\ref{eq:foc_review}), we obtain:
+
+\begin{equation*}
+  \vzeros = \underset{(k\times 1)}{\frac{\partial Q_n(\widehat{\vtheta}_n)}{\partial \vtheta}} = - \underset{(k\times s)}{\mG_n(\widehat{\vtheta})}^\top\underset{(s\times s)}{\mUpsilon}\underset{(s\times 1)}{\vg_n(\widehat{\vtheta})} - \underset{(k\times s)}{\mG_n(\widehat{\vtheta})}^\top\underset{(s\times s)}{\mUpsilon}\underset{(s\times k)}{\mG_n(\overline{\vtheta})}\underset{(k\times 1)}{\left(\widehat{\vtheta}_n - \vtheta_0\right)}.
+\end{equation*}
+
+Solving this for $\left(\widehat{\vtheta}_n - \vtheta_0\right)$ and multiplying by $\sqrt{n}$ yield:
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) = - \left[\mG(\widehat{\vtheta})_n^\top\mUpsilon\mG_n(\overline{\vtheta})\right]^{-1}\mG(\widehat{\vtheta})^\top_n\mUpsilon\left[\sqrt{n}\vg_n(\vw_i, \vtheta_0)\right] + o_p(1).
+\end{equation*}
+
+For easy exposition, assume that 
+
+\begin{eqnarray}
+ \mG_n(\widehat{\vtheta})& \pto & \mG \quad \mbox{by some LLN }\\
+ \mUpsilon_n &\pto & \mUpsilon\quad \mbox{by some LLN } \\
+ \sqrt{n}\vg_n(\vtheta_0)& \dto & \rN(\vzeros, \mPsi) \quad \mbox{by some CLT } \label{eq:asymptotic_distr_moment}
+\end{eqnarray}
+%
+where $\mPsi$ is some positive definite matrix. Then applying traditional asymptotic rules:
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)\dto \rN\left(\vzeros, \mPhi\right),
+\end{equation*}
+%
+where:
+
+\begin{equation*}
+\mPhi = \left[\mG^\top\mUpsilon\mG\right]^{-1}\mG^\top\mUpsilon\mPsi\mUpsilon\mG\left[\mG^\top\mUpsilon\mG\right]^{-1}. 
+\end{equation*}
+
+It can be seen that if we choose $\mUpsilon = \widehat{\mPsi}^{-1}_n$ (weights are given by the variance-covariance matrix of the moment conditions), where $\widehat{\mPsi}\pto \mPsi$, the variance-covariance simplifies to
+
+\begin{equation*}
+\var(\widehat{\vtheta}_n) = \mPhi = \left[\mG^\top\mPsi^{-1}\mG\right]^{-1}.
+\end{equation*}
+
+Since $\left[\mG^\top\mUpsilon\mG\right]^{-1}\mG^\top\mUpsilon\mPsi\mUpsilon\mG\left[\mG^\top\mUpsilon\mG\right]^{-1} - \left[\mG^\top\mPsi^{-1}\mG\right]^{-1}$ is positive semidefinite it follows that $\mUpsilon = \widehat{\mPhi}^{-1}_n$ gives the optimal GMM estimator (less asymptotic variance).
+
+%===================================
+\subsection{Two-Step GMM Estimation}\label{section:2step-gmm}
+%===================================
+
+The usual approach to deriving the limiting distribution of two-step GMM estimators is to manipulate the score of the objective function by expanding the sample moment vector around the true parameter, using a Taylor expansion.\footnote{For more on two-step estimation see \citet[][section 6]{newey1994large}}
+
+Consider the two-step GMM estimators for $\lambda_0$ defined in Equation (\ref{eq:gmm_two_step_a}). Applying this approach, and assuming typical regularity conditions, we get:
+
+\begin{equation}\label{eq:taylor_gmm_1}
+\sqrt{n}\left(\widehat{\lambda}_n - \lambda_0\right) = - \left[(\mG_n^{\lambda\lambda})^\top\mUpsilon_n^{\lambda\lambda}\mG_n^{\lambda\lambda}\right]^{-1}\left(\mG_n^{\lambda\lambda}\right)^\top\mUpsilon_n^{\lambda\lambda}\left[\sqrt{n}\vg_n^{\lambda}(\lambda_0, \vdelta_0) + \mG_n^{\lambda\delta}\sqrt{n}\left(\widehat{\vdelta}_n - \vdelta_0\right)\right] + o_p(1),
+\end{equation}
+%
+where
+
+\begin{eqnarray*}
+	\frac{\partial \vg_n^{\lambda}(\vlambda_0, \vdelta_0)}{\partial \vlambda} &\pto&  \mG^{\lambda\lambda}, \\
+	\frac{\partial \vg_n^{\lambda}(\vlambda_0, \vdelta_0)}{\partial \vdelta} &\pto&  \mG^{\lambda\delta}, \\
+	\mUpsilon^{\lambda\lambda}_n & \pto & \mUpsilon^{\lambda\lambda}.
+\end{eqnarray*}
+
+In many cases the estimator $\widehat{\vdelta}_n$ will be asymptotically linear in the sense that
+
+\begin{equation*}
+\sqrt{n}\left(\widehat{\vdelta}_n - \vdelta_0\right)=\frac{1}{\sqrt{n}}\mT_n^\top\vu_n + o_p(1),
+\end{equation*}
+%
+where $\mT_n$ is a non-stochastic $n\times k_{\delta}$ matrix, where $k_{\delta}$ is the dimension of $\vdelta_0$, and where $\vu_n = (u_1,...,u_n)^\top$. Now define:
+
+\begin{equation*}
+\vg_{*n}^{\lambda}(\vlambda_0, \vdelta_0) = \vg_n^{\lambda}(\vlambda_0, \vdelta_0) + \frac{1}{n}\mG^{\lambda\delta}\mT_n^\top\vu_n.
+\end{equation*}
+
+Then Equation (\ref{eq:taylor_gmm_1}) can be rewritten as:
+
+\begin{equation}\label{eq:taylor_gmm_2}
+\sqrt{n}\left(\widehat{\vlambda}_n - \vlambda_0\right) = - \left[(\mG^{\lambda\lambda})^\top\mUpsilon^{\lambda\lambda}\mG^{\lambda\lambda}\right]^{-1}(\mG^{\lambda\lambda})^\top\mUpsilon^{\lambda\lambda}\left[\sqrt{n}\vg_{*n}^{\lambda}(\vlambda_0, \vdelta_0) \right] + o_p(1).
+\end{equation}
+
+Now suppose that 
+
+\begin{equation*}
+\sqrt{n}\vg_{*n}^{\lambda}(\vlambda_0, \vdelta_0) \dto \rN\left(0, \mPsi^{\lambda\lambda}_{*}\right) 
+\end{equation*}
+%
+where $\mPsi^{\lambda\lambda}_{*}$ is some positive definite matrix. Then
+
+\begin{equation*}
+\sqrt{n}\left(\widehat{\vlambda}_n - \vlambda_0\right)\dto \rN\left(\vzeros, \mPhi_{*}^{\lambda\lambda}\right)
+\end{equation*}
+%
+with:
+
+\begin{equation*}
+\mPhi_{*}^{\lambda\lambda} = \left[(\mG^{\lambda\lambda})^\top\mUpsilon^{\lambda\lambda}\mG^{\lambda\lambda}\right]^{-1}(\mG^{\lambda\lambda})^\top\mUpsilon^{\lambda\lambda}\mPhi_{*}^{\lambda\lambda}\mUpsilon^{\lambda\lambda}\mG^{\lambda\lambda}\left[(\mG^{\lambda\lambda})'\mUpsilon^{\lambda\lambda}\mG^{\lambda\lambda}\right]^{-1}
+\end{equation*}
+
+From this it is seen that if we choose $\mUpsilon_n^{\lambda\lambda} = \left(\mPhi_{*n}^{\lambda\lambda}\right)^{-1}$ where $\mPhi_{*n}^{\lambda\lambda}\pto \mPhi_{*}^{\lambda\lambda}$, then variance-covariance simplifies to
+
+\begin{equation*}
+\mPhi_{*}^{\lambda\lambda} = \left[(\mG^{\lambda\lambda})^\top(\mPsi^{\lambda\lambda}_{*})^{-1}\mG^{\lambda\lambda}\right]^{-1}.
+\end{equation*}
+
+So, using the weighting matrix $\mUpsilon_n^{\lambda\lambda}$, a consistent estimator for the inverse of the limiting variance-covariance matrix $\mPsi_{*}^{\lambda\lambda}$ yields the efficient two-step GMM estimator.
+
+
+Suppose that Equation (\ref{eq:asymptotic_distr_moment}) holds and:
+
+\begin{equation*}
+	\mPsi = \begin{pmatrix}
+	\mPsi^{\lambda\lambda} & \mPsi^{\lambda\delta} \\
+	\mPsi^{\delta\lambda} & \mPsi^{\delta\delta}
+	\end{pmatrix},
+\end{equation*}
+%
+then the limiting distribution of the sample moment vector $\vg_n^{\lambda}$ evaluated at the true parameter is given by
+
+\begin{equation*}
+\sqrt{n}\vg_{n}^{\lambda}(\vlambda_0, \vdelta_0)\dto \rN\left(\vzeros, \mPsi^{\lambda\lambda}\right)
+\end{equation*}
+
+Note that in general $\mPsi_{*}^{\lambda\lambda}\neq \mPsi^{\lambda\lambda}$, unless $\mG^{\lambda\delta} = \vzeros$, and that in general $\mPsi_{*}^{\lambda\lambda}$ will depend on $\mT_n$, which in turn will depend on the employed estimator $\widehat{\vdelta}_n$. In other words, unless $\mG^{\lambda\delta} = \vzeros$, for a two-step GMM estimator, we cannot simply use the variance-covariance matrix $\mPsi^{\lambda\lambda}$ of the sample moment vector $\vm^{\lambda}(\vlambda_0, \vdelta_0)$, rather we need to work with the variance-covariance matrix $\mPsi_{*}^{\lambda\lambda}$.
+
+\cite{pruchaHB} illustrate the difference between $\mPsi^{\lambda\lambda}$, with elements $\Psi_{rs}^{\lambda\lambda}$, and $\mPsi_{*}^{\lambda\lambda}$, with elements $\Psi_{*rs}^{\lambda\lambda}$, for the important special case where the moment conditions are quadratic and $u_i$ is i.i.d $\rN(0, \sigma^2)$. For simplicity assume that
+
+\begin{equation*}
+\vg_n^{\lambda}(\lambda_0, \vdelta_0) = \begin{pmatrix}
+\frac{1}{n}\sum_{i = 1} ^n\sum_{j = 1} ^na_{ij1}u_iu_j \\
+\frac{1}{n}\sum_{i = 1} ^n\sum_{j = 1} ^na_{ij2}u_iu_j
+\end{pmatrix}.
+\end{equation*}
+
+Now, for $r = 1,2$, let $a_{ir}$ denote the $(i,r)$th element of $\mG^{\lambda\delta}\mT_n^\top$, then by Equation (\ref{eq:asymptotic_distr_moment}):
+
+
+\begin{equation*}
+\vg_{*n}^{\lambda}(\lambda_0, \vdelta_0) = \begin{pmatrix}
+\frac{1}{n}\sum_{i = 1} ^n\sum_{j = 1} ^na_{ij1}u_iu_j + \frac{1}{n}\sum_{i=1}^na_{i1}u_i\\
+\frac{1}{n}\sum_{i = 1} ^n\sum_{j = 1} ^na_{ij2}u_iu_j + \frac{1}{n}\sum_{i=1}^na_{i2}u_i\
+\end{pmatrix}
+\end{equation*}
+
+It then follows from Limiting Distribution for linear-quadratic forms \ref{teo:clt_quadratic} that
+
+\begin{equation*}
+\Psi_{rs}^{\lambda\lambda} = 2\sigma^4\sum_{i = 1} ^n \sum_{j = 1}^n a_{ijr}a_{ijs} 
+\end{equation*}
+%
+but
+
+\begin{equation*}
+\Psi_{*rs}^{\lambda\lambda} = 2\sigma^4\sum_{i = 1} ^n \sum_{j = 1} ^n a_{ijr}a_{ijs} + \sigma^2\sum_{i=1}^n a_{ir}a_{is}
+\end{equation*}
+
+Note that $a_{ir}$ and $a_{is}$ in the last sum of the RHS for the expression for $\Psi_{*rs}^{\lambda\lambda}$ depend on what estimator $\widehat{\vdelta}_n$ is employed in the sample moment vector $\vg_n^{\lambda}(\lambda_0, \widehat{\vdelta})$ used to form the objective function for the two-step GMM estimator $\widehat{\lambda}_n$ defined in Equation (\ref{eq:gmm_two_step_a}). It is for this reason that in the literature on two-step GMM estimation, users are often advised to follow a specific sequence of steps, to ensure the proper estimation of respective variance-covariance matrices. 
+
+
+%=======================================================
+\section{Spatial Two Stage Estimation of SLM}\index{Instrumental Variables!S2SLS}
+%=======================================================
+
+In this section we will derive the Spatial Two Stage Least Square (S2SLS) procedure for estimating the SLM model. The asymptotic properties of this model was first derived by \cite{kelejian1998generalized}.\footnote{In particular, \cite{kelejian1998generalized} derived this model as the first step in their Generalized S2SLS.} To get some insights about this procedure recall that Spatial Lag Model (SLM) is given by:
+
+\begin{equation*}
+  \vy =   \mX\vbeta + \rho\mW\vy + \vepsi.
+\end{equation*}
+
+A more concise way to express the model is:
+
+\begin{equation*}
+  \vy = \mZ \vdelta + \vepsi,
+\end{equation*}
+%
+where $\mZ = \left[\mX, \mW\vy\right]$ and the $(k + 1)\times 1$ coefficient column vector is rearranged as  $\vdelta = (\vbeta^\top, \rho)^\top$. As we have previously shown in Section \ref{sec:consequences_slm}, the presence of the spatially lagged dependent variable on the right hand side of the equation induces endogeneity or simultaneous equation bias. Therefore the OLS estimates are inconsistent.
+
+Instead of applying QML or ML estimation procedure, we might rely on the instrumental variable approach in order to deal with the endogeneity caused by the spatial lag variable. The principle of instrumental variables estimation is based on the existence of a matrix of instruments, say $\mH$,  that are strongly correlated with $\mZ$ but asymptotically uncorrelated with $\vepsi$. 
+
+At this point is important to stress that the only endogenous variable in this model is the spatial lagged variable. Therefore, matrix $\mH$ should contain all the predetermined variables, that is, $\mX$ and the instrument(s) for $\mW\vy$. As we will see later, an important feature of this estimation procedure is that it does not require to compute the Jacobian term. Another important feature is that it does not make the strong assumption of normality of the error terms. 
+
+%==================================
+\subsection{Instruments in the Spatial Context}\index{Instrumental Variables!definition in the spatial context}
+%==================================
+
+What is the best instrument(s) for $\mW\vy$? To obtain the ideal matrix of instruments $\mH$ we should understand the literature of optimal instrumental variables. Roughly, it states that the `best instruments' for the r.h.s variables are the conditional means. Thus, the ideal instruments are:
+
+\begin{equation*}
+  \begin{aligned}
+\E\left(\mZ| \mX \right) & = \left[\E\left(\mX| \mX\right), \E\left(\mW\vy| \mX\right)\right] \\
+                         & = \left[\mX, \mW \E\left(\vy|\mX\right)\right]\quad \mbox{since $\mW$ is non-stochastic}.
+\end{aligned}
+\end{equation*}
+
+Since $\mX$ is non-stochastic, $\mX$ is its own best instrument, whereas the best instruments for $\mW\vy$ are given by $\mW\E\left(\left.\vy\right|\mX\right)$. Noting that the reduced-form equation is $\vy = (\mI_n - \rho\mW)^{-1}\left(\mX\vbeta + \vepsi \right)$, and using Leontief Expansion (Lemma \ref{lemma:Leontief}), the expected value of the reduced form is:
+
+\begin{equation}\label{eq:exp_instr}
+  \E(\vy|\mX) = (\mI_n - \rho\mW)^{-1}\mX\vbeta = \left[\mI_n + \rho\mW + \rho^2\mW^2 + ...\right]\mX\vbeta = \left[\sum_{l = 1}^{\infty}\rho^{l}\mW^l\right]\mX\vbeta
+\end{equation}
+%
+In principle, the problem is to approximate $\E(\vy|\mX)$ as closely as possible without incurring in the inversion of $(\mI_n - \rho\mW)$. Thus, note that  (\ref{eq:exp_instr}) can be expressed as a linear function of $\mX, \mW\mX, \mW^2\mX$, ... As a result, and given that the roots of $\rho\mW_n$ are less than one in absolute value,  the conditional expectation can also be written as:
+
+\begin{equation*}
+  \begin{aligned}
+\E(\mW\vy|\mX) & = \mW\E\left(\left. \vy\right| \mX\right) \\
+               & = \mW\left(\mI_n - \rho \mW\right)^{-1}\mX\vbeta \\
+               & = \mW\left[\mI_n + \rho\mW + \rho^2\mW^2 + \rho^3\mW^3 + ...\right]\mX\vbeta \\
+               & = \mW\left[\sum_{l = 1}^{\infty}\rho_0^{l}\mW^l\right]\mX\vbeta \\
+               & = \mW\mX\vbeta + \mW^2\mX(\rho\vbeta) + \mW^3\mX(\rho^2\vbeta) + \mW^4\mX(\rho^3\vbeta) + ...
+  \end{aligned}
+\end{equation*}
+
+To avoid issues associated with the computation of the inverse of the $n\times n$ matrix $(\mI_n - \rho_0\mW)$, \cite{kelejian1998generalized, kelejian1999generalized} suggest the use of an \textbf{approximation} of the best instruments. Specifically, since $\E(\vy|\mX)$ is linear in $\mX, \mW\mX, \mW^2\mX...$, they suggest using a set of instruments $\mH$ which consists of the linearly independent (LI) columns of  $\mX, \mW\mX, \mW^2\mX, ... , \mW^l\mX$  where $l$ is a pre-selected finite constant and is generally set to 2 in applied studies. Thus, if $l =2$ we can write the instruments as:
+
+\begin{equation*}
+  \mH = (\mX, \mW\mX, \mW^2\mX).
+\end{equation*}
+
+\begin{remark}
+The intuition behind the instruments is the following: Since $\mX$ determines $\vy$, then it must be true that $\mW\mX, \mW^2\mX, ...$ determines $\mW\vy$. Furthermore, since $\mX$ is uncorrelated with $\vepsi$, then $\mW\mX$ must be also uncorrelated with $\vepsi$.
+\end{remark}
+
+The theoretical literature have also suggested the so-called optimal instruments matrix. For example, using the conditional expectation in (\ref{eq:exp_instr}), \cite{lee2003best} suggested the instrument matrix\index{Instrumental Variables!optimal instruments}:
+
+\begin{equation*}
+\mH^* =\left[\mX, \mW(\mI - \rho\mW)^{-1}\mX\vbeta\right],
+\end{equation*}
+%
+which requires the use of consistent first round estimates for $\rho$ and $\vbeta$.  In \cite{Keliejian2004}, a similar approach is outlined where the matrix inverse is replaced by the power expansion. This yield an instruments matrix as:
+
+\begin{equation*}
+\mH =\left[\mX, \mW\left(\sum_{l = 1}^{\infty}\rho_0^{l}\mW^l\right)\mX\vbeta\right].
+\end{equation*}
+
+In any practical implementation, the power expansion must be truncated at some point. 
+
+%========================================================================
+\subsection{Defining the S2SLS Estimator}
+%========================================================================
+
+Now that we have defined the matrix of instruments $\mH$, we can apply the standard two-stage procedure with the exception that the assumptions must also consider the asymptotic behavior of $\mW$ and $(\mI_n - \rho\mW)$. Given the inclusion of the weight matrices, this procedure is called spatial two stage least squares (S2SLS) \citep{kelejian1998generalized}. 
+
+As usual, we start with some assumptions about the error term. Specifically, we will assume that the errors form triangular arrays and are heterokedastic. Note that \cite{kelejian1998generalized} derived the asymptotic properties assuming that the errors are homokedastic. \cite{kelejian2010specification} extend the model by assuming heteroskedasticity. We will keep \cite{kelejian2010specification}'s assumption since homoskedasticity can be viewed as a particular case. A key difference with the ML approach is that we do not need to assume the whole distribution of the error term. 
+
+\begin{assumption}[Heterokedastic Errors \citep{kelejian2010specification}]\label{assu:errors_triang}
+The errors  $\left\lbrace \epsilon_{i,n}, 1 \leq i \leq n, n\geq 1\right\rbrace$ satisfy $\E(\epsilon_{i,n})= 0$, $\E(\epsilon_{i,n}^2) = \sigma^2_{i,n}$, with $0 < \underline{a}^\sigma \leq \sigma^2_{i,n}\leq \overline{a}^\sigma<\infty$. Additionally the errors are assumed to possess fourth moments, that is $\sup_{1\leq i \leq n, n\geq 1}\E\left|\epsilon_{i, n}\right|^{4 + \eta}$ for some $\eta > 0$.  Furthermore, for each $n\geq 1$ the random variables $\epsilon_{1, n}, ..., \epsilon_{n, n}$ are totally independent. 
+\end{assumption}
+
+Assumption \ref{assu:errors_triang} (Heterokedastic Errors) states the first two moments of the error terms, but it says nothing about its distribution. It also assumes that the error terms are heterokedastic, i.e., the unobserved variables have different variance for all spatial units\index{Heteroskedasticity!error term}. Finally, this assumption also allows for the innovations to depend on the sample size $n$, i.e., to form a \textbf{triangular arrays}. See our discussion in Section \ref{sec:triangular-array} about triangular arrays. 
+
+Now, we state some assumptions about the behavior of the spatial weight matrix $\mW$.
+
+\begin{assumption}[Diagonal elements of $\mW_n$ \citep{kelejian1998generalized}]\label{assu:diag_W}
+All diagonal elements of the spatial weighting matrix $\mW_n$ are zero
+\end{assumption}
+
+Assumption \ref{assu:diag_W} (Diagonal elements of $\mW_n$) is a normalization of the model and it also implies that no spatial unit is viewed as its own neighbor. 
+
+\begin{assumption}[Nonsingularity \citep{kelejian1998generalized}]\label{assu:non_singularity}
+The matrix $(\mI_n - \rho_0\mW_n)$ is nonsingular with $\left|\rho_0 \right|<1$.
+\end{assumption}
+
+Under Nonsigularity Assumption \ref{assu:non_singularity}, we can write the reduced form of the true model as:
+
+\begin{equation*}
+  \vy_n = (\mI_n - \rho_0\mW_n)^{-1}\mX_n\vbeta_0 + (\mI_n - \rho_0\mW_n)^{-1}\vepsi_n.
+\end{equation*}
+
+That is, Assumption \ref{assu:non_singularity} implies that the model is complete in that it determines $\vy_n$. Furthermore, \cite{kelejian1998generalized} note that the elements of $(\mI_n - \rho_0\mW_n)^{-1}$ will depend on the sample size $n$, even if the elements of $\mW_n$ does not depend on $n$. Therefore, in general, the elements of $\vy_n$ will also depend on $n$ and thus form a triangular array, even in the case where the errors $\epsilon_{i,n}$ do not depend on $n$. 
+
+Assumption \ref{assu:errors_triang} (Heterokedastic Errors) implies further that the population variance-covariance matrix of $\vy_n$ is equal to
+
+\begin{equation}\label{eq:variance_of_y_slm}
+  \E(\vy_n\vy^\top_n) = \mOmega_{y_n}= (\mI_n - \rho_0\mW_n)^{-1}\mSigma_n(\mI_n - \rho_0\mW^\top_n)^{-1},
+\end{equation}
+%
+where $\mSigma = \diag(\sigma^2_{i, n})$. If we assume homokedasticity, then the variance-covariance matrix of $\vy$ reduces to:
+
+\begin{equation*}
+  \E(\vy_n\vy^\top_n) = \mOmega_{y_n} = \sigma^2_{\epsilon}(\mI_n - \rho_0\mW_n)^{-1}(\mI_n - \rho_0\mW^\top_n)^{-1}.
+\end{equation*}
+
+
+\begin{assumption}[Bounded matrices \citep{kelejian1998generalized}]\label{assu:bounded_matrix}
+The row and column sums of the matrices $\mW_n$ and $(\mI_n - \rho_0\mW_n)$ are bounded uniformly in absolute value.
+\end{assumption}
+
+
+This assumption guarantees that the variance of $\vy_n$  in Equation (\ref{eq:variance_of_y_slm}), which depend on $\mW_n$ and $(\mI_n - \rho_0\mW_n)$, are uniformly bounded in absolute value as $n$ goes to infinity, thus limiting the degree of correlation between, respectively, the elements of $\vepsi_n$ and $\vy_n$. This assumption is technical and will be used in the large-sample derivations of the regression parameters estimator. 
+
+\begin{remark}
+Applied to $\mW_n$ Assumption \ref{assu:bounded_matrix} (Bounded matrices) means that each cross-sectional unit can only have a limited number of neighbors. Applied to $\left(\mI_n - \rho \mW_n\right)$ limits the degree of correlation. 
+\end{remark}
+
+
+\begin{assumption}[No Perfect Multicolinearity \citep{kelejian1998generalized}]\label{assu:regressors}
+The regressor matrices $\mX_n$ have full column rank (for $n$ large enough). Furthermore, the elements of the matrices $\mX_n$ are uniformly bounded in absolute value.
+\end{assumption}
+
+Now we state some assumptions about the instruments.
+
+\begin{assumption}[Rank Instruments, \citep{kelejian1998generalized}]\label{assu:iv_instr}
+The instrument matrices $\mH_n$ have full column rank $p \geq k + 1$ for all $n$ large enough. Furthermore, the elements of the matrices $\mH_n$ are uniformly bounded in absolute value. They are composed of a subset of the linearly independent columns of $(\mX_n, \mW_n\mX_n, \mW^2_n\mX_n, ...)$.
+\end{assumption}
+
+\begin{assumption}[Limits of Instruments \citep{kelejian1998generalized} ]\label{assu:iv_instr_lim}
+Let $\mH_n$ be a matrix of instruments, then:
+
+\begin{enumerate}
+  \item $\lim_{n\to \infty} n^{-1}\mH_n^\top\mH_n = \mQ_{HH}$ where $\mQ_{HH}$ is finite and nonsingular. 
+  \item $\plim_{n\to \infty} n^{-1}\mH_n^\top\mZ_n = \mQ_{HZ}$ where $\mQ_{HZ}$ is finite and has full column rank.
+\end{enumerate}
+\end{assumption}
+
+Since the instrument matrix $\mH_n$ contains the spatially lagged explanatory variables, the first condition in Assumption \ref{assu:iv_instr_lim} (Limits of Instruments) $\lim_{n\to \infty} n^{-1}\mH_n^\top\mH_n = \mQ_{HH}$ implies that $\mW_n\mX_n$ and $\mX_n$ cannot be linearly dependent. This condition would be violated if for example $\mW_n\mX_n$ include a spatial lag for the constant term or the model is the pure SLM.  The second condition in Assumption \ref{assu:iv_instr_lim} (Limits of Instruments) requires a non-null correlation between the instruments and the original variables.
+
+
+Given all this assumptions we can define the S2SLS estimator as follows.
+
+%----------------------------------------------------------------------------------
+\begin{definition}[Spatial Two Stage Least Square Estimator]
+Let $\mH_n$ be the matrix $(n\times p)$ of instruments. Then the S2SLS is given by:
+
+\begin{equation}\label{eq:2sls_estimator}
+  \widehat{\vdelta}_{S2SLS} =  \left(\widehat{\mZ}_n^\top\mZ_n\right)^{-1}\widehat{\mZ}^\top_n\vy_n,
+\end{equation}
+%
+where:
+
+\begin{equation}\label{eq:2sls_first_stage}
+\widehat{\mZ}_n = \mH_n \widehat{\vtheta}_n = \mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n = \mP_{H, n}\mZ_n
+\end{equation}
+\end{definition}
+%----------------------------------------------------------------------------------
+
+Note that the S2SLS estimator in (\ref{eq:2sls_estimator}) is similar to the standard 2SLS. We first need the predicted values for $\mZ_n$ based on the OLS regression of $\mZ_n$ on $\mH_n$ in the first stage. Consider this first stage as the regression $\mZ_n = \mH_n\vtheta + \vxi_n$, so that $\widehat{\vtheta}_n = (\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n$. Then the predicted values $\widehat{\mZ}_n$ is obtained using Equation (\ref{eq:2sls_first_stage}) where $\mP_{H,n}$ is the projection matrix, which symmetric and idempotent, and hence singular. Note also that $\mH_n$ is a $n\times p$ matrix, which also includes the exogenous variables $\mX_n$. It is also important to note that the projection matrix does not affect $\mX_n$, but it does affect the endogenous variable $\mW_n\vy_n$:
+
+\begin{equation}
+  \mP_{H, n}\mZ_n = \left[\mX_n, \mP_{H, n}\mW_n\vy_n\right] = \left[\mX_n, \widehat{\mW_n\vy_n}\right]
+\end{equation}
+
+Note that this approach is in the same spirit as the traditional treatment in simultaneous equation setting, where each endogenous variable (including the spatial lag) is regressed on the complete set of exogenous variables to form its instrument. 
+
+
+%-------------------------------------
+\subsection{S2SLS Estimator as GMM}
+%-------------------------------------
+
+Maybe you remember from  your econometric class that the 2SLS procedure is a sub-model of the one-step GMM estimator. Recall that the GMM estimator is defined as the solution of the minimization problem as in Equation (\ref{eq:gmm_one_step}):
+
+\begin{equation*}
+	\underbrace{\widehat{\vdelta}_{GMM}}_{K\times 1} = \underset{\vbeta}{\arg\min}\; \left\lbrace \underbrace{\vg_n(\vbeta)^\top}_{1\times p}\underbrace{\mUpsilon_n^{-1}}_{p\times p}\underbrace{\vg_n(\vbeta)}_{p\times 1}\right\rbrace,
+\end{equation*}
+%
+where 
+
+\begin{equation*}
+\vg_n = \frac{1}{n}\mH^\top_n\vepsi_n= \frac{1}{n}\mH^\top_n\left(\vy_n - \mZ_n\vdelta\right).
+\end{equation*}
+
+The matrix $\mUpsilon_n^{-1}$ is the optimal weight matrix, which correspond to the inverse of the covariance matrix of the sample moments: 
+\begin{equation*}
+	\mUpsilon_n = \frac{1}{n}\widehat{\sigma}^2_{\epsilon}\mH^\top_n\mH_n
+\end{equation*}
+
+Then, the function to minimize is:
+
+\begin{equation*}
+		Q  = \frac{1}{n\widehat{\sigma}^2}\left\lbrace \left[\mH^\top_n\vy_n - \mH^\top_n\mZ_n\vdelta\right]^\top\left(\mH^\top_n\mH_n\right)^{-1}\left[\mH^\top_n\vy_n - \mH^\top_n\mZ_n\vdelta\right]\right\rbrace 
+\end{equation*}
+
+Obtaining the first order conditions and solving for $\vdelta$, we obtain:
+
+\begin{equation}
+  \widehat{\vdelta}_{GMM,n} = \left(\mZ^\top_n\mP_{H,n}\mZ_n\right)^{-1}\mZ^\top_n\mP_{H, n}\vy_n
+\end{equation}
+
+
+
+%--------------------------------------------------------------
+\subsection{Additional Endogenous Variables}\index{Endogeneity!additional endogenous variables}
+%--------------------------------------------------------------
+
+In the specification considered so far, the only endogenous variable is the spatially lagged dependent variable $\mW\vy$. However, in practice, some of other explanatory variables may be endogenous as well, requiring instruments in addition to the spatially lagged exogenous variables that were necessary for the spatially lagged dependent variable.
+
+For example \cite{anselin2008errors} were interested in the effect of improved air quality on house prices. Since the air-quality variables were obtained using interpolated air pollution measures, they argued that these measure may suffer from ``error in variable''\index{Endogeneity!error in variables} problem which lead to an additional endogeneity problem to that of spatially lagged variable. In particular they consider the following model:
+
+\begin{equation*}
+  y_i = \rho \sum_{j = 1}^nw_{ij}y_j + \vx_i'\vbeta + \gamma_1\texttt{pol}_i^1 + \gamma_2\texttt{pol}_i^2 + \epsilon_i, 
+\end{equation*}
+%
+where $y_i$ is the house price,  $\vx_i$ is a vector of controls,  $\texttt{pol}_i^1$ and $\texttt{pol}_i^2$ are the air quality variables and $\epsilon_i$ is the error term. Since the actual pollution is not observed at locations $i$ of the house transaction, it is replaced by a spatially interpolated value, such as the result of a \textbf{kriging prediction}. This interpolated value measures the true pollution with error causing simultaneous equation bias, so they needed proper instruments for these variables. They instrumentalize these endogenous variables using the latitude, longitude and their product as the instruments. 
+
+In particular, we can write the general model with additional endogenous variables
+
+\begin{equation*}
+  \vy = \rho\mW\vy + \mX_1\vbeta + \mY\vgamma + \vepsi,
+\end{equation*}
+%
+where $\mY$ is a $n\times q$ matrix the endogenous explanatory variables and $\mX_1$ is a $n\times k_1$ matrix of exogenous variables. In a spatial lag model, an additional question is whether these instruments (for the endogenous explanatory variables) should be included in spatially lagged form as well, similar to what is done for the exogenous variables. As before, the rationale for this comes from the structure of the reduced form.  In this case the reduced form is given by:
+
+
+\begin{equation*}
+\E\left[\left.\mW\vy\right|\mZ\right] = \mW\left(\mI - \rho\mW\right)^{-1}\mX_1\vbeta + \mW\left(\mI - \rho\mW\right)^{-1}\mY\vgamma,
+\end{equation*}
+%
+where $\mZ = \left[\mX_1, \mY\right]$. The problem here is that the $\mY$ are endogenous, and thus they do not belong on the right hand side of the reduced form!  If they are replaced by their instruments, then the presence of the term $\mW\left(\mI - \rho\mW\right)^{-1}$ would suggest the need for spatial lags to be included as well. In other words, since the system determining $\vy$ and $\mY$ is not completely specified, the optimal instruments are not known \citep{spdep}. If there exists a matrix $n \times k_1$ of additional pre-determined variables, say $\mX_2$, the instruments should be:
+
+\begin{equation}
+\mH = \left(\mX_1, \mW\mX_1, ..., \mW^l\mX_1, \mX_2, \mW\mX_2, ..., \mW^l\mX_2\right)_{LI}
+\end{equation}
+
+%--------------------------------------------------------------
+\subsection{Consistency of S2SLS Estimator}\index{S2SLS!consistency}
+%--------------------------------------------------------------
+
+In this section, we will sketch the proof the consistency of the S2SLS Estimator. First, note that $\mH_n(\mH_n^\top\mH_n)^{-1}\mH_n^\top$ is symmetric and idempotent and so $\widehat{\mZ}_n^\top\mZ_n= \widehat{\mZ}_n^\top\widehat{\mZ}_n$. As usual, we first write the estimator in terms of the population error term: 
+
+\begin{equation}\label{eq:sampling_error_s2sls}
+  \begin{aligned}
+     \widehat{\vdelta}_n & =  \vdelta_0 + \left(\widehat{\mZ}^\top_n\widehat{\mZ}_n\right)^{-1}\widehat{\mZ}^\top_n\vepsi_n, \\
+     & = \vdelta_0 + \left[\left(\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right)^\top\left(\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right)\right]^{-1}\left(\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right)^\top\vepsi_n, \\
+     & = \vdelta_0 + \left[\mZ^\top_n \mH_n (\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right]^{-1}\mZ^\top_n\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\vepsi_n,
+  \end{aligned}
+\end{equation}
+%
+where we used Assumption \ref{assu:iv_instr} (Rank of Instruments).  Solving for $\widehat{\vdelta}_{n} - \vdelta_0$ we obtain:
+
+\begin{equation}\label{eq:asy_2sls_pr}
+\begin{aligned}
+(\widehat{\vdelta}_{n} - \vdelta_0) & = \left[\left(\frac{1}{n}\mH^\top_n\mZ _n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)\right]^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\vepsi_n\right), \\
+             & = \widetilde{\mP}^\top_n\left(\frac{1}{n}\mH^\top_n\vepsi_n\right),
+\end{aligned}
+\end{equation}
+%
+where:
+
+\begin{equation*}
+  \widetilde{\mP}_n = \left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH_n^\top\mZ_n \right)\left[\left(\frac{1}{n}\mH^\top_n\mZ_n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)\right]^{-1}.
+\end{equation*}
+
+
+From Assumption \ref{assu:iv_instr_lim} (Limits of Instruments), we know that:
+
+\begin{eqnarray*}
+\lim_{n\to \infty} n^{-1}\mH_n^\top\mH_n &=& \mQ_{HH}\\
+\plim_{n\to \infty} n^{-1}\mH_n^\top\mZ_n &=& \mQ_{HZ}.
+\end{eqnarray*}
+
+
+Therefore,  $\widetilde{\mP}_n\pto \mP_n$, where $\mP_n=\mQ_{HH}^{-1}\mQ_{HZ}\left(\mQ_{HZ}^\top\mQ_{HH}^{-1}\mQ_{HZ}\right)^{-1}=O_p(1)$ is a finite matrix. Thus,
+
+\begin{equation}\label{eq:P_conver}
+\widetilde{\mP}_n - \mP_n = o_p(1)\implies \widetilde{\mP}_n= \mP_n + o_p(1). 
+\end{equation}
+
+By Assumption \ref{assu:iv_instr} (Rank of Instruments) $\mH_n$ is uniformly bounded in absolute value. Assumption \ref{assu:errors_triang} (Heterokedastic Errors) implies that $\epsilon_{i,n}$ forms a triangular array of identically distributed random variables. Furthermore, we know from that assumption that  $\E(\vepsi_n) = \vzeros$ and $\var(\vepsi_n) = \mSigma_n =\diag(\sigma^2_{i, n})$. Thus,
+
+\begin{equation*}
+  \begin{aligned}
+    \E\left(\frac{1}{n}\mH^\top_n\vepsi_n\right)   & = \vzeros \\
+    \var\left(\frac{1}{n}\mH^\top_n\vepsi_n\right) & = \frac{1}{n^2}\mH^\top_n\mSigma_n\mH_n
+  \end{aligned}
+\end{equation*}
+
+Since $\var\left(\frac{1}{n}\mH^\top_n\vepsi_n\right)\to 0$ as $n\to \infty$,  by Chebyshev's Theorem \ref{teo:chebyshev}, $n^{-1}\mH^\top_n\vepsi_n\pto \vzeros$ and $\widehat{\vdelta}_n\pto \vdelta_0$
+
+
+%--------------------------------------------------------------
+\subsection{Asymptotic Distribution of S2SLS Estimator}\index{S2SLS!Asymptotic distribution}
+%--------------------------------------------------------------
+
+Multiplying Equation (\ref{eq:asy_2sls_pr}) by $\sqrt{n}$ we obtain:
+
+\begin{equation}\label{eq:asy_2sls_pr2}
+\begin{aligned}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) & = \left[\left(\frac{1}{n}\mH^\top_n\mZ_n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)\right]^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\frac{1}{\sqrt{n}}\mH^\top_n\vepsi_n, \\
+             & = \widetilde{\mP}^\top_n\left(\frac{1}{\sqrt{n}}\mH^\top_n\vepsi_n\right).
+\end{aligned}
+\end{equation}
+
+Inserting (\ref{eq:P_conver}) into (\ref{eq:asy_2sls_pr2}), we get:
+
+\begin{equation*}
+\begin{aligned}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) & = \frac{1}{\sqrt{n}}\left[\mP_n + o_p(1)\right]^\top\mH^\top_n\vepsi_n, \\
+                                            & =\mP^\top_n\frac{1}{\sqrt{n}}\mH^\top_n\vepsi_n + o_p(1)
+\end{aligned}
+\end{equation*}
+
+Note that we can also write: $\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) = \frac{1}{\sqrt{n}}\mT_n^\top\vepsi_n + o_p(1)$ with $\mT_n = \mH_n\mP_n$. 
+
+%as in our discussion in Section \ref{section:2step-gmm}.
+
+
+Thus, by Chebyshev's inequality  $n^{-1/2}\mP_n\mH^\top_n\vepsi_n = O_p(1)$ and  consequently:
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) = \mP^\top_n\frac{1}{\sqrt{n}}\mH_n\vepsi_n + o_p(1) = O_p(1) + o_p(1) = O_p(1)
+\end{equation*}
+
+Therefore using Theorem \ref{teo:CLT_tri_arr} (CLT for Linear Forms),
+
+\begin{equation*}
+\frac{1}{\sqrt{n}}\mH_n^\top\vepsi_n \dto \rN\left(\vzeros,\mH_n^\top \mSigma \mH_n\right)
+\end{equation*}
+
+Finally :
+
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) \dto \rN(\vzeros, \mOmega_n)
+\end{equation*}
+%
+where
+
+\begin{equation}
+  \begin{aligned}
+      \mOmega_n& = \mP^\top_n\mH^\top_n\mSigma_n\mH_n\mP_n
+  \end{aligned}
+\end{equation}
+
+%Inference on $\delta$ is then based on the asymptotic variance-covariance matrix:
+
+%\begin{equation}
+%\var(\widehat{\delta}_{2SLS}) = \sigma^2_{\epsilon}\left(\mQ_{HZ}^\top\mQ_{HH}^{-1}\mQ_{HZ}\right)^{-1}
+%\end{equation}
+
+%A good estimator for the asymptotic variance will be:
+
+
+%\begin{equation}
+%\widehat{\var}(\widehat{\delta}_{2SLS}) = \widehat{\sigma}^2_{\epsilon}\left[\mZ^\top \mH (\mH^\top\mH)^{-1}\mH^\top\mZ\right]^{-1}
+%\end{equation}
+%
+%where:
+
+%\begin{equation}
+%  \widehat{\sigma}^2 = \frac{\widehat{\vepsi}^\top\widehat{\vepsi}}{n}\quad \widehat{\vepsi} = \vy - \widehat{\vy}
+%\end{equation}
+
+Now, we present a formal Theorem for the asymptotic properties of the 2SLS Estimator for SLM.
+
+\begin{theorem}[Spatial 2SLS Estimator for SLM]\label{teo:S2SLS_est_slm}
+  Suppose that Assumptions \ref{assu:errors_triang} to \ref{assu:iv_instr_lim} hold. Then the S2SLS estimator defined as
+  
+  \begin{equation}
+    \widehat{\delta}_n = \left(\widehat{\mZ}_n^\top\widehat{\mZ}_n\right)^{-1}\widehat{\mZ}_n^\top\vy_n
+  \end{equation}
+%
+is consistent, and its asymptotic distribution is:
+
+\begin{equation}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) \dto \rN(\vzeros, \mOmega_n)
+\end{equation}
+%
+where
+
+\begin{equation}
+\mOmega_n =  \mP^\top_n\mH^\top_n\mSigma\mH_n\mP_n
+\end{equation}
+
+Inference on $\delta$ is then based on the asymptotic variance-covariance matrix:
+
+\begin{equation}
+\begin{aligned}
+\var(\widehat{\delta}_{2SLS}) & = \left[\mZ^\top\mH\left(\mH^\top\mH\right)^{-1}\mH^\top\mZ\right]^{-1} \\
+                              &  \quad \times \left[\mZ^\top\mH\left(\mH^\top\mH\right)^{-1}\left(\mH^\top\mSigma\mH\right)\left(\mH^\top\mH\right)^{-1}\mH^\top\mZ\right] \\
+                              &\quad \times \left[\mZ^\top\mH\left(\mH^\top\mH\right)^{-1}\mH^\top\mZ\right]^{-1} \\
+& = \left(\widehat{\mZ}^\top\mZ\right)^{-1}\left(\widehat{\mZ}^\top\mSigma\widehat{\mZ}\right)\left(\mZ^\top\widehat{\mZ}\right)^{-1}
+\end{aligned}
+\end{equation}
+\end{theorem}
+
+
+Theorem \ref{teo:S2SLS_est_slm} gives us a very general asymptotic distribution for the S2SLS estimator. The estimator of $\mSigma$ will be based on HAC estimators. However, under certain conditions the asymptotic variance-covariance matrix of the estimator can be reduced. For example, under homokedasticity the asymptotic variance-covariance matrix reduced to :
+
+\begin{equation}
+\var(\widehat{\delta}_{2SLS}) = \sigma^2_{\epsilon}\left(\mQ_{HZ}^\top\mQ_{HH}^{-1}\mQ_{HZ}\right)^{-1}
+\end{equation}
+
+A good estimator for the asymptotic variance will be:
+
+\begin{equation}
+\widehat{\var}(\widehat{\delta}_{2SLS}) = \widehat{\sigma}^2_{\epsilon}\left[\mZ^\top \mH (\mH^\top\mH)^{-1}\mH^\top\mZ\right]^{-1}
+\end{equation}
+%
+where:
+
+\begin{equation}
+  \widehat{\sigma}^2 = \frac{\widehat{\vepsi}^\top\widehat{\vepsi}}{n},\quad \widehat{\vepsi} = \vy - \widehat{\vy}.
+\end{equation}
+
+%==================================
+\subsection{S2SLS Estimation in R}\index{S2SLS!stsls function}\index{S2SLS!example}
+%==================================
+
+In this section we continue our example from Section \ref{sec:Anselin-example}. In particular, we will estimate the following SLM model:
+
+\begin{equation*}
+\vy = \rho\mW\vy + \mX\vbeta + \vepsi,
+\end{equation*}
+%
+where $\vy$ is our crime variable and $\mX$ contains a vector of ones and the variables \code{INC} and \code{HOVAL}. We will estimate this model again by ML procedure and then compare it with the S2SLS procedure. In \proglang{R} there exists two functions in order to compute the  S2SLS procedure. The first one is the \code{stsls} from \pkg{spdep} and \code{stslshac} from \pkg{sphet} package \citep{sphetp}. The latter allows estimating also S2SLS with heterokedasticity using HAC estimators. 
+
+We first load the required packages and dataset:
+
+<<s2sls-in-r>>=
+# Load packages and data
+library("memisc") 
+library("spdep")
+library("spatialreg")
+library("sphet")
+data("columbus")
+listw <- nb2listw(col.gal.nb)
+source("getSummary.sarlm.R")
+@
+
+Now we estimate the SLM model by ML using Ord's eigen approximation of the determinant and S2SLS with homokedastic and robust standard errors. 
+
+<<s2sls-models>>=
+# Estimate models
+slm      <- lagsarlm(CRIME ~ INC + HOVAL, 
+                     data = columbus,
+                     listw, 
+                     method = "eigen")
+s2sls    <- stsls(CRIME ~ HOVAL + INC, 
+                  data =  columbus,
+                  listw = listw,
+                  robust = FALSE,
+                  W2X = TRUE)
+s2sls_rob <- stsls(CRIME ~ HOVAL + INC, 
+                   data =  columbus,
+                   listw = listw,
+                   robust = TRUE,
+                   W2X = TRUE)
+s2sls_pir <- stslshac(CRIME ~ INC + HOVAL, 
+                      data = columbus, 
+                      listw = listw, 
+                      HAC = FALSE)
+@
+
+\code{stsls} function fits SLM model by S2SLS, with the option of adjusting the results for heteroskedasticity. Note that the arguments are similar to \code{lagsarlm} from \pkg{spdep}. The \code{robust} option of \code{stsls} is set \code{FALSE} as default. If \code{TRUE} the function applies a heteroskedasticity correction to the coefficient covariances. Note that the third model \code{s2sls\_rob} uses this option. The argument \code{W2X} controls the number of instruments. When \code{W2X = FALSE} only $\mW\mX$ are used as instruments, however when \code{W2X = TRUE}  $\mW\mX$ and $\mW^2\mX$ are used as instruments for $\mW\vy$. The function \code{stslshac} from \pkg{sphet} with the argument \code{HAC = FALSE} estimate the S2SLS estimates with homokedastic standard errors without adjusting for heteroskedasticity.
+
+Some caution should be expressed regarding the standard errors. When the argument \code{robust = FALSE} is used, the variance-covariance matrix is computed as:
+
+
+\begin{equation*}
+\widehat{\var}(\widehat{\delta}_{2SLS}) = \widehat{\sigma}^2_{\epsilon}\left[\mZ^\top\mZ\right]^{-1}
+\end{equation*}
+%
+where:
+
+\begin{equation*}
+  \widehat{\sigma}^2 = \frac{\widehat{\vepsi}^\top\widehat{\vepsi}}{n - K},\quad \widehat{\vepsi} = \vy - \widehat{\vy}
+\end{equation*}
+
+Note that the error variance is calculated with a degrees of freedom correction (i.e., dividing by $n-K$). When  \code{robust = TRUE} the variance-covariance matrix is computed as we have previously stated. That is:
+
+\begin{equation*}
+\widehat{\var}(\widehat{\delta}_{2SLS}) = \widehat{\sigma}^2_{\epsilon}\left[\mZ^\top \mH (\mH^\top\mH)^{-1}\mH^\top\mZ\right]^{-1}
+\end{equation*}
+
+The results are presented in Table \ref{tab:columbus-models2}.
+
+\citet[][pag. 24]{lesage2014regional} points out that researcher should consider performance of estimation procedures, not simply point estimates. That is, when comparing models we should also focus on the scalar summaries of the partial derivatives (direct/indirect effects estimates) and their standard errors. That is, methods that seems superior in terms of bias of the parameters might performance worse in terms of partial effects. 
+
+
+Now we compare the direct and indirect effects\index{Spillover effects!for S2SLS}: 
+
+<<>>=
+im_ml    <- impacts(slm, listw = listw, R = 200)
+im_s2sls <- impacts(s2sls_rob, listw = listw, R = 200)
+summary(im_ml, zstats = TRUE, short = TRUE)
+summary(im_s2sls, zstats = TRUE, short = TRUE)
+@
+
+
+\begin{table}[ht]
+\caption{Spatial Models for Crime in Columbus: ML vs S2SLS}\label{tab:columbus-models2}
+\centering
+<<echo = FALSE, results = 'asis', warning=FALSE>>=
+table_2 <- mtable("SLM"   = slm,
+                  "S2SLS" = s2sls,
+                  "S2SLSR" = s2sls_rob,
+       summary.stats = c("N"),
+       coef.style = "default")
+table_2 <- relabel(table_2,
+                   "(Intercept)" = "\\emph{Constant}",
+                   "rho" = "$\\rho$") 
+toLatex(table_2, compact = TRUE, useBooktabs =  TRUE)
+@
+\end{table}
+
+
+%*************************************************
+\section{Generalized Moment Estimation of SEM Model}
+%*************************************************
+\cite{kelejian1999generalized} derive a Method of Moments (MOM) estimator for $\lambda$ in order to use it later in a FGLS estimator. The main \cite{kelejian1999generalized}'s motivation to derive this new estimator is that the (quasi) maximum likelihood estimator may not be computationally feasible in many cases involving moderate- or large-sized samples. As they state, the MOM estimator is computationally simple irrespectively of the sample size, which makes it very attractive if we have a very large spatial data base. Since the IV/GMM estimators ignore the Jacobian term, many of the problems related with matrix inversion, the computation of characteristic roots and/or Cholesky decomposition could be avoided. Another motivation was that at the time there were no formal results available regarding the consistency and asymptotic normality of the ML estimator \citep[pag. 1608]{pruchaHB}. Recall that Lee formally derived the asymptotic properties of the ML in 2004 for the SLM.\footnote{The consistency and asymptotic normality of the ML estimator for the SEM and SAC model remain to be derived.}
+
+
+Recall that the SEM model is given by:
+
+\begin{equation}\label{eq:sem_gmm}
+	\begin{aligned}
+	\vy  & = \mX\vbeta + \vu, \\ 
+	\vu & = \lambda \mM \vu + \vepsi.
+	\end{aligned}
+\end{equation}
+
+In brief, \cite{kelejian1999generalized} suggest the use of \textbf{nonlinear least square} to obtain a consistent generalized moment estimator for $\lambda$, which can be used to obtain consistent estimators for $\vbeta$ in a FGLS approach. The main difference between the MOM estimation discussed here and the Generalized Method of Moment (GMM) estimation discussed later is that in the former there is no inference for the spatial autoregressive coefficient. In other words, $\lambda$ is viewed purely as a nuisance parameter, whose only function is to aid in obtaining consistent estimates for $\vbeta$. 
+
+\begin{remark}
+The MOM procedure proposed by \cite{kelejian1999generalized} was originally motivated by the computational difficulties of the ML.
+\end{remark}
+
+\begin{remark}
+\cite{kelejian1999generalized} does not provide an asymptotic variance for $\lambda$. Thus, some software just provide the estimate $\widehat{\lambda}$, but not its standard error. 
+\end{remark}
+
+
+One advantage of the MOM estimator (and of QML) is that they do not rely on the assumption of normality of the disturbances $\vepsi$. Nonetheless, both estimators assume that $\epsilon_i$ are independently and identically distributed for all $i$ with zero mean and variance $\sigma^2$. To begin with, we state the same assumption about the error terms as in \cite{kelejian1999generalized}.
+
+\begin{assumption}[Homokedastic Errors \citep{kelejian1999generalized}]\label{assu:errors_triang_homokedastic}
+The innovations $\left\lbrace \epsilon_{i,n}, 1 \leq i \leq n, n\geq 1\right\rbrace$ are independently and identically distributed for all $n$ with zero mean and variance $\sigma^2$, where $0 < \sigma^2 < b$, with $b < \infty$. Additionally, the innovations are assumed to possess finite fourth moments. 
+\end{assumption}
+
+
+Now we state the following assumptions:
+
+
+\begin{assumption}[Weight Matrix $\mM_n$ \citep{kelejian1999generalized}]\label{assu:KP1999_M} Assume the following:
+\begin{enumerate}
+  \item All diagonal elements of the spatial weighting matrix $\mM_n$ are zero.
+  \item The matrix $(\mI_n - \lambda_0\mM_n)$ is nonsingular with $\left|\lambda_0 \right|<1$.
+\end{enumerate}
+\end{assumption}
+
+
+Given Equation (\ref{eq:sem_gmm}),  and Assumption \ref{assu:KP1999_M} (Weight Matrix $\mM_n$), we can write $\vu_n = (\mI_n - \lambda_0 \mM_n)^{-1}\vepsi_n$. Therefore, the expectation and variance of $\vu_n$ are $\E(\vu_n) = 0$ and $\E(\vu_n\vu^\top_n) = \mOmega_n(\lambda_0)$, respectively, where:
+
+\begin{equation*}
+  \mOmega_n(\lambda_0) = \sigma^2_{\epsilon, n}(\mI_n - \lambda_0\mM_n)^{-1}(\mI_n - \lambda_0\mM_n^\top)^{-1}.
+\end{equation*}
+
+Note that a row-standardized spatial weight matrix is typically not symmetric, such that $\mM_n\neq \mM_n^\top$ and thus $(\mI_n - \lambda_0\mM_n)^{-1}\neq (\mI_n - \lambda_0\mM_n^\top)^{-1}$.
+
+%----------------------
+\subsection{Spatially Weighted Least Squares}\label{sec:swls}
+%------------------------
+
+The key issue in \cite{kelejian1999generalized} is to find a \textbf{consistent estimator} of $\lambda$ so that the consistency of the resulting spatially weighted estimator is assured. Under this approach, \cite{kelejian1999generalized} were not necessarily interested in inference about $\lambda$ per se, but only interested in its estimate as a way to obtain estimates for $\vbeta$. This implies that $\lambda$ is considered a \textbf{nuisance parameter}. 
+
+The spatially weighted least squares (SWLS) boils down to:
+
+\begin{equation}\label{eq:beta_swls}
+  \widehat{\vbeta}_{SWLS} = \left(\mX_s^\top\mX_s\right)^{-1}\mX_s^\top\vy_s,
+\end{equation}
+%
+were $\mX_s = \mX - \widehat{\lambda}\mW\mX$ and $\vy_s = \vy - \widehat{\lambda}\mM\vy$, using a consistent estimate $\widehat{\lambda}$ for the autoregressive parameter. 
+
+Note that this model is basically and OLS applied to spatially filtered variables. Furthermore, it should be noted that the SWSLS are nothing but a special case of feasible generalized least squares (FGLS). To note this consider the homoskedastic case, with $\E\left[\vepsi^\top\vepsi\right]= \sigma^2\mI_n$. Consequently:
+
+\begin{equation}\label{eq:variance_u_fgls}
+\E\left[\vu\vu^\top\right] = \mOmega = \sigma^2\left[\left(\mI_n - \lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\right]^{-1},
+\end{equation}
+%
+and the corresponding generalized least squares (GLS) estimator---assuming we know $\lambda_0$---for $\vbeta$ is:
+
+\begin{equation*}
+\widehat{\vbeta}_{GLS} = \left[\mX^\top\mOmega^{-1}\mX\right]^{-1}\mX^\top\mOmega^{-1}\vy.
+\end{equation*}
+
+From Equation (\ref{eq:variance_u_fgls}), it can be observed that $\mOmega$ contains a matrix inverse, so that its inverse, $\mOmega^{-1}$ is simple the product of the two spatial filters scaled by $\sigma^2$. Thus, the expression for the GLS estimator simplifies to:
+
+\begin{equation*}
+  \begin{aligned}
+  \widehat{\vbeta}_{GLS} & = \left[\mX^\top\frac{1}{\sigma^2}\left(\mI_n - \lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\mX\right]^{-1}\mX^\top\frac{1}{\sigma^2}\left(\mI_n -\lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\vy,  \\
+   & =\left[\mX^\top\left(\mI_n - \lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\mX\right]^{-1}\mX^\top\left(\mI_n -\lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\vy.
+  \end{aligned}
+\end{equation*}
+
+The FGLS estimator substitutes a consistent estimate for $\lambda$ into this expression, as:
+
+\begin{equation*}
+  \widehat{\vbeta}_{FGLS} =\left[\mX^\top\left(\mI_n - \widehat{\lambda}\mM\right)^\top\left(\mI_n - \widehat{\lambda}\mM\right)\mX\right]^{-1}\mX^\top\left(\mI_n - \widehat{\lambda}\mM\right)^\top\left(\mI_n - \widehat{\lambda}\mM\right)\vy,
+\end{equation*}
+%
+which is the same as Equation (\ref{eq:beta_swls}).
+
+%--------------------------------------------------------------------
+\subsection{Moment Conditions}\label{section:Moment_Condtions}\index{Moment conditions}\index{Generalized method of moments!Moment conditions}
+%--------------------------------------------------------------------
+
+The basic idea behind a method of moments estimator is to find a set of population moments equations that provide a relationship between population moments and parameters. Then, we replace the population moments using sample moments to obtain a consistent estimate of $\lambda$ to plug into Equation (\ref{eq:beta_swls}).
+
+Given the DGP in Equation (\ref{eq:sem_gmm}), we can write: 
+
+\begin{equation*}
+  \vepsi = \vu - \lambda\mM\vu,
+\end{equation*}
+%
+where $\vepsi$ is the idiosyncratic error and $\vu$ is the regression error. The GM estimation approach employs the following simple \textbf{quadratic moment conditions}\index{quadratic moment conditions}:\footnote{Please, derive these moment conditions.}
+
+\begin{eqnarray*}
+  \E\left[n^{-1}\vepsi^\top \vepsi\right] &=& \sigma^2, \\
+   \E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right] &=& \frac{\sigma^2}{n}\E\left[\tr(\mM^\top\mM\vepsi\vepsi^\top) \right],\\
+   \E\left[n^{-1}\vepsi^\top \mM \vepsi \right] & = & 0.
+\end{eqnarray*}
+
+The \cite{kelejian1999generalized}'s GM estimator of $\lambda$ is based on these three moments. The final value of $\E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right]$ will depend on the assumption about the variance of $\vepsi$. If we assume heterokedasticity then:
+
+\begin{equation*}
+  \begin{aligned}
+  \E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right] & = \E\left[n ^{-1} \tr\left(\vepsi^\top\mM\mM\vepsi\right)\right] \\
+                                               &  = n^{-1}\tr\left[\mW\diag\left[\E(\epsilon_i^2)\right]\mW^\top\right]
+  \end{aligned}
+\end{equation*}
+%
+where we use the fact that $\tr\left(\mX^\top\mA\mX\right) = \mX^\top\mA\mX = \tr\left(\mA\mX\mX^\top\right)$. Furthermore, note that under homokedasticity as in \cite{kelejian1999generalized} we obtain:
+
+\begin{equation*}
+\E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right] = \frac{\sigma^2}{n}\tr\left(\mM^\top\mM\right)
+\end{equation*}
+
+\begin{definition}[Moment Conditions]\label{def:moment_conditions}
+
+Under \textbf{homoskedasticity} \citep{kelejian1999generalized} the moment conditions are:
+
+\begin{equation*}
+  \begin{aligned}
+  \E\left[n^{-1}\vepsi^\top \vepsi\right] &= \sigma^2, \\
+   \E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right] &= \frac{\sigma^2}{n}\tr\left(\mM^\top\mM\right),\\
+   \E\left[n^{-1}\vepsi^\top \mM \vepsi \right] & =  0.
+  \end{aligned}
+\end{equation*}
+
+Under \textbf{heterokedasticity} \citep{kelejian2010specification} the moment conditions are:
+
+
+\begin{equation*}
+  \begin{aligned}
+  \E\left[n^{-1}\vepsi^\top \vepsi\right] &= \sigma^2, \\
+   \E\left[n^{-1}\vepsi^\top\mM\mM\vepsi\right] &= n^{-1}\tr\left[\mW\diag\left[\E(\epsilon_i^2)\right]\mW^\top\right],\\
+   \E\left[n^{-1}\vepsi^\top \mM \vepsi \right] & =  0.
+  \end{aligned}
+\end{equation*}
+\end{definition}
+
+
+In order to operationalize the moment conditions, we need to convert conditions on $\vepsi$ into conditions on $\vu$ (since $\vepsi$ is not observed). Since $\vu = \lambda \mM\vu + \vepsi$ if follows that $\vepsi = \vu - \lambda\mM\vu$, i.e., the spatially filtered regression error terms. 
+
+
+\begin{eqnarray}
+\vepsi^\top \vepsi & = & (\vu - \lambda\mM\vu)^\top(\vu - \lambda\mM\vu) \nonumber \\ 
+                   & = & \vu^\top\vu - 2\lambda\vu^\top\mM\vu + \lambda^2\vu^\top\mM^\top\mM\vu \label{eq:mom_1}\\
+\vepsi^\top \mM^\top\mM \vepsi& = &(\vu - \lambda\mM\vu)^\top\mM^\top\mM(\vu - \lambda\mM\vu) \nonumber \\
+                   &= & \vu^\top\mM^\top\mM\vu - 2\lambda\vu^\top\mM^\top\mM\mM\vu + \lambda^2\vu^\top\mM^\top\mM\mM^\top\mM\vu \label{eq:mom_2} \\
+\vepsi^\top\mM \vepsi& = &(\vu - \lambda\mM\vu)^\top\mM(\vu - \lambda\mM\vu) \nonumber \\ 
+                   &=& \vu^\top\mM\vu - 2\lambda\vu^\top\mM\mM\vu + \lambda^2\vu^\top\mM^\top\mM\mM\vu \label{eq:mom_3}
+\end{eqnarray}
+
+Let $\vu_L = \mM\vu$, $\vu_{LL} = \mM\mM\vu$.\footnote{Spatially lagged variables are denoted by bar superscripts in the articles. Instead, we will use the $L$ subscript throughout. That is, a first order spatial lag of $\vy$, $\mW\vy$, is denoted by $\vy_L$. Higher order spatial lags are symbolized by adding additional $L$ subscripts.
+} Taking the expectation over (\ref{eq:mom_1}) and assuming Homokedasticity by Assumption \ref{assu:errors_triang_homokedastic}, we get:
+
+
+\begin{equation}\label{eq:Pequation_1_gmm}
+  \begin{aligned}
+      \E\left[\vepsi^\top \vepsi\right] & = \E\left[\vu^\top\vu\right] - 2\lambda\E\left[\vu^\top\mM\vu\right] + \lambda^2\E\left[\vu^\top\mM^\top\mM\vu\right] \\
+       \sigma^2& = \frac{1}{n}\E\left[\vu^\top\vu\right] - \lambda \frac{2}{n}\E\left[\vu^\top\vu_L\right] + \lambda^2\frac{1}{n}\E\left[\vu_L^\top\vu_L\right] \quad \mbox{since $\E\left[n^{-1}\vepsi^\top \vepsi\right] = \sigma^2$}\\
+       0 &= \sigma^2  - \frac{1}{n}\E\left[\vu^\top\vu\right] + \lambda \frac{2}{n}\E\left[\vu^\top\vu_L\right] - \lambda^2\frac{1}{n}\E\left[\vu_L^\top\vu_L\right]\\
+       0 &= \lambda \frac{2}{n}\E\left[\vu^\top\vu_L\right] - \lambda^2\frac{1}{n}\E\left[\vu_L^\top\vu_L\right] + \frac{1}{n}\sigma^2 - \frac{1}{n}\E\left[\vu^\top\vu\right] \\
+       0 & =  \begin{pmatrix}
+         \frac{2}{n}\E\left[\vu^\top\vu_L\right] & - \frac{1}{n}\E\left[\vu_L^\top\vu_L\right] &  1
+            \end{pmatrix}
+            \begin{pmatrix}
+              \lambda \\
+              \lambda^2 \\
+              \sigma^2
+            \end{pmatrix} - \frac{1}{n}\E\left[\vu^\top\vu\right]
+  \end{aligned}
+\end{equation}
+
+In similar fashion,
+
+\begin{eqnarray}
+ 0 & = & \begin{pmatrix}
+            \frac{2}{n}\E\left[\vu^\top_{LL}\vu_L\right] & -\frac{1}{n}\E\left[\vu_{LL}^\top\vu_{LL}\right] & \frac{1}{n} \tr(\mM^\top\mM)
+          \end{pmatrix}
+                      \begin{pmatrix}
+              \lambda \\
+              \lambda^2 \\
+              \sigma^2
+            \end{pmatrix} - \frac{1}{n}\E\left[\vu^\top_L\vu_L\right]\label{eq:Pequation_2_gmm} \\
+ 0 & = & \begin{pmatrix}
+            \frac{1}{n}\E\left[\vu^\top\vu_{LL} + \vu_L^\top\vu_L\right] & - \frac{1}{n}\E\left[\vu_{L}^\top\vu_{LL}\right] & 0
+          \end{pmatrix}
+                      \begin{pmatrix}
+              \lambda \\
+              \lambda^2 \\
+              \sigma^2
+            \end{pmatrix} - \frac{1}{n}\E\left[\vu^\top\vu_L\right]\label{eq:Pequation_3_gmm}
+\end{eqnarray}
+
+At this point it is important to realized that we have have three equations an three unknowns, $\lambda$, $\lambda^2$ and $\sigma^2$. Consider the following three-equations system implied by Equations (\ref{eq:Pequation_1_gmm}), (\ref{eq:Pequation_2_gmm}) and (\ref{eq:Pequation_3_gmm}):
+
+\begin{equation}\label{eq:system_gm}
+  \mGamma_n\valpha  = \vgamma_n
+\end{equation}
+%
+where $\mGamma_n$ is given in Equation (\ref{eq:Gamma_gm}), and $\valpha = (\lambda, \lambda^2, \sigma^2)$.\footnote{Note that we are assuming that $\lambda^2$ is a new parameter.} If $\mGamma_n$ where known, Assumption \ref{assu:gm_identification} (Identification) implies that Equation (\ref{eq:system_gm}) determines $\valpha$ as:
+
+
+\begin{equation*}
+\valpha = \mGamma_n^{-1}\vgamma_n
+\end{equation*}
+%
+where:
+
+\begin{equation}\label{eq:Gamma_gm}
+  \mGamma_n = \begin{pmatrix}
+   \frac{2}{n}\E\left[\vu^\top\vu_L\right] & -\frac{1}{n}\E\left[\vu_L^\top\vu_L\right] & 1 \\
+   \frac{2}{n}\E\left[\vu^\top_{LL}\vu_L\right] & -\frac{1}{n}\E\left[\vu_{LL}^\top\vu_{LL}\right] & \frac{1}{n} \tr(\mM^\top\mM)\\
+   \frac{1}{n}\E\left[\vu^\top\vu_{LL} + \vu_L^\top\vu_L\right] & -\frac{1}{n}\E\left[\vu_{L}^\top\vu_{LL}\right] & 0
+        \end{pmatrix}
+\end{equation}
+%
+and
+
+\begin{equation}
+  \vgamma_n = \begin{pmatrix}
+  \frac{1}{n}\E\left[\vu^\top\vu\right] \\
+  \frac{1}{n}\E\left[\vu^\top_L\vu_L\right] \\
+  \frac{1}{n}\E\left[\vu^\top\vu_L\right]
+        \end{pmatrix}
+\end{equation}
+
+Now we express the moment conditions $\vgamma_n = \mGamma_n\valpha$ as sample averages in observables spatial lags of OLS residuals:
+
+\begin{equation}\label{eq:sample_moments_sem}
+  \vg_n = \mG_n\valpha +  \vupsilon_n(\lambda, \sigma^2) 
+\end{equation}
+
+
+Note also that
+
+
+\begin{equation*}
+  \mG_n = \begin{pmatrix}
+   \frac{2}{n}\widehat{\vu}^\top\widehat{\vu}_L & -\frac{1}{n}\widehat{\vu}_L^\top\widehat{\vu}_L & 1\\
+   \frac{2}{n}\widehat{\vu}^\top_{LL}\widehat{\vu}_L & -\frac{1}{n}\widehat{\vu}_{LL}^\top\widehat{\vu}_{LL} & \frac{1}{n} \tr(\mM^\top\mM)\\
+   \frac{1}{n}\left[\widehat{\vu}^\top\widehat{\vu}_{LL} + \widehat{\vu}_L^\top\widehat{\vu}_L\right] & -\frac{1}{n}\widehat{\vu}_{L}^\top\widehat{\vu}_{LL} & 0
+        \end{pmatrix}
+\end{equation*}
+%
+and
+
+\begin{equation*}
+  \vg_n = \begin{pmatrix}
+  \frac{1}{n}\widehat{\vu}^\top\widehat{\vu} \\
+  \frac{1}{n}\widehat{\vu}^\top_L\widehat{\vu}_L \\
+  \frac{1}{n}\widehat{\vu}^\top\widehat{\vu}_L
+        \end{pmatrix}
+\end{equation*}
+%
+where $\mG_n$ is a $3\times 3$ matrix, and where $\vupsilon_n(\lambda, \sigma^2)$ can be viewed as a vector of residuals. This can be thought as a OLS regression where \citep{kelejian1998generalized}:
+
+\begin{equation}\label{eq:moments_as_ols}
+\widetilde{\valpha}_n = \mG_n^{-1}\vg_n
+\end{equation}
+
+However, the estimator in (\ref{eq:moments_as_ols}) is based on an overparameterization in the sense that it does not use the information that the second element of $\valpha$, $\lambda^2$, is the squared of the first. Given this, \cite{kelejian1998generalized} and \cite{kelejian1999generalized} define the GM estimator for $\lambda$ and $\sigma^2$ as the nonlinear least square estimator corresponding to Equation (\ref{eq:sample_moments_sem}):\footnote{They state that is more efficient than the OLS estimator. However, both estimator are consistent. See Theorem 2 in \citep{kelejian1998generalized}.}
+
+
+\begin{equation}\label{eq:nls_estimator}
+  (\widehat{\lambda}_{NLS, n}, \widehat{\sigma}^2_{NLS, N}) = \argmin \left\lbrace \vupsilon_n(\lambda, \sigma^2)^\top\vupsilon_n(\lambda, \sigma^2): \rho \in [-a, a], \sigma^2\in [0, b]\right\rbrace 
+\end{equation}
+
+Note that $(\widehat{\lambda}_{NLS, n}, \widehat{\sigma}^2_{NLS, N})$ are defined as the minimizers of
+
+\begin{equation*}
+\left[\vg_n - \mG_n \begin{pmatrix}\lambda \\ \lambda ^2 \\ \sigma^2\end{pmatrix}\right]^\top \left[\vg_n - \mG_n \begin{pmatrix}\lambda \\ \lambda ^2 \\ \sigma^2\end{pmatrix}\right]
+\end{equation*}
+
+\begin{assumption}[Bounded Matrices \citep{kelejian1999generalized}]\label{assu:bounded_matrix_M}
+The row and column sums of the matrices $\mM_n$ and $(\mI - \lambda\mM_n)$ are bounded uniformly in absolute value.
+\end{assumption}
+
+\begin{assumption}[Residuals \citep{kelejian1999generalized}]\label{assu:residuals_gm}
+Let $\widetilde{u}_{i, n}$ denote the $i$-th element of $\widetilde{\vu}_n$. We then assume that
+
+\begin{equation*}
+\widetilde{u}_{i, n} - u_{i,n} = \vd_{i,n}\mDelta_n
+\end{equation*}
+%
+where $\vd_{i, n}$ and $\mDelta_n$ are $1\times p$ and $p\times 1$ dimensional random vectors. Let $d_{ij,n}$ be the $j$th element of $\vd_{i, n}$. Then, we assume that for some $\delta>0$, $\E\left|d_{ij,n}\right|^{2 + \delta}\leq c_{d} < \infty$, where $c_d$ does not depend on $n$, and that
+
+\begin{equation}
+\sqrt{n}\left\lVert \mDelta_n\right\rVert = O_p(1).
+\end{equation}
+\end{assumption}
+
+This assumption should be satisfied for most cases in which $\widetilde{\vu}$ is based on $\sqrt{n}$-consistent estimators of the regression coefficients (non-linear OLS, linear OLS, 2SLS). Assumption \ref{assu:residuals_gm} comes from \cite{kelejian2010specification} and is a bit stronger than the same assumption in \cite{kelejian1999generalized}.
+
+\begin{assumption}[Identification \citep{kelejian1999generalized}]\label{assu:gm_identification} Let $\mGamma_n$ be the matrix in Equation (\ref{eq:Gamma_gm}). The smallest eigenvalues of $\mGamma^\top_n\mGamma_n$ is bounded away from zero, that is, $\omega_{min} (\mGamma^\top_n\mGamma_n) \geq \omega_* > 0$, where $\omega_*$ may depend on $\lambda$ and $\sigma^2$
+\end{assumption}
+
+\begin{theorem}[Consistency]\label{teo:consistency_gm_lambda}
+Let $(\widehat{\lambda}_{NLS, n}, \widehat{\sigma}^2_{NLS, N})$ given by:
+
+\begin{equation*}
+  (\widehat{\lambda}_{NLS, n}, \widehat{\sigma}^2_{NLS, N}) = \argmin \left\lbrace \vupsilon_n(\lambda, \sigma^2)^\top\vupsilon_n(\lambda, \sigma^2): \rho \in [-a, a], \sigma^2\in [0, b]\right\rbrace 
+\end{equation*}
+
+Then, given Assumptions \ref{assu:errors_triang} (Heterokedastic errors), \ref{assu:KP1999_M} (Weight Matrix $\mM_n$), \ref{assu:bounded_matrix_M} (Bounded Matrices), \ref{assu:residuals_gm} (Residuals), and \ref{assu:gm_identification} (Identification),
+
+\begin{equation}
+(\widehat{\lambda}_{NLS, n}, \widehat{\sigma}^2_{NLS, N})  \pto (\lambda, \sigma^2)\quad \mbox{as $n\to \infty$}
+\end{equation}
+\end{theorem}
+
+An important remark is that Theorem \ref{teo:consistency_gm_lambda} states only that the NLS estimates are consistent, but it does not tell us about the asymptotic distribution of $\widehat{\lambda}_{NLS, n}$.
+
+
+\begin{proof}[Sketch or proof for GM estimator of $\widehat{\lambda}$]
+The proof is based on \cite{kelejian2017spatial}
+ and consist into two steps. First, we prove consistency of $\widehat{\lambda}$ for the OLS estimate of $\valpha$---which is more simple---and assuming that the vector $\vu$ is observed. We then show that $\vu$ can be replaced in the GM estimator for $\lambda$ by $\widehat{\vu}$. For a more general proof see \citet{kelejian1998generalized, kelejian1999generalized}.
+
+\begin{enumerate}
+  \item \emph{Assuming that $\vu$ is observed.} Recall that in Equation (\ref{eq:sample_moments_sem}) the sample moments are based on the estimated $\widehat{\vu}$. But, if $\vu$ were observed, then we would use the following sample moments:
+  
+\begin{equation*}
+  \vg_n^* = \mG_n^*\valpha
+\end{equation*}
+%
+where 
+
+\begin{equation*}
+  \mG_n^* = \begin{pmatrix}
+   \frac{2}{n}\vu^\top\vu_L & -\frac{1}{n}\vu_L^\top\vu_L & 1\\
+   \frac{2}{n}\vu^\top_{LL}\vu_L & -\frac{1}{n}\vu_{LL}^\top\vu_{LL} & \frac{1}{n} \tr(\mM^\top\mM)\\
+   \frac{1}{n}\left[\vu^\top\vu_{LL} + \vu_L^\top\vu_L\right] & -\frac{1}{n}\vu_{L}^\top\vu_{LL} & 0
+        \end{pmatrix}
+\end{equation*}
+%
+and
+
+\begin{equation*}
+  \vg_n^* = \begin{pmatrix}
+  \frac{1}{n}\vu^\top\vu \\
+  \frac{1}{n}\vu^\top_L\vu_L \\
+  \frac{1}{n}\vu^\top\vu_L
+        \end{pmatrix}
+\end{equation*}
+
+Recall that:
+
+\begin{equation*}
+  \begin{aligned}
+    \vu & = \left(\mI_n - \lambda\mM\right)^{-1}\vepsi \\
+    \vu_L & = \mM\left(\mI_n - \lambda\mM\right)^{-1}\vepsi \\
+    \vu_{LL} & = \mM\mM\left(\mI_n - \lambda\mM\right)^{-1}\vepsi
+  \end{aligned}
+\end{equation*}
+%
+and first and second column of $\mG^*$ are quadratic forms of $\vepsi$. Since $\mM$ is uniformly bounded then, using Theorem of consistency of quadratic forms (\ref{teo:quadratic-forms-ley}) , we can state that:
+\begin{equation*}
+\mG^*\pto \mGamma_n
+\end{equation*}
+
+Also:
+
+\begin{equation*}
+\begin{aligned}
+\plim \vg_n^* &= \plim \mG^*\valpha \\
+ & = \mGamma\valpha
+ \end{aligned}
+\end{equation*}
+
+If $\vu$ would be observed,  a linear GMM estimator for $\lambda$, say $\widetilde{\lambda}$,  would be the first element of the least squared estimator $\valpha$, namely:
+
+\begin{equation*}
+  \widetilde{\valpha}= \mG_n^{-1*}\vg_n^*
+\end{equation*}
+%
+since $\mG_n^{*}$ is a $3\times 3$ matrix which is nonsingular. Thus, using our previous results:
+
+\begin{equation}\label{eq:consisten_error_gm}
+  \plim \widetilde{\valpha}=\plim \mG_n^{-1*} \plim \vg_n^* = \mGamma_n^{-1}\vgamma_n = \valpha
+\end{equation}
+
+\item \emph{Replacing $\vu$ by $\widehat{\vu}$}. Now consider the estimator $\valpha$ based on $\widehat{\vu}$. The OLS estimator is consistent and can be expressed as:
+
+\begin{equation*}
+\widetilde{\vbeta} = \vbeta_0 + \Delta_n, \quad \Delta_n\pto \vzeros.
+\end{equation*}
+
+Then, the OLS estimator $\widehat{\vu}$ is:
+
+\begin{equation*}
+\begin{aligned}
+\widehat{\vu} & = \vy - \mX\widehat{\vbeta}  \\
+              & = \vy - \mX\left(\vbeta_0 + \Delta_n\right) \\
+              & = \vy - \mX\vbeta_0 - \mX\Delta_n \\
+              & = \vu - \mX\Delta_n 
+\end{aligned}
+\end{equation*}
+
+Note that, with the exception of the constants in the third column of $\mG^*_n$, every element of $\mG^*_n$ and $\vg_n^*$ can be expressed as a quadratic of the form $\vepsi^\top\mS\vepsi/n$, where $\mS$ is an $n\times n$ matrix whose row and columns are uniformly bounded in absolute value given our assumption \ref{assu:bounded_matrix_M}. For example:
+
+\begin{equation*}
+      \frac{1}{n}\vu^\top\vu_L  = \frac{1}{n} \vepsi^{\top}\left(\mI_n - \lambda\mM\right)^{-1\top}\mM\left(\mI_n - \lambda\mM\right)^{-1}\vepsi = \frac{1}{n}\vepsi^\top\mS\vepsi
+\end{equation*}
+
+Then:
+
+\begin{equation*}
+\begin{aligned}
+\frac{\widehat{\vu}^\top\mS\widehat{\vu}}{n} & = \frac{\left(\vu - \mX\Delta_n \right)^\top\mS\left(\vu - \mX\Delta_n \right)}{n} \\
+& = \frac{\vu^\top\mS\vu}{n}- \frac{2\Delta_n^\top\mX^\top\mS\vu}{n}+\frac{\Delta_n^\top\mX^\top\mS\mX\Delta_n}{n}
+\end{aligned}
+\end{equation*}
+
+We need to show that (This would be part of your homework):
+
+\begin{equation*}
+\begin{aligned}
+  \frac{2\Delta_n^\top\mX^\top\mS\vu}{n} & \pto 0 \\
+  \frac{\Delta_n^\top\mX^\top\mS\mX\Delta_n}{n} & \pto 0
+\end{aligned}
+\end{equation*}
+%
+so that we can say that:
+
+\begin{equation*}
+\frac{\widehat{\vu}^\top\mS\widehat{\vu}}{n}  \pto \frac{1}{n}\vu^\top\mS\vu,
+\end{equation*}
+
+and finally say that:
+
+\begin{equation*}
+\vg_n\pto \vg_n^*\pto \vgamma_n, \quad \mG_n\pto \mG^*_n\pto \mGamma_n
+\end{equation*}
+
+Given Equation (\ref{eq:consisten_error_gm}), consistency is proved.
+\end{enumerate}
+\end{proof}
+
+
+%--------------------------------------------------------
+\subsection{Feasible Generalized Least Squares Model}
+%--------------------------------------------------------
+
+In Section \ref{sec:swls} we derived that the GLS estimator is given by:
+
+\begin{equation}\label{eq:beta_gls_gm}
+\vbeta_{GLS}(\lambda) =\left[\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\mX^\top\mOmega(\lambda)^{-1}\vy,
+\end{equation}
+%
+where $\mOmega(\lambda) = (\mI - \lambda\mW)^{-1}(\mI - \lambda\mW^\top)^{-1}$. But now we have a consistent estimate for $\lambda$. Thus, we can get an estimate of $\widehat{\vbeta}$ using the FGLS estimator defined as:
+
+\begin{equation}\label{eq:beta_fgls}
+\vbeta_{FGLS}(\lambda) =\left[\mX^\top\mOmega(\widehat{\lambda})^{-1}\mX\right]^{-1}\mX^\top\mOmega(\widehat{\lambda})^{-1}\vy.
+\end{equation}
+
+
+\begin{assumption}[Limiting Behavior]\label{assu:X_bounded_fgls}
+  The elements of $\mX$ are non-stochastic and bounded in absolute value by $c_X, 0 < c_X < \infty$. Also, $\mX$ has full rank, and the matrix $\mQ_X = \lim_{n\to\infty}n^{-1}\mX^\top\mX$ is finite and nonsingular. Furthermore, the matrices $\mQ_X(\lambda) = \lim_{n\to \infty} n^{-1}\mX^\top\mOmega(\lambda)^{-1}\mX$ is finite and nonsingular for all $\left|\rho\right| < 1$
+\end{assumption}
+
+The following Theorem proposes the asymptotic distribution for the FGLS Estimator:
+
+\begin{theorem}[Asymptotic Properties of FGLS Estimator]\label{teo:Asymptotic-FGLS}
+  If assumptions \ref{assu:errors_triang} (Homokedastic errors), \ref{assu:KP1999_M} (Weight Matrix $\mM_n$), \ref{assu:bounded_matrix_M} (Bounded Matrices), and \ref{assu:X_bounded_fgls} (Limiting Behavior) hold: 
+  \begin{enumerate}
+    \item The true GLS estimator $\widehat{\vbeta}_{GLS}$ is a consistent estimator for $\vbeta$, and
+    
+    \begin{equation}
+      \sqrt{n}\left(\widehat{\vbeta}_{GLS} - \vbeta\right)\dto \rN\left(\vzeros, \sigma^2 \mQ_X(\lambda)^{-1}\right)
+    \end{equation}
+    
+    \item Let $\widehat{\lambda}_n$ be a consistent estimator for $\lambda$. Then the true GLS estimator $\widehat{\vbeta}_{GLS}$ and the feasible GLS estimator $\widehat{\vbeta}_{FGLS}$ have the same asymptotic distribution.
+    \item Suppose further than $\widehat{\sigma}^2_n$ is a consistent estimator for $\sigma^2$. Then $\widehat{\sigma}^2_n\left[n^{-1}\mX^\top\mOmega(\widehat{\lambda}_n)^{-1}\mX\right]$ is a consistent estimator for $\sigma^2 \mQ_X(\lambda)^{-1}$.
+  \end{enumerate}
+\end{theorem}
+
+Note that Theorem \ref{teo:Asymptotic-FGLS} assumes the existence of a consistent estimator of $\lambda$ and $\sigma^2$. It can be shown that the OLS estimator:
+
+\begin{equation*}
+\widehat{\vbeta}_n = \left(\mX^\top\mX\right)^{-1}\mX^\top\vy
+\end{equation*}
+%
+is $\sqrt{n}$-consistent. Thus, the OLS residuals $\widetilde{u}_i = y_i - \vx_i^\top\widehat{\vbeta}_n$ satisfy Assumption \ref{assu:residuals_gm} with $d_{i, n} = \left|\vx_i\right|$ and $\Delta_n = \widehat{\vbeta}_n -\vbeta$. Thus, OLS residuals can be used to obtain consistent estimators of $\lambda$ and $\sigma^2$.
+
+Then, the feasible GLS is given by
+
+\begin{equation*}
+  \widehat{\vbeta}_{FGLS} = \left[\mX^\top(\widetilde{\lambda})\mX(\widetilde{\lambda})\right]^{-1}\mX^\top(\widetilde{\lambda})\vy(\widetilde{\lambda})\
+\end{equation*}
+%
+where:
+
+\begin{equation*}
+\begin{aligned}
+  \mX(\widetilde{\lambda}) & = (\mI-\widetilde{\lambda}\mM)\mX \\
+  \vy(\widetilde{\lambda}) & = (\mI-\widetilde{\lambda}\mM)\vy
+\end{aligned}
+\end{equation*}
+
+The variance covariance matrix of $\widehat{\vbeta}_{FGLS}$ is estimated as:
+
+\begin{equation*}
+  \widehat{\var}\left(\widehat{\vbeta}_{FGLS}\right) = \widehat{\sigma}^2\left[\mX^\top(\widetilde{\lambda})\mX(\widetilde{\lambda})\right]^{-1},
+\end{equation*}
+%
+where:
+
+\begin{equation*}
+  \begin{aligned}
+    \widehat{\sigma}^2 & = \widehat{\vepsi}^\top(\widetilde{\lambda})\widehat{\vepsi}(\widetilde{\lambda}) \\
+    \widehat{\vepsi}(\widetilde{\lambda}) & = \vy(\widetilde{\lambda}) - \mX(\widetilde{\lambda})\widehat{\vbeta}_{FGLS} = (\mI-\widetilde{\lambda}\mM)\widehat{\vu} \\
+    \widehat{\vu} & = \vy-\mX\widehat{\vbeta}_{FGLS} 
+  \end{aligned}
+\end{equation*}
+
+
+
+
+%---------------- Proof ---------------
+\begin{proof}[Sketch of Proof of Theorem \ref{teo:Asymptotic-FGLS}]
+We first prove part (a). Recall that the GLS and FGSL estimator are given by:
+
+\begin{equation*}
+\begin{aligned}
+\widehat{\vbeta}_{GLS} & = \left[\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\mX^\top\mOmega(\lambda)^{-1}\vy \\
+\widehat{\vbeta}_{FGLS} & = \left[\mX^\top\widehat{\mOmega}(\lambda)^{-1}\mX\right]^{-1}\mX^\top\widehat{\mOmega}(\lambda)^{-1}\vy
+\end{aligned}
+\end{equation*}
+
+Since $\vy = \mX\vbeta + \vu = \mX\vbeta + \left(\mI_n-\lambda\mM\right)^{-1}\vepsi$, the sampling error of $\widehat{\vbeta}_{GLS}$ is,
+
+\begin{equation*}
+  \begin{aligned}
+  \widehat{\vbeta} & = \vbeta + \left[\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\mX^\top\mOmega(\lambda)^{-1}\vu \\
+  \widehat{\vbeta} - \vbeta & =  \left[\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\mX^\top\left(\mI_n - \lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\left(\mI_n - \lambda\mM\right)^{-1}\vepsi \\
+  \widehat{\vbeta} - \vbeta & =  \left[\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\mX^\top\left(\mI_n - \lambda\mM\right)^\top\vepsi \\
+  \sqrt{n}(\widehat{\vbeta} - \vbeta) & =  \left[\frac{1}{n}\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}\frac{1}{\sqrt{n}}\mA^\top\vepsi 
+  \end{aligned}
+\end{equation*}
+%
+where $\mA = \left(\mI_n - \lambda\mM\right)\mX$. By Assumption \ref{assu:X_bounded_fgls} (Limiting Behavior): 
+
+\begin{equation*}
+  \frac{1}{n}\mX^\top\mOmega(\lambda)^{-1}\mX \to \mQ_X(\lambda)
+\end{equation*}
+
+Since $\mQ_X$ is not singular:
+
+\begin{equation*}
+  \left[\frac{1}{n}\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1} \to \mQ_X^{-1}(\lambda)
+\end{equation*}
+
+Since $\mA$ is bounded in abolute value, by Theorem \ref{teo:CLT_tri_arr} it follows that:
+
+\begin{equation}
+\frac{1}{\sqrt{n}}\mA^\top\vepsi  \dto \rN\left(\vzeros, \lim_{n\to\infty}n^{-1}\sigma^2\mA^\top\mA\right)
+\end{equation}
+%
+where  $\lim_{n\to\infty}n^{-1}\sigma^2\mA^\top\mA = \sigma^2\lim_{n\to\infty}n^{-1}\mX^\top\left(\mI_n - \lambda\mM\right)^\top\left(\mI_n - \lambda\mM\right)\mX=\sigma^2\mQ_X(\lambda)$. Consequently:
+
+
+\begin{equation*}
+  \begin{aligned}
+  \sqrt{n}(\widehat{\vbeta} - \vbeta) & =  \underbrace{\left[\frac{1}{n}\mX^\top\mOmega(\lambda)^{-1}\mX\right]^{-1}}_{\to \mQ_X^{-1}(\lambda)}\underbrace{\frac{1}{\sqrt{n}}\mA^\top\vepsi}_{\dto \rN(\vzeros, \sigma^2\mQ_X(\lambda))} \\
+   & \dto \rN\left[\vzeros, \mQ_X^{-1}(\lambda)\sigma^2\mQ_X(\lambda)\mQ_X^{-1}(\lambda)^\top)\right] \\
+   & \dto \rN\left[\vzeros, \sigma^2\mQ_X^{-1}(\lambda)\right]
+  \end{aligned}
+\end{equation*}
+
+This also implies that $\widehat{\vbeta}_{GLS}$ is consistent. To show part (b), we can show that:
+
+\begin{equation*}
+  \sqrt{n}(\widehat{\vbeta}_{GLS} - \widehat{\vbeta}_{FGLS}) \pto 0
+\end{equation*}
+
+
+Following \cite{kelejian1999generalized}, if suffices to show that 
+
+\begin{equation}\label{eq:omega-omega}
+\frac{1}{n}\mX^\top\left[\mOmega(\widehat{\lambda}_n)^{-1}- \mOmega(\lambda)^{-1}\right]\mX\pto \vzeros
+\end{equation}
+%
+and
+
+\begin{equation*}
+\frac{1}{n}\mX^\top\left[\mOmega(\widehat{\lambda}_n)^{-1}- \mOmega(\lambda)^{-1}\right]\vu\pto \vzeros
+\end{equation*}
+
+Note that:
+
+\begin{equation*}
+  \mOmega(\widehat{\lambda}_n)^{-1}- \mOmega(\lambda)^{-1} = (\lambda - \widehat{\lambda}_n)(\mM + \mM^\top) + (\lambda^2 - \widehat{\lambda}_n^2)\mM^\top\mM
+\end{equation*}
+
+Then using the fact the we have summable matrices, 
+
+\begin{equation*}
+  \frac{1}{n}\mX^\top\left[\mOmega(\widehat{\lambda}_n)^{-1}- \mOmega(\lambda)^{-1}\right]\mX = \underbrace{(\lambda - \widehat{\lambda}_n)}_{\pto 0}\underbrace{n^{-1}\mX^\top(\mM + \mM^\top)\mX}_{O(1)} + \underbrace{(\lambda^2 - \widehat{\lambda}_n^2)}_{\pto 0}\underbrace{n^{-1}\mX^\top\mM^\top\mM\mX}_{O(1)}
+\end{equation*}
+%
+where $(\lambda - \widehat{\lambda}_n)=o_p(1)$ since $\widehat{\lambda}_n$ is a consistent estimate of $\lambda$,  and :
+
+\begin{equation}
+  \begin{aligned}
+  \frac{1}{n}\mX^\top\left[\mOmega(\widehat{\lambda}_n)^{-1}- \mOmega(\lambda)^{-1}\right]\vu & = \underbrace{(\lambda - \widehat{\lambda}_n)}_{\pto 0}\underbrace{n^{-1/2}\mX^\top(\mM + \mM^\top)\vu}_{O_p(1)} + \underbrace{(\lambda^2 - \widehat{\lambda}_n^2)}_{\pto 0}\underbrace{n^{-1/2}\mX^\top\mM^\top\mM\vu}_{O_p(1)} \\
+  & =  o_p(1)*O_p(1) + o_p(1)*O_p(1) \\
+  & = o_p(1) + o_p(1) \\
+  & = o_p(1) \\
+  & \pto 0
+  \end{aligned}
+\end{equation}
+
+To see that $n^{-1/2}\mX^\top(\mM + \mM^\top)\vu = O_p(1)$ note
+
+
+\begin{eqnarray*}
+\E\left[n^{-1/2}\mX^\top(\mM + \mM^\top)\vu\right] &=& 0 \\
+\var[n^{-1/2}\mX^\top(\mM + \mM^\top)\vu] &=& n^{-1}\underbrace{\mX^\top\underbrace{(\mM + \mM^\top)\mOmega(\mM^\top + \mM)}_{\mbox{absolutely summable}}\mX}_{O(n)} = O(1)
+\end{eqnarray*}
+
+A similar result holds for $n^{-1/2}\mX^\top\mM^\top\mM\vu$.
+
+
+Part 3 of the theorem follows from (\ref{eq:omega-omega}) and the fact that $\widehat{\sigma}^2$ is a consistent estimator for $\sigma^2$.
+\end{proof}
+%-----------------------------
+
+
+%\begin{remark}
+%When $b_n = O_p(1)$, we say $\left\lbrace b_{n} \right\rbrace$ is bounded in probability and when $b_n = o_p(1)$, we have $b_n \pto 0$.
+%\end{remark}
+
+
+A Feasible GLS (FGLS) can be obtained along with the following steps:
+
+\begin{algorithm}[GLS (FGLS) Algorithm of SEM]
+The steps are the following:
+
+\begin{enumerate}
+  \item First of all obtain a consistent estimate of $\vbeta$, say $\widetilde{\vbeta}$ using either OLS or NLS.
+  \item Use this estimate to obtain an estimate of $\vu$, say $\widehat{\vu}$,
+  \item Use $\widehat{\vu}$, to estimate $\lambda$, say $\widehat{\lambda}$, using (\ref{eq:nls_estimator}),
+  \item Estimate $\vbeta$ using Equation (\ref{eq:beta_fgls})
+\end{enumerate}
+\end{algorithm}
+
+%For the first step, a consistent estimator is the OLS estimator $\widetilde{\vbeta} = \left(\mX^\top\mX\right)^{-1}\mX^\top\vy$.
+
+%\begin{proof}[Sketch of proof]
+%The sampling error is:
+
+%\begin{equation}
+%\widetilde{\vbeta} = \vbeta_0 +  \left(\mX^\top\mX\right)^{-1}\mX^\top\vu
+%\end{equation}
+%\end{proof}
+
+%Then, we derive an estimate of the residuals:
+
+%\begin{equation}
+%  \widehat{\vu} = \vy - \mX\widetilde{\vbeta}
+%\end{equation}
+%
+%which \cite{kelejian1999generalized} showed is consistent. 
+
+%Then we obtain $\widehat{\lambda}$, to estimate the elements of the correlation matrix $\mOmega(\widehat{\lambda})$.
+
+%===================================
+\subsection{FGLS in R}
+%===================================
+
+The estimation procedure by GM is carried out by the \code{GMerrorsar} function from \pkg{spatialreg} package. In order to show its functionalities we first load the required packages and dataset:
+
+<<load-sem-gm>>=
+# Load data and packages
+library("memisc") 
+library("spdep")
+library("spatialreg")
+data("columbus")
+listw <- nb2listw(col.gal.nb)
+source("getSummary.sarlm.R")
+@
+
+Now we estimate the SEM model by ML using Ord's eigen approximation of the determinant and the \cite{kelejian1999generalized}'s GM procedure:
+
+<<sem-gm-estimation>>=
+# Estimate the SEM model by ML and GM
+sem_ml <- errorsarlm(CRIME ~ INC + HOVAL, 
+                     data = columbus,
+                     listw, 
+                     method = "eigen")
+sem_mm    <- GMerrorsar(CRIME ~ HOVAL + INC, 
+                  data =  columbus,
+                  listw = listw,
+                  returnHcov =  TRUE)
+@
+
+A Hausman test comparing an OLS and SEM model can be obtained using
+<<huasman-gm>>=
+# Hausman test
+summary(sem_mm, Hausman = TRUE)
+@
+
+The default model specification shown above. The output follows the familiar R format. Note that even though the estimation procedure is the GM, the output presents inference for $\lambda$. In this case, the inference is based on the analytical method described in \url{http://econweb.umd.edu/~prucha/STATPROG/OLS/desols.pdf}. The output also shows the Hausman test. Recall that this test can be used whenever there are two estimators, one of which is inefficient but consistent (OLS in this case under the maintained hypothesis of the SEM), while the other is efficient (SEM in this case).  The null hypothesis is that the SEM and OLS estimates are not significantly different \citep[see][pag. 62]{lesage2010introduction}. We reject the null hypothesis, thus the SEM model is more appropriate. Table \ref{tab:columbus-models3} compares the estimates. 
+
+\begin{table}[ht]
+\caption{Spatial Models for Crime in Columbus: ML vs GM}\label{tab:columbus-models3}
+\centering
+<<echo = FALSE, results = 'asis', warning = FALSE>>=
+table_2 <- mtable("ML"   = sem,
+                  "GM" =  sem_mm,
+       summary.stats = c("N"),
+       coef.style = "default")
+table_2 <- relabel(table_2,
+                   "(Intercept)" = "\\emph{Constant}",
+                   "lambda" = "$\\lambda$") 
+toLatex(table_2, compact = TRUE, useBooktabs =  TRUE)
+@
+\end{table}
+
+
+%*************************************************
+\section{Estimation of SAC Model: The Feasible Generalized Two Stage Least Squares estimator Procedure}\index{SAC model!FGS2SLS}
+%*************************************************
+
+%-------------------------------------------------
+\subsection{Intuition Behind the Procedure}
+%-------------------------------------------------
+
+Consider the following SAC model:
+
+\begin{equation}\label{eq:model_gmm_sac}
+\begin{aligned}
+	\vy & = \mX\vbeta + \rho\mW\vy + \vu  = \mZ\vdelta + \vu\\
+	\vu & = \lambda \mM \vu + \vepsi
+\end{aligned}
+\end{equation}
+%
+where $\mZ = \left[\mX , \mW\vy\right]$, $\vdelta = \left[\vbeta^\top ,\lambda\right]^\top$, $\vy$ is the $n\times 1$ vector of observations of the dependent variables, $\mX$ is the $n \times k$ matrix of observations on \textbf{nonstochastic (exogenous)} regressors, $\mW$ and $\mM$ are the $n \times n$ nonstochastic weights matrices, $\vu$ is the $n \times 1$ vector of regression disturbances, $\vepsi$ is an $n \times 1$ vector of innovations. Note that we allow different spatial weight matrices for each process. However, in practice, there is a seldom sound basis for assuming this. 
+
+\begin{remark}
+This model is generally referred to as the Spatial-ARAR(1, 1) model to emphasize its autoregressive structure both in the dependent variable and the error term. 
+\end{remark}
+
+The SAC model can be estimated by ML procedure \citep[see][]{anselin1988spatial}. However, the estimation process requires the inversion of $\mA$ and $\mB$, which can be very costly in terms of computation in large samples. Furthermore, the ML relies on the normality assumption of the error terms.  One way of dealing with this issue is to incorporate the estimation ideas from the S2SLS and GM we previously presented. To see this, we can re-write the first equation in model (\ref{eq:model_gmm_sac}) by applying the following spatial Cochrane-Orcutt transformation: 
+
+\begin{equation}\label{eq:sac_cotrans}
+	\begin{aligned}
+	\vy & = \mZ\vdelta + \left(\mI - \lambda \mM\right)^{-1}\vepsi \\
+	\left(\mI - \lambda \mM\right)\vy & = \left(\mI - \lambda \mM\right) \mZ\vdelta + \vepsi \\
+	\vy_s(\lambda) & = \mZ_s(\lambda)\vdelta + \vepsi 
+	\end{aligned}
+\end{equation}
+%
+where the spatially filtered variables are given by:
+
+\begin{eqnarray*}
+\vy_s(\lambda) & = & \vy - \lambda \mM\vy \\
+      & = & \vy - \lambda \vy_L \\
+      & = & \left(\mI - \lambda \mM\right)\vy \\
+\mZ_s(\lambda) & = & \mZ - \lambda \mM \mZ \\
+      & = & \mZ - \lambda \mZ_L \\
+      & = & \left(\mI - \lambda \mM\right) \mZ \\
+\end{eqnarray*}
+
+If we knew $\lambda$, we would be able to apply an \textbf{IV approach on the transformed model} (\ref{eq:sac_cotrans}). For the discussion below, assume that we know $\lambda$. Note that the ideal instruments in this case will be:
+
+\begin{equation*}
+  \begin{aligned}
+    \E\left(\mZ\right)    & = \E\left[\mX, \mW\E\left(\vy\right)\right] \\
+    \E\left(\mM\mZ\right) & = \E\left[\mM\mX, \mM\mW\E\left(\vy\right)\right]
+  \end{aligned}
+\end{equation*}
+
+Given that all the columns of $\E(\mZ)$ and $\E(\mM\mZ)$ are linear in
+
+\begin{equation}\label{eq:linear_poten_H}
+  \mX, \mW\mX, \mW^2\mX, ..., \mM\mX, \mM\mW\mX, \mM\mW^2\mX,...
+\end{equation}
+%
+the matrix of instruments $\mH$ is a subset of the linearly independent columns in (\ref{eq:linear_poten_H}), for example
+
+\begin{equation*}
+  \mH = \left[\mX, \mW\mX,..., \mW^l\mX, \mM\mX, \mM\mW\mX, ...,\mM\mW^l\mX\right]_{LI},
+\end{equation*}
+%
+where typically, $l\leq 2$. 
+
+Since we have the instruments $\mH$, and we have assumed that we have $\widehat{\lambda}$ such that $\widehat{\lambda}\pto \lambda_0$ we might apply a GMM-type procedure using the following moment conditions for the transformed model (\ref{eq:sac_cotrans}):
+
+\begin{equation*}
+  \vm(\lambda_0, \vdelta_0) = \E\left[\frac{1}{\sqrt{n}}\mH^\top\vepsi\right] = 0
+\end{equation*}
+
+Now let $\widetilde{\lambda}$ some consistent estimator for $\lambda_0$ which can be obtained in a previous step, then the sample moment vector is:
+
+\begin{equation*}
+  \vm^{\delta}(\widetilde{\lambda}, \vdelta) = \frac{1}{\sqrt{n}}\mH^\top\underbrace{\left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]}_{\widetilde{\vepsi}},
+\end{equation*}
+%
+where we explicitly state that the moments depends on $\vdelta$---which will be estimated---and a consistent estimate of $\lambda$. Under \textbf{homoskedasticity} the variance-covariance matrix of the moment vector $\vg(\lambda_0, \delta_0)$ is given by:
+
+\begin{equation*}
+  \var(\vm(\lambda_0, \vdelta_0)) = \E(\vm(\lambda_0, \delta_0)\vm(\lambda_0, \delta_0)^\top) = \sigma^2n^{-1}\mH^\top\mH,
+\end{equation*}
+%
+which motivates the following two-step GMM estimator for $\vdelta_0$:
+
+\begin{equation*}
+  \widehat{\vdelta} = \underset{\vdelta}{\argmin}\quad \vg^{\delta}_n(\widetilde{\lambda}, \vdelta)^\top \mUpsilon^{\delta\delta}_n\vg^{\delta}_n(\widetilde{\lambda}, \vdelta)
+\end{equation*}
+%
+with
+
+\begin{equation*}
+\mUpsilon^{\delta\delta}_n = \left[\frac{1}{n}\mH^\top\mH\right]^{-1}.
+\end{equation*}
+
+Note that:
+
+\begin{equation*}
+  \begin{aligned}
+ J_n & = \left[\frac{1}{\sqrt{n}}\mH^\top\left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]\right]^\top \left[\frac{1}{n}\mH^\top\mH\right]^{-1}\left[\frac{1}{\sqrt{n}}\mH^\top\left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]\right] \\
+     & = \frac{1}{n}\left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]^\top \mH \left[\frac{1}{n}\mH^\top\mH\right]^{-1}\mH^\top \left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right] \\
+     & = \left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]^\top \mH \left[\mH^\top\mH\right]^{-1}\mH^\top \left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right] \\
+     & = \left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]^\top \mP_H \left[\vy_s(\widetilde{\lambda}) - \mZ_s(\widetilde{\lambda})\vdelta\right]
+\end{aligned}
+\end{equation*}
+
+Then, the estimator of $\vdelta$ will be:
+
+\begin{equation*}
+  \widehat{\vdelta} = \left[\widehat{\mZ_s}^\top\mZ_s\right]^{-1}\widehat{\mZ_s}^\top\vy_s
+\end{equation*}
+%
+where $\widehat{\mZ_s} = \mH\left(\mH^\top\mH\right)^{-1}\mH\mZ_s$. This estimator has been called the feasible generalized spatial two-stage least squares (FGS2SLS) estimator \citep{kelejian1998generalized}. However, this estimator is not fully efficient. 
+
+
+The question is: How to obtain a consistent estimator of $\widehat{\lambda}$? As probably you can guess, this consistent estimator is obtained in a previous step by GM. 
+
+
+%-------------------------------------------
+\subsection{Moment Conditions Revised}
+%--------------------------------------------
+
+Since we will require a consistent estimate of $\lambda$, in this section we will specialized in other ways of expressing the moment conditions under homokedasticity \citep{kelejian1999generalized} and heteroskedasticity \citep{kelejian2010specification}. Furthermore, recall that the \cite{kelejian1999generalized}'s GM approach presented in Section \ref{section:Moment_Condtions} does not yield a consistent estimate for $\lambda$ in the presence of heteroskedasticity: Theorem \ref{teo:consistency_gm_lambda} is derived under homokedasticity. Extensions that include the form of a generalized method of moments were made by \cite{kelejian2010specification}, \cite{arraiz2010spatial} and \cite{drukker2013two}. 
+
+The GMM approach offers three main extensions relative to GM. First, the estimator is robust to the presence of heteroskedasticity. Second, an asymptotic variance matrix is obtained for the parameter $\lambda$. Finally, joint inference is implemented for the spatial lag coefficient $\rho$ and the spatial error coefficient $\lambda$. 
+
+The expression for the moment conditions in the articles cited above change a bit. In particular, the moment conditions are reduced from three to two and their expressions are generalized. This is so since no condition can be now derived from the parameter $\sigma^2$ under heteroskedasticity. To see this, consider the \textbf{homokedastic} model and the following three moment conditions:
+
+\begin{equation*}
+  \begin{aligned}
+  \E\left[\vepsi^\top \vepsi\right] & = \sigma^2 \\
+   \E\left[\vepsi^\top\mM\mM\vepsi\right] &= \sigma^2\tr\left(\mM^\top\mM\right) \\
+   \E\left[\vepsi^\top \mM \vepsi \right] & =  0
+   \end{aligned}
+\end{equation*}
+
+Substituting out $\sigma^2$ into the second moment equation yields:
+
+\begin{equation*}
+  \begin{aligned}
+    \E\left[\vepsi^\top\mM\mM\vepsi\right] - \E\left[\vepsi^\top \vepsi\right] \tr\left(\mM^\top\mM\right) & = 0 \\
+    \E\left[\vepsi^\top\mM\mM\vepsi - \vepsi^\top \vepsi\tr\left(\mM^\top\mM\right)\right] & = 0 \\
+     \E\left[\vepsi^\top\mM\mM\vepsi - \vepsi^\top \tr\left(\mM^\top\mM\right)\vepsi\right] & = 0 \\
+     \E\left[\vepsi^\top\left(\mM\mM - \tr\left(\mM^\top\mM\right)\mI\right)\vepsi\right] & = 0 \\
+     \E\left[\vepsi^\top\mA_1\vepsi\right] & = 0.
+  \end{aligned}
+\end{equation*}
+
+Generalizing this expression for the third moment we end up with two instead of three quadratic moment conditions:
+
+\begin{equation}\label{eq:moment_conditions_reduced}
+	\begin{aligned}
+\frac{1}{n}\E\left[\vepsi^\top\mA_1\vepsi\right] & =  \vzeros \\
+\frac{1}{n}\E\left[\vepsi^\top\mA_2\vepsi\right] & =  \vzeros
+	\end{aligned}
+\end{equation}
+%
+with
+
+\begin{equation*}
+  \begin{aligned}
+\mA_1 &= \mM\mM - n^{-1}\tr\left(\mM^\top\mM\right)\mI \\
+\mA_2 &= \mM.
+\end{aligned}
+\end{equation*}
+
+Note that $\mA_1$ is symmetric with $\tr(\mA_1) = 0$ (you should be able to prove this), but its diagonal elements are non zero (In the heteroskedasticity case it is!). In \cite{drukker2013two}, an additional scaling factor is included as:
+
+\begin{equation*}
+  \nu = 1 / \left[1 + \left[(1 / n) \tr\left(\mM^\top\mM\right)\right]^2\right].
+\end{equation*}
+
+Under this case the weighting matrices for quadratic moments are:
+
+\begin{equation*}
+\begin{aligned}
+  \mA_{1} & = \nu \left[ \mM\mM - n^{-1}\tr\left(\mM^\top\mM\right)\mI\right] \\
+  \mA_{2} & = \mM_n. 
+\end{aligned}
+\end{equation*}
+
+If the errors are \textbf{heterokedastic}, then:
+
+\begin{eqnarray*}
+\mA_1 &=& \mM^\top\mM - n^{-1}\diag\left(\mM^\top\mM\right) = \mM^\top\mM - n^{-1}\diag\left(\vm^\top_i\vm_i\right) \\
+\mA_2 &=& \mM,
+\end{eqnarray*}
+%
+where $\vm_i$ is the $i$th column of the weights matrix $\mM$. Note that $\diag\left(\vm^\top_i\vm_i\right)$ consists of the sum of the squares of the weight in the $i$th column. Denote this matrix as $\mD$.
+
+The sample moments are obtained by replacing $\vepsi$ by the their counterpart expressed as a function of the regression residuals. Since $\vu = \lambda \vu_L + \vepsi$, it follows that $\vepsi = \vu - \lambda \vu_L =\vu_s$, the spatially filtered residuals. Then:
+
+
+\begin{equation}\label{eq:moment_conditions_reduced_u}
+	\begin{aligned}
+\frac{1}{n}\E\left[\vu_s^\top\mA_1\vu_s\right] & =  \vzeros \\
+\frac{1}{n}\E\left[\vu_s^\top\mA_2\vu_s\right] & =  \vzeros
+	\end{aligned}
+\end{equation}
+%
+or more general
+
+\begin{equation}\label{eq:moment_conditions_reduced_u_b}
+\frac{1}{n}\E\left[\vu^\top\left(\mI - \lambda \mM^\top\right)\mA_q\left(\mI - \lambda \mM^\top\right)\vu\right] = 0
+\end{equation}
+%
+where $q = 1, 2$. Note that:
+
+\begin{equation}\label{eq:mom-rev-1}
+\begin{aligned}
+  \frac{1}{n}\vepsi^\top\mA_q\vepsi & = \frac{1}{n}\left(\vu - \lambda \vu_L\right)^\top\mA_q\left(\vu - \lambda \vu_L\right) \\
+                               & = \frac{1}{n}\vu^\top\mA_q\vu - \frac{1}{n}\lambda\left(\vu^\top\mA_q\vu_L + \vu_L^\top\mA_q\vu\right) +\frac{1}{n}\lambda^2\vu_L^\top\mA_q\vu_L \\
+                               & = \frac{1}{n}\vu^\top\mA_q\vu - 2\frac{1}{n}\lambda\vu_L^\top\mA_q\vu +\frac{1}{n}\lambda^2\vu_L^\top\mA_q\vu_L \\
+                               & = \vzeros
+\end{aligned}
+\end{equation}
+
+In the third line of Equation \ref{eq:mom-rev-1}, we assume that $\mA_q$ is symmetric such that:
+
+\begin{equation*}
+\begin{aligned}
+\vu^\top\mA_q\vu_L + \vu_L^\top\mA_q\vu & = \vu_L^\top \mA_q^\top\vu + \vu_L\mA_q\vu \\
+                                        & = \vu_L^\top\left(\mA_q + \mA_q^\top\right) \vu \\
+                                        & = 2\vu_L^\top\mA_q\vu
+                                        \end{aligned}
+\end{equation*}
+
+Here it is important to note that in some cases $\mA_2 = \mM$ might not be symmetric. However, we can use Definition \ref{def:quad-form} and set:
+
+\begin{equation}\label{eq:trick-A2}
+\mA_2 = (1/2)\left(\mM + \mM^\top\right)
+\end{equation}
+
+Taking expectation over (\ref{eq:mom-rev-1}):
+
+\begin{equation*}
+  \begin{aligned}
+ \frac{1}{n}\E\left(\vepsi^\top\mA_q\vepsi\right) & = n^{-1}\E\left(\vu^\top\mA_q\vu \right) - 2n^{-1}\lambda\E\left(\vu_L^\top\mA_q\vu\right) + \lambda^2n^{-1}\E\left(\vu_L^\top\mA_1\vu_L\right) \\
+ \vzeros & = n^{-1}\E\left(\vu^\top\mA_q\vu \right) - \begin{pmatrix}
+                                                           2n^{-1}\E\left(\vu_L^\top\mA_q\vu\right) &   -n^{-1}\E\left(\vu_L^\top\mA_q\vu_L\right)  
+                                                       \end{pmatrix}
+                                                       \begin{pmatrix}
+                                                        \lambda \\
+                                                        \lambda^2
+                                                       \end{pmatrix}
+ \end{aligned}
+\end{equation*}
+
+Then,  we have the following system of equations for $q = 1, 2$ (see \citep[][pag 56]{kelejian2010specification}):
+
+\begin{equation}\label{eq:system-gmm-general}
+\begin{aligned}
+  \begin{pmatrix}
+    n^{-1}\E\left(\vu^\top\mA_1\vu \right)  \\
+    n^{-1}\E\left(\vu^\top\mA_2\vu \right) 
+  \end{pmatrix} -
+  \begin{pmatrix}
+    2n^{-1}\E\left(\vu_L^\top\mA_1\vu\right) &   -n^{-1}\E\left(\vu_L^\top\mA_1\vu_L\right)   \\
+    2n^{-1}\E\left(\vu_L^\top\mA_2\vu\right) &   -n^{-1}\E\left(\vu_L^\top\mA_2\vu_L\right)
+  \end{pmatrix}
+  \begin{pmatrix}
+  \lambda \\
+  \lambda^2
+  \end{pmatrix}
+  & = \vzeros \\
+    \begin{pmatrix}
+    n^{-1}\E\left(\vu^\top\mA_1\vu \right)   \\
+    n^{-1}\E\left(\vu^\top\vu_L \right) 
+  \end{pmatrix}-
+  \begin{pmatrix}
+    2n^{-1}\E\left(\vu^\top\mM^\top\mA_1\vu\right) &   -n^{-1}\E\left(\vu^\top\mM^\top\mA_1\mM\vu\right)   \\
+    n^{-1}\E\left(\vu_L^\top\left(\mM + \mM^\top\right)\vu\right) &   -n^{-1}\E\left(\vu^\top\mM^\top\mA_2\mM\vu\right)
+  \end{pmatrix} & = \vzeros \\
+  \vgamma_n - \mGamma_n\valpha_n &= \vzeros. 
+\end{aligned}
+\end{equation}
+%
+where we use Equation (\ref{eq:trick-A2}) for the second moment. Now, we can express the \textbf{sample moment conditions} as in Section \ref{section:Moment_Condtions}:
+
+\begin{equation*}
+	\underset{2 \times 1}{\widetilde{\vm}} = \underset{2 \times 1}{\widetilde{\vg}} - \underset{2 \times 2}{\widetilde{\mG}}\begin{pmatrix}\lambda \\ \lambda^2\end{pmatrix} = \vzeros
+\end{equation*}
+
+The elements of $\widehat{\vg}$ the following:
+
+
+\begin{eqnarray*}
+	\widetilde{\vg}_1  &=& \frac{1}{n}\widetilde{\vu}^\top\mA_1\widetilde{\vu} \\
+\widetilde{\vg}_2  &=&  \frac{1}{n}\widetilde{\vu}^\top\mA_2\widetilde{\vu}   =  \frac{1}{n} \widetilde{\vu}^\top\widetilde{\vu}_L
+\end{eqnarray*}
+
+The $\widehat{\mG}$ matrix is given by:
+
+\begin{eqnarray}
+\widetilde{\mG}_{11} &=& 2n^{-1}\widetilde{\vu}^\top\mM^\top\mA_1\widetilde{\vu} \\
+\widetilde{\mG}_{12} &=& -n^{-1}\widetilde{\vu}^\top\mM^\top\mA_1\mM\widetilde{\vu} \\
+\widetilde{\mG}_{21} &=& -n^{-1}\widetilde{\vu}^\top\mM^\top\left(\mA_2 + \mA_2^\top\right)\widetilde{\vu} \\
+\widetilde{\mG}_{22}&=& -n^{-1}\widetilde{\vu}^\top\mM\mA_2\mM\widetilde{\vu}
+\end{eqnarray}
+
+A more compact notation is:
+
+\begin{equation*}
+\begin{aligned}
+\widetilde{\mG} & = \frac{1}{n}
+                    \begin{pmatrix}
+                      \widetilde{\vu}^\top\left(\mA_1 + \mA^\top_1\right)\widetilde{\vu}_s & - \widetilde{\vu}^\top_s\mA_1\widetilde{\vu}^\top_s \\
+                      \vdots & \vdots \\
+                      \widetilde{\vu}^\top\left(\mA_q + \mA^\top_q\right)\widetilde{\vu}_s & - \widetilde{\vu}^\top_s\mA_q\widetilde{\vu}^\top_s
+                    \end{pmatrix} \\
+\widetilde{\vg} & = \frac{1}{n}\begin{pmatrix}
+                                \widetilde{\vu}^\top\mA_1\widetilde{\vu} \\
+                                \vdots \\
+                                \widetilde{\vu}^\top\mA_q\widetilde{\vu}
+                                \end{pmatrix}
+\end{aligned}
+\end{equation*}
+%
+for $q = 1, 2$.
+
+Now, let $\mPsi$ be $2\times 2$ matrix of variance-covariance matrix of the moment conditions $\frac{1}{n}\E\left[\vepsi^\top\mA_1\vepsi\right]$. Then, the using Equation \eqref{eq:var-quadratic-form} from  Lemma \ref{lemma:second-mom-lee}:
+
+\begin{equation*}
+\psi_{s,r}=\frac{1}{2n}\tr\left[\left(\mA_s + \mA_s^\top\right)\mSigma\left(\mA_r + \mA_r^\top\right)\mSigma\right]+\frac{1}{n}\vmu^\top\left(\mA_1 + \mA_1^\top\right)\mSigma\left(\mA_2 + \mA_2^\top\right)\vmu
+\end{equation*}
+%
+where $s,r = 1,2$ correspond to the moment conditions; $\mSigma$ is a diagonal matrix in the heteroskedasticity case with elements:
+
+\begin{equation*}
+\widehat{\epsilon}_i^2 = (\widetilde{u}_i - \lambda\widetilde{u}_{L_i})^2 = \widetilde{u}_{s_i}^2
+\end{equation*}
+
+
+
+% The variance of the moments is the following:
+% 
+% \begin{equation*}
+% \begin{aligned}
+%   \E\left[\frac{1}{n}(\vu^\top_s\mA_r\vu_s)\frac{1}{n}(\vu^\top_s\mA_q\vu_s)^\top\right] & = \frac{1}{n^2}\E\left[\vu_s^\top\mA_r\vu_s\vu_s^\top\mA_q^\top\vu_s\right]
+% \end{aligned}
+% \end{equation*}
+
+
+
+\begin{remark}
+	\cite{kelejian1999generalized} show consistency of the Method of Moment estimator of $\lambda$, but not asymptotic normality of the estimator.
+\end{remark}	
+
+
+
+%----------------------------------
+\subsection{Assumptions}
+%----------------------------------
+
+Now we will state the assumption for the SAC model under heteroskedasticity following \cite{arraiz2010spatial}. The assumptions regarding the spatial weight matrix are the following:
+
+\begin{assumption}[Spatial Weights Matrices \citep{arraiz2010spatial}]\label{assump:w_matri_gmm}
+	Assume the following:
+	\begin{enumerate}
+		\item All diagonal elements $\mW_n$ and $\mM_n$ are zero.
+		\item $\lambda\in (-1, 1)$, $\rho \in (-1, 1)$.
+		\item The matrices $\mI_n - \rho \mW_n$ and $\mI_n - \lambda \mM_n$ are nonsingular for all $\lambda\in (-1, 1)$ and $\rho \in (-1, 1)$.
+	\end{enumerate}
+\end{assumption}	
+
+Assumption \ref{assump:w_matri_gmm}(a) is a normalization rule: a region cannot be a neighbor of itself. Assumption \ref{assump:w_matri_gmm}(b) has to do with the parameter space. This assumption is discussed by \citet[section 2.2]{kelejian2010specification}. Assumption \ref{assump:w_matri_gmm}(c) ensures that $\vy$ and $\vu$ are uniquely defined. Thus, under assumption \ref{assump:w_matri_gmm} (Spatial Weight Matrices), we can write the model as:
+
+\begin{equation*}
+	\begin{aligned}
+	\vy_n  & = \left(\mI_n - \rho \mW_n\right)^{-1}\left[\mX_n\vbeta + \vu_n\right] \\
+	\vu_n  & = \left(\mI_n -  \rho \mM_n\right)^{-1}\vepsi_n.
+	\end{aligned}
+\end{equation*}
+
+The reduced form is:
+
+\begin{equation*}
+\vy = (\mI - \rho\mW)^{-1}\mX\vbeta +(\mI -\rho\mW)^{-1}(\mI - \lambda\mM)^{-1}\vepsi 
+\end{equation*}
+
+The reduced form represents a system of $n$ simultaneous equations. As in the standard spatial lag model, we can include endogenous explanatory variables on the right hand side of model specification. In this case:
+
+\begin{equation*}
+\vy = \rho\mW\vy + \mX\vbeta + \mY\vgamma + \left(\mI - \lambda\mW\right)^{-1}\vepsi. 
+\end{equation*}
+
+
+\begin{assumption}[Heteroskedastic Errors  \citep{arraiz2010spatial}]\label{assump:error_hete_gmm} 
+	The error term  $\left\lbrace\epsilon_{i,n}: 1 \leq i \leq n, n\geq 1\right\rbrace$ satisfy $\E(\epsilon_{i,n}) = 0$, $\E(\epsilon_{i,n}^2) = \sigma^2_{i,n}$, with $0 < \underline{a}^\sigma \leq \sigma^2_{i,n}\leq \overline{a}^\sigma<\infty$. Furthermore, for each $n\geq 1$ the random variables $\epsilon_{1,n},...., \epsilon_{n,n}$ are totally independent.  
+\end{assumption}
+
+Assumption \ref{assump:error_hete_gmm} allows the innovations to be heteroskedastic with uniformly bounded variances. This assumption also allows for the innovations to depend on the sample size $n$, i.e., to form a triangular arrays. 
+
+\begin{assumption}[Bounded Spatial Weight Matrices \citep{arraiz2010spatial}]\label{assump:bounded_matrices_hetgmm}
+		 The row and column sums of the matrices $\mW_n$ and $\mM_n$ are bounded uniformly in absolute value, by , respectively, one and some finite constant, and the row and column sums of the matrices $(\mI_n - \rho\mW_n)^{-1}$ and  $(\mI - \rho\mM_n)^{-1}$ are bounded uniformly in absolute value by some finite constant.
+\end{assumption}	
+
+This assumption is a technical assumption, which is used in large-sample derivation of the regression parameter estimator. This assumption limits the extent of spatial autocorrelation between $\vu$ and $\vy$. It ensures that the disturbance process and the process of the dependent variable exhibit a ``fading'' memory. Note that:
+
+\begin{equation}
+\begin{aligned}
+\E\left[\vu_n \right] & = \E\left[\left(\mI_n - \lambda \mM_n\right)^{-1}\vepsi_n\right]  \\
+             & = \left(\mI_n - \lambda \mM_n\right)^{-1} \E\left[\vepsi_n\right] \\
+             & = \vzeros \;\;\;\mbox{by Assumption \ref{assump:error_hete_gmm} (Heteroskedastic Errors)}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+	\E\left[\vu_n\vu^\top_n\right] & = \E\left[\left(\mI_n - \lambda \mM_n\right)^{-1}\vepsi_n\vepsi^\top_n\left(\mI_n - \lambda \mM^\top_n\right)^{-1}\right] \\
+	& = \left(\mI_n - \lambda \mM_n\right)^{-1}\E\left[\vepsi_n\vepsi^\top_n\right]\left(\mI - \lambda \mM^\top_n\right)^{-1} \\
+	& = \left(\mI_n - \lambda \mM_n\right)^{-1}\mSigma\left(\mI_n - \lambda \mM^\top_n\right)^{-1}
+\end{aligned}
+\end{equation}
+%
+where $\mSigma = \diag(\sigma^2_{i,n})$.
+
+\begin{assumption}[Regressors \citep{arraiz2010spatial}]\label{assump:no_multi_gmmhet}
+The regressor matrices $\mX_n$ have full column rank (for $n$ large enough). Furthermore, the elements of the matrices $\mX_n$ are uniformly bounded in absolute value.
+\end{assumption}
+
+This assumption rules out multicollinearity problems, as well as unbounded exogenous variables. 
+
+\begin{assumption}[Instruments I \citep{arraiz2010spatial}] The instruments matrices $\mH_n$ have full column rank $L \geq K + 1$ (for all $n$ large enough). Furthermore, the elements of the matrices $\mH_n$ are uniformly bounded in absolute value. Additionally, $\mH_n$ is assumed to, at least, contain the linearly independent columns of $(\mX_n, \mM_n\mX_n)$
+\end{assumption}
+
+
+There are some papers that discuss the use of optimal instruments for the spatial \citep[see for example][]{lee2003best, das2003finite, Keliejian2004, lee2007gmm}.
+
+\begin{remark}
+The effect of the selection of instruments on the efficiency of the estimators remains to be further investigated.
+\end{remark}
+
+\begin{assumption}[Instruments II (Identification) \citep{arraiz2010spatial}]\label{assumption:instruments-arraiz} 
+
+The instruments $\mH_n$ satisfy furthermore:
+
+\begin{enumerate}
+\item $\mQ_{HH} = \lim_{n \to \infty}n^{-1}\mH_n^\top\mH_n$ is finite and nonsingular.
+\item $\mQ_{HZ} = \plim_{n \to \infty}n^{-1}\mH_n^\top\mZ_n$ and $\mQ_{HMZ} = \plim_{n \to \infty}n^{-1}\mH_n^\top\mM\mZ_n$ are finite and have full column rank. Furthermore $\mQ_{HZ,s}(\lambda) = \mQ_{HZ}-\lambda \mQ_{HMZ}$ has full column rank.
+\item $\mQ_{H\Sigma H} = \lim_{n \to \infty}n^{-1}\mH_n^\top\Sigma_n\mH_n$ is finite and nonsingular, where $\mSigma_n= \diag(\sigma^2_{i,n})$
+\end{enumerate}
+\end{assumption}
+
+In treating $\mX_n$ and $\mH_n$ as non-stochastic our analysis should be viewed as conditional on $\mX_n$ and $\mH_n$.
+
+
+%-----------------------------------------------------
+\subsection{Estimators and Estimation Procedure in a Nutshell}
+%----------------------------------------------------
+
+Consider again the transformed model:
+
+\begin{equation*}
+  \vy_s(\lambda_0) = \mZ_s(\lambda_0)\vdelta_0 + \epsilon
+\end{equation*}
+%
+where $\vy_s(\lambda_0) = \vy - \lambda_0\mM\vy$ and $\mZ_s(\lambda_0) = \mZ - \lambda_0\mM\mZ$. If we would know $\lambda_0$, then we could apply the S2SLS to the transformed model. However, $\lambda_0$ is unknown and therefore we need to estimate it in a first place in order to estimate $\vdelta$. The steps will be:
+
+\begin{enumerate}
+  \item An initial IV estimator of $\delta$ leads to a set of consistent residuals.
+  \item With these residuals, derive the moment conditions that provide a consistent estimate  of $\lambda_0$ using GMM Estimation procedure.
+  \item The estimate of $\lambda_0$ is then used to define a \textbf{weighting matrix} for the moment conditions in order to obtain a consistent and efficient estimator. 
+  \item An estimate of $\delta_0$ is obtained from the \textbf{transformed model}.
+  \item Finally, a \textbf{consistent and efficient} estimate of $\lambda$ is based on GS2SLS residuals. 
+\end{enumerate}
+
+These steps are shown in Figure \ref{figure:flowchart}.
+
+
+\begin{figure}[ht]
+\caption{Estimation steps for SAC model}\label{figure:flowchart}
+\centering
+    \begin{tikzpicture}[FlowChart,
+    node distance = 5mm and 7mm,
+      start chain = A going below
+                        ]
+% nodes in chain                        
+\node [startstop] {\textbf{Obtain a consistent estimate of $\widehat{\lambda}$}};                 % node name: A-1
+\node [process]   {\textbf{Estimate S2SLS}:\\
+                     $\widetilde{\delta}_{2SLS} = \left(\widetilde{\mZ}^\top\mZ\right)^{-1}\widetilde{\mZ}^\top\vy$\\
+                     and get $\widehat{\vu}_{2SLS}$};        
+\node [process]   {\textbf{Initial GMM estimator of $\lambda$}:\\
+                   Use $\widehat{\vu}_{2SLS}$ to obtain $\breve{\lambda}_{GMM}$};
+\node [process]   {\textbf{Efficient GMM estimator of $\lambda$}:\\
+                   Use $\widehat{\vu}_{GMM}$ to compute \\
+                   the weighting matrix $\widetilde{\mPsi}$\\
+                   and obtain $\widetilde{\lambda}_{OGMM}$};          
+\node [startstop] {\textbf{Obtain a consistent estimate of $\widehat{\vdelta}$}};  
+\node [process]   {\textbf{Estimate FGS2SLS  using $\widetilde{\lambda}_{OGMM}$}:\\
+
+                     $\widehat{\vdelta}_{FGS2SLS } = \left[\widehat{\mZ}_{s}^\top \mZ\right]^{-1}  \widehat{\mZ}_{s}^\top \vy_s$\\
+                     and get $\widehat{\vu}_{FGS2SLS }$};     
+\node [process]   {\textbf{Efficient GMM estimator of $\lambda$ using} :\\
+                   Use $\widehat{\vu}_{FGS2SLS}$ to compute \\
+                   the weighting matrix $\widetilde{\mPsi}$\\
+                   and obtain $\widetilde{\lambda}_{OGMM}$};                    % A-7
+        \end{tikzpicture}
+\end{figure}
+
+
+Now we will consider each step in detail:
+
+
+%***************************************
+\subsubsection{Step 1a: 2SLS estimator}\label{sec:step-s2slsestimator}
+%***************************************
+
+In the first step, $\vdelta$ is estimated by 2SLS applied to \textbf{untransformed model}  $\vy = \mZ\vdelta + \vu$ using the instruments matrix $\mH$. Then:
+
+
+\begin{equation}
+\widetilde{\delta}_{2SLS} = \left(\widetilde{\mZ}^\top\mZ\right)^{-1}\widetilde{\mZ}^\top\vy
+\end{equation}
+%
+where $\widetilde{\mZ} = \mH\left(\mH^\top\mH\right)^{-1}\mH^\top\mZ = \mP_H\mZ = (\mX, \widetilde{\mW\vy})$. The estimates $\widetilde{\delta}_{2SLS}$ yield an initial vector of residuals, $\vu_{2SLS}$ as:
+
+\begin{equation}
+\widetilde{\vu}_{2SLS} = \vy - \mZ\widetilde{\delta}_{2SLS}
+\end{equation}
+
+The following Theorem states that $\widetilde{\vdelta}_{2SLS}$ is consistent:
+
+\begin{theorem}[Consistency of $\widetilde{\vdelta}_{2SLS}$ \citep{kelejian2010specification}]\label{teo:Consistency-2sls}
+Suppose the assumptions hold. Then $\widetilde{\vdelta}_{2SLS} = \vdelta + O_p(n^{-1/2})$, and hence $\widetilde{\vdelta}_{2SLS}$ is consistent for $\vdelta_0$:
+\begin{equation*}
+\widetilde{\vdelta}_{2SLS}\pto \vdelta_0
+\end{equation*}
+\end{theorem}
+
+\begin{proof}[Sketch of proof for Theorem \ref{teo:Consistency-2sls}]
+The model is:
+
+\begin{equation*}
+\begin{aligned}
+	\vy_n & = \mZ_n\vdelta + \vu_n,\\
+	\vu_n & = \lambda \mM_n \vu_n + \vepsi_n.
+\end{aligned}
+\end{equation*}
+
+
+The sampling error is given by:
+
+\begin{equation*}
+  \begin{aligned}
+     \widehat{\vdelta}_n & =  \vdelta_0 + \left(\widehat{\mZ}^\top_n\widehat{\mZ}_n\right)^{-1}\widehat{\mZ}^\top_n\vu_n \\
+     & = \vdelta_0 + \left[\left(\mH_n(\mH_n^\top\mH)^{-1}\mH_n^\top\mZ_n\right)^\top\left(\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right)\right]^{-1}\left(\mH_n(\mH_n^\top\mH_n)^{-1}\mH_n^\top\mZ_n\right)^\top\vu_n\\
+     & = \vdelta_0 + \left[\mZ^\top_n \mH_n (\mH^\top_n\mH_n)^{-1}\mH^\top_n\mZ_n\right]^{-1}\mZ^\top_n\mH_n(\mH^\top_n\mH_n)^{-1}\mH^\top_n\left(\mI -\lambda\mM_n\right)^{-1}\vepsi_n
+  \end{aligned}
+\end{equation*}
+
+ Solving for $\widehat{\vdelta}_{n} - \vdelta_0$ and multiplying by $\sqrt{n}$ we obtain:
+
+\begin{equation*}
+\begin{aligned}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) & = \left[\left(\frac{1}{n}\mH^\top_n\mZ_n \right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n \right)\right]^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n \right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\frac{1}{\sqrt{n}}\mH^\top_n\left(\mI -\lambda\mM_n\right)^{-1}\vepsi_n \\
+             & = \left[\left(\frac{1}{n}\mH^\top_n\mZ_n \right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n \right)\right]^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n \right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\frac{1}{\sqrt{n}}\mF_n^\top\vepsi_n,
+\end{aligned}
+\end{equation*}
+%
+where:
+
+\begin{equation*}
+\mF_n^\top = \mH^\top_n\left(\mI -\lambda\mM_n\right)^{-1} = \mbox{whose elements are bounded in absolute value}
+\end{equation*}
+
+Assumption \ref{assumption:instruments-arraiz} implies that:
+
+\begin{equation*}
+\begin{aligned}
+  \lim \frac{1}{n}\mH_n^\top\mH_n &= \mQ_{HH}, \\
+  \plim \frac{1}{n}\mH_n^\top\mZ_n & = \mQ_{HZ},
+\end{aligned}
+\end{equation*}
+%
+which are finite and nonsingular. 
+
+Furthermore, note that $\E(n^{-1/2}\mF_n^\top\vepsi_n) = \vzeros$ and 
+
+\begin{equation*}
+\begin{aligned}
+\E\left[(n^{-1/2}\mF_n^\top\vepsi_n)(n^{-1/2}\mF_n^\top\vepsi_n)^\top\right] & = \frac{1}{n}\E\left[\mH_n^\top\left(\mI -\lambda\mM_n\right)^{-1}\vepsi\vepsi^\top\left(\mI -\lambda\mM_n^\top\right)^{-1} \mH_n \right] \\
+& = \sigma^2\frac{1}{n}\mH_n^\top\left(\mI -\lambda\mM_n\right)^{-1}\left(\mI -\lambda\mM_n^\top\right)^{-1} \mH_n 
+\end{aligned}
+\end{equation*}
+
+Assume that 
+
+\begin{equation*}
+\lim_{n\to\infty}\frac{1}{n}\mH_n^\top\left(\mI -\lambda\mM_n\right)^{-1}\left(\mI -\lambda\mM_n^\top\right)^{-1} \mH_n = \frac{1}{n}\mF^\top_n\mF_n =\mPhi\quad \mbox{exists}
+\end{equation*}
+
+Then assuming homocedasticity and using Theorem \ref{teo:Asymptotic-FGLS}:
+
+\begin{equation*}
+n^{-1/2}\mF_n^\top\vepsi_n\dto \rN(\vzeros, \sigma^2_{\epsilon}\mPhi)
+\end{equation*}
+
+Therefore:
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vdelta}_{n} - \vdelta_0) \dto \rN(\vzeros, \mDelta)
+\end{equation*}
+%
+and
+
+\begin{equation*}
+  \mDelta = \sigma^2_{\epsilon}\left[\mQ_{HZ}^\top\mQ_{HH}^{-1}\mQ_{HZ}\right]^{-1}\mQ_{HZ}^\top\mQ_{HH}^{-1}\mPhi\mQ_{HH}^{-1}\mQ_{HZ}\left[\mQ_{HZ}^\top\mQ_{HH}^{-1}\mQ_{HZ}\right]^{-1}
+\end{equation*}
+
+Then we can say that $\widetilde{\vdelta} = \vdelta + O_p(n^{-1/2})$. 
+
+Consistency follows if $n^{-1}\mF_n^\top\vepsi_n\pto \vzeros$. Note that $\E(n^{-1}\mF_n^\top\vepsi_n) = \vzeros$ and 
+
+\begin{equation*}
+\var\left(n^{-1}\mF_n^\top\vepsi_n\right)=\sigma^2\frac{1}{n^2}\mH_n^\top\left(\mI -\lambda\mM_n\right)^{-1}\left(\mI -\lambda\mM_n^\top\right)^{-1} \mH_n 
+\end{equation*}
+%
+which converges to $\vzeros$, then using Chebyshev's Theorem \ref{teo:chebyshev}:
+
+\begin{equation*}
+  n^{-1}\mF_n^\top\vepsi_n\pto \vzeros\quad\mbox{and hence}\quad \widetilde{\vdelta}_n\pto\vdelta_0
+\end{equation*}
+
+
+\end{proof}
+
+
+Although $\widetilde{\delta}_{2SLS}$ is consistent, it does not utilize information relating to the spatial correlation error term. We therefore turn to the second step of the procedure. (Question: Why we cannot use the OLS residuals for the next step?)
+
+
+%**********************************************************************************
+\subsubsection{Step 1b: Initial GMM estimator of $\lambda$ based on 2SLS residuals}
+%**********************************************************************************
+
+Using the consistent estimate $\vu$ in the previous step, now we create the sample moments  corresponding to (\ref{eq:moment_conditions_reduced_u_b}) for $q= 1, 2$ based on the estimated residuals, and $\widetilde{\vu}_s = \mM\widetilde{\vu}$:
+
+\begin{equation}\label{eq:momdent_conditions_step}
+	\begin{aligned}
+		\vm(\lambda,\widetilde{\vdelta}_{2SLS}) & = \frac{1}{n}
+		\begin{pmatrix}
+		\widetilde{\vu}_{2SLS}^\top \left(\mI - \lambda\mM^\top\right)\mA_1\left(\mI - \lambda\mM\right)\widetilde{\vu}_{2SLS} \\
+		\widetilde{\vu}_{2SLS}^\top \left(\mI - \lambda\mM^\top\right)\mA_2\left(\mI - \lambda\mM\right)\widetilde{\vu}_{2SLS}
+		\end{pmatrix} \\
+		& = \widetilde{\mG}\begin{pmatrix} \lambda \\
+                \lambda^2
+\end{pmatrix} - \widetilde{\vg}
+	\end{aligned}
+\end{equation}
+%
+where,
+
+\begin{equation*}
+\begin{aligned}
+\widetilde{\mG} & = \frac{1}{n}
+                    \begin{pmatrix}
+                      \widetilde{\vu}^\top\left(\mA_1 + \mA^\top_1\right)\widetilde{\vu}_s & - \widetilde{\vu}^\top_s\mA_1\widetilde{\vu}^\top_s \\
+                      \vdots & \vdots \\
+                      \widetilde{\vu}^\top\left(\mA_q + \mA^\top_q\right)\widetilde{\vu}_s & - \widetilde{\vu}^\top_s\mA_q\widetilde{\vu}^\top_s
+                    \end{pmatrix} \\
+\widetilde{\vg} & = \frac{1}{n}\begin{pmatrix}
+                                \widetilde{\vu}^\top\mA_1\widetilde{\vu} \\
+                                \vdots \\
+                                \widetilde{\vu}^\top\mA_q\widetilde{\vu}
+                                \end{pmatrix}
+\end{aligned}
+\end{equation*}
+
+
+The initial GMM estimator for $\lambda$ is then defined as
+
+\begin{equation}
+\breve{\lambda}_{gmm} = \underset{\lambda}{\argmin}\left\lbrace \left[\widetilde{\mG}\begin{pmatrix} \lambda \\
+                \lambda^2
+\end{pmatrix} - \widetilde{\vg} \right]^\top \left[\widetilde{\mG}\begin{pmatrix} \lambda \\
+                \lambda^2
+\end{pmatrix} - \widetilde{\vg} \right]\right\rbrace
+\end{equation}
+%
+where $\mUpsilon^{\lambda\lambda} = \mI$. This estimator is consistent but not efficient. For efficiency we need to replace $\mUpsilon^{\lambda\lambda}$ by the variance-covariance matrix of the sample moments. Furthermore, the expression above can be interpreted as a nonlinear least squares system of equations. The initial estimate is thus obtained as a solution of the above system. 
+
+Now, we need to define the expression for the matrices $\mA_s$. \cite{drukker2013two} suggest, for the homokedastic case, the following expressions:
+
+\begin{equation*}
+  \begin{aligned}
+    \mA_1 & = \upsilon \left[\mM^\top\mM - \frac{1}{n}\tr\left(\mM^\top\mM\right)\mI\right]\\ 
+    \mA_2 & = \mM
+  \end{aligned}
+\end{equation*}
+%
+where $\upsilon$ is the scaling factor needed to obtain the same estimator of \cite{kelejian1998generalized, kelejian1999generalized}. 
+
+On the other hand, when heteroskedasticity is assumed, \cite{kelejian2010specification} recommend the following expressions:
+
+
+\begin{equation*}
+\begin{aligned}
+\mA_1 & = \mM^\top\mM  - \diag(\mM^\top\mM) \\
+\mA_2 & = \mM
+\end{aligned}
+\end{equation*}
+
+
+
+%**********************************************************************************
+\subsubsection{Step 1c: Efficient GMM estimator of $\lambda$ based on 2SLS residuals}
+%**********************************************************************************
+
+The efficient GMM estimator of $\lambda$ is a weighted nonlinear least squares estimator. Specifically, this estimator is $\widetilde{\lambda}$ where:
+
+\begin{equation}\label{eq:nonlinear-gmm-lambda}
+\widetilde{\lambda}_{ogmm} = \underset{\lambda}{\argmin} \left[\vm(\lambda,\widetilde{\vdelta})^\top\widetilde{\mPsi}^{-1}\vm(\lambda,\widetilde{\vdelta}) \right]
+\end{equation}
+%
+and where the weighting matrix is $\widetilde{\mPsi}^{-1}_n$, where $\mPsi$ is the variance of the moment conditions $\vm(\lambda,\widetilde{\vdelta})$. 
+
+
+The matrix $\widetilde{\mPsi}^{-1}_n= \widetilde{\mPsi}^{-1}_n (\breve{\lambda}_{gmm})$ is defined as follows. Let $\widetilde{\mPsi} = \left[\widehat{\Psi}_{rs}\right]_{r,s = 1, 2}$ with
+
+\begin{equation}
+\widetilde{\Psi}_{rs} = (2n)^{-1}\tr\left[(\mA_r + \mA_r^\top)\widetilde{\mSigma}(\mA_s + \mA_s^\top)\widetilde{\mSigma}\right] + n^{-1}\widetilde{\va}_r^\top\widetilde{\mSigma}\widetilde{\va}_s,
+\end{equation}
+%
+where:
+
+\begin{equation}
+  \begin{aligned}
+    \widetilde{\mSigma}  & = \diag_{i=1,...,n}\left(\widetilde{\epsilon}_i^2\right) \\
+    \widetilde{\epsilon} & = \left(\mI - \breve{\lambda}_{gmm}\mM \right)\widetilde{\vu} \\
+    \widetilde{\va}_r & = \left(\mI - \breve{\lambda}_{gmm}\mM \right)\mH\widetilde{\mP}\widetilde{\valpha}_r \\
+    \widetilde{\valpha}_r & = - n^{-1}\left[\mZ^\top\left(\mI - \breve{\lambda}_{gmm}\mM \right)(\mA_r + \mA_r^\top)\left(\mI - \breve{\lambda}_{gmm}\mM \right)\widetilde{\vu}\right] \\
+    \widetilde{\mP} & = \left(\frac{1}{n}\mH^\top\mH\right)^{-1}\left(\frac{1}{n}\mH_n^\top\mZ_n \right)\left[\left(\frac{1}{n}\mH^\top\mZ \right)^\top\left(\frac{1}{n}\mH^\top\mH\right)^{-1}\left(\frac{1}{n}\mH^\top\mZ \right)\right]^{-1}
+  \end{aligned}
+\end{equation}
+
+It is important to note that this step is not necessary since the previous estimator of $\lambda$ is already consistent. 
+
+
+
+
+% \begin{proof}[Sketch of proof for Theorem \ref{teo:asymptotic-lambda-gm}]
+% Recall that the empirical moments are:
+% 
+% \begin{equation*}
+%   \vm_n = \widetilde{\vg}_n - \widetilde{\mG}_n\begin{pmatrix}
+%                                                     \lambda \\
+%                                                     \lambda ^2
+%                                                 \end{pmatrix} . 
+% \end{equation*}
+% 
+% The objective function to maximize is (note the negative):
+% 
+% \begin{equation*}
+% Q_n(\widetilde{\lambda}_n, \Delta_n) = -\frac{1}{2}\vm_n(\widetilde{\lambda}_n, \Delta_n)^\top\widetilde{\mUpsilon}_n\vm_n(\widetilde{\lambda}_n, \Delta_n).
+% \end{equation*}
+% 
+% We apply now the Mean Value Theorem to the first-order condition for maximization to $\vm_n$. Assuming that $\widetilde{\lambda}$ is an interior point, the first order conditions for maximization of the objective function is:
+% 
+% \begin{equation}\label{eq:proof_rho_dis2}
+%   \frac{Q_n(\widetilde{\lambda}_n, \Delta_n) }{\partial \lambda} = \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\vm_n(\widetilde{\lambda}_n, \Delta_n) = 0.
+% \end{equation}
+% 
+% Now apply the Mean Value Theorem to $\vm_n(\widetilde{\lambda}_n, \Delta_n)$ around the true parameter $\lambda$ to obtain the mean value expansion:
+%  
+% \begin{equation}\label{eq:proof_rho_dis2}
+%   \vm_n(\widetilde{\lambda}_n, \Delta_n) = \vm_n(\lambda, \Delta_n) + \frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda}\left(\widetilde{\lambda}_n-\lambda\right).
+% \end{equation}
+% 
+% Substituting (\ref{eq:proof_rho_dis2}) into (\ref{eq:proof_rho_dis2}), we obtain:
+% 
+% \begin{equation}
+% \begin{aligned}
+%  \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\left[\vm_n(\lambda, \Delta_n) + \frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda}\left(\widetilde{\lambda}_n-\lambda\right)\right] & = 0 \\
+%   \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\vm_n(\lambda, \Delta_n) +  \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda}\left(\widetilde{\lambda}_n-\lambda\right)   & = 0 
+%  \end{aligned}
+% \end{equation}
+% 
+% Solving for  $\left(\widetilde{\lambda}_n-\lambda\right)$ we obtain:
+% 
+% \begin{equation}\label{eq:proof_rho_dis3}
+%   \begin{aligned}
+%   \left(\widetilde{\lambda}_n-\lambda\right) = -\left[\frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda}\left(\widetilde{\lambda}_n-\lambda\right)\right]^{-1}\left[\frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\vm_n(\lambda, \Delta_n)\right] \\
+%   \sqrt{n}\left(\widetilde{\lambda}_n-\lambda\right) = -\left[\frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda}\sqrt{n}\left(\widetilde{\lambda}_n-\lambda\right)\right]^{-1}\left[\frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\sqrt{n}\vm_n(\lambda, \Delta_n)\right] 
+%   \end{aligned}
+% \end{equation}
+% 
+% Note that:
+% 
+% \begin{equation*}
+% \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda} = \frac{\partial \left(\widetilde{\vg}_n - \widetilde{\mG}_n\begin{pmatrix}
+%                                                     \lambda \\
+%                                                     \lambda ^2
+%                                                 \end{pmatrix}  \right)}{\partial \lambda} =  - \widetilde{\mG}\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \lambda
+%                                                 \end{pmatrix}
+% \end{equation*}
+% 
+% To reduce notation let:
+% 
+% \begin{equation*}
+%   \begin{aligned}
+%   \widetilde{\mXi}& = \frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\frac{\partial \vm_n(\bar{\lambda}, \Delta_n)}{\partial \lambda} \\
+%      & = \left[- \widetilde{\mG}\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \widetilde{\lambda}
+%                                                 \end{pmatrix}\right]^\top\widetilde{\mUpsilon}_n\left[- \widetilde{\mG}\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \bar{\lambda}\end{pmatrix}\right] \\
+%       & = \begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \widetilde{\lambda}
+%                                                 \end{pmatrix}^\top \widetilde{\mG}_n^\top\widetilde{\mUpsilon}_n\widetilde{\mG}_n\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \bar{\lambda}
+%                                                 \end{pmatrix}
+%   \end{aligned}
+% \end{equation*}
+% %
+% and
+% 
+% \begin{equation*}
+% \mXi  =\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \lambda
+%                                                 \end{pmatrix}^\top \mGamma_n^\top\mUpsilon_n\mGamma_n\begin{pmatrix}
+%                                                     1 \\
+%                                                     2 \lambda
+%                                                 \end{pmatrix}
+% \end{equation*}
+% 
+% It can be proved that $\widetilde{\mG}\pto \mGamma$ and $\widetilde{\mG}=O_p(1)$ and $\mGamma = O(1)$. It can be also shown that $\widetilde{\vg}\pto \vgamma$, with $\widetilde{\vg}=O_p(1)$ and $\vgamma = O(1)$. Since both $\bar{\lambda}$ and $\widetilde{\lambda}$ are consistent, then
+% 
+% \begin{equation*}
+% \end{equation*}
+% 
+% Then, Equation (\ref{eq:proof_rho_dis3}) can be written as:
+% 
+% \begin{equation}
+%    \sqrt{n}\left(\widetilde{\lambda}_n-\lambda\right) = -\left[\widetilde{\mXi}\sqrt{n}\left(\widetilde{\lambda}_n-\lambda\right)\right]^{-1}\left[\frac{\partial \vm_n(\widetilde{\lambda}_n, \Delta_n)}{\partial \lambda}^\top\widetilde{\mUpsilon}_n\sqrt{n}\vm_n(\lambda, \Delta_n)\right] 
+% \end{equation}
+% 
+% \end{proof}
+
+
+%**********************************************************************************
+\subsubsection{Step 2a: FGS2SLS Estimator}
+%**********************************************************************************
+
+Using $\breve{\lambda}_{ogmm}$ from step 1c (or the consistent estimator from step 1b) in the transformed model we have:
+
+\begin{equation}
+  \widehat{\vdelta}_n(\widetilde{\lambda}_{ogmm} ) = \left[\widehat{\mZ}_{s}^\top(\widetilde{\lambda}_{ogmm}) \mZ(\widetilde{\lambda}_{ogmm})\right]^{-1}  \widehat{\mZ}_{s}^\top(\widetilde{\lambda}_{ogmm}) \vy_s(\widetilde{\lambda}_{ogmm})
+\end{equation}
+%
+where
+
+\begin{equation}
+  \begin{aligned}
+    \vy_s & = \vy - \widetilde{\lambda}_{ogmm}\mM\vy \\
+    \mZ_s & = \mZ - \widetilde{\lambda}_{ogmm}\mM\mZ \\
+    \widehat{\mZ}_s & = \mP_H\mZ_s \\
+    \mP_H & = \mH\left(\mH^\top\mH\right)^{-1}\mH^\top
+  \end{aligned}
+\end{equation}
+
+
+%**********************************************************************************
+\subsubsection{Step 2b: Efficient GMM estimator of $\lambda$ using FGS2SLS  residual}
+%**********************************************************************************
+
+In this last step, and \textbf{efficient} GMM estimator of $\lambda$ based on the GS2SLS residuals is obtained by minimizing the following expression:
+
+
+\begin{equation}
+\widehat{\lambda} = \underset{\lambda}{\argmin}\left\lbrace \left[\widehat{\mG}
+\begin{pmatrix} \lambda \\
+                \lambda^2
+\end{pmatrix}
+- \widehat{\vg} \right]^\top (\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}})^{-1} \left[\widehat{\mG}\begin{pmatrix} \lambda \\
+                \lambda^2
+\end{pmatrix} - \widehat{\vg} \right]\right\rbrace
+\end{equation}
+%
+where $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}$ is an estimator for the variance-covariance matrix of the (normalized) sample moment vector based on the GS2SLS residuals. This estimator differs for the cases of homoskedastic and heteroskedastic errors.
+
+For the \textbf{homoskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}$ is given by:
+
+\begin{equation}
+\begin{aligned}
+  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} & = \left[\widetilde{\sigma}^2\right]^2(2n)^{-1}\tr\left[\left(\mA_r + \mA_r^\top\right)\left(\mA_s + \mA_s^\top\right)\right] \\
+& + \widetilde{\sigma}^2n^{-1}\widetilde{\va}_r^\top\widetilde{\va}_s^\top \\
+& + n^{-1}\left(\widetilde{\mu}^{(4)} - 3\left[\widetilde{\sigma}^2\right]^2\right)\vec_D\left(\mA_r\right)^\top\vec_D\left(\mA_s\right) \\
+& + n^{-1}\widetilde{\mu}^{(3)}\left[\widetilde{\va}_r^\top\vec_D\left(\mA_s\right) + \widetilde{\va}_s^\top\vec_D\left(\mA_r\right)\right],
+\end{aligned}
+\end{equation}
+%
+where
+
+\begin{equation}
+  \begin{aligned}
+    \widetilde{\va}_r & = \widehat{\mT}\widetilde{\alpha}_r \\
+    \widehat{\mT} & = \mH\widehat{\mP}, \\
+    \widehat{\mP} & = \widehat{\mQ}_{HH}^{-1}\widehat{\mQ}_{HZ}\left[\widehat{\mQ}_{HZ}^\top\widehat{\mQ}_{HH}^{-1} \widehat{\mQ}_{HZ}^\top\right]^{-1} \\
+    \widehat{\mQ}_{HH}^{-1} & = \left(n^{-1}\mH^\top\mH\right), \\
+  \widehat{\mQ}_{HZ} & = \left(n^{-1}\mH^\top\mZ\right), \\
+  \mZ & = \left(\mI - \widetilde{\lambda}\mM\right)\mZ, \\
+  \widetilde{\alpha}_r & = - n^{-1}\left[\mZ^\top\left(\mA_r + \mA_r^\top\right)\widehat{\vepsi}\right] \\
+  \widehat{\sigma}^2 & = n^{-1}\widehat{\vepsi}\widehat{\vepsi}, \\
+  \widehat{\mu}^{(3)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^3 , \\
+  \widehat{\mu}^{(4)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^4.
+  \end{aligned}
+\end{equation}
+
+For the \textbf{heteroskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}$ is given by:
+
+\begin{equation}
+  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} = (2n)^{-1}\tr\left[\left(\mA_r + \mA_r^\top\right)\widehat{\mSigma}\left(\mA_s + \mA_s^\top\right)\widehat{\mSigma}\right]  + n^{-1}\widetilde{\va}_r^\top\widehat{\mSigma}\widetilde{\va}_s^\top,
+\end{equation}
+%
+where, $\widehat{\mSigma}$ is a diagonal matrix whose $i$th diagonal element is $\widehat{\epsilon}_i^2$. 
+
+
+%\subsubsection{GMM Estimation of $\lambda$}
+
+%The GMM estimation approach employs the following simple quadratic moment conditions, based on the assumption that $\epsilon_i$ are i.i.d $(0, \sigma^2)$ (See Section \ref{section:Moment_Condtions}):
+
+%\begin{equation*}
+%  \E\left[n^{-1}\vepsi^\top\vepsi\right] = 0,\quad \E\left[n^{-1}\bar{\vepsi}^\top\bar{\vepsi}\right] = \sigma^2n^{-1}\tr\left(\mM^\top\mM\right),\quad \E\left[n^{-1}\bar{\vepsi}^\top\bar{\vepsi}\right] = 0,
+%\end{equation*}
+%
+%with $\bar{\vepsi} = \mM\vepsi$. Substituting out $\sigma^2$ yields the following two quadratic moment conditions:
+
+%\begin{equation}\label{eq:mom_intr_a}
+%  \begin{aligned}
+%    \E\left[\frac{1}{n}\vepsi^\top\mA_1\vepsi\right] & = 0 \\
+%    \E\left[\frac{1}{n}\vepsi^\top\mA_2\vepsi\right] & = 0
+%  \end{aligned}
+%\end{equation}
+%
+%with
+
+%\begin{equation}
+%  \begin{aligned}
+%    \mA_1 & = \mM^\top\mM - \frac{1}{n}\tr\left(\mM^\top\mM\right)\mI, \\
+%    \mA_2 & = \mM.
+%  \end{aligned}
+%\end{equation}
+
+%It can be shown that $\tr(\mA_q)= 0$ in (\ref{eq:mom_intr_a}) for $q = 1, 2$, but $\diag(\mA_1)\neq 0$. \cite{kelejian2010specification} relax the assumption that the innovations are homoskedastic and allow for heteroskedasticity of unknown form. More specifically, they consider the case where the $\epsilon_i$ are independently distributed $(0, \sigma^2_i)$ with $\sigma_i^2$ unknown. For this case they consider the following modified version of the above moment conditions where
+
+%\begin{equation}
+%  \begin{aligned}
+%    \mA_1 & = \mM'\mM - \frac{1}{n}\diag\left(\mM^\top\mM\right), \\
+%    \mA_2 & = \mM.
+%  \end{aligned}
+%\end{equation}
+
+%After some math, the moment conditions can also be written as
+
+%\begin{equation}
+%  \E\left[\frac{1}{n}\vu^\top \left(\mI - \lambda_0\mM^\top\right)\mA_q\left(\mI - \lambda_0\mM^\top\right)\vu \right]= 0\quad q = 1, 2
+%\end{equation}
+
+%Now let $\widetilde{\vdelta}$ be \textbf{some initial and consistent estimator} for $\delta_0$ and let $\widetilde{\vu} = \vy - \mZ\widetilde{\vdelta}$. Then the sample moments are:
+
+%\begin{equation}
+%\vg_n^{\lambda}(\lambda, \widetilde{\vdelta}) =n^{-1}\begin{pmatrix}
+%                                                          \widetilde{\vu}^\top \left(\mI - \lambda\mM^\top\right)\mA_1\left(\mI - \lambda\mM^\top\right)\widetilde{\vu} \\
+%                                                          \widetilde{\vu}^\top \left(\mI - \lambda\mM^\top\right)\mA_2\left(\mI - \lambda\mM^\top\right)\widetilde{\vu}
+%                                                      \end{pmatrix}
+%\end{equation}
+
+%The two-step GMM estimator is given by:
+
+%\begin{equation}
+%  \widehat{\lambda} = \underset{\lambda}{\argmin}\quad \vg_n(\lambda, \widetilde{\vdelta})^\top \mUpsilon^{\lambda\lambda}_n\vg_n(\lambda, \widetilde{\vdelta})
+%\end{equation}
+%
+%where $\mUpsilon^{\lambda\lambda}$ is the optimal weight matrix. The efficient choice for $\mUpsilon^{\lambda\lambda}_n$ will generally depend on the estimator $\widetilde{\vdelta}$ employed in the estimation of the disturbances. 
+
+
+
+
+%===========================
+\section{Application in R}
+%===========================
+
+In this example we will use the \textbf{simulated} US Driving Under the Influence (DUI) county data set used in \cite{drukker2011command}. The dependent variable \code{dui} is defined as the alcohol-related arrest rate per 100,000 daily vehicle miles traveled (DVMT). The explanatory variables include 
+
+\begin{itemize}
+  \item \code{police}: number of sworn officers per 100,000 DVMT,
+  \item \code{nondui}: non-alcohol-related arrests per 100,000 DVMT,
+  \item \code{vehicles}: number of registered vehicles per 1,000 residents, and
+  \item \code{dry}: a dummy for counties that prohibit alcohol sale within their borders
+\end{itemize}
+
+We load the required packages and dataset:
+
+<<>>=
+library("maptools") 
+library("spdep")  
+library("sphet")
+# Load Data
+us_shape <- readShapeSpatial("ccountyR")  # Load shape file
+names(us_shape)                           # Names of variables in dbf
+# Load weight matrix
+queen.w <- read.gal("ccountyR_w.gal")
+lw <- nb2listw(queen.w, style = "W")
+@
+
+
+\subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
+
+
+First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
+
+<<gs2sls>>=
+GS2SLS <- gstsls(dui ~ police + nondui + vehicles + dry,
+                 data = us_shape,
+                 listw = lw)
+summary(GS2SLS)
+@
+
+The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
+
+\subsection{SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}\index{GS2SLS!spreg function}
+
+The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
+
+
+<<>>=
+G2SLS_en_in <- spreg(dui ~ nondui + vehicles + dry,
+                data = us_shape,
+                listw = lw,
+               endog = ~ police,
+               instruments = ~ elect, 
+               model = "sarar", 
+               het = FALSE, 
+               lag.instr = TRUE)
+summary(G2SLS_en_in)
+@
+
+
+
+
+An important issue here is that \textbf{the optimal instrument are unknown}. It is not recommended the inclusion of the spatial lag of these additional exogenous variables in the matrix of instruments. However, results reported in ? do consider the spatial lags of \code{elect}. 
+
+Now we assume that the error are heteroskedastic of unknown form. 
+
+
+
+
+
+\section*{Appendix}
+
+
+\begin{subappendices}
+
+%-----------------------------------------------------------------
+\section{Proof Theorem 3 in KP 1998}
+%-----------------------------------------------------------------
+
+Recall that the GS2SLS is given by:
+
+\begin{equation}
+  \widehat{\vdelta}_n = \left[\widehat{\mZ}_s(\lambda)^\top\widehat{\mZ}_s(\lambda)\right]^{-1}\widehat{\mZ}_s(\lambda)^\top\vy_s(\lambda)
+\end{equation}
+
+Whereas, the FGS2SLS is given by:
+
+\begin{equation}
+  \widehat{\vdelta}_{F, n} = \left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\widehat{\mZ}_s(\widehat{\lambda})^\top\vy_s(\widehat{\lambda})
+\end{equation}
+%
+where
+
+\begin{equation}
+  \begin{aligned}
+    \widehat{\mZ}_s(\widehat{\lambda}_n) & = \mP_{H_n}\mZ_s(\widehat{\lambda}_n) \\
+    \mZ_s(\widehat{\lambda}_n) & = \mZ_n - \widehat{\lambda}_n\mM_n\mZ_n \\
+    \vy_s(\widehat{\lambda}_n) & = \vy_n - \widehat{\lambda}_n\mM_n\vy_n \\
+    \widehat{\mZ}_s(\widehat{\lambda}_n) & = \left(\mX_n - \widehat{\lambda}_n\mM_n\mX_n, \mW_n\vy_n - \widehat{\widehat{\lambda}_n\mM_n}\mW_n\vy_n\right) \\
+    \widehat{\widehat{\lambda}_n\mM_n}\mW_n\vy_n & = \mP_{H_n}\left(\mW_n\vy_n - \widehat{\lambda}_n\mM_n\mW_n\vy_n\right).
+ \end{aligned}
+\end{equation}
+
+The sampling error is:
+
+\begin{equation}
+  \widehat{\vdelta}_{F, n} - \vdelta = \left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\widehat{\mZ}_s(\widehat{\lambda})^\top\vu_s(\widehat{\lambda}_n)
+\end{equation}
+%
+where:
+
+\begin{equation}
+  \begin{aligned}
+    \vu_s(\widehat{\lambda}_n) & = (\mI - \widehat{\lambda}_n)\vu \\
+                               & = (\mI - \widehat{\lambda}_n)\vu + \vepsi_n - \vepsi_n \\
+                               & = \vepsi_n  + (\mI - \widehat{\lambda}_n\mM_n)\vu - (\mI - \lambda\mM_n)\vu \\
+                               & = \vepsi_n  + \vu  - \widehat{\lambda}_n\mM_n\vu - \vu + \lambda\mM_n\vu \\
+                               & = \vepsi_n - \left(\widehat{\lambda}_n- \lambda\right)\mM_n\vu_n
+  \end{aligned}
+\end{equation}
+
+Then:
+
+\begin{equation}
+  \begin{aligned}
+    \widehat{\vdelta}_{F, n} - \vdelta & = \left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\widehat{\mZ}_s(\widehat{\lambda})^\top\left[\vepsi_n - \left(\widehat{\lambda}_n- \lambda\right)\mM_n\vu_n\right] \\
+     & = \left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\widehat{\mZ}_s(\widehat{\lambda})^\top\vepsi_n - \left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\widehat{\mZ}_s(\widehat{\lambda})^\top\left(\widehat{\lambda}_n- \lambda\right)\mM_n\vu_n \\
+     & = \left[\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\vepsi_n - \left[\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\left(\widehat{\lambda}_n- \lambda\right)\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\mM_n\vu_n \\
+ \sqrt{n} (\widehat{\vdelta}_{F, n} - \vdelta)   & = \left[\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\vepsi_n - \left[\frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\left(\widehat{\lambda}_n- \lambda\right)\frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\mM_n\vu_n
+  \end{aligned}
+\end{equation}
+
+By consistency $\widehat{\lambda}_n- \lambda = o_p(1)$. Now, we need to show that: 
+
+\begin{equation}\label{eq:proofT3_1}
+  \frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\pto \frac{1}{n}\widehat{\mZ}_s(\lambda)^\top\widehat{\mZ}_s(\lambda) = \bar{\mQ}
+\end{equation}
+
+\begin{equation}\label{eq:proofT3_2}
+  \frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\vepsi_n\dto \rN(\vzeros, \sigma^2_{\epsilon}\bar{\mQ}),
+\end{equation}
+
+\begin{equation}\label{eq:proofT3_3}
+\left(\widehat{\lambda}_n- \lambda\right)\frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\mM_n\vu_n \pto 0
+\end{equation}
+%
+where:
+
+\begin{equation}
+  \bar{\mQ} = \left[\mQ_{HZ} - \lambda \mQ_{mHZ}\right]^\top \mQ_{HH}^{-1}\left[\mQ_{HZ} - \lambda \mQ_{mHZ}\right]
+\end{equation}
+%
+is finite and nonsingular. For \ref{eq:proofT3_1}, note that:
+
+\begin{equation}
+\begin{aligned}
+  \frac{1}{n}\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda}) & = \frac{1}{n}\left(\mZ_n - \widehat{\lambda}_n\mM_n\mZ_n\right)^\top\mP_{H_n}\left(\mZ_n - \widehat{\lambda}_n\mM_n\mZ_n\right) \\
+  & =  \frac{1}{n}\left(\mZ_n - \widehat{\lambda}_n\mM_n\mZ_n\right)^\top\mH_n\left(\mH_n^\top\mH\right)^{-1}\mH_n^\top\left(\mZ_n - \widehat{\lambda}_n\mM_n\mZ_n\right) \\
+  & =  \left(\underbrace{\frac{1}{n}\mZ_n^\top \mH_n}_{\pto \mQ_{HZ}^\top} - \underbrace{\widehat{\lambda}_n}_{\pto \lambda}\frac{1}{n}\underbrace{\mZ_n^\top\mM_n^\top\mH_n}_{\pto \mQ_{HMZ}^\top}\right)\underbrace{\left(\frac{1}{n}\mH_n^\top\mH\right)^{-1}}_{\to \mQ_{HH}^{-1}}\underbrace{\left(\frac{1}{n}\mH_n^\top\mZ_n  - \widehat{\lambda}_n\frac{1}{n}\mH_n^\top\mM_n\mZ_n\right)}_{\pto \mQ_{HZ}-\lambda\mQ_{HMZ}}
+\end{aligned}
+\end{equation}
+
+For \ref{eq:proofT3_2}, note that:
+
+\begin{equation}
+\begin{aligned}
+   \frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\vepsi_n & = \frac{1}{\sqrt{n}}\left(\mZ_n -\widehat{\lambda}_n\mM_n\mZ_n\right)^\top\mP_{H_n}\vepsi \\
+                                                                     & = \left(\underbrace{\frac{1}{n}\mZ_n^\top \mH_n}_{\pto \mQ_{HZ}^\top} - \underbrace{\widehat{\lambda}_n}_{\pto \lambda}\frac{1}{n}\underbrace{\mZ_n^\top\mM_n^\top\mH_n}_{\pto \mQ_{HMZ}^\top}\right)\underbrace{\left(\frac{1}{n}\mH_n^\top\mH\right)^{-1}}_{\to \mQ_{HH}^{-1}}\underbrace{\frac{1}{\sqrt{n}}\mH_n^\top\vepsi_n}_{\dto \rN(\vzeros, \sigma^2_{\epsilon}\mQ_{HH})}
+\end{aligned}
+\end{equation}
+
+For \ref{eq:proofT3_3} note that:
+
+\begin{equation}
+    \left(\widehat{\lambda}_n- \lambda\right)\frac{1}{\sqrt{n}}\widehat{\mZ}_s(\widehat{\lambda})^\top\mM_n\vu_n  = \underbrace{\left(\widehat{\lambda}_n- \lambda\right)}_{o_p(1)}\left(\underbrace{\frac{1}{n}\mZ_n^\top \mH_n}_{\pto \mQ_{HZ}^\top} - \underbrace{\widehat{\lambda}_n}_{\pto \lambda}\frac{1}{n}\underbrace{\mZ_n^\top\mM_n^\top\mH_n}_{\pto \mQ_{HMZ}^\top}\right)\underbrace{\left(\frac{1}{n}\mH_n^\top\mH\right)^{-1}}_{\to \mQ_{HH}^{-1}}\frac{1}{\sqrt{n}}\mH_n^\top\mM_n\vu_n
+\end{equation}
+
+Note that $\E\left(n^{-1/2}\mH_n^\top\mM_n\vu_n\right) = 0$ and $\E\left(n^{-1}\mH_n^\top\mM_n\vu_n\vu^\top_n\mM_n^\top\mH^\top_n\right) = n^{-1} \mH_n^\top\mM_n\mSigma_{u_n}\mM_n^\top\mH^\top_n$, whose elements are bounded, where
+
+\begin{equation*}
+\mSigma_{u_n} = \sigma^2_{\epsilon}\left(\mI - \lambda\mM_n\right)^{-1}\left(\mI - \lambda\mM_n^\top\right)^{-1}
+\end{equation*}
+
+Then $\frac{1}{\sqrt{n}}\mH_n^\top\mM_n\vu_n = O_p(1)$ and finally
+
+\begin{equation}
+   \sqrt{n} (\widehat{\vdelta}_{F, n} - \vdelta)\dto \rN(\vzeros, \sigma^2_{\epsilon}\bar{\mQ}^{-1})
+\end{equation}
+
+The small sample approximation is
+
+\begin{equation}
+  \widehat{\vdelta}_{F, n} \sim \rN\left(\vdelta, \widehat{\sigma}^2\left[\widehat{\mZ}_s(\widehat{\lambda})^\top\widehat{\mZ}_s(\widehat{\lambda})\right]^{-1}\right)
+\end{equation}
+%
+where:
+
+\begin{equation}
+  \widehat{\sigma}^2 = \widehat{\vepsi}^\top\widehat{\vepsi} / n
+\end{equation}
+
+and $\widehat{\vepsi} = \vy_s(\widehat{\lambda}) - \mZ_{s}(\widehat{\lambda})\widehat{\vdelta}_{F}$.
+
+\end{subappendices}
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+\chapter{Monte Carlo Studies}
+
+
+A numer of summary measures can be computed after the simulation experiment. If $\theta$ represents the true value of  a parameter and $\widehat{\theta}_s (s = 1,...,S)$ represents the estimated value for replication $s$, the the statistics are:\footnote{See for example \cite{guilkey1993estimation}}
+
+\begin{enumerate}
+  \item Bias:
+      \begin{equation}
+        BIAS = \frac{1}{S}\sum_{s=1}^S(\widehat{\theta}_s - \theta)
+      \end{equation}
+  \item Root mean squared error:
+        \begin{equation}
+          RMSE = \frac{1}{S}\left[\sum_{s=1}^S\left(\widehat{\theta}_s - \theta\right)^2\right]^{1/2}
+        \end{equation}
+  \item Mean absolute deviation:
+        \begin{equation}
+          MAD = \frac{1}{S}\sum_{s=1}^S\left|\widehat{\theta}_s - \theta\right|
+        \end{equation}
+  \item Standard deviation:
+        \begin{equation}
+          SD = \frac{1}{S-1}\left[\sum_{s=1}^S\left(\widehat{\theta}_s - \bar{\widehat{\theta}}\right)^2\right]^{1/2}
+        \end{equation}
+  \item The average estimated standard error of $\widehat{\theta}_i$
+        \begin{equation}
+          ASD = \frac{1}{S}\sum_{s= 1}^S SE(\widehat{\theta}_i)
+        \end{equation}
+        
+        where $SE(\widehat{\theta}_i)$ is the standard error of $\widehat{\theta}_i$ estimated at each replication of the experiment using the appropiate covariance matrix.
+  \item The mean and variance of
+        \begin{equation}
+          t_i = \frac{\widehat{\theta}_i - \theta}{SE(\widehat{\theta})_i}
+        \end{equation}
+    \item The proportion of rejections (REJECTS) at the 5\% level of significance of the null hypothesis at $\theta = 0$ against a two-sided alternative.    
+\end{enumerate}
+
+%-------------------------------------------------
+\section{Assessing the Properties of Moran's I}
+%-------------------------------------------------

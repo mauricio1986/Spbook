@@ -1,0 +1,348 @@
+%--------------------Font-------------------
+\usepackage[english]{babel} % English language/hyphenation
+
+%\usepackage{avant} % Use the Avantgarde font for headings
+%\usepackage{times} % Use the Times font for headings
+%\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Symbol, Chancery and Computer Modern fonts
+
+%\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage[utf8]{inputenc} % Required for including letters with accents
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{lmodern}
+%\usepackage{txfonts}
+
+%\usepackage[tracking]{microtype}
+
+%\usepackage[sc,osf]{mathpazo}   % With old-style figures and real smallcaps.
+%\linespread{1.025}              % Palatino leads a little more leading
+%---------------Math-----------------------
+\usepackage{amsmath, amssymb, bm, bbm, babel} % Math packages
+\input{ee.sty}
+
+%--------------References----------------------
+%\usepackage{natbib}
+%\usepackage[sorting=none, backend=biber]{biblatex} % load the package
+%\addbibresource{EconometricB.bib} % add a bib-reference file
+
+\usepackage{natbib}
+%\usepackage{chapterbib}
+%\usepackage{caption}
+
+%\usepackage[firstinits=true,
+%            bibencoding=inputenc,
+%            hyperref=auto,
+%            pagination=none,
+            %style=standard,
+%            refsection=chapter]
+%{biblatex}
+
+%\usepackage[refsegment=chapter, defernumbers=true, style = natbib]{biblatex}
+%\usepackage[backend=biber, refsegment=chapter, defernumbers=true]{biblatex}
+
+%\addbibresource{RefOLS.bib}
+%\addbibresource{RefAsy.bib}
+
+
+
+%-------------Numering-------------------
+\numberwithin{equation}{chapter} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{chapter} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{chapter} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\usepackage{enumerate}
+%----------- Ploting -----
+\usepackage{tikz}
+\usetikzlibrary{calc, trees, positioning, arrows, arrows.meta, fit, shapes, calc, decorations, chains, shapes.geometric, shapes.arrows, shadows, matrix, patterns}
+
+\tikzset{FlowChart/.style={
+startstop/.style = {rectangle, draw, fill=red!30,
+                    minimum width=3cm, minimum height=1cm,
+                    on chain, join=by arrow},
+  process/.style = {rectangle, rounded corners, draw, fill=blue!30,
+                    text width=5cm, minimum height=1cm, align=center,
+                    on chain, join=by arrow},
+ decision/.style = {diamond, aspect=1.3, draw, fill=green!30,
+                    minimum width=3cm, minimum height=1cm, align=center,
+                    on chain, join=by arrow},
+    arrow/.style = {thick,-Triangle}
+        }
+}
+
+\usepackage{pgfplots}
+\usepackage{array}
+%\usepackage{pgflotstable}
+\usepackage{xcolor} % Required for specifying colors by name
+\usepackage{adjustbox}
+
+
+%----------Others
+\usepackage{dcolumn}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{longtable}
+\usepackage[titletoc]{appendix}
+
+\raggedbottom %footnote problem
+\allowdisplaybreaks
+
+
+%----------------Format pages-------------------
+\usepackage[right=2.5cm,
+           left=2.5cm,
+           top=2cm,
+           bottom=2cm,
+           headsep=0.5cm,
+           footskip=0.5cm]{geometry}
+
+
+%==================================
+% ----THEOREM STYLES
+%==================================
+
+% Colors
+\usepackage{xcolor} % Required for specifying colors by name
+\definecolor{ocre}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
+
+\usepackage{amsfonts, amsthm} % For math equations, theorems, symbols, etc
+
+\newcommand{\intoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}}
+\newcommand{\ud}{\mathop{\mathrm{{}d}}\mathopen{}}
+\newcommand{\intff}[2]{\mathopen{[}#1\,;#2\mathclose{]}}
+\newtheorem{notation}{Notation}[chapter]
+
+% Boxed/framed environments
+\newtheoremstyle{ocrenumbox}% % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+
+\newtheoremstyle{blacknumex}% Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% Body font
+{} % Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily{\tiny\ensuremath{\blacksquare}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+\newtheoremstyle{blacknumbox} % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+% Non-boxed/non-framed environments
+\newtheoremstyle{ocrenum}% % Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+\makeatother
+
+% Defines the theorem text style for each type of theorem to one of the three styles above
+\newcounter{dummy} 
+\numberwithin{dummy}{chapter}
+\theoremstyle{ocrenumbox}
+\newtheorem{theoremeT}[dummy]{Theorem}
+\theoremstyle{ocrenumbox}
+\newtheorem{assumptionT}[dummy]{Assumption}
+\newtheorem{algorithmT}[dummy]{Algorithm}
+\newtheorem{problem}{Problem}[chapter]
+%\newtheorem{exerciseT}{Exercise}[chapter]
+\theoremstyle{blacknumex}
+\newtheorem{exampleT}{Example}[chapter]
+\theoremstyle{blacknumbox}
+\newtheorem{vocabulary}{Vocabulary}[chapter]
+\newtheorem{definitionT}{Definition}[section]
+\newtheorem{corollaryT}[dummy]{Lemma}
+\theoremstyle{ocrenum}
+\newtheorem{proposition}[dummy]{Proposition}
+
+
+%----------------------------------------------------------------------------------------
+%	DEFINITION OF COLORED BOXES
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[framemethod=default]{mdframed} % Required for creating the theorem, definition, exercise and corollary boxes
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=black!5,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{tBox}
+
+% Exercise box	  
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=ocre!10,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{eBox}	
+
+% Definition box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=0pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=0pt]{dBox}	
+
+% Corollary box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=gray,
+backgroundcolor=black!5,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=5pt]{cBox}
+
+% Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
+\newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
+\newenvironment{assumption}{\begin{tBox}\begin{assumptionT}}{\end{assumptionT}\end{tBox}}
+\newenvironment{algorithm}{\begin{tBox}\begin{algorithmT}}{\end{algorithmT}\end{tBox}}
+%\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				  
+\newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
+\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
+\newenvironment{lemma}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+
+%----------------------------------------------------------------------------------------
+%	REMARK ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
+\begin{list}{}{
+\leftmargin=35pt % Indentation on the left
+\rightmargin=25pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+
+
+%-------------------Links------------------------
+%Put hyperref always at the last part
+
+\usepackage{hyperref}
+\hypersetup{hidelinks,
+  linkcolor=ocre,
+  citecolor=ocre,
+  backref=true,
+  pagebackref=true,
+  hyperindex=true, 
+  colorlinks=true,
+  breaklinks=true,
+  urlcolor=ocre,
+  bookmarks=true,
+  bookmarksopen=false, 
+  pdftitle={Title},
+  pdfauthor={Author}}
+
+
+
+\usepackage{bookmark}
+\bookmarksetup{
+open,
+numbered,
+addtohook={%
+\ifnum\bookmarkget{level}=0 % chapter
+\bookmarksetup{bold}%
+\fi
+\ifnum\bookmarkget{level}=-1 % part
+\bookmarksetup{color=ocre,bold}%
+\fi
+}
+}
+
+%%---------- Commands for R from jss
+\newcommand\code{\bgroup\@makeother\_\@makeother\~\@makeother\$\@codex}
+\def\@codex#1{{\normalfont\ttfamily\hyphenchar\font=-1 #1}\egroup}
+\let\code=\texttt
+\let\proglang=\textsf
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
+
+
+%%======= Make Index ========
+\usepackage{makeidx} % Required to make an index
+\makeindex % Tells LaTeX to create the files required for indexing
+
+\usepackage[Bjornstrup]{fncychap}
+
+%===== Note box =====
+\usepackage{tcolorbox}
+\newtcolorbox{mynote}{colback = ocre!10, colframe = ocre, title = Note}
+
+%===== Exercises =====
+\usepackage{enumitem}
+% New list for exercises
+\newlist{exercises}{enumerate}{2}
+
+\setlist[exercises]{%
+  label=\textbf{Exercise \thechapter.\arabic*}~,  % Label: Exercise C.E
+  ref=\thechapter.\arabic*, % References: C.E (important!)
+  align=left,               % Left align labels
+  labelindent=0pt,          % No space betw. margin of list and label
+  leftmargin=0pt,           % No space betw. margin of list and following lines
+  itemindent=!,             % Indention of item computet automatically
+}
+
+\setlist[enumerate, 1]{label=(\alph*)}            % Label for subexercises
+
+\newcommand{\exercise}{%
+  \item \label{lab:\arabic{chapter}.\arabic{exercisesi}}  % Append label to item
+}
+
+
+\newcommand{\labref}[1]{Exercise~\ref{#1}}
+

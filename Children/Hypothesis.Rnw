@@ -1,0 +1,796 @@
+\chapter{Hypothesis Testing}
+
+In the previous chapter we have presented the spatial autoregressive models, the intuition underlying their DGP, and their estimation by ML. At this stage the following question arises: which model is more convenient for empirical analysis? There exists two ways to proceed. The first way is to use a spatial model according to some theoretical considerations. The second approach suggests that a series of statistical test should be carried out on the different specifications of the spatial autocorrelation models to adopt the one that better control for spatial autocorrelation among residuals. 
+
+In this chapter we present some approaches to test whether the true spatial parameters are zero or not. In other words, we would like to assess the null $H_0:\lambda = 0$ or $H_0: \rho = 0$, under the alternative $H_1: \lambda \neq 0$ or $H_1:\rho \neq 0$.
+
+We first start with the Moran's $I$ statistic used to test whether there is some evidence of spatial autocorrelation in the error term. Then, we present several test based on the ML principle. 
+
+
+%=====================================================================================
+\section{Test for Residual Spatial Autocorrelation Based on the Moran I Statistic}
+%=====================================================================================
+
+
+\subsection{Cliff and Ord Derivation}
+
+Recall from Section \ref{sec:moransI} that the Moran's I test allows us assess whether the observed value of a variable at one location is independent of values of that variable at neighboring locations. One could also in principle apply the same test to the OLS residuals to assess whether some spatial autocorrelation remains. If the true DGP follows a spatial process, and we wrongly ignore it, then Moran's $I$ on the OLS residuals should detect this misspecification.
+
+A Moran $I$ statistic for spatial autocorrelation can be applied to regression residuals in a straightforward way. Formally, this $I$ statistic is:
+
+\begin{equation*}
+I = \left(\frac{n}{S_0}\right)\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
+\end{equation*}
+%
+where $\widehat{\vepsi}$ is a vector of OLS residuals, $\mW$ is a spatial weight matrix, $n$ is the number of observations and $S_0$ is a standardization factor, equal to the sum of all elements in the weight matrix. For a weight matrix that is normalized such that the row elements sum to one, expression (\ref{eq:I_Moran_res_1}) simplifies to:
+
+\begin{equation}\label{eq:I_Moran_res_2}
+I = \frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
+\end{equation}
+
+The asymptotic distribution for the Moran statistic with regression residuals was developed by \cite{cliff1972testing, cliff1973spatial}.  In particular, the following Theorem give us the moment of the Moran's $I$ statistic and its distribution.
+
+
+\begin{theorem}[Moran's $I$]\label{teo:Moran-for-residuals}
+Consider $H_0:$ no spatial autocorrelation, and assume that $\vepsi \sim \rN(\vzeros, \sigma^2\mI_n)$. Let the Moran's I statistic be:
+
+\begin{equation}\label{eq:I_Moran_res_1}
+I = \left(\frac{n}{S_0}\right)\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
+\end{equation}
+where $\widehat{\vepsi} = \vy - \mX\widehat{\vbeta}$ is a vector of OLS residuals, $\widehat{\vbeta} = (\mX^\top\mX)^{-1}\mX^\top\vy$,  $\mW$ is a spatial weight matrix, $n$ is the number of observations and $S_0$ is a standardization factor, equal to the sum of all elements in the weight matrix. Then, the moments under the null are:
+
+
+\begin{equation}
+\begin{aligned}
+  \E(I)   & = \frac{n}{S_0}\frac{\tr(\mM\mW)}{n - K} \\
+  \E(I^2) & = \frac{\left(\frac{n}{S_0}\right)^2\tr\left(\mM\mW\mM\mW^\top\right) + \tr\left(\mM\mW\right)^2 + \left[\tr(\mM\mW)\right]^2}{(n -K)(n-K+2)}
+\end{aligned}
+\end{equation}
+%
+where $\mM = \mI- \mX\left(\mX^\top\mX\right)^{-1}\mX^\top$. Then:
+
+\begin{equation}
+z_I = \frac{I - \E(I)}{\var(I)^{1/2}}\sim \rN(0, 1)
+\end{equation}
+%
+where $\var(I) = \E(I^2) - \E(I)^2$. 
+\end{theorem}
+
+%\begin{proof}[Sketch of Proof]
+%We need to derive the moments of (\ref{eq:I_Moran_res_1}) under the null hypothesis.  Recall that the OLS residuals can be expressed as $\widehat{\vepsi} = \mM \vepsi$. Furthermore, from your econometric class you should remember that
+
+%\begin{itemize}
+%  \item $\mM = \mI_n - \mX(\mX^\top \mX)^{-1}\mX^\top$, and that
+%  \item $\widehat{\vepsi}^\top \widehat{\vepsi} = \vepsi^\top \mM \vepsi \distr \chi^2(n - k)$
+%\end{itemize}
+
+%If $\mW$ is not standarized, then:
+
+%\begin{equation}
+%  \begin{aligned}
+%\E(I) & = \frac{n}{S_0}\E\left[\frac{(\mM\vepsi)^\top \mW \mM\vepsi}{(\mM\vepsi)^\top\mM\vepsi}\right] \\
+%      & = \frac{n}{S_0}\E\left[\frac{\vepsi^\top\mM^\top \mW \mM\vepsi}{\vepsi^\top\mM^\top\mM\vepsi}\right] \\
+%      & = \frac{n}{S_0}\frac{\E(\vepsi^\top\mM^\top \mW \mM\vepsi)}{\E(\vepsi^\top\mM^\top\mM\vepsi)} \\
+%      & = \frac{n}{S_0}\E\left[\frac{\vepsi^\top\mM^\top \mW \mM\vepsi}{\vepsi^\top\mM\vepsi}\right] \\
+%      & = \frac{n}{S_0}\frac{\E(\tr(\vepsi^\top\mM^\top \mW \mM\vepsi))}{\E(\tr(\vepsi^\top\mM^\top\mM\vepsi))} \\
+%      & = \frac{n}{S_0}\frac{\E(\tr( \vepsi\mM\mW\mM^\top\vepsi^\top ))}{\E(\tr(\vepsi\mM\vepsi^\top))} \\
+%      & = \frac{n}{S_0}\frac{\tr(\mM\mW)\E( \vepsi\vepsi^\top )}{\tr(M)\E(\vepsi\vepsi^\top))} \\
+%      & = \frac{n}{S_0}\frac{\tr(\mM\mW)\sigma^2}{(n - k)\sigma^2} \\
+%      & = \frac{n \tr(\mM\mW)}{S_0 (n - k)} .
+%  \end{aligned}
+%\end{equation}
+
+%Now, working in the secon moment we obtain: 
+
+%\begin{equation}
+%\begin{aligned}
+%\E(I^2)& = \E\left\lbrace\left[\left(\frac{n}{S_0}\right)\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}\right]^2\right\rbrace\\
+%& = \left(\frac{n}{S_0}\right)^2 \E\left\lbrace\left[\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}\right]^2\right\rbrace
+%\end{aligned}
+%\end{equation}
+
+
+%The theorem of \textbf{Pitman-Koopman} state that ---due to independence of $I$ and $\widehat{\vepsi}^\top\widehat{\vepsi}$---the moments of $I$ can be calculated separately calculating the moments of the numerator and the denominator:
+
+%\begin{equation}
+%\E\left(I^p\right) = \frac{\E\left[\left(\widehat{\vepsi}^\top\mW\widehat{\vepsi}\right)^p\right]}{\E\left[\left(\widehat{\vepsi}^\top\widehat{\vepsi}\right)^p\right]}.
+%\end{equation}
+
+%For the numerator we need to find $\E\left[\left(\widehat{\vepsi}^\top\widehat{\vepsi}\right)^2\right]$. Recall that if a variable $x\sim \chi^2(k)$, then $\E(x)= k$ and $\var(x) = \E(x^2) + (\E(x))^2 = 2k$. Then,  $\E(x^2) = 2k - k = k$. Since $\vepsi^\top\mW\vepsi \sim \chi^2(n-k)$, then  $\E\left[\widehat{\vepsi}^\top\widehat{\vepsi}\right] = (n - K)\sigma^2_{\epsilon}$.
+
+
+%\begin{equation}
+%\begin{aligned}
+% \E\left[\left(\widehat{\vepsi}^\top \mW\widehat{\vepsi}\right)^2\right] & = \E\left[\vepsi^\top\mM^\top \mW \mM\vepsi\vepsi\mM\mW^\top\mM^\top\vepsi^\top\right] \\
+% & = 
+%\end{aligned}
+%\end{equation}
+%\end{proof}
+
+According to \citet[][p. 102]{anselin1988spatial}, the interpretation of this test is not always straightforward, even though it is by far the most widely used approach. While the null hypothesis is obviously the absence of spatial dependence, a precise expression for the alternative hypothesis does not exists. Intuitively, the spatial weight matrix is taken to represent the pattern of potential spatial interaction that causes dependence, but the nature of the underlying DGP is not specified. Usually it is assumed to be of a spatial autoregressive form. However, the coefficient \ref{eq:I_Moran_res_2} is mathematically equivalent to an OLS regression of $\mW\widehat{\vepsi}$ on $\widehat{\vepsi}$, rather than for $\widehat{\vepsi}$ on $\mW\widehat{\vepsi}$, which would correspond to an autoregressive process as in SEM model.  In other words, Moran's I is a misspecification test that has power against a host of alternatives. This includes spatial error autocorrelation, but also residual correlation caused by a spatial lag alternative, and even heteroskedasticity!  Thus, the rejection of the null hypothesis of no spatial autocorrelation does not imply the alternative of spatial error autocorrelation, which is typically how this result is incorrectly interpreted. Specifically, Moran's I also has considerable power against a spatial lag alternative, so rejection of the null does not provide any guidance in the choice of a spatial error vs. a spatial lag as the alternative spatial regression specification. 
+
+
+\subsection{Kelijan and Prucha (2001) Derivation of Moran's $I$}
+
+More recently, \cite{kelejian2001asymptotic} have criticized Moran's $I$  measure, arguing that the normalizing factor used by \cite{cliff1972testing} to derive its expected value and the variance under the null of no spatial correlation is not theoretically justified. In fact, the denominator of  (\ref{eq:I_Moran_res_1}) represents the estimator of the standard deviation of the quadratic form appearing in the numerator and this can be proved to be inconsistent. With this motivation, \cite{kelejian2001asymptotic} proposed a different normalizing factor that removes this inconsistency and achieves the aim of normalizing the variance to unity. The Moran's I they proposed is the following:
+
+\begin{equation}
+  \bar{I} = \frac{\widehat{\vepsi}^\top\mW\widehat{\vepsi}}{\widetilde{\sigma}^2},
+\end{equation}
+%
+with $\widetilde{\sigma}^2$ being normalizing factor that depends on the particular model chosen as an alternative hypothesis. In particular, if the alternative hypothesis is constituted by a SEM, the normalizing factor assumes the expression:
+
+\begin{equation}
+  \widetilde{\sigma}^2 = \frac{\widehat{\vepsi}^\top\widehat{\vepsi}\left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}}{n}.
+\end{equation}
+
+As a consequence the test statistic can be defined as:
+
+\begin{equation}\label{eq:I_Moran_KP}
+  \bar{I}= \frac{n\widehat{\vepsi}^\top\mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}\left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}}.
+\end{equation}
+
+The two expressions reported in Equations (\ref{eq:I_Moran_res_1}) and (\ref{eq:I_Moran_KP}) coincide if the weight matrix has dichotomous entries in which case $w_{ij} = w_{ij}^2$ and, therefore, 
+
+\begin{equation*}
+  \sum_i\sum_j w_{ij} = \left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}.
+\end{equation*}
+
+In their paper,  \cite{kelejian2001asymptotic} prove that the modified Moran test $\bar{I}$ converges in distribution to a standardized normal distribution even when the priori assumption of the normality of the error is not satisfied. Even if in large samples $\bar{I}\sim \rN(0, 1)$, in small samples its expected value and variance may be different. 
+
+\subsection{Example}
+
+We will continue here with \cite{anselin1988spatial}'s example (see Section \ref{sec:Anselin-example}) and we analyze whether the regression residuals from a OLS model show evidence of some spatial autocorrelation. 
+
+To carry out the Moran's $I$ test on the residuals in \proglang{R} we need to pass the regression object and spatial weight object (\code{listw}) to the \code{lm.morantest} function. 
+
+<<moran-lm-test, warning = FALSE>>=
+# Moran test for residuals
+library("spdep")
+<<load-columbus>>
+listw <- nb2listw(col.gal.nb, style = "W")
+ols <- lm(CRIME ~ INC + HOVAL, 
+          data =  columbus)
+lm.morantest(ols, listw = listw, alternative = "two.sided")
+@
+
+The default setting in this function is to compute the p-value for one sided test. To get a two-sided test, the \code{alternative} argument must be specified explicitly. 
+
+The results show a Moran's $I$ statistic of  \code{0.212}, which is highly significant and reject the null hypothesis of uncorrelated error terms. 
+
+Recall that the Moran's $I$ statistic has high power against a range of alternatives. However, it does not provide much help in terms of which alternative model would be most appropriate.
+
+%=====================================
+\section{Common Factor Hypothesis}
+%=====================================
+
+The SEM model can be expanded and rewritten as follows:
+
+\begin{equation}\label{eq:sem_expan_for_sdm}
+  \begin{aligned}
+    \vy & = \mX\vbeta + (\mI_n - \lambda\mW)^{-1}\vepsi \\
+    (\mI_n - \lambda\mW)\vy &= (\mI_n - \lambda\mW)\mX\vbeta + \vepsi \\
+    \vy - \lambda\mW\vy &= (\mX - \lambda\mW\mX)\vbeta + \vepsi \\
+    \vy &= \lambda\mW\vy + \mX\vbeta - \mW\mX(\lambda\vbeta) + \vepsi
+  \end{aligned}
+\end{equation}
+%
+resulting in a model including not only the spatially lagged dependent variable, $\mW\vy$, but also the spatially lagged explanatory variables $(\mW\mX)$. Under some nonlinear restrictions we can see that (\ref{eq:sem_expan_for_sdm}) is equivalent to the SDM. The unconstrained form of the model---or the SDM model---is
+
+\begin{equation}\label{eq:sem_restricted}
+  \vy  = \gamma_1\mW\vy + \mX\vgamma_2 + \mW\mX\vgamma_3 + \vepsi,
+\end{equation}
+%
+where $\gamma_1$ is a scalar, $\vgamma_2$ is a $K\times 1$ vector (where $K$ is the number of explanatory variables, including the constant), and $\vgamma_3$ is also a $K\times 1$ vector. Note that  if $\vgamma_3 = -\gamma_1\vgamma_2$, then the SDM is equivalent to the SEM model. Note also that $\vgamma_3 = -\gamma_1\vgamma_2$ is a vector of $K\times 1$ nonlinear constraints of the form:
+
+\begin{equation}
+  \gamma_{3, k} = -\gamma_1\gamma_{2,k}, \quad \mbox{for}\quad k = 1,...,K.
+\end{equation}
+
+These conditions are usually formulated as a null hypothesis, designated as the \textbf{Common Factor Hypothesis}, and written as:
+
+\begin{equation}
+  H_0:\vgamma_3  + \gamma_1\vgamma_2 = \vzeros.
+\end{equation}
+
+If the constraints hold it follows that the SDM is equivalent to the SEM model. 
+
+%=====================================
+\section{Hausman Test: OLS vs SEM}
+%=====================================
+
+As we explained in Section \ref{sec:sem-ml}, OLS estimates for the parameters $\vbeta$ will be unbiased if the underlying DGP represents the SEM model, but standard errors from least-squares are biased. Since we are comparing two models that provide consistent estimates, but one is more efficient than the other, we can perform a Hausman test \citep{pace2008spatial}. 
+
+The idea behind the Hausman test is to compare two set of estimators that are consistent, but one of them is more efficient. Let $\widehat{\vbeta}_{OLS}$ and $\widehat{\vbeta}_{SEM}$ the estimated parameters with OLS and for the SEM model estimated, for example, via MLE. Then a natural test is to consider the difference between the two estimators: $\widehat{\vq}=\widehat{\vbeta}_{OLS}-\widehat{\vbeta}_{SEM}$. If the difference is `large', then there exists evidence against the $H_0:\widehat{\vbeta}_{OLS}=\widehat{\vbeta}_{SEM}$ suggesting misspecification and then the SEM model is more appropriate. If we cannot reject the null, it would be an indicator that spatially correlated omitted variables do not represent a problem or are not correlated with the explanatory variables. 
+
+
+The following definition provides the statistic and asymptotic distribution for the Hausman test. 
+
+%--------------------------------------------------
+\begin{definition}[Hausman Test] 
+Let $\widehat{\vbeta}_{OLS}$ and $\widehat{\vbeta}_{SEM}$ be OLS and SEM estimators. Define $\widehat{\vq} = \widehat{\vbeta}_{OLS}-\widehat{\vbeta}_{SEM}$, and
+
+\begin{equation}
+\var(\widehat{\vq})=\var(\widehat{\vbeta}_{OLS}) - \var(\widehat{\vbeta}_{SEM}).
+\end{equation}
+
+Then the Hausman statistic:
+
+\begin{equation}
+H=\widehat{\vq}^\top\left(\var(\widehat{\vq})\right)^{-1}\widehat{\vq}, 
+\end{equation}
+%
+is distributed asymptotically chi-square with $\#\beta$ degrees of freedom.
+\end{definition}
+%--------------------------------------------------
+
+The estimated variance-covariance matrix $\widehat{\vbeta}_{SEM}$ is given by (see Equation \ref{eq:asyvar_sem}):
+
+\begin{equation}
+\var(\widehat{\vbeta}_{SEM})=\widehat{\sigma}^2\left[\mX^\top\left(\mI_n-\lambda\mW\right)^\top\left(\mI_n-\lambda\mW\right)\mX\right]^{-1}.
+\end{equation}
+
+However, as shown by \cite{cordy1993efficiency}, the usual OLS variance-covariance matrix $\sigma^2\left(\mX^\top\mX\right)^{-1}$ is inconsistent under the null of a spatial error DGP. A consistent estimator of the OLS variance-covariance matrix under the spatial error DGP can be obtained as follows. Under the SEM model, the sampling error for the OLS estimator is:
+    
+    \begin{equation*}
+      \begin{aligned}
+        \widehat{\vbeta}_{OLS} & =\left(\mX^\top\mX\right)^{-1}\mX^\top\vy \\
+                         & = \left(\mX^\top\mX\right)^{-1}\mX^\top\left[\mX\vbeta_0 + \left(\mI - \lambda\mW\right)\vepsi\right]\\
+         \widehat{\vbeta}_{OLS} -\vbeta_0 & =   \left(\mX^\top\mX\right)^{-1}\mX^\top\mB\vepsi            
+      \end{aligned}
+    \end{equation*}
+    %
+    where $\mB = \left(\mI - \lambda\mW\right)$. Taking expectation, we get:
+    
+    \begin{equation*}
+      \begin{aligned}
+      \E\left[\widehat{\vbeta}_{OLS} -\vbeta_0\right] & = \E\left[\left(\mX^\top\mX\right)^{-1}\mX^\top\mB\vepsi \right] \\
+                                                & = \left(\mX^\top\mX\right)^{-1}\mX^\top\mB\E(\vepsi) \\
+                                                & = \vzeros
+      \end{aligned}
+    \end{equation*}
+    
+    So the OLS estimator is unbiased. For the variance, we obtain:
+    
+    \begin{equation}\label{eq:var-ols-sem}
+      \begin{aligned}
+        \var(\widehat{\vbeta}_{OLS}) & = \E\left[\widehat{\vbeta}-\E(\widehat{\vbeta})\right]^2 \\
+                               & = \E\left[\left(\mX^\top\mX\right)^{-1}\mX^\top\mB\vepsi\vepsi^\top\mB^\top\mX\left(\mX^\top\mX\right)^{-1}\right] \\
+                               & = \left(\mX^\top\mX\right)^{-1}\mX^\top\mB\E\left[\vepsi\vepsi^\top\right]\mB^\top\mX\left(\mX^\top\mX\right)^{-1} \\
+                               & = \sigma^2\left(\mX^\top\mX\right)^{-1}\mX^\top\mB\mB^\top\mX\left(\mX^\top\mX\right)^{-1}
+      \end{aligned}
+    \end{equation}
+    
+    Under the null of the spatial error process, the ML estimate $\widehat{\sigma}^2$, based on the the variance of the residuals from the SEM provides a consistent estimate of $\sigma^2$. The ML estimate $\widehat{\lambda}$ provides a consistent estimate of $\lambda$. With these estimates, we can compute the variance of the OLS estimates as in Equation (\ref{eq:var-ols-sem})\citep{pace2008spatial}.
+
+
+%====================================
+\section{Tests Based on ML}
+%=====================================
+
+In the previous section we shown how to perform a Moran's $I$ test to assess whether the residuals present evidence of spatial autocorrelation. However, in this section we first estimate a spatial model and then we conduct \textbf{inference}. Thus, we will write the null hypothesis as a restriction on a subset of the parameter vector $\vtheta$. Specifically, we would like to test whether $H_0: \rho = 0$ or $H_0: \lambda = 0$.
+
+We begin our discussion of the hypothesis tests by describing the ML trinity: the Wald, Likelihood Ratio (LR), and Lagrange Multiplier (LM) test. These tests can be thought of as a comparison between the estimates obtained after the constraints implied by the hypothesis have been imposed to the estimates obtained without the constraints.
+
+
+
+%As shown by \cite{lee2004asymptotic} if $\vepsi$'s are normaly distributed then the ML estimates are distributed asymptotically normally. That is:
+
+%\begin{equation}
+%  \widehat{\vbeta}\adistr \rN(\vbeta, \var(\widehat{\vbeta}))
+%\end{equation}
+%
+%where $\var(\widehat{\vbeta})$ is the covariance matrix for $\widehat{\vbeta}$.
+
+
+
+%==========================================
+\subsection{Likelihood Ratio Test}
+%==========================================
+
+The likelihood ratio test is used to compare the difference between the value of the log-likelihood of a specification considered to be unconstrained and the value of log-likelihood obtained for a constrained model specification.
+
+We define the constrained estimate as:
+
+\begin{equation}
+\widetilde{\vtheta}_{ML}  = \underset{\vtheta\in\mTheta}{\arg\max}\left\lbrace \frac{1}{n}\sum_{i = 1}^n\log L(\vtheta) \right\rbrace\quad\mbox{s.t}\quad \rho = 0
+\end{equation}
+%
+or 
+
+\begin{equation}
+\widetilde{\vtheta}_{ML}  = \underset{\vtheta\in\mTheta}{\arg\max}\left\lbrace \frac{1}{n}\sum_{i = 1}^n\log L(\vtheta) \right\rbrace\quad\mbox{s.t}\quad \lambda = 0
+\end{equation}
+%
+and the unconstrained estimate as:
+
+\begin{equation}
+\widehat{\vtheta}_{ML}  = \underset{\vtheta\in\mTheta}{\arg\max}\left\lbrace \frac{1}{n}\sum_{i = 1}^n\log L(\vtheta) \right\rbrace
+\end{equation}
+
+\begin{definition}[Likelihood Ratio Test]
+The Likelihood Ratio (LR) Test is formally defined as:
+
+\begin{equation}\label{eq:def_LR}
+LR = 2\cdot n\left(\frac{1}{n}\sum_{i = 1}^n\log L(\widehat{\vtheta})-\frac{1}{n}\sum_{i = 1}^n\log L(\widetilde{\vtheta})\right)\dto \chi^2(r)
+\end{equation}
+%
+where $r$ is the number of constraints.
+\end{definition}
+
+The number of constraints imposed may vary depending on the specifications. In spatial models, the number of constrains is generally one or two, since we have the restriction $\rho = 0$, $\lambda = 0$, or $\lambda = \rho = 0$.
+
+The likelihood ratio test is designed to evaluate the distance that separates the values of the two likelihoods: if the distance is small, then the constrained model is comparable to the unconstrained model. In this case, the constraint version is ``acceptable'' and do not reduce the performance of the model. It is thus statistically possible to not reject the null hypothesis (the postulated constraints prove to be credible). In other words, if the likelihood value of an unconstrained model strays too far from the constrained model, we cannot accept the null hypothesis: the gap is too large for the constraint to be consider realistic. 
+
+\subsubsection{LR for the SLM}
+
+Note that the log-likelihood for the unconstrained model---that is the model for which $\rho \neq  0$---is:
+
+\begin{equation}\label{eq:lr_slm_un}
+\log L(\vtheta) = \log\left| \mA\right| - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}(\mA\vy-\mX\vbeta)^\top(\mA\vy-\mX\vbeta) 
+\end{equation}
+
+The log-likelihood for the constrained model is found by setting $\rho = 0$ in Equation (\ref{eq:lr_slm_un}). Recall that if $\rho = 0$, then $\mA = \mI - \rho\mW = \mI$, then: 
+
+\begin{equation}
+\log L(\vtheta) =  - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}(\vy-\mX\vbeta)^\top (\vy-\mX\vbeta) 
+\end{equation}
+
+Therefore, following our definition in Equation (\ref{eq:def_LR}): 
+
+\begin{equation}
+  \begin{aligned}
+LR  & = 2 (\log L(\widehat{\vtheta}) - \log (\widetilde{\vtheta})) \\
+    & = 2\left[\log\left| \mA\right| + \frac{1}{2\sigma^2}\left((\vy-\mX\vbeta)^\top (\vy-\mX\vbeta) - (\mA\vy-\mX\vbeta)^\top(\mA\vy-\mX\vbeta) \right) \right] \\
+    & = 2\log\left| \mA\right| + \frac{1}{\sigma^2}\left[(\vy-\mX\vbeta)^\top (\vy-\mX\vbeta) - (\mA\vy-\mX\vbeta)^\top(\mA\vy-\mX\vbeta) \right]
+\end{aligned}
+\end{equation}
+%
+with the coefficients respectively evaluated at their restricted and unrestricted estimates. The resulting test statistic is asymptotically distributed as $\chi^2$ with 1 degree of freedom, or, alternatively, its square root is distributed as a standard normal variate.
+
+\subsubsection{LR for the SEM}
+
+Note that the log-likelihood for the unconstrained model---that is the model for which $\lambda \neq  0$---is:
+
+\begin{equation}\label{eq:lr_sem_un}
+\log L(\vtheta) = \log\left| \mB\right| - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}(\vy-\mX\vbeta)^\top\mOmega(\lambda)(\vy-\mX\vbeta) 
+\end{equation}
+
+Then the LR for the SEM model is:
+
+\begin{equation}
+  LR = 2\log \left|\mB\right| + \frac{1}{\sigma^2}\left[(\vy-\mX\vbeta)^\top (\vy-\mX\vbeta) - (\vy-\mX\vbeta)^\top\mOmega(\lambda)(\vy-\mX\vbeta)\right]
+\end{equation}
+%
+which is also distributed as $\chi^2(1)$.
+We can use the formulae above or use the following algorithm:
+
+\begin{algorithm}[LR Test]
+To compute the test statistic LR,
+
+\begin{enumerate}
+  \item compute the restricted MLE $\widetilde{\vtheta}$ and record the value of the log-likelihood function at convergence $\log L(\widetilde{\vtheta})$,
+  \item compute the unrestricted MLE $\widehat{\vtheta}$ and record the value of the log-likelihood function at convergence $\log L(\widehat{\vtheta})$,
+  \item and compute, 
+  
+  \begin{equation*}
+    LR = 2\left[\log L(\widehat{\vtheta}) - \log L(\widetilde{\vtheta})\right]
+  \end{equation*}
+  This statistic is always positive because the unrestricted maximum value always exceeds the restricted one. 
+  \item Compare LR with the critical value of chi-square distribution with 1 degrees of freedom. 
+\end{enumerate}
+\end{algorithm}
+
+
+%============================
+\subsection{Wald Test}
+%===========================
+
+This approach is based on the comparison of the distances between the estimated parameters in constrained and unconstrained form. Thus, this idea suggest that, if the distance between the parameter estimates $\widehat{\vbeta}$ and $\widetilde{\vtheta}$ is too high, the data fail to support the null hypothesis. In such circumstances, the null hypothesis cannot be accepted. 
+
+Formally, the Wald test proposes to calculate the distance between unconstrained estimators and the constrained estimators. This distance can be expressed by $(\widehat{\vtheta}-\widetilde{\vtheta})^2$ and is influenced by the shape of the likelihood curve. 
+
+The Wald statistic is distributed asymptotically according to a $chi^2_{r}$ with $r$ degrees of freedom, where $r$ represents the number of constraints tested. A large value of $W$ means that the null hypothesis should be rejected, and, conversely, a small value suggests non-rejection of the null hypothesis. 
+
+The Wald test commonly uses unconstrained model estimates for evaluating the statistical value of $W$. Thus, the researcher needs to estimate only the unconstrained model for hypothesis testing. This is different from the likelihood ratio test where both unconstrained and constrained models need to be estimated in order to compare their likelihoods. 
+
+\begin{definition}[The Wald Test]
+Assume that we have $r$ nonlinear restrictions (which includes linear restriction as special case):
+
+\begin{equation*}
+\vr(\vtheta_0) = \vzeros
+\end{equation*}
+
+Let also 
+
+\begin{equation*}
+\mR(\vtheta) = \frac{\partial \vr(\vtheta_0)}{\partial \vtheta^\top}
+\end{equation*}
+
+The Wald test is given by:
+
+\begin{equation}\label{eq:wald_test_def}
+W = n\cdot \vr(\widehat{\vtheta})^\top\left[\mR(\widehat{\vtheta}) \widehat{\mV}\mR(\widehat{\vtheta})^\top\right]\vr(\widehat{\vtheta})\dto \chi^2(r)
+\end{equation}
+%
+where $r$ is the number of constraints. 
+\end{definition}
+
+%----------------------------------
+\subsubsection{Wald Test for SLM}
+%----------------------------------
+
+The $W$ statistic is:
+
+\begin{equation}
+W_{\rho} = \frac{\widehat{\rho}^2}{\widehat{\var}(\rho)}
+\end{equation}
+%
+where $\widehat{\var}(\rho)$ can be obtained from Equation \ref{eq:asyvar_slm} as:
+
+\begin{equation}
+  \widehat{\var}(\rho) = \left[\tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)\right]^{-1}
+\end{equation}
+
+Clearly, 
+
+\begin{equation}
+ \frac{\rho}{se(\rho)}\adistr \rN(0, 1)
+\end{equation}
+%
+with $se(\rho)$ as the estimated standard deviation. 
+
+Extensions to hypotheses that consists of linear and nonlinear combinations of model parameters can be obtained in a straightforward way. Computationally, the $W$---and $LR$--- is more demanding since they require ML estimation under the alternative, and the explicit forms of the tests are more complicated.
+
+%----------------------------------
+\subsubsection{Wald Test for SEM}
+%----------------------------------
+
+The $W$ statistic is:
+
+\begin{equation}
+W_{\lambda} = \frac{\widehat{\lambda}^2}{\widehat{\var}(\lambda)}
+\end{equation}
+%
+where $\widehat{\var}(\lambda)$ can be obtained from Equation \ref{eq:asyvar_sem} as:
+
+\begin{equation}
+  \widehat{\var}(\lambda) = \left[ - \frac{\tr(\mW_B)}{\sigma^2} + \tr(\mW_B)^2 + \tr(\mW_B^\top\mW_B)\right]^{-1}
+\end{equation}
+
+
+\begin{algorithm}[Wald Test]
+Let $\vtheta = \left(\vtheta_1^\top, \vtheta_2^\top\right)^\top$. In general, to compute the Wald test statistic for $H_0: \vtheta_{02} = \vzeros$, 
+
+\begin{enumerate}
+  \item compute the unrestricted MLE $\widehat{\vtheta}$, 
+  \item compute an estimator of the variance matrix of the asymptotic distribution of $\sqrt{n}(\widehat{\vtheta} - \vtheta_0)$, for example, the information $\mI(\widehat{\vtheta})^{-1}$, 
+  \item and finally compute the quadratic form:
+  
+  \begin{equation}
+    W = n \cdot \widehat{\vtheta}^\top\widehat{\mV}_w^{-1}\widehat{\vtheta}
+  \end{equation}
+%
+where $\widehat{\mV}_{w}$ is the $(2, 2)$ block of $\mI(\widehat{\vtheta})^{-1}$ partitioned conformably with $\vtheta$: that is
+
+\begin{equation}
+\widehat{\mV}_{w} = \left\lbrace \mI_{22}(\widehat{\vtheta}) - \mI_{21}(\widehat{\vtheta})\left[\mI_{11}(\widehat{\vtheta})\right]^{-1}\mI_{12}(\widehat{\vtheta})\right\rbrace^{-1}
+\end{equation}
+%
+which is a \textbf{consistent estimator} of the asymptotic variance of $\widehat{\vtheta}_2$.
+
+\item Compare $W$ with the critical value of chi-square distribution with $K - r$ degrees of freedom. 
+\end{enumerate}
+\end{algorithm}
+
+%========================================
+\subsection{Lagrange Multiplier Test}
+%========================================
+
+This approach is also based on the log-likelihood function curve, with the slope of the likelihood function being evaluated by the constraint type. The idea is that when the constraints are verified, the value of the estimated parameters $\vtheta_0$ is such that the likelihood function slope at this point is zero. The goal is to compare, whether the slope evaluated using the constrained model is zero or strays too far from 0. In the last case, the null hypothesis must be rejected. 
+
+The Lagrange Multiplier test (or just score test) is based on the restricted model instead of the unrestricted model. Suppose that we maximize the log-likelihood subject to the set of constraints
+
+\begin{theorem}[Lagrange Multiplier Test]
+  The Lagrange multiplier test statistic is:
+  
+  
+  \begin{equation}
+    LM = \left(\frac{\partial \log L(\widetilde{\vtheta})}{\partial \widetilde{\vtheta}}\right)^\top\left[\mI(\widetilde{\vtheta})\right]^{-1}\left(\frac{\partial \log L(\widetilde{\vtheta})}{\partial \widetilde{\vtheta}}\right) \dto \chi(r)
+  \end{equation}
+  
+  Under the null hypothesis, LM has a limiting chi-square distribution with degrees of freedom equal to the number of restrictions. All terms are computed at the restricted estimator. 
+\end{theorem}
+
+
+The main advantage of the LM statistic is that it only requires the constrained model to be estimated, and it is very often less complex since it mainly lies on the OLS. This is one of the reasons that has lead to the widespread use of this approach.
+
+LM statistical test construction depends on the postulated specification of the spatial autoregressive DGP: SEM or SLM. The usual practice is to initially use a general test for detecting residual spatial autocorrelation (Moran's $I$ test for example) in order to then be able to carry out the statistical LM test to identify the specific type of the autoregressive process. 
+
+%----------------------------------
+\subsubsection{Test for SEM}
+%----------------------------------
+
+This test, proposed by Burridge assumes the omission of a spatial autoregressive process of the error term $u_i$, where $u_i = \lambda\sum_{j}w_{ij}u_j + \epsilon_i$. The null hypothesis is $H_0: \lambda = 0$. The constrained version of the SEM model can be reduced to a standard linear regression model $\vy = \mX\vbeta + \vepsi$.
+
+For the SEM model we need to find the score function of the log-likelihood for the constrained model. Note that
+
+\begin{equation}
+  \begin{aligned}
+\frac{\partial \log L(\vtheta) }{\partial \vbeta}   & = \frac{1}{\sigma^2}\left(\vy - \mX\widehat{\vbeta}\right)^\top\mB(\lambda)^\top\mB(\lambda)\mX \\
+\frac{\partial \log L(\vtheta) }{\partial \sigma^2} & = - \frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\left(\vy - \mX\widehat{\vbeta}\right)^\top\mB(\lambda)^\top\mB(\lambda)\left(\vy - \mX\widehat{\vbeta}\right) \\
+\frac{\partial \log L(\vtheta) }{\partial \lambda}  & = -\tr\left(\mB^{-1}\mW\right) + \frac{1}{\sigma^2}\left[\vepsi^\top \mW(\vy - \mX\vbeta)\right] 
+ \end{aligned}
+\end{equation}
+
+Under the null hypothesis $H_0:\lambda = 0$, we get:
+
+\begin{equation}
+  \begin{aligned}
+\left.\frac{\partial \log L(\vtheta) }{\partial \vbeta}\right|_{\lambda = 0}   &= \frac{1}{\sigma^2}\left(\vy - \mX\widehat{\vbeta}\right)^\top\mI_n^\top\mI_n\mX = \frac{1}{\sigma^2}\widehat{\vepsi}^\top_{OLS}\mX \\
+\left.\frac{\partial \log L(\vtheta) }{\partial \sigma^2}\right|_{\lambda = 0} &=  - \frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\widehat{\vepsi}^\top_{OLS}\widehat{\vepsi}_{OLS} \\
+\left.\frac{\partial \log L(\vtheta)}{\partial \lambda}\right|_{\lambda = 0} &= \frac{\vepsi^\top\mW\vepsi}{\sigma^2}
+\end{aligned}
+\end{equation}
+
+The test is essentially based on the score with respect to $\lambda$, i.e., on 
+
+\begin{equation}
+s_{\lambda} = \left.\frac{\partial \log L(\vtheta) }{\partial \lambda}\right|_{\lambda = 0} = \frac{\vepsi^\top\mW\vepsi}{\sigma^2}
+\end{equation}
+
+Recall that:
+
+\begin{equation}
+\mbox{AsyVar}(\vbeta, \sigma^2, \lambda)  = 
+\begin{pmatrix}
+ \underset{k \times k}{\frac{\mX(\lambda)\top\mX(\lambda)}{\sigma^2}} & 0 & 0 \\
+  0 & \frac{n}{2\sigma^4} & \frac{\tr(\mW_B)}{\sigma^2} \\
+ 0 & \frac{\tr(\mW_B)}{\sigma^2} & \tr(\mW_B)^2 + \tr(\mW_B^\top\mW_B)
+\end{pmatrix}^{-1}
+\end{equation}
+%
+where $\mW_B = \mW(\mI - \lambda\mW)^{-1}$. Under the null, $\E_{H_0}\left(\partial^2 \ln L / \partial \vbeta \partial \lambda\right) = \vzeros$, and $\E_{H_0}\left(\partial^2 \ln L / \partial \sigma \partial \lambda\right) = \vzeros$ because $\E\left(\vepsi^\top\mW\vepsi\right) = \sigma^2\tr(\mW) = \vzeros$ as $\mW$ has a zero diagonal. Furthermore, 
+
+\begin{equation}
+\E_{H_0}\left(\frac{\partial \log L(\vtheta)}{\partial \lambda^2}\right) = -\tr\left(\mW^2 + \mW^\top\mW\right)
+\end{equation}
+
+
+
+Then the expression for the LM test for a SEM specification is:
+
+\begin{equation}
+LM_{ERR} = \frac{1}{C}\left(\frac{\widehat{\vepsi}^\top\mW\widehat{\vepsi}}{\widehat{\sigma}^2}\right)^2
+\end{equation}
+%
+where $C = \tr\left[\left(\mW + \mW^\top\right)\mW\right]$. Therefore, the test requires only OLS estimates.  Under the null hypothesis, this statistic converges asymptotically to a $\chi^2(1)$. For example, if we use a significance level of 95\%, the critical value is 3.84. Thus, we reject the null hypothesis, if the value of the statistical test $LM_{ERR}$ is greater than 3.84. We can conclude in this case that spatial autocorrelation is present in the standard linear model residuals and we must proceed to estimate the SEM specification. 
+
+Note also that it is similar in expression to Moran's $I$: except for the scaling factor $T$, this statistic is essentially the square of Moran's $I$. 
+
+
+
+%----------------------------------
+\subsubsection{Test for SLM}
+%----------------------------------
+
+The LM test can also be used to detect whether the detected spatial autocorrelation among the residuals of the multiple regression does not rise from the omission of spatially lagged dependent variable regressors. 
+
+The null hypothesis of this test is based on the significance of the autoregressive parameter, $H_0:\rho = 0$.
+
+In this case:
+
+\begin{equation}
+s_{\rho = 0}= \left.\frac{\partial \log L(\vtheta)}{\partial \rho}\right|_{\rho = 0} = \frac{1}{\sigma^2}\vepsi^\top\mW\vy
+\end{equation}
+%
+
+The inverse of the information matrix is given in (\ref{eq:asyvar_slm}). The complicating feature of this matrix is that even under $\rho = 0$, it is not block diagonal; the $(\rho, \vbeta)$ term is equal to $(\mX^\top\mW\mX\vbeta) / \sigma^2$, obtained by inserting $\rho = 0$; i.e., $\mC = \mW$. The main problem of this is that even under $\rho = 0$, we cannot ignore one of the off-diagonal terms.  This is not the case for $s_{\lambda = 0}$. Asymptotic variance of $s_{\lambda = 0}$ was obtained just using the $(2, 2)$ element of ?. For the spatial lag model, asymptotic variance of $s_{\rho = 0}$ is obtained from the reciprocal of the last  element of: \footnote{This is obtained using partitioned Inversion.}  
+
+\begin{equation*}
+	\left.\var(\vbeta, \sigma^2, \rho)\right|_{\rho = 0}= 
+	\begin{pmatrix}
+	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros' & \frac{1}{\sigma^2} \mX^\top \mW\mX\vbeta \\
+		. &  \frac{n}{2\sigma^4} & \vzeros \\
+		. &  .& \tr(\mW^2 + \mW^\top\mW) + \frac{1}{\sigma^2}(\mW\mX\vbeta)^\top(\mW\mX\vbeta)
+	\end{pmatrix} ^{-1}
+\end{equation*}
+
+Since under $\rho = 0$, $\mC =\mW$ and $\tr(\mW) = 0$. Recall that $T = \tr\left[\left(\mW^\top + \mW\right)\mW\right]$, then we can write:
+
+%\begin{equation}
+%  \begin{aligned}
+%  T_1 & = \tr(\mW^2 + \mW^\top\mW) + \frac{1}{\sigma^2}(\mW\mX\vbeta)^\top(\mW\mX\vbeta) \\
+%  T_1 & = T + \frac{1}{\sigma^2}(\mW\mX\vbeta)^\top(\mW\mX\vbeta) \\
+%      & = \frac{1}{\sigma^2}\left[\sigma^2T +(\mW\mX\vbeta)^\top(\mW\mX\vbeta) %\right]
+%  \end{aligned}
+%\end{equation}
+
+\begin{equation}
+LM_{SAR} = \frac{1}{T_1}\left(\frac{\widehat{\vepsi}\mW\vy}{\widehat{\sigma}^2}\right)^2
+\end{equation}
+%
+where $T_1 = \left[\left(\mW\mX\widehat{\vepsi}\right)^\top\mM\left(\mW\mX\widehat{\vepsi}\right) + T\widehat{\sigma}^2\right]/\widehat{\sigma}^2$ with $\mM = \mI - \mX\left(\mX^\top\mX\right)^{-1}\mX^\top$. Under the null hypothesis, the test asymptotically converges according to the $\chi^2$ distribution to 1 degree of freedom. 
+
+%=========================================
+\subsection{Anselin and Florax Recipe}
+%===========================================
+
+How to decide? For the simple case of choosing between a SLM or SEM alternative, there is evidence that the proper model is most likely the one with the largest significant LM test value \citep{Anselin1991properties}.
+
+\begin{itemize}
+  \item When the test $LM_{LAG}$ value is significant and the $LM_{ERR}$ is insignificant, the most appropriate model is the SLM model;
+  \item in the same vein, when the test  $LM_{ERR}$ is significant and the $LM_{LAG}$ value is insignificant, the most appropriate model is the SEM model.
+\end{itemize}
+
+As you can guess, sometimes it is possible to find that both statistical test are significant. In this case, one decision rule can be as follows:
+
+\begin{itemize}
+  \item when the test $LM_{LAG}$ value is higher than the test $LM_{ERR}$ value, it would be best to consider the SLM model;
+  \item when the test $LM_{ERR}$ value is higher than the test $LM_{LAG}$ value, it would be best to consider the SEM model. 
+\end{itemize}
+
+Of course, if both statistics are significant, it could also well be appropriate to estimate a general autoregressive model (SAC).
+
+%=========================================================
+\subsection{Lagrange Multiplier Test Statistics in R}
+%=========================================================
+
+
+Lagrange Multiplier tests, as well as their robust forms are included in the \code{lm.LMtests} function. An OLS regression object and a spatial \code{listw} object must be passed as arguments. In addition, the tests must be specified as a character vector as illustrated below.
+
+
+<<lmtests>>=
+# LM test
+lm.LMtests(ols, listw, 
+           test = c("LMerr", "RLMerr", "LMlag", "RLMlag"))
+@
+
+Note that both \code{LMerr} and \code{LMlag} are significant. However, the robust statistics point to the lag model as the proper alternative. With this information in hand, we an select the spatial lag model as the proper model. 
+
+\section*{Appendix}
+
+
+\begin{subappendices}
+
+%-----------------------------------------------------------------
+\section{Asymptotic Properties of Moran's I}
+%-----------------------------------------------------------------
+
+
+Let the model be:
+
+\begin{equation}\label{eq:moran-p1}
+\begin{aligned}
+  \vy_n &= \rho_0\mM_n\vy_n + \mX_n\vbeta_0 + \vu_n  =  \mD_n\vtheta_0 + \vu_n \\
+  \vu_n &= \lambda_0\mM_n\vu_n + \vepsi_n
+\end{aligned}
+\end{equation}
+
+Let $Q_n^* = \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n$. Since we need to let the model as a function of the true error $\vu$, note that:
+
+\begin{equation}\label{eq:moran-p2}
+\begin{aligned}
+\widehat{\vu}_n & = \vy_n - \mD_n\widehat{\vtheta}_n \\
+& = \mD_n\vtheta_0 + \vu_n -\mD_n\widehat{\vtheta}_n\quad\mbox{using \ref{eq:moran-p1}} \\
+&= \vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)
+\end{aligned}
+\end{equation}
+
+Then:
+
+\begin{equation*}
+\begin{aligned}
+  \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n & = \left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right]^\top\mW_n\left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right] \\
+  & = \vu_n^\top\mW\vu_n - \vu_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)-(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n +(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)\\
+  & = \vu_n^\top\mW\vu_n - \vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)
+\end{aligned}
+\end{equation*}
+%
+where in the last line we use the fact that $(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n=\vu_n^\top\mW_n^\top\mD_n(\widehat{\vtheta}_n - \vtheta_0)$. Multiplying the previous equation by $1/\sqrt{n}$, we obtain:
+
+\begin{equation}\label{eq:moran-p3}
+\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n= \frac{1}{\sqrt{n}}\vu_n^\top\mW\vu_n - \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)
+\end{equation}
+
+First, we will show that the last element of (\ref{eq:moran-p3}) converges to 0 as $n\to \infty$. Since $\mD_n = \left[\mM_n\vy_n, \mX_n\right]$ has bounded elements in absolute value, then 
+
+\begin{equation*}
+\frac{1}{n}\mD_n^\top\mW_n\mD_n = O_p(1)
+\end{equation*}
+%
+that is, it is sthocastically bounded. Furthermore in Section \ref{sec:step-s2slsestimator}, we show that the 2SLS estimator $\widehat{\vtheta}_n$ is consistent, so that $\left(\widehat{\vtheta}_n - \vtheta_0\right) = o_p(1)$ and has a limiting distribution, that is:
+
+\begin{equation*}
+\sqrt{n}\left(\widehat{\vtheta}_n - \vtheta_0\right) = O_p(1)
+\end{equation*}
+
+Thus using these two results, we can say that:
+
+\begin{equation*}
+(\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)= o_p(1)\cdot O_p(1)\cdot O_p(1) = o_p(1)
+\end{equation*}
+
+\begin{remark}
+Let $\mD$ be any $n\times n$ matrix. Then, since $\vupsilon^\top\mD\vupsilon = \vupsilon^\top\mD^\top\vupsilon$, then we can write:
+
+\begin{equation}
+\vupsilon^\top\mD\vupsilon = \vupsilon^\top\left[\frac{\mD + \mD^\top}{2}\right]\vupsilon
+\end{equation}
+\end{remark}
+
+Using the previous remark, and noting that $\vu_n = \left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n$, we can write the first element of Equation (\ref{eq:moran-p3}) as:
+
+\begin{equation}
+\begin{aligned}
+\vu_n^\top\mW\vu_n &=\vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mW_n + \mW_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n \\
+& = \vepsi_n^\top\mA_n\vepsi_n
+\end{aligned}
+\end{equation}
+%
+where $\mA_n = \left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mW_n + \mW_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}$ which is uniformly bounded ins absolute value. According to Lemma \ref{lemma:second-mom-lee} and assuming normality (which is much simpler) we can say that:
+
+\begin{equation}
+  \begin{aligned}
+    \E\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma_0^2\tr(\mA_n) \\
+    \var\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]
+  \end{aligned}
+\end{equation}
+
+The the second part of (\ref{eq:moran-p3}), note that $\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n =\vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mD_n$ where $\mD_n = \left[\mM_n\vy_n, \mX\vbeta_0\right]$, and $\vy_n = \left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 + \left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n$, so that:
+
+\begin{equation*}
+\begin{aligned}
+  \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\vy_n  = & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left[\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 \right. \\
+  & + \left.\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n\right] \\
+= & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 \\
+ + & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n \\
+ = & \vepsi_n^\top\mB^*_n + \vepsi_n^\top\mC^*_n\vepsi_n
+  \end{aligned}
+\end{equation*}
+%
+where $\mB_n^*$ is a nonstochastic vector whose elements are uniformly bounded in absolute value, and where $\mC^*$ is a nonsthocastic matrix whose row and columns sums are uniformly bounded in absolute value. Note that 
+
+\begin{equation}\label{eq:moran-p4}
+\vd_n^\top = \E\left[\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\right] = O(1)
+\end{equation}
+%
+since:
+
+\begin{equation*}
+  \begin{aligned}
+    \E\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= 0 \\
+    \var\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= \sigma^2\frac{1}{n^2}\mB^{*\top}_n\mB^{*}_n = o(1) \\
+    \E\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^2\frac{1}{n}\tr(\mC_n^*) = O(1)\\
+     \var\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right] = o(1)
+  \end{aligned}
+\end{equation*}
+
+Then:
+
+\begin{equation}
+  \var(\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n) = o(1)
+\end{equation}
+
+and the Claim in Equation (\ref{eq:moran-p4}) follows by Chebychev's inequality. Thus, we can write:
+
+
+\begin{equation}
+\begin{aligned}
+\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) & =  \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}\left[\frac{1}{\sqrt{n}}\mP_n\mF_n^\top\vepsi_n + o_p(1)\right] \\
+& = \frac{1}{\sqrt{n}} = \vb_n^\top\vepsi_n + o_P(1)
+\end{aligned}
+\end{equation}
+%
+where $\vb_n^\top = -\vd_n^\top\mP\mF_n^\top$. Finally, we can write Equation (\ref{eq:moran-p3}) as
+
+\begin{equation}
+\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n =\frac{1}{\sqrt{n}}\left[\vepsi_n^\top\mA_n\vepsi_n + \vb_n^\top\vepsi_n\right] + o_p(1)
+\end{equation}
+
+Thus, the asymptotic distribution of the Moran's I statistic is based on estimated disturbances involves the large sample distributioon of a linear-quadratic form in innovations. 
+
+
+\end{subappendices}
+
+
