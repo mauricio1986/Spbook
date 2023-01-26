@@ -648,6 +648,15 @@ lm.LMtests(ols, listw,
 
 Note that both \code{LMerr} and \code{LMlag} are significant. However, the robust statistics point to the lag model as the proper alternative. With this information in hand, we an select the spatial lag model as the proper model. 
 
+%-----------------------
+\section{Exercises}
+%-------------------
+
+\begin{exercises}
+    \exercise Example 1. 
+\end{exercises}    
+    
+
 \section*{Appendix}
 
 
@@ -672,7 +681,7 @@ Let $Q_n^* = \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n$. Since we need to let the
 \begin{equation}\label{eq:moran-p2}
 \begin{aligned}
 \widehat{\vu}_n & = \vy_n - \mD_n\widehat{\vtheta}_n \\
-& = \mD_n\vtheta_0 + \vu_n -\mD_n\widehat{\vtheta}_n\quad\mbox{using \ref{eq:moran-p1}} \\
+& = \mD_n\vtheta_0 + \vu_n -\mD_n\widehat{\vtheta}_n\quad\mbox{using \eqref{eq:moran-p1}} \\
 &= \vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)
 \end{aligned}
 \end{equation}
@@ -687,7 +696,7 @@ Then:
 \end{aligned}
 \end{equation*}
 %
-where in the last line we use the fact that $(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n=\vu_n^\top\mW_n^\top\mD_n(\widehat{\vtheta}_n - \vtheta_0)$. Multiplying the previous equation by $1/\sqrt{n}$, we obtain:
+where in the last line we use the fact that $(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n=\vu_n^\top\mW_n^\top\mD_n(\widehat{\vtheta}_n - \vtheta_0)$ and $\mW_n$ is not necessarily symmetric. Multiplying the previous equation by $1/\sqrt{n}$, we obtain:
 
 \begin{equation}\label{eq:moran-p3}
 \frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n= \frac{1}{\sqrt{n}}\vu_n^\top\mW\vu_n - \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)

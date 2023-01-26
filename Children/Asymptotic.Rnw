@@ -61,7 +61,7 @@ In Definition \ref{definition:convergence_deterministic} by choosing a very smal
 
 Figure~\ref{fig:SeqConv} shows that the sequence $2 + 3/n$ converges to 2. Note that if $\epsilon = 0.1$ then it is always true that $a_n$ will be always between $2 + \epsilon$ and $2 - \epsilon$ if and only if $n \geq n^*= 30$.
 
-In econometric, we talk a lot about sequences of matrices. Probably you are asking yourself, what is a sequence of matrices? Hopefully, the following example will give you some intuition. 
+In econometric (and specially in spatial econometrics) we talk a lot about sequences of matrices. Probably you are asking yourself, what is a sequence of matrices? Hopefully, the following example will give you some intuition. 
 
 \begin{example}[A sequence of Matrices]\label{example:sequence_matrix}
 Let $\mX_n$ be an $n\times 2$ matrix whose $i$th row is defined by the $1\times 2$ vector $\left[1, i\right]$ so that
@@ -114,6 +114,25 @@ Let $\left\lbrace\mX_n \right\rbrace$ be a sequence whose elements are $q\times 
 \end{definition}
 
 The definition of the limit implies that for a sufficiently large choice of $n$, the matrix $\mX_n$ becomes arbitrarily close to the matrix $\mX$, \textbf{element by element}.
+
+Often we wish to consider the limit of a continuous function of a sequence. 
+
+\begin{definition}[Limit of a continuous function of a sequence]
+Given $\vg:\SR^k\to \SR^l(k,l, \in \SN)$ and $\vb\in \SR^k$, 
+
+\begin{enumerate}
+\item the function $\vg$ is continuous at $\vb$ if for any sequence $\lbrace \vb_n \rbrace$ such that $\vb\to \vb$, $\vg(\vb_n)\to \vg(\vb)$;
+\item or equivalently, the function $\vg$ is continuous at $\vb$ if for every $\epsilon > 0$ there exists $\delta(\epsilon)>0$ such that if $\va \in \SR^k$ and $\left|a_i - b_i\right|< \delta(\epsilon)$, $i = 1, ..., k$, then $\left|g_j(\va)- g_j(\vb)\right|<\epsilon$, $j = 1, ..., l$. Further, if $B\subset \SR^k$, then $\vg$ is continuous on $B$ if it is continuous at every point of $B$. 
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+If $\va_n \to \va$ and $\vb_n\to \vb$, then $\va_n + \vb_n\to \va + \vb$ and $\va_n\vb_n^\top\to\va\vb^\top$. 
+\end{example}
+
+\begin{example}
+The matrix inverse function is continuous at every point that represents a nonsingular matrix, sot that if $\mX^\top\mX/n\to \mM$, a finite nonsingular matrix, then $\left(\mX^\top\mX/n\right)^{-1}\to \mM^{-1}$.
+\end{example}
 
 
 Sometimes, some sequences does not have a limit, but we can say whether they are \textbf{bounded}: 
@@ -243,7 +262,16 @@ legend("topleft",
 	\end{minipage}
 \end{figure}
 
+The following proposition gives some elementary facts about the orders of magnitude of sums and products of sequences.
 
+\begin{proposition}[Properties of big and little O]\label{prop:blO-nest}
+Let $a_n$ and $b_n$ be scalars. 
+\begin{enumerate}
+  \item If $a_n=O(n^\lambda)$ and $b_n=O(n^\mu)$, then $a_nb_n=O(n^{\lambda + \mu})$ and $a_n + b_n = O(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+  \item If $a_n = o(n^\lambda)$ and $b_n = o(n^\mu)$, then $a_nb_n=o(n^{\lambda + \mu})$ and $a_n + b_n = o(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+  \item If $a_n=O(n^\lambda)$ and  $b_n = o(n^\mu)$, then $a_nb_n=o(n^{\lambda + \mu})$ and $a_n + b_n = O(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+\end{enumerate}
+\end{proposition}
 %*****************************************
 \section{Convergence in Probability}
 %****************************************** 
@@ -331,7 +359,6 @@ Note that $\left\| \vx_n - \valpha\right\| $ is the Euclidean distance
 \left[\left(\vx_n - \valpha\right)'\left(\vx_n - \valpha\right)\right]^{1/2} = \sqrt{(x_{1n}-\alpha_1)^2 + ... + (x_{Kn} - \alpha_K)^2} = \left\| \vx_n - \valpha\right\| 
 \end{equation*}
 
-
 Therefore, 
 
 \begin{equation*}
@@ -417,8 +444,33 @@ In words, a \textbf{consistent estimator} is an estimator---a rule for computing
 Convergence in probability is also referred to as weak consistency, and since this has been the most familiar stochastic convergence concept in econometric, the word ``weak'' if often simply dropped.
 \end{remark}
 
+\begin{example}\label{example:ols1}
+In this example, we will show that the OLS estimator is consistent under the following assumptions:
+\begin{enumerate}
+\item $y_i = \vx_i^\top\vbeta_0 + \epsilon_i,\; i = 1, ..., n; \vbeta_0\in \SR^k$;
+\item $\mX^\top\vepsi/n \pto \vzeros$;
+\item $\mX^\top\mX/n\pto \mM$, finite and positive definite. 
+\end{enumerate}
 
+The sampling error is:
 
+\begin{equation}\label{eq:sampling_error_ols}
+\widehat{\vbeta}_n = \vbeta_0 + \left(\frac{\mX^\top\mX}{n}\right)^{-1}\frac{\mX^\top\vepsi}{n}.
+\end{equation}
+
+ Since $\mX^\top\mX/n\pto \mM$, if follows from Theorem \ref{teo:continuous_prob} that 
+ \begin{equation}
+ \det\left(\frac{\mX^\top\mX}{n}\right)\pto \det(\mM).
+ \end{equation}
+
+Because $\mM$ is positive definite, $\det\det\left(\mM\right) > 0$. It follows that for all $n$ sufficiently large $\det\det\left(\frac{\mX^\top\mX}{n}\right) > 0$, so $\left(\frac{\mX^\top\mX}{n}\right)^{-1}$ exists for all $n$ sufficiently large. Hence $\widehat{\vbeta}_n$ in Equation \eqref{eq:sampling_error_ols} exists for all $n$ sufficiently large. It follows from Theorem \ref{teo:continuous_prob} that
+
+\begin{equation}
+\widehat{\vbeta}_n\pto \vbeta_0 + \mM^{-1}\vzeros = \vbeta_0, 
+\end{equation}
+%
+given (b) and (c)
+\end{example}
 \begin{definition}[Strong Convergence in Probability]
 	A sequence of random variables $\left\{X_n\right\}$ \textbf{convergence in probability strongly, or, almost surely} to a constant (non-random) $\alpha$ if, for any $\epsilon>0$,
 	
@@ -440,8 +492,9 @@ The extension to random vector is analogous to that for convergence in probabili
 \end{remark}
 
 
-In the previous definitions of convergence, the limit is a constant (i.e., a real number). The limit can be a random variable. We say that a sequence of $K$-dimensional random variables $\left \lbrace \vx_n\right\rbrace$ converges to a $k$-dimensional random variable $\vx$ and write $\vx_n\pto \vx$ if $\left\lbrace \vx_n - \vx\right\rbrace$ converges to $\vzeros$. The same applies for almost sure convergence.
+%In the previous definitions of convergence, the limit is a constant (i.e., a real number). The limit can be a random variable. We say that a sequence of $K$-dimensional random variables $\left \lbrace \vx_n\right\rbrace$ converges to a $k$-dimensional random variable $\vx$ and write $\vx_n\pto \vx$ if $\left\lbrace \vx_n - \vx\right\rbrace$ converges to $\vzeros$. The same applies for almost sure convergence.
 
+\subsection{Convergence in Quadratic Mean}
 
 We will make frequent use of a special case of convergence in probability, \textbf{convergence in mean square} or \textbf{convergence in quadratic mean}
 
@@ -478,26 +531,6 @@ A special case of convergence in quadratic mean occurs when $\vx$, instead of be
 %
 where $x_{kn}$ is the $k$th element of $\vx_n$ that is assumed to be $K$ dimensional. Thus from (\ref{eq:biase_var}) $\vx_n$ converges to $\vzeros$ in quadratic mean if and only if the bias and variance of $\vx_n$ approach zero as $n\to\infty$. This result, and the fact that Chebyshev's inequality can be used to prove that convergence in quadratic mean implies convergence in probability. See below.
 
-Another definitions that will be useful to show other ways of convergences are the Chebyshev's inequality and Markov's inequality.
-
-\begin{definition}[Chebyshev's inequality]\label{definition:chebyshev_ineq}
-	 If $X_n$ is a random variable with mean $\mu$ and \textbf{finite variance}, then, for every $\delta > 0$,
-	 
-	 \begin{equation*}
-	 \Pr\left[\left| X_n - \mu\right|\geq \delta \right]\leq \frac{\E\left[(X_n - \mu)^2\right]}{\delta ^2}
-	 \end{equation*}
-\end{definition}
-
-To prove the Chebyshev inequality, we use the Markov's Inequality
-
-\begin{definition}[Markov's inequality]\label{definition:chebyshev_ineq}
-	 If $X_n$ is a nonnegative random variable, then for every $\delta > 0$,
-	 
-	 \begin{equation*}
-	 \Pr\left[X_n \geq \delta \right]\leq \frac{\E\left[X_n\right]}{\delta}
-	 \end{equation*}
-\end{definition}
-
 
 An useful theorem is the following:
 
@@ -518,7 +551,7 @@ Chebyshev's inequality implies that a sufficient conditions for an estimator bas
 
 \begin{equation*}
   \begin{aligned}
-    \E\left(\widehat{\theta}_n\right) & = \theta_0 \\
+    \lim_{n \to \infty} \E\left(\widehat{\theta}_n\right) & = \theta_0 \\
     \lim_{n \to \infty} \var\left(\widehat{\theta}_n\right)& = 0
   \end{aligned}
 \end{equation*}
@@ -786,6 +819,70 @@ abline(h = 0.48, col = "blue", lty = 2)
 Note that the $n$th element of the vector \texttt{x} is the mean of the first $n$ elements of \texttt{h}. Figure \ref{fig:CLTbinomial} shows that the mean from a binomial distribution converges to the population mean $\mu = p = 1/2$, as $n\to \infty$. Note that the dashed lines at 0.48 and 0.52 illustrate the LLN with $\epsilon = 0.02$
 \end{example}
 
+To apply LLN for several variables we have to know that summands of iid different random variables are also i.i.d.
+
+\begin{proposition}
+	Let $\vg:\SR^K\to \SR^l$ be a continuous function. (i) Let $\mX_i$ and $\mX_t$ be identically distributed. Then $\vg(\mX_i)$ and $\vg(\mX_t)$ are identically distributed. (ii) Let $\mX_i$ and $\mX_t$ be independent. Then $\vg(\mX_i)$ and $\vg(\mX_t)$ are independent.
+\end{proposition}
+
+Therefore, using this proposition we can state the following proposition:
+
+\begin{proposition}\label{proposition:iid_transf}
+	If $\left\{(\mZ_i^\top,\mX_i,\vepsi_i)\right\}$ is an i.i.d random sequence, then $\left\{\mX_i\mX_i^\top\right\}$, $\left\{\mX_i\vepsi\right\}$, $\left\{\mZ_i\mX_i^\top\right\}$, $\left\{\mZ_i\vepsi_i\right\}$, and $\left\{\mZ_i\mZ_i^\top\right\}$ are also i.i.d sequences. 
+\end{proposition}
+
+This result is useful in situations in which we have observations from a random sample, as in a simple cross section. The result does not apply to stratified cross sections since there the observations are not identically distributed across strata, and generally will not apply to time-series data since there the observations $(\mX_i, \vepsi_i)$ generally are not independent. For these situations, we need laws of large numbers that do not  impose the i.i.d assumption.
+
+
+\begin{example}
+In this example, we will show that the OLS estimator $\widehat{\vbeta}_n \asto \vbeta_0$. Assume the following:
+
+\begin{enumerate}
+\item $y_i = \vx_i^\top\vbeta_0 + \epsilon_i,\; i = 1, ..., n; \vbeta_0\in \SR^k$;
+\item the sample $\lbrace y_i, \vx_i^\top\rbrace$ is an i.i.d sequence;
+\item $\E(\vx_i\epsilon_i) = \vzeros$;
+\item $\E(\vx_i\vx_i^\top)= \mM$ is positive definite;
+\end{enumerate}
+
+Since $\left\lbrace \vx_i\right\rbrace$ is a i.i.d random sample by Assumption (b) (Random Sample), then $\left\lbrace \vx_i\vx_i^\top\right\rbrace$ is also i.i.d sequence by Proposition \ref{proposition:iid_transf}.
+
+Note that each $(g,j)$ element of the $k\times k$ matrix $\vx_i\vx_i^\top$ is given by 
+
+\begin{equation*}
+\sum_{h = 1}^p x_{ihg}x_{ihj}.
+\end{equation*}
+
+By triangle inequality \ref{def:triangle-inequality}:
+
+\begin{equation*}
+  \left|\sum_{h = 1}^p x_{ihg}x_{ihj}\right| \leq \sum_{h = 1}^p \left|x_{ihg}x_{ihj}\right|. 
+\end{equation*}
+
+Then, by Cauchy-Schwarz inequality \ref{theorem:Cauchy-Inequality}:
+
+\begin{equation*}
+  \begin{aligned}
+    \E\left|\sum_{h = 1}^p x_{ihg}x_{ihj}\right| & \leq \sum_{h = 1}^p  \E\left|x_{ihg}x_{ihj}\right|\\
+                                               & \leq   \sum_{h = 1}^p\left\lbrace \left(\E\left|x_{ihg}\right|^2\right)^{1/2} \left(\E\left|x_{ihj}\right|^2\right)^{1/2}\right\rbrace
+  \end{aligned}
+\end{equation*}
+
+It follows that the elements of the $\vx_i\vx_i^\top$ will have $\E\left|\sum_{h = 1}^p x_{ihg}x_{ihj}\right| < \infty$ provided simply that $\E\left|x_{ihg}\right|^2 < \infty$ for all $h = 1, ..., p$ and $g = 1, ..., k$.  Thus, by Theorem \ref{theorem:KhinchineWLLN} and assuming that $\E\left|x_{ihg}\right|^2 < \infty$, then 
+
+\begin{equation}
+  n^{-1}\sum_{i = 1}^n \vx_i\vx_i^\top\pto \mM
+\end{equation}
+
+Similarly, $\left\lbrace \vx_i\epsilon_i\right\rbrace$ is also i.i.d sequence by Proposition \ref{proposition:iid_transf}. Using our previous reasoning:
+
+\begin{equation}
+  n^{-1}\mX^\top\vepsi = n^{-1}\sum_{i = 1}^n \vx_i\epsilon_i \pto \E(\vx_i\epsilon_i) = \vzeros
+\end{equation}
+%
+if  $\E\left|x_{ihg}\epsilon_{ih}\right| < \infty$ for all $h = 1, ..., p$ and $g = 1, ..., k$. From here, we proceed as Example \ref{example:ols1}.
+
+\end{example}
+
 
 Another important feature is that Khinchine's WLLN  is broader than Theorem \ref{teo:chebyshev} (Consistency of Unbiased Estimator), as \textbf{it does not require that the variance of the distribution be finite}. On the other hand, it is not broad enough, because most of the situations we encounter where we will need a result such as this will not involve i.i.d. random sampling. A broader LLN Theorem is the following:
 
@@ -845,36 +942,8 @@ abline(h = -0.01, col = "blue", lty = 2)
   When the iid assumption is relaxed, stronger restrictions need to be place on the variances of each of the random variables. If some assumption are weakened then other assumptions must be strengthened. 
 \end{remark}
 
-To apply those LLN for several variables we have to know that summands of iid different random variables are also iid.
 
-\begin{proposition}
-	Let $\vg:\SR^K\to \SR^l$ be a continuous function. (i) Let $\mX_i$ and $\mX_t$ be identically distributed. Then $\vg(\mX_i)$ and $\vg(\mX_t)$ are identically distributed. (ii) Let $\mX_i$ and $\mX_t$ be independent. Then $\vg(\mX_i)$ and $\vg(\mX_t)$ are independent.
-\end{proposition}
 
-Therefore, using this proposition we can state the following proposition:
-
-\begin{proposition}\label{proposition:iid_transf}
-	If $\left\{(\mZ'_i,\mX_i,\vepsi_i)\right\}$ is an i.i.d random sequence, then $\left\{\mX_i\mX_i'\right\}$, $\left\{\mX_i\vepsi\right\}$, $\left\{\mZ_i\mX_i'\right\}$, $\left\{\mZ_i\vepsi_i\right\}$, and $\left\{\mZ_i\mZ_i'\right\}$ are also i.i.d sequences. 
-\end{proposition}
-
-This result is useful in situations in which we have observations from a random sample, as in a simple cross section. The result does not apply to stratified cross sections since there the observations are not identically distributed across strata, and generally will not apply to time-series data since there the observations $(\mX_i, \vepsi_i)$ generally are not independent. For these situations, we need laws of large numbers that do not  impose the i.i.d assumption.
-
-What about expectations? The Jensen and Cauchy-Schwarz inequality will help us to work with Expectations of random variables. 
-
-\begin{theorem}[Jensen's Inequality]\label{theorem:Jansen-Inequality}
-If $g(X_n)$ is a concave function of $X_n$ then
-
-\begin{equation*}
-  g\left[\E(X_n)\right] \geq \E\left[g(X_n)\right]
-\end{equation*}
-\end{theorem}
-
-\begin{theorem}[Cauchy-Schwarz Inequality]\label{theorem:Cauchy-Inequality}
-For two random variables
-\begin{equation*}
-  \E\left[\left|X_nY_n\right|\right]\leq \left\lbrace \E\left[X_n^2\right]\right\rbrace^{1/2} \left\lbrace \E\left[Y_n^2\right]\right\rbrace^{1/2} 
-\end{equation*}
-\end{theorem}
 
 
 %We can use this theorem in order to prove that the OLS variance estimator is consistent. Consider the i.i.d random variables $\epsilon_1^2, \epsilon_2^2, ..., \epsilon_N^2$, which have mean $\E\left[\epsilon_n^2\right] = \sigma^2$. From Khinchine's theorem it follows that:
@@ -1092,9 +1161,17 @@ z_n = \sqrt{n}(\widehat{\vtheta}_n - \vtheta) \dto f(z),
 %
 where $f(z)$ is a well-defined distribution with mean and positive variance. An estimator which has this properly is said to be \textbf{root-n consistent}.
 
-\begin{mynote}
-When learning econometrics is very difficult to understand how a estimator $\widehat{\theta}_n$ (random variable) converge to a single number but also converge to a (degenerate) distribution. We will see that under certain conditions $\widehat{\theta}_n$ converges in probability to $\theta_0$. This means that by choosing a large enough sample size $n$, the estimator will be as close as we want to the true parameter, with the probability of it being farther away as small as we want. Furthermore if we plot the distribution (or histogram) of $\widehat{\theta}_n$ for several $n$, it will eventually be just a spike centered on $\theta$ and not a normally distributed random variable. This is so because the variance of $\widehat{\theta}_n$ will go to zero eventually for a large enough $n$. Therefore, because $\var(\widehat{\theta}_n)\to 0$ the distribution shrink as $n\to \infty$. However, what does converge to a normally distributed random variable is $\sqrt{n}(\widehat{\theta}- \theta)$ because its variance does not grow with $n$. 
-\end{mynote}
+For example, consider the sequence of sample means $\bar{X}_n = n^{-1}\sum_{i = 1}^nX_i$, such that $\bar{X}_1, \bar{X}_2, \bar{X}_3, ...$ We would like that the probability that $\bar{X}_n$ will deviate from $\mu$ by any amount that decreases to zero as $n\to \infty$. We now that $\E(\bar{X}_n ) = \mu$ and $\var(\bar{X}_n) = \sigma^2/n$. Thus, $\bar{X}_n$ will eventually converge to a constant $\mu$ since its variance will go to zero eventually for a large enough $n$. In other words, because $\var(\bar{X}_n)\to 0$ the distribution shrinks as $n\to\infty$. 
+
+
+Now consider the sequence of variables:
+
+\begin{equation}
+  Z_n = \sqrt{n}\left(\bar{X}_n - \mu\right), \; n = 1, 2, ...
+\end{equation}
+
+For this variable we have $\E(Z_n) = 0$ and $\var(Z_n) = \sigma^2$ so that, as $n\to \infty$, the mean of $Z_n$ remains at zero, but its variance does not converges to zero. 
+
 
 Central limit theorems, establish that, under some conditions, the arithmetic mean of a sufficiently large number of independent random variables, each with a finite expected value and finite variance, will be approximately normally distributed, regardless of the underlying distribution. 
 
@@ -1286,53 +1363,51 @@ Let $\left\lbrace\vx_n\right\rbrace$ be a sequence of random vectors. If there e
 {-1/2}\vx_n \adistr \rN(\vzeros, \mI)$, then $\mV_n$ is called the asymptotic covariance matrix of $\vx_n$, denoted $\avar(\vx_n)$.
 \end{definition}
 
-
 %-----------------------------------
-\section{Orden in Probability}
+\section{Orders in Probability}
 %-----------------------------------
 
-
-Similarly to the nonsthocastic sequences, we can make similar statement about $o$ and $O$ when we have random variables. The following theorem state the definition of unboudedness and convergence for random variables: 
+Similarly to the nonsthocastic sequences, we can make similar statement about $o$ and $O$ when we have random variables. The following theorem state the definition of unboudedness and convergence for random variables:
 
 \begin{definition}[Order in Probability]\label{definition:order_prob}
 Consider the following two definition:
 
 \begin{enumerate}
 		\item \textbf{Stochastically Bounded (Big O)}: The sequence of random variables  $\left\{X_n\right\}$ is at most of order in probability $n^\lambda$, and we write
-		
+
 		\begin{equation}
 			X_n = O_p(n^\lambda)
 		\end{equation}
-		
+
 		if, for every $\epsilon > 0$, there exists a real number $n_0$ such that:
-		
+
 		\begin{equation}
 			\Pr\left[n^{-\lambda} \left|X_n \right| \geq n_0 \right]\leq \epsilon
 		\end{equation}
-		
-		for all $n$. 
-		
+
+		for all $n$.
+
 		\item \textbf{Stochastic Convergence}: Also, we say that $\left\{X_n\right\}$ is of smaller order in probability than $n^\lambda$ and we write
-		
+
 		\begin{equation}
 		X_n = o_p\left(n^\lambda\right)
 		\end{equation}
-		
-		if 
-		
+
+		if
+
 		\begin{equation}
 			\plim n^{-\lambda}X_n = 0
 		\end{equation}
-		
+
 		When $\lambda = 0$, $X_n$ converges to zero, and we also write $X_n=o_p(1)$.
-		
+
 	\end{enumerate}
 \end{definition}
 
-Intuitively, for $X_n = O_p(n^\lambda)$ with $\lambda > 0$, the order $n^\lambda$ is the fastest growth rate at which $X_n$ goes to infinity with probability approaching 1. When $\lambda < 0$, the order $n^\lambda$ is the fastest convergence rate at which $X_n$ vanishes to 0 with probability approaching 1. Thus, $X_n= O_p(1) = O_p(n^0)$ implies that for $n$ sufficiently large, $\left|X_n\right|$ takes value larger than a very large constant has a tiny probability. In other words, $\left|X_n\right|$ is bounded by a constant with a very high probability for all $n$ sufficiently large. 
+Intuitively, for $X_n = O_p(n^\lambda)$ with $\lambda > 0$, the order $n^\lambda$ is the fastest growth rate at which $X_n$ goes to infinity with probability approaching 1. When $\lambda < 0$, the order $n^\lambda$ is the fastest convergence rate at which $X_n$ vanishes to 0 with probability approaching 1. Thus, $X_n= O_p(1) = O_p(n^0)$ implies that for $n$ sufficiently large, $\left|X_n\right|$ takes value larger than a very large constant has a tiny probability. In other words, $\left|X_n\right|$ is bounded by a constant with a very high probability for all $n$ sufficiently large.
 
 \begin{definition}[Stochastically Negligible]
-	If $X_n\pto 0$, then $X_{n} = o_p(1)$. If $X_n = n^\lambda o_p(1)$, then $X_n = o_p(n^{-\lambda})$	
+	If $X_n\pto 0$, then $X_{n} = o_p(1)$. If $X_n = n^\lambda o_p(1)$, then $X_n = o_p(n^{-\lambda})$
 \end{definition}
 
 To give some intuition about these definitions, consider $\vx_n \dto \vx$ and $\vy_n\pto \vzeros$. Then:
@@ -1347,7 +1422,7 @@ That is, if  $\vz_n = \vx_n + \vy_n$ and $\vy_n\pto \vzeros$, implying that $\vz
   \vz_n \adistr \vx_n\quad \mbox{or}\quad \vz_n = \vx_n + o_p(1)
 \end{equation*}
 %
-where $o_p(1)$ is some variable ($\vy_n$ in this case) that is sthochastically negligible, that is, it converges to zero in probability. 
+where $o_p(1)$ is some variable ($\vy_n$ in this case) that is sthochastically negligible, that is, it converges to zero in probability.
 
 This is more intuitive if we think in the consistency of OLS estimator. Given the OLS consistency, it is the same to write:
 
@@ -1361,7 +1436,7 @@ as
 \widehat{\vbeta}_n = \vbeta_0  + o_p(1) \quad \mbox{as $n\to\infty$}
 \end{equation*}
 
-In other words, a consistent estimator is equal to the true estimator plus something that converges to 0 in probability. 
+In other words, a consistent estimator is equal to the true estimator plus something that converges to 0 in probability.
 
 %------------------------------------------------------------------
 \begin{lemma}[Convergence in distribution implies boundedness]
@@ -1369,13 +1444,13 @@ In other words, a consistent estimator is equal to the true estimator plus somet
 \end{lemma}
 %------------------------------------------------------------------
 
-Intuitively, if the probability distribution of $X_n$ converges to a well-defined continuous probability distribution as $n\to \infty$, then $X_n$ is bounded in probability. This result is very useful for establishing that a sequence of random variables is bounded in probability. Often it is easier to verify that a sequence of random variables converges in distribution. 
+Intuitively, if the probability distribution of $X_n$ converges to a well-defined continuous probability distribution as $n\to \infty$, then $X_n$ is bounded in probability. This result is very useful for establishing that a sequence of random variables is bounded in probability. Often it is easier to verify that a sequence of random variables converges in distribution.
 
-When do we use the $O_p$?  If a random vector converges in distribution $\vx_n \dto \vx$ (for example $\vx\sim \rN(\vzeros, \mV)$) then $\vx_n = O_p(1)$. 
+When do we use the $O_p$?  If a random vector converges in distribution $\vx_n \dto \vx$ (for example $\vx\sim \rN(\vzeros, \mV)$) then $\vx_n = O_p(1)$.
 
 \begin{example}
   If $X_n\sim N(0,1)$ for all $n\geq 1$. Then $X_n = O_p(1)$ because for any given $\delta > 0$, there exists a finite constant $M = \Phi^{-1}(1 - \delta/2)<\infty$, where $\Phi$ is the $\rN(0, 1)$ CDF, such that
-  
+
   \begin{equation*}
     \Pr(\left|X_n\right| > M) = 2\left[1 - \Phi(M)\right] = \delta < 2\delta
   \end{equation*}
@@ -1385,16 +1460,16 @@ When do we use the $O_p$?  If a random vector converges in distribution $\vx_n \
 
 $O_p(1)$ is weaker than $o_p(1)$ in the sense that $X_n = o_p(1)$ implies $X_n = O_p(1)$ but not the reverse.
 
-There are many simple rules for manipulating $o_p(1)$ and $O_p(1)$ sequences which can be deduced from the continuous mapping theorem or Slutsky's Theorem. For example:
+There are many simple rules for manipulating $o_p(1)$ and $O_p(1)$ sequences which can be deduced from the continuous mapping theorem or Slutsky's Theorem. 
 
-\begin{eqnarray*}
- o_p(1) + o_p(1) & = & o_p(1) \\
- o_p(1) + O_p(1) & = & O_p(1) \\
- O_p(1) + O_p(1) & = & O_p(1) \\
- o_p(1) o_p(1)   & = & o_p(1) \\
- o_p(1) O_p(1)   & = & o_p(1) \\
- O_p(1) O_p(1)   & = & O_p(1)
-\end{eqnarray*}
+\begin{proposition}[Properties of stochastic big and little O]\label{prop:blO-est}
+Let $a_n$ and $b_n$ random scalars. 
+\begin{enumerate}
+  \item If $a_n=O_p(n^\lambda)$ and $b_n=O_p(n^\mu)$, then $a_nb_n=O_p(n^{\lambda + \mu})$ and $a_n + b_n = O_p(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+  \item If $a_n = o_p(n^\lambda)$ and $b_n = o_p(n^\mu)$, then $a_nb_n=o_p(n^{\lambda + \mu})$ and $a_n + b_n = o_p(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+  \item If $a_n=O_p(n^\lambda)$ and  $b_n = o_p(n^\mu)$, then $a_nb_n=o_p(n^{\lambda + \mu})$ and $a_n + b_n = O_p(n^\kappa)$, where $k = \textrm{max}\left[\lambda, \mu\right]$.
+\end{enumerate}
+\end{proposition}
 
 One of the most common uses of this concept of stochastic order is ``root-$n$'' $(\sqrt{n})$ consistency:
 
@@ -1451,15 +1526,15 @@ Also:
 \end{equation*}
 %
 
-So, we might then say that $\widehat{\vbeta}_n - \vbeta_0$ is converging to zero at the rate $1/\sqrt{n}$; and the rate tell us what multiplier of the variable $\widehat{\vbeta}_n - \vbeta_0$ stabilizes it so that it convergences to a well-defined random variables rather than to 0 or $\infty$. 
+So, we might then say that $\widehat{\vbeta}_n - \vbeta_0$ is converging to zero at the rate $1/\sqrt{n}$; and the rate tell us what multiplier of the variable $\widehat{\vbeta}_n - \vbeta_0$ stabilizes it so that it convergences to a well-defined random variables rather than to 0 or $\infty$.
 
-Note also that: 
+Note also that:
 
 \begin{equation*}
   \begin{aligned}
     \sqrt{n}(\widehat{\vbeta}_n - \vbeta_0) & =  n^{1/2}O_p(n^{-1})O_p(n^{1/2})\\
     & = n^{1/2} O_p(n^{-1/2}) \\
-    & = O_p(1) \quad \because X_n = O_p(1/\sqrt{n}) \implies X_n / (1/\sqrt{n})= \sqrt{n} X_n = O_p(1) 
+    & = O_p(1) \quad \because X_n = O_p(1/\sqrt{n}) \implies X_n / (1/\sqrt{n})= \sqrt{n} X_n = O_p(1)
   \end{aligned}
 \end{equation*}
 \end{example}
@@ -1485,10 +1560,10 @@ par(mfrow = c(1, 1), mar = c(4, 4, 1, 1) + 0.1)
 plot(n, xbar, type = "l", ylab = expression(bar(x)[n]), ylim = c(-0.1, 0.1))
 lines(n, rate, col = "blue", lty = 2)
 abline(h = 0, col = "red")
-legend("topright", 
+legend("topright",
        legend = c(expression(bar(x)[n]), expression(1/sqrt(n)), expression(mu)),
-       text.col = c("black", "blue", "red"), 
-       lty = c(1, 2, 1), 
+       text.col = c("black", "blue", "red"),
+       lty = c(1, 2, 1),
        col = c("black","blue", "red"))
 @
 \footnotesize
@@ -1580,20 +1655,22 @@ We can identify each of the indices $i = 1,...,n$ with a location in space. In r
 \begin{definition}[Bounded Matrices]\label{def:Bounded_Matrices}
 Let $\left\lbrace \mA_n \right\rbrace$ be a sequence of $n$-dimensional square matrices, where $\mA_n = \left[a_{n,ij}\right]$,
   \begin{enumerate}
-    \item The column sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c$ that does not depend on $n$ such that 
+    \item The column sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c
+      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
-     \item The row sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c$ that does not depend on $n$ such that 
+     \item The row sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_1 = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c
+      \left\|\mA_n\right\|_1 = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
   \end{enumerate}
 \end{definition}
 
 Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_1\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. 
+
+
 
 The following lemmas will be very useful:
 
@@ -1601,9 +1678,51 @@ The following lemmas will be very useful:
 If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are uniformly bounded in row sums (column sums), then $\left\lbrace \mA_n \mB_n\right\rbrace$ is also uniformly bounded in row sums (column sums).
 \end{lemma}
 
+\begin{proof}
+ Suppressing the index $n$, let $\mD = \mA\mB$, then
+ \begin{equation}
+  d_{ij} = \sum_{r = 1}^n a_{ir}b_{rj}
+ \end{equation}
+ Let $r_i$ be the $i$th row sum, then
+ 
+ \begin{equation}
+ \begin{aligned}
+  r_i   = & \sum_{j = 1}^n \left|d_{ij}\right| \\
+        = & \sum_{j = 1}^n \left|\sum_{r = 1}^n a_{ir}b_{rj}\right| \\
+     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality} \\
+      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of inequality} \\
+      = & \sum_{r = 1}^n \sum_{j = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of summation} \\
+      = & \sum_{r = 1}^n \left|a_{ir}\right| \sum_{j = 1}^n \left|b_{rj}\right| \\
+      =  \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
+ \end{aligned}
+ \end{equation}
+ 
+ Similarly, we can show that 
+ 
+ \begin{equation}
+ \sum_{i = 1}^n \left|d_{ij}\right|\leq c_{a} c_{b},\; \mbox{for all $j = 1,..., n$ and $n\geq 1$.}
+ \end{equation}
+\end{proof}
+
 \begin{lemma}\label{lemma:bounde_ON}
 If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
 \end{lemma}
+
+\begin{proof}
+  Suppressing the index $n$, let $Z_{ij}$ be the $(i,j)th$ element of $\mZ$, and let $\left|Z_{ij}\right|\leq c_z$ for all $i,j$ and $n\geq 1$. Let $\delta_{ij}$ be the $(i,j)$th element of $\mZ^\top \mA\mZ$, then
+  
+  \begin{equation}
+    \begin{aligned}
+      \delta_{ij} & = \sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj} \\
+      \left|\delta_{ij}\right| & = \left|\sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj}\right| \\
+      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by triangle inequality} \\
+       & \leq c_z^2\sum_{r = 1}^n\sum_{s = 1}^n  \left|a_{sr}\right| \\
+        & \leq c_z^2\sum_{r = 1}^n c_a \\
+        & \leq c_z^2c_an \\
+        & = O(n)
+    \end{aligned}
+  \end{equation}
+\end{proof}
 
 
 %---------------------------------
@@ -1812,3 +1931,69 @@ Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is 
 \end{theorem}	
 
 \cite{kelejian2001asymptotic} introduced a CLT for a single quadratic form under the assumptions useful for spatial models. The generalization to vectors of linear quadratic forms is given in \cite{kelejian2010specification}.
+
+
+%-----------------------
+\section{Exercises}
+%-------------------
+
+\begin{exercises}
+    \exercise Provide a proof of Proposition \ref{prop:blO-nest}.
+    \exercise Let $\mA_n$ be a $k\times k$ matrix and let $\vb_n$ be a $k\times 1$ vector. If $\mA_n = o(1)$ and $\vb_n = O(1)$, show that $\mA_n\vb_n= o(1)$.
+    \exercise Prove the following result for the 2SLS estimator. Suppose: (i) $y_i = \vx_i^\top\vbeta_0 + \epsilon_i$, $i= 1, ..., n$, $\vbeta_0\in \SR^k$; (ii) $\mZ^\top\vepsi/n\pto \vzeros$; (iii) $\mZ^\top\mX/n\pto \mQ$, finite with full column rank; (iv) $\widehat{\mP}_n\pto \mP$, finite, symmetric, and positive definite. Then $\widehat{\vbeta}_n$ exists in probability, and  $\widehat{\vbeta}\pto \vbeta_0$.
+\end{exercises}   
+
+
+
+\section*{Appendix}
+
+
+\begin{subappendices}
+
+%-------------------------------------------------------------------------
+ \section{Inqualities}\label{appendix-inequalities}
+%-------------------------------------------------------------------------
+
+
+\begin{definition}[Triangle Inequality]\label{def:triangle-inequality}
+For any real numbers $x_j$, 
+\begin{equation}
+  \left|\sum_{j= 1}^n x_j\right| \leq \sum_{j = 1}^n \left|x_j\right|
+\end{equation}
+\end{definition}
+
+\begin{definition}[Chebyshev's inequality]\label{definition:chebyshev_ineq}
+	 If $X_n$ is a random variable with mean $\mu$ and \textbf{finite variance}, then, for every $\delta > 0$,
+	 
+	 \begin{equation*}
+	 \Pr\left[\left| X_n - \mu\right|\geq \delta \right]\leq \frac{\E\left[(X_n - \mu)^2\right]}{\delta ^2}
+	 \end{equation*}
+\end{definition}
+
+To prove the Chebyshev inequality, we use the Markov's Inequality
+
+\begin{definition}[Markov's inequality]\label{definition:chebyshev_ineq}
+	 If $X_n$ is a nonnegative random variable, then for every $\delta > 0$,
+	 
+	 \begin{equation*}
+	 \Pr\left[X_n \geq \delta \right]\leq \frac{\E\left[X_n\right]}{\delta}
+	 \end{equation*}
+\end{definition}
+
+\begin{definition}[Jensen's Inequality]\label{theorem:Jansen-Inequality}
+If $g(X_n)$ is a concave function of $X_n$ then
+
+\begin{equation*}
+  g\left[\E(X_n)\right] \geq \E\left[g(X_n)\right]
+\end{equation*}
+\end{definition}
+
+\begin{definition}[Cauchy-Schwarz Inequality]\label{theorem:Cauchy-Inequality}
+For two random variables
+\begin{equation*}
+  \E\left[\left|X_nY_n\right|\right]\leq \left\lbrace \E\left[X_n^2\right]\right\rbrace^{1/2} \left\lbrace \E\left[Y_n^2\right]\right\rbrace^{1/2} 
+\end{equation*}
+\end{definition}
+
+
+\end{subappendices}

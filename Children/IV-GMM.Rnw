@@ -2607,7 +2607,38 @@ An important issue here is that \textbf{the optimal instrument are unknown}. It 
 Now we assume that the error are heteroskedastic of unknown form. 
 
 
+%-----------------------
+\section{Exercises}
+%-------------------
 
+\begin{exercises}
+    \exercise Consider the following model:
+  		\begin{equation*}
+  			\begin{aligned}
+  				\vy & = \mX\vbeta + \vu \\
+  				\vu & = \lambda\mW\vepsi + \vepsi
+  			\end{aligned}
+  		\end{equation*}
+  		%
+  		where $\left|\lambda\right| < 1$, $\vepsi$ has zero mean and variance $\sigma^2\mI_n$, respectively. Determine moment equations for a GMM approach you would use to estimate $\lambda$ and $\sigma^2$. (Hint: This model is known as the spatial moving average model for the error term).
+  		\exercise Consider the following model:
+        \begin{equation*}
+        \begin{aligned}
+        \vy  = \mX\vbeta + \rho_1\mW_1\vy + \rho_2\mW_2\vy+ \vepsi
+        \end{aligned}
+        \end{equation*}
+        %
+        where $\vepsi$ has zero mean and variance $\sigma^2\mI_n$, respectively, and $\mW_1$ and $\mW_2$ are observed exogenous weighting matrices. Suggest an instrumental variable estimation procedure for this model which accounts for the endogeneity of $\mW_1\vy$ and $\mW_2\vy$. 
+        \exercise Consider the following model:
+    \begin{equation*}
+    	\begin{aligned}
+    		\vy & = \mX\vbeta + \rho_1\mW_1\vy + \rho_2\mW_2\vy+ \vu \\
+    		\vu & = \lambda\mM\vu + \vepsi
+    	\end{aligned}
+    \end{equation*}
+    %
+    where $\vepsi$ has zero mean and variance $\sigma^2\mI_n$, respectively, and $\mW_1$, $\mW_2$ and $\mM$ are observed exogenous weighting matrices. Suggest an instrumental variable estimation procedure for this model which accounts for the endogeneity of $\mW_1\vy$ and $\mW_2\vy$, as well as for the spatially correlated term. 
+\end{exercises}   
 
 
 \section*{Appendix}
