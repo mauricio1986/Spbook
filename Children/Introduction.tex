@@ -72,13 +72,15 @@ As an example, Figure \ref{fig:MR} plots the spatial distribution of poverty in 
     \label{fig:MR}
     \centering
     	\begin{minipage}{.9\linewidth}
-        <<MetroRegion, echo = FALSE, message = FALSE, fig.align='center', out.width = '8cm', out.height = '8cm', warning = FALSE>>=
-        library("maptools") # Tools for reading and handling spatial objects
-        mr <- readShapeSpatial("mr_chile")
-        library("RColorBrewer")
-        spplot(mr, "POVERTY", at = quantile(mr$POVERTY, p = c(0, .25, .5, .75, 1), na.rm = TRUE),
-        col.regions = brewer.pal(5, "Blues"))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=8cm,height=8cm]{figure/MetroRegion-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of poverty in the Metropolitan Region, Chile. 
 	\end{minipage}	
@@ -97,48 +99,15 @@ where $y_i$ and $y_j$ are observations on a random variable at locations $i$ and
     \label{fig:Autocorrelation}
     \centering
     	\begin{minipage}{1\linewidth}
-        <<Autocorrelation, echo = FALSE, message = FALSE, fig.align='center', out.width = '10cm', out.height = '10cm'>>=
-library("maptools")
-library("spdep")
-library("spatialreg")
-# Set up a grid data representing  neighborhoods
-set.seed(123)
-n <- 20
-grid_high <- GridTopology(cellcentre.offset = c(1, 1),
-                          cellsize  = c(1, 1), 
-                          cells.dim = c(n, n))
-grid_sp <- SpatialGrid(grid_high)
-### Create attributes
-rook <- cell2nb(n, n)
-y <- rnorm(n^2)
-Iw1 <- invIrM(rook, 0.98)
-Iw2 <- invIrM(rook, -0.98)
-y1 <- c(Iw1 %*% y)
-y2 <- c(Iw2 %*% y)
-# Create a SpatialGridDataFrame
-grid_data <- SpatialGridDataFrame(grid = grid_sp, data = data.frame(y1, y2))
-# Now check names of each grid cell and plot the four cells from the left-top corner.
-#par(mfrow = c(1,2), mar = c(0, 0, 0, 0))
-layout(matrix(1:2, 1, 2), widths = c(4,4))
-plot(grid_data[,, "y1"], 
-     col = grey(1:100 / 100), 
-     axes = FALSE, 
-     what = "image",
-     asp = 1.5,
-     border = grey(0.6)
-     )
-title(main = list("Positive Spatial Autocorrelation", cex = 1,
-                  col = "black", font = 1))
-plot(grid_data[,, "y2"], 
-     col = grey(1:100 / 100), 
-     axes = FALSE, 
-     what = "image",
-     asp = 1.5,
-     border = grey(0.6)
-     )
-title(main = list("Negative Spatial Autocorrelation", cex = 1,
-                  col = "black", font = 1))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/Autocorrelation-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} Spatial Autocorrelation among 400 spatial units arranged in an 20-by-20 regular square lattice grid. Different gray-tones refer to different values of the variable ranging from low values (white) to high values (black). The left plot shows positive spatial autocorrelation, whereas right plot shows negative spatial autocorrelation. 
 	\end{minipage}	
@@ -608,41 +577,75 @@ For simplicity in showing how to create neighbor objects in \proglang{R}, we wor
 
 We first need to load the Metropolitan Region shape file in \proglang{R}. To do so, we will use the \pkg{sf} package, which allows us reading and handling spatial objects. 
 
-<<load-sf>>=
-#Load package
-library("sf")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Load package}
+\hlkwd{library}\hlstd{(}\hlstr{"sf"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 If the shape file \code{mr\_chile.shp} is in the same working directory, then we can load it into \proglang{R} using the command \code{read\_sf}:
 
-<<read-shape-mr, warning=FALSE>>=
-# Read shape file
-mr <- read_sf("mr_chile.shp")
-class(mr)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Read shape file}
+\hlstd{mr} \hlkwb{<-} \hlkwd{read_sf}\hlstd{(}\hlstr{"mr_chile.shp"}\hlstd{)}
+\hlkwd{class}\hlstd{(mr)}
+\end{alltt}
+\begin{verbatim}
+## [1] "sf"         "tbl_df"     "tbl"        "data.frame"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The function \code{read\_sf} reads data from the shapefile into a \code{Spatial} object of class ``\code{sf}''. The function \code{names} give us the name of the variables in the \texttt{.dbf} file associated with the shape file. 
 
-<<names>>=
-# Names of the variables in .dbf
-names(mr)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Names of the variables in .dbf}
+\hlkwd{names}\hlstd{(mr)}
+\end{alltt}
+\begin{verbatim}
+##  [1] "ID"         "NAME"       "NAME2"      "URB_POP"    "RUR_POP"   
+##  [6] "MALE_POP"   "TOT_POP"    "FEM_POP"    "N_PARKS"    "N_PLAZA"   
+## [11] "CONS_HOUSE" "M2_CONS_HA" "GREEN_AREA" "AREA"       "POVERTY"   
+## [16] "PER_CONTR_" "PER_HON_SA" "PER_PLANT_" "NURSES"     "DOCTORS"   
+## [21] "CONSULT_RU" "CONSULT_UR" "POSTAS"     "ESTAB_MUN_" "PSU_MUN_PR"
+## [26] "PSU_PART_P" "PSU_SUB_PR" "STUDENT_SU" "STUDENT_PA" "STUDENT_MU"
+## [31] "geometry"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 We can plot the shapefile using the generic function \code{plot} in the following way
 
-<<plot_mr_false, eval =  FALSE>>=
-# Plot shapefile
-plot(st_geometry(mr), main = "Metropolitan Region-Chile", axes = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Plot shapefile}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{main} \hlstd{=} \hlstr{"Metropolitan Region-Chile"}\hlstd{,} \hlkwc{axes} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The metropolitan region with the 52 communes is shown in Figure \ref{fig:plot_mr}.
 
 \begin{figure}[h]
   \caption{Plotting a Map in R}
     \label{fig:plot_mr}
-        <<plot_mr, echo = FALSE, fig.align='center', out.width = '8cm', out.height = '8cm'>>=
-plot(st_geometry(mr), main = "Metropolitan Region-Chile", axes = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=8cm,height=8cm]{figure/plot_mr-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 %===============================================
@@ -651,10 +654,14 @@ plot(st_geometry(mr), main = "Metropolitan Region-Chile", axes = TRUE)
 
 To create spatial weight matrices we need the \pkg{spdep} package \citep{bivand2013computing}. After installing it, we load the package
 
-<<message = FALSE, warning = FALSE>>=
-#Load package
-library("spdep")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Load package}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 In the \pkg{spdep} package, neighbor relationships between $n$ observations are represented by an object of class ``\code{nb}''. This object is a list of length $n$ with the index numbers of neighbors of each component recorded as an integer vector. If any observation has no neighbors, the component contains an integer zero. 
 
@@ -663,18 +670,41 @@ The function \code{poly2nb} is used in order to construct weight matrices based 
 
 First, we create a neighbor list based on the `Queen' criteria for the communes of the Metropolitan Region\index{Weight matrix!poly2nb function}:
 
-<<queen, message = FALSE>>=
-# Create queen W
-sf_use_s2(FALSE)
-queen.w <- poly2nb(as(mr, "Spatial"), queen =  TRUE, row.names = mr$NAME)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Create queen W}
+\hlkwd{sf_use_s2}\hlstd{(}\hlnum{FALSE}\hlstd{)}
+\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Since we have an \code{nb} object to examine, we can present the standard methods for these objects. There are \code{print}, \code{summary}, \code{plot}, and other methods. The characteristics of the weights are obtained with the usual \code{summary} command:
 
-<<sum-queen>>=
-# Summary of W
-summary(queen.w)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Summary of W}
+\hlkwd{summary}\hlstd{(queen.w)}
+\end{alltt}
+\begin{verbatim}
+## Neighbour list object:
+## Number of regions: 52 
+## Number of nonzero links: 292 
+## Percentage nonzero weights: 10.79882 
+## Average number of links: 5.615385 
+## Link number distribution:
+## 
+##  2  3  4  5  6  7  8  9 10 12 
+##  3  2  7 15 10 10  2  1  1  1 
+## 3 least connected regions:
+## Tiltil San Pedro Maria Pinto with 2 links
+## 1 most connected region:
+## San Bernardo with 12 links
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The output presents important information about the neighbors: it shows the number of regions, which corresponds to 52 in this example; the number of nonzero links; the percentage of nonzero weights; the average number of links, and so on. 
 
@@ -683,11 +713,36 @@ The commune of San Bernardo is most connected region with 12 neighbors under the
 To transform the \code{list} into an actual matrix $\mW$, we can use the function \code{nb2listw}\index{Weight matrix!nb2listw function}:
 
 
-<<queen-list>>=
-# From list to matrix
-queen.wl <- nb2listw(queen.w, style = "W")
-summary(queen.wl)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# From list to matrix}
+\hlstd{queen.wl} \hlkwb{<-} \hlkwd{nb2listw}\hlstd{(queen.w,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
+\hlkwd{summary}\hlstd{(queen.wl)}
+\end{alltt}
+\begin{verbatim}
+## Characteristics of weights list object:
+## Neighbour list object:
+## Number of regions: 52 
+## Number of nonzero links: 292 
+## Percentage nonzero weights: 10.79882 
+## Average number of links: 5.615385 
+## Link number distribution:
+## 
+##  2  3  4  5  6  7  8  9 10 12 
+##  3  2  7 15 10 10  2  1  1  1 
+## 3 least connected regions:
+## Tiltil San Pedro Maria Pinto with 2 links
+## 1 most connected region:
+## San Bernardo with 12 links
+## 
+## Weights style: W 
+## Weights constants summary:
+##    n   nn S0       S1      S2
+## W 52 2704 52 19.76751 216.466
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 An important argument of the function is \code{style}. This argument indicates what type of matrix to create. For example, \code{style = "W"} creates a row-standardize matrix so that $w^s_{ij} = w_{ij}/ \sum_j w_{ij}$. After normalization, each row of $\mW^s$ will sum to 1. \code{"B"} is the basic binary coding; and \code{"C"} is globally standardize, that is, $w^s_{ij} = w_{ij} \cdot (n/ \sum_{i}\sum_j w_{ij})$. If \code{style = "U"}, then $w^s_{ij} = w_{ij}/ \sum_i\sum_j w_{ij}$. In a \code{minmax} matrix, the $(i,j)$th element of $\mW^s$  becomes $w^s_{ij} = w_{ij} / \min\left\lbrace \max_i(\tau_i), \max_i(c_i)\right\rbrace$, with $\max_i(\tau_i)$ being the largest row sum of $\mW$ and $\max_i(c_i)$ being the largest column sum of $\mW$ \citep{kelejian2010specification}. Finally, \code{"S"} is the variance-stabilizing coding scheme where $w^s_{ij} = w_{ij}/ \sqrt{\sum_j w_{ij} ^2}$ \citep{tiefelsdorf1999variance}. 
 
@@ -696,46 +751,115 @@ Furthermore, the \code{summary} function reports constants used in the inference
 We can also see the attributes of the object using the function \code{attributes}:
 
 
-<<queen-list2>>=
-# Attributes of wlist
-attributes(queen.w)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Attributes of wlist}
+\hlkwd{attributes}\hlstd{(queen.w)}
+\end{alltt}
+\begin{verbatim}
+## $class
+## [1] "nb"
+## 
+## $region.id
+##  [1] "Santiago"            "Cerillos"            "Cerro Navia"        
+##  [4] "Conchali"            "El Bosque"           "Estacion Central"   
+##  [7] "La Cisterna"         "La Florida"          "La Granja"          
+## [10] "La Pintana"          "La Reina"            "Lo Espejo"          
+## [13] "Lo Prado"            "Macul"               "Nunoa"              
+## [16] "Pedro Aguirre Cerda" "Penalolen"           "Providencia"        
+## [19] "Quinta Normal"       "Recoleta"            "Renca"              
+## [22] "San Joaquin"         "San Miguel"          "San Ramon"          
+## [25] "Independencia"       "Puente Alto"         "Las Condes"         
+## [28] "Vitacura"            "Quilicura"           "Huechuraba"         
+## [31] "Maipu"               "Pudahuel"            "San Bernardo"       
+## [34] "Tiltil"              "Lampa"               "Colina"             
+## [37] "Lo Barnechea"        "Pirque"              "Paine"              
+## [40] "Buin"                "Alhue"               "Melipilla"          
+## [43] "San Pedro"           "Maria Pinto"         "Curacavi"           
+## [46] "Penaflor"            "Calera de Tango"     "Padre Hurtado"      
+## [49] "El Monte"            "Talagante"           "Isla de Maipo"      
+## [52] "San Jose de Maipo"  
+## 
+## $call
+## poly2nb(pl = as(mr, "Spatial"), row.names = mr$NAME, queen = TRUE)
+## 
+## $type
+## [1] "queen"
+## 
+## $sym
+## [1] TRUE
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 We may ask whether the matrix is symmetric using:
 
-<<queen-list3>>=
-# Symmetric W
-is.symmetric.nb(queen.w)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Symmetric W}
+\hlkwd{is.symmetric.nb}\hlstd{(queen.w)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 As we previously discussed, generally weight matrix based on boundaries are symmetric. Now, we construct a binary matrix using the Rook criteria:
 
-<<rook, message = FALSE>>=
-# Rook W
-rook.w <- poly2nb(as(mr, "Spatial"), row.names = mr$NAME, queen =  FALSE)
-summary(rook.w)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Rook W}
+\hlstd{rook.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
+\hlkwd{summary}\hlstd{(rook.w)}
+\end{alltt}
+\begin{verbatim}
+## Neighbour list object:
+## Number of regions: 52 
+## Number of nonzero links: 272 
+## Percentage nonzero weights: 10.05917 
+## Average number of links: 5.230769 
+## Link number distribution:
+## 
+##  2  3  4  5  6  7  8  9 10 
+##  3  3 12 16  7  6  2  1  2 
+## 3 least connected regions:
+## Tiltil San Pedro Maria Pinto with 2 links
+## 2 most connected regions:
+## Santiago San Bernardo with 10 links
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Finally, we can plot the weight matrices using the following set of commands (see Figure \ref{fig:Queen-Rook}). 
 
-<<plot-queen-rookF, fig.align='center', out.width = '8cm', out.height = '8cm', eval =  FALSE>>=
-# Plot Queen and Rook W Matrices
-plot(st_geometry(mr), border = "grey")
-coords <- st_coordinates(st_centroid(st_geometry(mr)))
-plot(queen.w, coords, add =  TRUE, col = "red")
-plot(rook.w, coords, add =  TRUE, col = "yellow")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Plot Queen and Rook W Matrices}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{)}
+\hlstd{coords} \hlkwb{<-} \hlkwd{st_coordinates}\hlstd{(}\hlkwd{st_centroid}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr)))}
+\hlkwd{plot}\hlstd{(queen.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(rook.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"yellow"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \caption{Queen and Rook Criteria for MR}
     \label{fig:Queen-Rook}
-<<plot-queen-rookT, fig.align='center', out.width = '8cm', out.height = '8cm', echo =FALSE, message = FALSE, warning= FALSE>>=
-# Plot Queen and Rook W Matrices
-plot(st_geometry(mr), border = "grey")
-coords <- st_coordinates(st_centroid(st_geometry(mr)))
-plot(queen.w, coords, add =  TRUE, col = "red")
-plot(rook.w, coords, add =  TRUE, col = "yellow")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=8cm,height=8cm]{figure/plot-queen-rookT-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 %==================================================
@@ -744,28 +868,87 @@ plot(rook.w, coords, add =  TRUE, col = "yellow")
 
 We now construct spatial weight matrices using the $k$-nearest neighbors criteria\index{Weight matrix!knearneigh function}. 
 
-<<knbs1>>=
-# K-neighbors
-head(coords, 5)                                       # show coordinates
-k1neigh <- knearneigh(coords, k = 1, longlat = TRUE)  # 1-nearest neighbor
-k2neigh <- knearneigh(coords, k = 2, longlat = TRUE)  # 2-nearest neighbor
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# K-neighbors}
+\hlkwd{head}\hlstd{(coords,} \hlnum{5}\hlstd{)}                                       \hlcom{# show coordinates}
+\end{alltt}
+\begin{verbatim}
+##           X         Y
+## 1 -70.65599 -33.45406
+## 2 -70.71742 -33.50027
+## 3 -70.74504 -33.42278
+## 4 -70.67735 -33.38372
+## 5 -70.67640 -33.56294
+\end{verbatim}
+\begin{alltt}
+\hlstd{k1neigh} \hlkwb{<-} \hlkwd{knearneigh}\hlstd{(coords,} \hlkwc{k} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{longlat} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# 1-nearest neighbor}
+\hlstd{k2neigh} \hlkwb{<-} \hlkwd{knearneigh}\hlstd{(coords,} \hlkwc{k} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{longlat} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# 2-nearest neighbor}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function \code{coords} extract the spatial coordinates from the shape file, whereas the function \code{knearneigh} returns a matrix with the indices of points belonging to the set of the $k$-nearest neighbors of each other. The argument \code{k} indicates the number of nearest neighbors to be returned. If point coordinates are longitude-latitude decimal degrees, then distances are measured in kilometers if \code{longlat = TRUE}. Furthermore, if \code{longlat = TRUE}, great circle distances are used. Note that the objects \code{k1neigh} and \code{k2neigh} are of class \code{knn}.
 
 Weight matrices based on inverse distance can be computed in the following way (see Section \ref{sec:inverse_distance}):
 
-<<inv-dist-mat>>=
-# Inverse weight matrix
-dist.mat <- as.matrix(dist(coords, method = "euclidean"))
-dist.mat[1:5, 1:5]
-dist.mat.inv <- 1 / dist.mat # 1 / d_{ij}
-diag(dist.mat.inv) <- 0      # 0 in the diagonal
-dist.mat.inv[1:5, 1:5]
-# Standardized inverse weight matrix
-dist.mat.inve <- mat2listw(dist.mat.inv, style = "W", row.names = mr$NAME)
-summary(dist.mat.inve)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Inverse weight matrix}
+\hlstd{dist.mat} \hlkwb{<-} \hlkwd{as.matrix}\hlstd{(}\hlkwd{dist}\hlstd{(coords,} \hlkwc{method} \hlstd{=} \hlstr{"euclidean"}\hlstd{))}
+\hlstd{dist.mat[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+##            1          2          3          4          5
+## 1 0.00000000 0.07687010 0.09438408 0.07350782 0.11078109
+## 2 0.07687010 0.00000000 0.08226867 0.12324109 0.07489489
+## 3 0.09438408 0.08226867 0.00000000 0.07814455 0.15606360
+## 4 0.07350782 0.12324109 0.07814455 0.00000000 0.17922003
+## 5 0.11078109 0.07489489 0.15606360 0.17922003 0.00000000
+\end{verbatim}
+\begin{alltt}
+\hlstd{dist.mat.inv} \hlkwb{<-} \hlnum{1} \hlopt{/} \hlstd{dist.mat} \hlcom{# 1 / d_\{ij\}}
+\hlkwd{diag}\hlstd{(dist.mat.inv)} \hlkwb{<-} \hlnum{0}      \hlcom{# 0 in the diagonal}
+\hlstd{dist.mat.inv[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+##           1         2         3         4         5
+## 1  0.000000 13.008960 10.595007 13.603994  9.026811
+## 2 13.008960  0.000000 12.155295  8.114177 13.352046
+## 3 10.595007 12.155295  0.000000 12.796797  6.407644
+## 4 13.603994  8.114177 12.796797  0.000000  5.579733
+## 5  9.026811 13.352046  6.407644  5.579733  0.000000
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Standardized inverse weight matrix}
+\hlstd{dist.mat.inve} \hlkwb{<-} \hlkwd{mat2listw}\hlstd{(dist.mat.inv,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME)}
+\hlkwd{summary}\hlstd{(dist.mat.inve)}
+\end{alltt}
+\begin{verbatim}
+## Characteristics of weights list object:
+## Neighbour list object:
+## Number of regions: 52 
+## Number of nonzero links: 2652 
+## Percentage nonzero weights: 98.07692 
+## Average number of links: 51 
+## Link number distribution:
+## 
+## 51 
+## 52 
+## 52 least connected regions:
+## Santiago Cerillos Cerro Navia Conchali El Bosque Estacion Central La Cisterna La Florida La Granja La Pintana La Reina Lo Espejo Lo Prado Macul Nunoa Pedro Aguirre Cerda Penalolen Providencia Quinta Normal Recoleta Renca San Joaquin San Miguel San Ramon Independencia Puente Alto Las Condes Vitacura Quilicura Huechuraba Maipu Pudahuel San Bernardo Tiltil Lampa Colina Lo Barnechea Pirque Paine Buin Alhue Melipilla San Pedro Maria Pinto Curacavi Penaflor Calera de Tango Padre Hurtado El Monte Talagante Isla de Maipo San Jose de Maipo with 51 links
+## 52 most connected regions:
+## Santiago Cerillos Cerro Navia Conchali El Bosque Estacion Central La Cisterna La Florida La Granja La Pintana La Reina Lo Espejo Lo Prado Macul Nunoa Pedro Aguirre Cerda Penalolen Providencia Quinta Normal Recoleta Renca San Joaquin San Miguel San Ramon Independencia Puente Alto Las Condes Vitacura Quilicura Huechuraba Maipu Pudahuel San Bernardo Tiltil Lampa Colina Lo Barnechea Pirque Paine Buin Alhue Melipilla San Pedro Maria Pinto Curacavi Penaflor Calera de Tango Padre Hurtado El Monte Talagante Isla de Maipo San Jose de Maipo with 51 links
+## 
+## Weights style: W 
+## Weights constants summary:
+##    n   nn S0       S1       S2
+## W 52 2704 52 2.902384 214.3332
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The function \code{dist} from \pkg{stats} package computes and returns the distance matrix computed by using the specified distance measure---euclidean distance in this example--- to compute the distance between the rows of a data matrix. The other methods that can be used are \code{maximum}, \code{manhattan}, \code{canberra}, \code{binary} or \code{minkowski}. Finally, the \code{mat2listw} function converts a square spatial weight matrix as a sequence of number \code{1:nrow(x)}.\footnote{For more about spatial weight matrices see \citep{stewart2010choosing}.}
 
@@ -783,35 +966,36 @@ The function \code{dist} from \pkg{stats} package computes and returns the dista
 The following code plot the different weight matrices: 
 
 
-<<plot-all-wsF, eval= FALSE>>=
-# Plot Weights
-par(mfrow = c(3, 2))
-plot(st_geometry(mr), border = "grey", main = "Queen")
-plot(queen.w, coords, add =  TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "1-Neigh")
-plot(knn2nb(k1neigh), coords, add = TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "2-Neigh")
-plot(knn2nb(k2neigh), coords, add = TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "Inverse Distance")
-plot(dist.mat.inve, coords, add =  TRUE, col = "red")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Plot Weights}
+\hlkwd{par}\hlstd{(}\hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{2}\hlstd{))}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Queen"}\hlstd{)}
+\hlkwd{plot}\hlstd{(queen.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"1-Neigh"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{knn2nb}\hlstd{(k1neigh), coords,} \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"2-Neigh"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{knn2nb}\hlstd{(k2neigh), coords,} \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Inverse Distance"}\hlstd{)}
+\hlkwd{plot}\hlstd{(dist.mat.inve, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 \begin{figure}[h!]
   \caption{Different Spatial Weight Schemes for MR}
     \label{fig:more_ws}
-<<plot-all-wsT, echo =FALSE, message = FALSE, fig.align='center', fig.height = 7, fig.width = 7, fig.show='hold'>>=
-# Plot Weights
-par(mfrow = c(3, 2))
-plot(st_geometry(mr), border = "grey", main = "Queen")
-plot(queen.w, coords, add =  TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "1-Neigh")
-plot(knn2nb(k1neigh), coords, add = TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "2-Neigh")
-plot(knn2nb(k2neigh), coords, add = TRUE, col = "red")
-plot(st_geometry(mr), border = "grey", main = "Inverse Distance")
-plot(dist.mat.inve, coords, add =  TRUE, col = "red")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/plot-all-wsT-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 \subsection{Constructing a Spatially Lagged Variable}
@@ -820,19 +1004,44 @@ Spatially lagged variables are important elements of many spatial test and spati
 
 First, we will combine the variables \code{POVERTY} and \code{URB\_POP} into a matrix and check the contents with \code{head}
 
-<<Xmatrix>>=
-# X matrix
-X <- cbind(mr$POVERTY, mr$URB_POP)
-head(X, 5)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# X matrix}
+\hlstd{X} \hlkwb{<-} \hlkwd{cbind}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY, mr}\hlopt{$}\hlstd{URB_POP)}
+\hlkwd{head}\hlstd{(X,} \hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##      [,1]   [,2]
+## [1,]    8 159919
+## [2,]    9  65262
+## [3,]   18 131850
+## [4,]   12 104634
+## [5,]   14 166514
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Now, we can construct a spatially lagged version of this matrix, using the \code{queen.w} weights\index{Weight matrix!lag.listw function}:
 
-<<WX-matrix>>=
-# Create WX
-WX <- lag.listw(nb2listw(queen.w), X)
-head(WX)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Create WX}
+\hlstd{WX} \hlkwb{<-} \hlkwd{lag.listw}\hlstd{(}\hlkwd{nb2listw}\hlstd{(queen.w), X)}
+\hlkwd{head}\hlstd{(WX)}
+\end{alltt}
+\begin{verbatim}
+##          [,1]     [,2]
+## [1,]  9.10000 100138.9
+## [2,] 12.40000 299498.4
+## [3,] 14.00000 144756.5
+## [4,] 14.60000 121974.2
+## [5,] 18.25000 170266.5
+## [6,] 10.42857 236231.1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 %****************************************************
@@ -893,21 +1102,15 @@ Regions located in quadrant I and III refer to positive spatial autocorrelation,
 
 \begin{figure}[ht]
   \caption{Moran Scatterplot}\label{fig:moran_scatterplot}
-<<moran, echo =FALSE, message = FALSE, fig.align='center', fig.height = 5, fig.width = 4, fig.show='hold'>>=
-set.seed(1)
-library("spdep")
-rook5x10 <- cell2nb(5, 10)
-y <- rnorm(5 * 10)
-Iw <- invIrM(rook5x10, 0.9)
-yc <- c(Iw %*% y)
-moran.plot(yc, nb2listw(rook5x10), pch = 19,
-           xlab = expression(x),
-           ylab = expression(Wx),
-           col = "red")
-text(c(2,-1, -1, 2), c(1.5, 1.5, 0.5, -0.5),  labels = c("Quadrant I", "Quadrant II",
-                                                "Quadrant III", "Quadrant IV"),
-     col = "blue", cex = 0.5)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/moran-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 
@@ -1097,30 +1300,34 @@ If we are interested in the geographical variation in poverty, we should start b
 So, we start by plotting the geographical variation of poverty among communes by using the \code{plot} function. In particular, we use a cloropleth\footnote{The name of this technique is derived from the Greek words choros - space, and pleth - value} map using the quantile classification. In a quantile graph, the variable is sorted and grouped in categories with equal number of observations, or quantiles. 
 
 
-<<cloro-graphsfalse, eval = FALSE>>=
-# Cloropleth graphs ----
-library("RColorBrewer")
-plot(mr["POVERTY"], 
-       breaks = "quantile",
-       nbreaks = 5, 
-       pal = brewer.pal(5, "Blues"), 
-       main = "", 
-       axes = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Cloropleth graphs ----}
+\hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
+\hlkwd{plot}\hlstd{(mr[}\hlstr{"POVERTY"}\hlstd{],}
+       \hlkwc{breaks} \hlstd{=} \hlstr{"quantile"}\hlstd{,}
+       \hlkwc{nbreaks} \hlstd{=} \hlnum{5}\hlstd{,}
+       \hlkwc{pal} \hlstd{=} \hlkwd{brewer.pal}\hlstd{(}\hlnum{5}\hlstd{,} \hlstr{"Blues"}\hlstd{),}
+       \hlkwc{main} \hlstd{=} \hlstr{""}\hlstd{,}
+       \hlkwc{axes} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Figure \ref{fig:cloro-graph} provides some useful insights. First, it clearly shows that the spatial pattern of poverty in the MR is not spatial homogeneous, but rather the intensity of poverty varies across space. Second, it provides an example of how disaggregated poverty indicators can reveal additional information to aggregate indicators. It shows that poverty intensity is lower peripheral communes than central communes. 
 
 \begin{figure}
 \caption{Cloropleth map: Poverty in the Metropolitan Region}\label{fig:cloro-graph}
-<<cloro-graphs, fig.align='center', fig.height = 3, fig.width = 4, fig.show='hold', echo = FALSE>>=
-library("RColorBrewer")
-plot(mr["POVERTY"], 
-       breaks = "quantile",
-       nbreaks = 5, 
-       pal = brewer.pal(5, "Blues"), 
-       main = "", 
-       axes = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/cloro-graphs-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 How to interpret quantile maps? A quantile classification scheme is an ordinal ranking of the data values, dividing the distribution into intervals that have an equal number of data values. Quantile classification ensures maps are easily comparable and can be `easy to read'.
@@ -1157,21 +1364,57 @@ However, regarding the possible spatial association that seems to be derived fro
 
 First, we create two spatial weight matrices (queen and rook) to assess the robustness of the test under different spatial schemes. 
 
-<<pov-W, message = FALSE>>=
-# Generate W matrices
-queen.w <- poly2nb(as(mr, "Spatial"), row.names = mr$NAME, queen =  TRUE)
-rook.w  <- poly2nb(as(mr, "Spatial"), row.names = mr$NAME, queen =  FALSE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Generate W matrices}
+\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlstd{rook.w}  \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Moran's I test statistic for spatial autocorrelation is implemented in \pkg{spdep} \citep{spdep}. There are mainly two function for computing this test: \code{moran.test}, where the inference is based on a normal or randomization assumption, and \code{moran.mc}, for a permutation-based test\index{Moran's I test!moran.test function}. 
 
-<<moranI-normal>>=
-# Moran's I test
-moran.test(mr$POVERTY, listw = nb2listw(queen.w), randomisation = FALSE, 
-           alternative = 'two.sided')
-moran.test(mr$POVERTY, listw = nb2listw(rook.w), randomisation = FALSE, 
-           alternative = 'two.sided')
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Moran's I test}
+\hlkwd{moran.test}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{listw} \hlstd{=} \hlkwd{nb2listw}\hlstd{(queen.w),} \hlkwc{randomisation} \hlstd{=} \hlnum{FALSE}\hlstd{,}
+           \hlkwc{alternative} \hlstd{=} \hlstr{'two.sided'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Moran I test under normality
+## 
+## data:  mr$POVERTY  
+## weights: nb2listw(queen.w)    
+## 
+## Moran I statistic standard deviate = 4.0453, p-value = 5.225e-05
+## alternative hypothesis: two.sided
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.306497992      -0.019607843       0.006498517
+\end{verbatim}
+\begin{alltt}
+\hlkwd{moran.test}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{listw} \hlstd{=} \hlkwd{nb2listw}\hlstd{(rook.w),} \hlkwc{randomisation} \hlstd{=} \hlnum{FALSE}\hlstd{,}
+           \hlkwc{alternative} \hlstd{=} \hlstr{'two.sided'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Moran I test under normality
+## 
+## data:  mr$POVERTY  
+## weights: nb2listw(rook.w)    
+## 
+## Moran I statistic standard deviate = 4.3309, p-value = 1.485e-05
+## alternative hypothesis: two.sided
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.342282943      -0.019607843       0.006982432
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The \code{randomisation} option is set to \code{TRUE} by default, which implies that in order to get inference based on a normal approximation, it must be explicitly set to \code{FALSE}, as in our case. Similarly, the default is a one-sided test, so that in order to obtain the results for the more commonly used two-sided test, the option \code{alternative} must be explicitly to \code{'two.sided'}. Note also that the \code{zero.policy} option is set to \code{FALSE} by default, which means that islands result in a missing value code \code{NA}. Setting this option to \code{TRUE} will set the spatial lag for island to the customary zero value. 
 
@@ -1184,42 +1427,81 @@ If you compute the Moran's I test for two different variables, but using the sam
 
 The test under randomization gives the following results:
 
-<<moranI-randomization>>=
-# Moran test under randomization
-moran.test(mr$POVERTY, listw = nb2listw(queen.w), 
-           alternative = 'two.sided')
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Moran test under randomization}
+\hlkwd{moran.test}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{listw} \hlstd{=} \hlkwd{nb2listw}\hlstd{(queen.w),}
+           \hlkwc{alternative} \hlstd{=} \hlstr{'two.sided'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Moran I test under randomisation
+## 
+## data:  mr$POVERTY  
+## weights: nb2listw(queen.w)    
+## 
+## Moran I statistic standard deviate = 4.0689, p-value = 4.723e-05
+## alternative hypothesis: two.sided
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.306497992      -0.019607843       0.006423226
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Note how the value of the statistic and its expectation do not change relative to the normal case, only the variance is different.
 
 We can carry out a Moran's $I$ test based on random permutation the function \code{moran.mc}. Unlike previous test, it needs the number of permutations \code{nsim}. Since the rank of the observed statistic is computed relative to the reference distribution of statistics for the permuted data sets, it is good practice to set this number to something ending on 9 (such as 99 or 999). This will lead to rounded pseudo p-values like 0.01 or 0.001.\index{Moran's I test!moran.mc function} 
 
 
-<<moranI-mc>>=
-# Moran's Test
-set.seed(1234)
-moran.mc(mr$POVERTY, listw = nb2listw(queen.w), 
-           nsim = 99)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Moran's Test}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1234}\hlstd{)}
+\hlkwd{moran.mc}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{listw} \hlstd{=} \hlkwd{nb2listw}\hlstd{(queen.w),}
+           \hlkwc{nsim} \hlstd{=} \hlnum{99}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Monte-Carlo simulation of Moran I
+## 
+## data:  mr$POVERTY 
+## weights: nb2listw(queen.w)  
+## number of simulations + 1: 100 
+## 
+## statistic = 0.3065, observed rank = 100, p-value = 0.01
+## alternative hypothesis: greater
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 Note that none of the permuted data sets yielded a Moran's $I$ greater than the observed value of 0.3065, hence a pseudo p-value of $(0 + 1) / (99 + 1) = 0.01$.
 
 The Moran scatter plot can also be obtained using the function \code{moran.plot} of \pkg{spdep}:\index{Moran's I test!moran.plot function}
 
-<<moran-ploteF, eval = FALSE>>=
-# Moran's plot
-moran.plot(mr$POVERTY, listw = nb2listw(queen.w))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Moran's plot}
+\hlkwd{moran.plot}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{listw} \hlstd{=} \hlkwd{nb2listw}\hlstd{(queen.w))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}[ht]
 \caption{Moran Plot for Poverty}\label{fig:mp-poverty}
-<<moran-plotT, fig.align='center', fig.height = 5, fig.width = 4, fig.show='hold', echo = FALSE>>=
-moran.plot(mr$POVERTY, listw = nb2listw(queen.w),
-           xlab = "Poverty Rate",
-           ylab = "Spatially Lagged Poverty Rate"
-           )
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/moran-plotT-1} 
+
+}
+
+
+\end{knitrout}
 \end{figure}
 
 Figure \ref{fig:mp-poverty} displays the Moran scatterplot of poverty with the queen weight matrix. Positive spatial autocorrelation, detected by the value of the Moran's I, is reflected by the fact that most of the communes are located in quadrant I and III. However, there are some exceptions such as the communes located in quadrant II and IV. For example, San Miguel is a commune with low poverty rate, but surrounded by communes with high poverty.  

@@ -8,32 +8,31 @@
 \contentsline {figure}{\numberline {1.6}{\ignorespaces Queen Contiguity\relax }}{9}{figure.caption.9}%
 \contentsline {figure}{\numberline {1.7}{\ignorespaces Higher-Order Neighbors\relax }}{14}{figure.caption.14}%
 \contentsline {figure}{\numberline {1.8}{\ignorespaces Plotting a Map in R\relax }}{16}{figure.caption.15}%
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Queen and Rook Criteria for MR\relax }}{20}{figure.caption.16}%
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Queen and Rook Criteria for MR\relax }}{19}{figure.caption.16}%
 \contentsline {figure}{\numberline {1.10}{\ignorespaces Different Spatial Weight Schemes for MR\relax }}{22}{figure.caption.17}%
 \contentsline {figure}{\numberline {1.11}{\ignorespaces Moran Scatterplot\relax }}{25}{figure.caption.18}%
 \contentsline {figure}{\numberline {1.12}{\ignorespaces Cloropleth map: Poverty in the Metropolitan Region\relax }}{29}{figure.caption.22}%
-\contentsline {figure}{\numberline {1.13}{\ignorespaces Cloropleth map: Poverty in the Metropolitan Region (Equal Interval)\relax }}{30}{figure.caption.23}%
-\contentsline {figure}{\numberline {1.14}{\ignorespaces Moran Plot for Poverty\relax }}{33}{figure.caption.24}%
+\contentsline {figure}{\numberline {1.13}{\ignorespaces Moran Plot for Poverty\relax }}{32}{figure.caption.23}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The SLM for two tegions\relax }}{36}{figure.caption.25}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The SDM for Two Regions\relax }}{40}{figure.caption.27}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces The SEM for two regions\relax }}{41}{figure.caption.28}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Taxonomy of spatial models\relax }}{43}{figure.caption.29}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Regions east and west of the CBD\relax }}{53}{figure.caption.32}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The SLM for two tegions\relax }}{36}{figure.caption.24}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The SDM for Two Regions\relax }}{40}{figure.caption.26}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces The SEM for two regions\relax }}{41}{figure.caption.27}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Taxonomy of spatial models\relax }}{43}{figure.caption.28}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Regions east and west of the CBD\relax }}{53}{figure.caption.31}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Convergence of sequence $2 + 3/n$\relax }}{66}{figure.caption.36}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Bounded sequence\relax }}{69}{figure.caption.37}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Illustration of convergnce in probability to a constant\relax }}{70}{figure.caption.38}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Convergence of mean from normal distribution\relax }}{78}{figure.caption.39}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Convergence of mean from binomial distribution\relax }}{79}{figure.caption.40}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Chebychev's Convergence\relax }}{82}{figure.caption.41}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Convergence of the sample mean and speed of convergence\relax }}{92}{figure.caption.42}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Convergence of sequence $2 + 3/n$\relax }}{66}{figure.caption.35}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Bounded sequence\relax }}{69}{figure.caption.36}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Illustration of convergnce in probability to a constant\relax }}{70}{figure.caption.37}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Convergence of mean from normal distribution\relax }}{78}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Convergence of mean from binomial distribution\relax }}{79}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Chebychev's Convergence\relax }}{82}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Convergence of the sample mean and speed of convergence\relax }}{92}{figure.caption.41}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Distribution of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \rho $}\mathaccent "0362{\rho }$\relax }}{107}{figure.caption.44}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Distances from R3 to all Regions\relax }}{119}{figure.caption.45}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Spatial Distribution of Crime in Columbus, Ohio Neighborhoods\relax }}{131}{figure.caption.46}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Effects of a Change in Region 30: Categorization\relax }}{136}{figure.caption.48}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Effects of a Change in Region 30: Magnitude\relax }}{137}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Distribution of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \rho $}\mathaccent "0362{\rho }$\relax }}{107}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Distances from R3 to all Regions\relax }}{119}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Spatial Distribution of Crime in Columbus, Ohio Neighborhoods\relax }}{131}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Effects of a Change in Region 30: Categorization\relax }}{136}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Effects of a Change in Region 30: Magnitude\relax }}{137}{figure.caption.48}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Estimation steps for SAC model\relax }}{210}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Estimation steps for SAC model\relax }}{210}{figure.caption.59}%

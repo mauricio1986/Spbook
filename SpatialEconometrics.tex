@@ -144,10 +144,10 @@ where $\beta_{ji}$ is the effect of pollution of region $j$ on region $i$. Howev
 The key point is that, under standard econometric modeling, it is impossible to model spatial dependency. However, as we will see in the next sections, we might be able to incorporate spatial relationships more efficiently using the so-called spatial weight matrix. 
 
 %===========================================
-\subsection{Spatial Autocorrelation}\label{sec:Spatial_autocorrelation}\index{Spatial autocorrelation}
+\subsection{Spatial Autocorrelation}\label{sec:Spatial_autocorrelation}
 %===========================================
 
-Another important concept is \textbf{spatial autocorrelation}. In space, the term autocorrelation refers to the correlation between the value of the variable at two different locations. Other ways of defining the same concept are: (1) correlation between the same attribute at two (or more) different locations, or (2) coincidence of values similarity with location similarity. Essentially, spatial autocorrelation is concerned with establishing whether the presence of a variable in one region in a regional system makes the presence of that variable in neighboring regions more, or less, likely.
+Another important concept is \textbf{spatial autocorrelation}\index{Spatial autocorrelation}. In space, the term autocorrelation refers to the correlation between the value of the variable at two different locations. Other ways of defining the same concept are: (1) correlation between the same attribute at two (or more) different locations, or (2) coincidence of values similarity with location similarity. Essentially, spatial autocorrelation is concerned with establishing whether the presence of a variable in one region in a regional system makes the presence of that variable in neighboring regions more, or less, likely.
 
 The counterpart of spatial autocorrelation (and spatial dependency) is spatial randomness.  Spatial randomness means that we cannot observe any spatial pattern in the data. That is, the value we observe in some spatial unit is equally likely as in any other spatial unit. Spatial randomness is important because it will form the null hypothesis later. If rejected, then there is evidence of spatial structure.  
 
@@ -202,7 +202,7 @@ where $y_i$ and $y_j$ are observations on a random variable at locations $i$ and
 Positive autocorrelation is much more common, but negative autocorrelation does exists, for example, in studies of welfare competition or federal grants competitions among local governments \citep{saavedra2000model, boarnet2002federal}, and studies of regional employment \citep{filiztekin2009regional, pavlyuk2011spatial}, the cross-border lottery shopping \citep{garrett2002revenue}, foreign direct investment in OECD countries \citep{garretsen2009fdi} and locations of Turkish manufacturing industry \citep{basdas2009spatial}. In short, we are interested in studying non-random spatial patterns and try to explain this non-randomness. Possible causes of non-randomness are \citep{gibbons2015spatial}:
 
 \begin{enumerate}
-	\item Firms may be randomly allocated across space but some characteristics of locations varies across space and influences outcomes. 
+	\item Economic agents may be randomly allocated across space but some characteristics of locations varies across space and influences outcomes. 
 	\item Location may have no causal effect on outcomes, but outcomes may be correlated across space because heterogeneous individuals or firms are non-randomly allocated across space. 
 	\item Individual or firms may be randomly allocated across  space but they interact so that decisions by one agent affects outcomes of other agents. 
 	\item Individuals or firms may be non-randomly allocated across space and the characteristics of others nearby directly influences individual outcomes. 
@@ -231,10 +231,10 @@ Generally, we assume that the diagonal elements of this ``spatial neighbors'' ma
 A more formal definition of spatial weight matrix is the following:
 
 \begin{definition}[Spatial Weight Matrix]\index{Weight matrix!Definition}\label{def:W}
-  Let $n$ be the number of spatial units. The spatial weight matrix, $\mW$, a $n\times n$ positive symmetric and \textbf{non-stochastic} matrix with element $w_{ij}$ at location $i,j$. The values of $w_{ij}$ or the weights for each pair of locations are assigned by some preset rules which define the spatial relations among locations. By convention, $w_{ij} = 0$ for the diagonal elements.
+  Let $n$ be the number of spatial units. The spatial weight matrix, $\mW$, a $n\times n$ \textbf{positive symmetric} and \textbf{non-stochastic} matrix with element $w_{ij}$ at location $i,j$. The values of $w_{ij}$ or the weights for each pair of locations are assigned by some preset rules which define the spatial relations among locations. By convention, $w_{ij} = 0$ for the diagonal elements.
 \end{definition}
 
-Non-stochastic means that the researcher takes $\mW$ as known \emph{a priori}, and therefore, all results are conditional upon the specification of $\mW$.
+Positive symmetric means that $w_{ij}\geq 0$ and $w_{ij} = w_{ji}$, for $i\neq j$. Thus, the interactions between spatial units cannot be negative. Non-stochastic means that the researcher takes $\mW$ as known \emph{a priori}, and therefore, all results are conditional upon the specification of $\mW$.
 
 The definition of $\mW$ also requires a rule for $w_{ij}$. In other words, we need to figure out how to assign a real number to $w_{ij}$, for $i\neq j$, representing the strength of the spatial relationship between $i$ and $j$. There are several ways of doing that. But, in general, there are two basic criteria. The first type establishes a relationship based on shared borders or vertices of lattice or irregular polygon data (contiguity). The second type establishes a relationship based on the distance between locations. Generally speaking, contiguity is most appropriate for geographic data expressed as polygons (so-called areal units), whereas distance is suited for point data, although in practice the distinction is not that absolute. 
 
@@ -493,7 +493,7 @@ An important characteristic of the row-stochastic matrix is related to its eigen
 	Every eigenvalue $\omega_i$ of a row-stochastic Matrix satisfies $\left|\vomega\right|\leq 1$
 \end{theorem}
 
-Therefore, the eigenvalues of the row-stochastic (i.e., row-normalized, row standardized or Markov) neighborhood matrix $\mW^s$ are in the range $\left[-1, +1\right]$.
+Therefore, the eigenvalues of the row-stochastic (i.e., row-normalized, row standardized or Markov) neighborhood matrix $\mW^s=(w_{ij}^s)$ are in the range $\left[-1, +1\right]$.
 
 Finally, the behavior of $\mW^s$ is important for asymptotic properties of estimators and test statistics \citep[][pp. 244]{AnselinBera1998}. In particular, the $\mW$ matrix should be also exogenous, unless endogeneity is considered explicitly in the model specification. 
 
@@ -661,35 +661,33 @@ The shapefile format is simple because it can store the primate geometric data t
 
 For simplicity in showing how to create neighbor objects in \proglang{R}, we work on the map consisting of the communes of the Metropolitan Region in Chile. 
 
-We first need to load the Metropolitan Region shape file in \proglang{R}. To do so, we will use the \pkg{maptools} package \citep{maptoolsP}, which allows us reading and handling spatial objects. 
+We first need to load the Metropolitan Region shape file in \proglang{R}. To do so, we will use the \pkg{sf} package, which allows us reading and handling spatial objects. 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{#Load package}
-\hlkwd{library}\hlstd{(}\hlstr{"maptools"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"sf"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
-If the shape file \code{mr\_chile.shp} is in the same working directory, then we can load it into \proglang{R} using the command \code{readShapeSpatial}:
+If the shape file \code{mr\_chile.shp} is in the same working directory, then we can load it into \proglang{R} using the command \code{read\_sf}:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Read shape file}
-\hlstd{mr} \hlkwb{<-} \hlkwd{readShapeSpatial}\hlstd{(}\hlstr{"mr_chile.shp"}\hlstd{)}
+\hlstd{mr} \hlkwb{<-} \hlkwd{read_sf}\hlstd{(}\hlstr{"mr_chile.shp"}\hlstd{)}
 \hlkwd{class}\hlstd{(mr)}
 \end{alltt}
 \begin{verbatim}
-## [1] "SpatialPolygonsDataFrame"
-## attr(,"package")
-## [1] "sp"
+## [1] "sf"         "tbl_df"     "tbl"        "data.frame"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
-The function \texttt{readShapeSpatial} reads data from the shapefile into a \code{Spatial} object of class ``\code{sp}''. The function \code{names} give us the name of the variables in the \texttt{.dbf} file associated with the shape file. 
+The function \code{read\_sf} reads data from the shapefile into a \code{Spatial} object of class ``\code{sf}''. The function \code{names} give us the name of the variables in the \texttt{.dbf} file associated with the shape file. 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -704,6 +702,7 @@ The function \texttt{readShapeSpatial} reads data from the shapefile into a \cod
 ## [16] "PER_CONTR_" "PER_HON_SA" "PER_PLANT_" "NURSES"     "DOCTORS"   
 ## [21] "CONSULT_RU" "CONSULT_UR" "POSTAS"     "ESTAB_MUN_" "PSU_MUN_PR"
 ## [26] "PSU_PART_P" "PSU_SUB_PR" "STUDENT_SU" "STUDENT_PA" "STUDENT_MU"
+## [31] "geometry"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -714,7 +713,7 @@ We can plot the shapefile using the generic function \code{plot} in the followin
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Plot shapefile}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{main} \hlstd{=} \hlstr{"Metropolitan Region-Chile"}\hlstd{,} \hlkwc{axes} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{main} \hlstd{=} \hlstr{"Metropolitan Region-Chile"}\hlstd{,} \hlkwc{axes} \hlstd{=} \hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -761,7 +760,8 @@ First, we create a neighbor list based on the `Queen' criteria for the communes 
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Create queen W}
-\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(mr,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlkwd{sf_use_s2}\hlstd{(}\hlnum{FALSE}\hlstd{)}
+\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -848,28 +848,27 @@ We can also see the attributes of the object using the function \code{attributes
 ## [1] "nb"
 ## 
 ## $region.id
-##  [1] Santiago            Cerillos            Cerro Navia        
-##  [4] Conchali            El Bosque           Estacion Central   
-##  [7] La Cisterna         La Florida          La Granja          
-## [10] La Pintana          La Reina            Lo Espejo          
-## [13] Lo Prado            Macul               Nunoa              
-## [16] Pedro Aguirre Cerda Penalolen           Providencia        
-## [19] Quinta Normal       Recoleta            Renca              
-## [22] San Joaquin         San Miguel          San Ramon          
-## [25] Independencia       Puente Alto         Las Condes         
-## [28] Vitacura            Quilicura           Huechuraba         
-## [31] Maipu               Pudahuel            San Bernardo       
-## [34] Tiltil              Lampa               Colina             
-## [37] Lo Barnechea        Pirque              Paine              
-## [40] Buin                Alhue               Melipilla          
-## [43] San Pedro           Maria Pinto         Curacavi           
-## [46] Penaflor            Calera de Tango     Padre Hurtado      
-## [49] El Monte            Talagante           Isla de Maipo      
-## [52] San Jose de Maipo  
-## 52 Levels: Alhue Buin Calera de Tango Cerillos Cerro Navia Colina ... Vitacura
+##  [1] "Santiago"            "Cerillos"            "Cerro Navia"        
+##  [4] "Conchali"            "El Bosque"           "Estacion Central"   
+##  [7] "La Cisterna"         "La Florida"          "La Granja"          
+## [10] "La Pintana"          "La Reina"            "Lo Espejo"          
+## [13] "Lo Prado"            "Macul"               "Nunoa"              
+## [16] "Pedro Aguirre Cerda" "Penalolen"           "Providencia"        
+## [19] "Quinta Normal"       "Recoleta"            "Renca"              
+## [22] "San Joaquin"         "San Miguel"          "San Ramon"          
+## [25] "Independencia"       "Puente Alto"         "Las Condes"         
+## [28] "Vitacura"            "Quilicura"           "Huechuraba"         
+## [31] "Maipu"               "Pudahuel"            "San Bernardo"       
+## [34] "Tiltil"              "Lampa"               "Colina"             
+## [37] "Lo Barnechea"        "Pirque"              "Paine"              
+## [40] "Buin"                "Alhue"               "Melipilla"          
+## [43] "San Pedro"           "Maria Pinto"         "Curacavi"           
+## [46] "Penaflor"            "Calera de Tango"     "Padre Hurtado"      
+## [49] "El Monte"            "Talagante"           "Isla de Maipo"      
+## [52] "San Jose de Maipo"  
 ## 
 ## $call
-## poly2nb(pl = mr, row.names = mr$NAME, queen = TRUE)
+## poly2nb(pl = as(mr, "Spatial"), row.names = mr$NAME, queen = TRUE)
 ## 
 ## $type
 ## [1] "queen"
@@ -900,7 +899,7 @@ As we previously discussed, generally weight matrix based on boundaries are symm
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Rook W}
-\hlstd{rook.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(mr,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
+\hlstd{rook.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
 \hlkwd{summary}\hlstd{(rook.w)}
 \end{alltt}
 \begin{verbatim}
@@ -927,9 +926,10 @@ Finally, we can plot the weight matrices using the following set of commands (se
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Plot Queen and Rook W Matrices}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{)}
-\hlkwd{plot}\hlstd{(queen.w,} \hlkwd{coordinates}\hlstd{(mr),} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
-\hlkwd{plot}\hlstd{(rook.w,} \hlkwd{coordinates}\hlstd{(mr),} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"yellow"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{)}
+\hlstd{coords} \hlkwb{<-} \hlkwd{st_coordinates}\hlstd{(}\hlkwd{st_centroid}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr)))}
+\hlkwd{plot}\hlstd{(queen.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(rook.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"yellow"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -958,16 +958,15 @@ We now construct spatial weight matrices using the $k$-nearest neighbors criteri
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# K-neighbors}
-\hlstd{coords} \hlkwb{<-} \hlkwd{coordinates}\hlstd{(mr)}                             \hlcom{# coordinates of centroids}
 \hlkwd{head}\hlstd{(coords,} \hlnum{5}\hlstd{)}                                       \hlcom{# show coordinates}
 \end{alltt}
 \begin{verbatim}
-##        [,1]      [,2]
-## 0 -70.65599 -33.45406
-## 1 -70.71742 -33.50027
-## 2 -70.74504 -33.42278
-## 3 -70.67735 -33.38372
-## 4 -70.67640 -33.56294
+##           X         Y
+## 1 -70.65599 -33.45406
+## 2 -70.71742 -33.50027
+## 3 -70.74504 -33.42278
+## 4 -70.67735 -33.38372
+## 5 -70.67640 -33.56294
 \end{verbatim}
 \begin{alltt}
 \hlstd{k1neigh} \hlkwb{<-} \hlkwd{knearneigh}\hlstd{(coords,} \hlkwc{k} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{longlat} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# 1-nearest neighbor}
@@ -988,12 +987,12 @@ Weight matrices based on inverse distance can be computed in the following way (
 \hlstd{dist.mat[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
 \end{alltt}
 \begin{verbatim}
-##            0          1          2          3          4
-## 0 0.00000000 0.07687010 0.09438408 0.07350782 0.11078109
-## 1 0.07687010 0.00000000 0.08226867 0.12324109 0.07489489
-## 2 0.09438408 0.08226867 0.00000000 0.07814455 0.15606360
-## 3 0.07350782 0.12324109 0.07814455 0.00000000 0.17922003
-## 4 0.11078109 0.07489489 0.15606360 0.17922003 0.00000000
+##            1          2          3          4          5
+## 1 0.00000000 0.07687010 0.09438408 0.07350782 0.11078109
+## 2 0.07687010 0.00000000 0.08226867 0.12324109 0.07489489
+## 3 0.09438408 0.08226867 0.00000000 0.07814455 0.15606360
+## 4 0.07350782 0.12324109 0.07814455 0.00000000 0.17922003
+## 5 0.11078109 0.07489489 0.15606360 0.17922003 0.00000000
 \end{verbatim}
 \begin{alltt}
 \hlstd{dist.mat.inv} \hlkwb{<-} \hlnum{1} \hlopt{/} \hlstd{dist.mat} \hlcom{# 1 / d_\{ij\}}
@@ -1001,12 +1000,12 @@ Weight matrices based on inverse distance can be computed in the following way (
 \hlstd{dist.mat.inv[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
 \end{alltt}
 \begin{verbatim}
-##           0         1         2         3         4
-## 0  0.000000 13.008960 10.595007 13.603994  9.026811
-## 1 13.008960  0.000000 12.155295  8.114177 13.352046
-## 2 10.595007 12.155295  0.000000 12.796797  6.407644
-## 3 13.603994  8.114177 12.796797  0.000000  5.579733
-## 4  9.026811 13.352046  6.407644  5.579733  0.000000
+##           1         2         3         4         5
+## 1  0.000000 13.008960 10.595007 13.603994  9.026811
+## 2 13.008960  0.000000 12.155295  8.114177 13.352046
+## 3 10.595007 12.155295  0.000000 12.796797  6.407644
+## 4 13.603994  8.114177 12.796797  0.000000  5.579733
+## 5  9.026811 13.352046  6.407644  5.579733  0.000000
 \end{verbatim}
 \begin{alltt}
 \hlcom{# Standardized inverse weight matrix}
@@ -1058,14 +1057,14 @@ The following code plot the different weight matrices:
 \begin{alltt}
 \hlcom{# Plot Weights}
 \hlkwd{par}\hlstd{(}\hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{2}\hlstd{))}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Queen"}\hlstd{)}
-\hlkwd{plot}\hlstd{(queen.w,} \hlkwd{coordinates}\hlstd{(mr),} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"1-Neigh"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Queen"}\hlstd{)}
+\hlkwd{plot}\hlstd{(queen.w, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"1-Neigh"}\hlstd{)}
 \hlkwd{plot}\hlstd{(}\hlkwd{knn2nb}\hlstd{(k1neigh), coords,} \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"2-Neigh"}\hlstd{)}
-\hlkwd{plot}\hlstd{(}\hlkwd{knn2nb}\hlstd{(k2neigh),} \hlkwd{coordinates}\hlstd{(mr),} \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
-\hlkwd{plot}\hlstd{(mr,} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Inverse Distance"}\hlstd{)}
-\hlkwd{plot}\hlstd{(dist.mat.inve,} \hlkwd{coordinates}\hlstd{(mr),} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"2-Neigh"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{knn2nb}\hlstd{(k2neigh), coords,} \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\hlkwd{plot}\hlstd{(}\hlkwd{st_geometry}\hlstd{(mr),} \hlkwc{border} \hlstd{=} \hlstr{"grey"}\hlstd{,} \hlkwc{main} \hlstd{=} \hlstr{"Inverse Distance"}\hlstd{)}
+\hlkwd{plot}\hlstd{(dist.mat.inve, coords,} \hlkwc{add} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1148,18 +1147,16 @@ The most general measure used is the Moran's I.\footnote{There exists several ot
 Moran's I is given by\index{Moran's I test}:
 
 \begin{equation}\label{eq:I-moran}
-I = \frac{\sum_{i = 1}^n\sum_{j=1, j\neq i}^n w_{ij}\left(x_i - \bar{x}\right)\left(x_j - \bar{x}\right)}{S_0 \sum_{i = 1}^n\left(x_i - \bar{x}\right)^2/n} = \frac{n\sum_{i = 1}^n\sum_{j=1}^n w_{ij}\left(x_i - \bar{x}\right)\left(x_j - \bar{x}\right)}{S_0 \sum_{i = 1}^n\left(x_i - \bar{x}\right)^2}
+I = \frac{\sum_{i = 1}^n\sum_{j=1, j\neq i}^n w_{ij}\left(x_i - \bar{x}\right)\left(x_j - \bar{x}\right)}{S_0 \sum_{i = 1}^n\left(x_i - \bar{x}\right)^2/n} = \frac{n\sum_{i = 1}^n\sum_{j=1}^n w_{ij}\left(x_i - \bar{x}\right)\left(x_j - \bar{x}\right)}{S_0 \sum_{i = 1}^n\left(x_i - \bar{x}\right)^2},
 \end{equation}
 %
 where $S_0=\sum_{i = 1}^n\sum_{j=1}^nw_{ij}$ and $w_{ij}$ is an element of the spatial weight matrix that measures spatial distance or connectivity between regions $i$ and $j$. In matrix form:
 
-
 \begin{equation*}
-	I = \frac{n}{S_0} \frac{\vz^\top\mW\vz}{\vz^\top\vz}
+	I = \frac{n}{S_0} \frac{\vz^\top\mW\vz}{\vz^\top\vz},
 \end{equation*}
 %
 where: 
-
 
 \begin{equation*}
 \vz = \begin{pmatrix}
@@ -1167,17 +1164,16 @@ where:
           x_2 - \bar{x} \\
           \vdots\\
           x_n - \bar{x}
-      \end{pmatrix}
+      \end{pmatrix},
 \end{equation*}
 
 If the $\mW$ matrix is row standardized, then:
 
 \begin{equation*}
-	I = \frac{\vz^\top\mW^s\vz}{\vz^\top\vz}
+	I = \frac{\vz^\top\mW^s\vz}{\vz^\top\vz},
 \end{equation*}
 %
 because $S_0=n$. Values range from -1 (perfect dispersion) to +1 (perfect correlation). A zero value indicates a random spatial pattern. 
-
 
 A very useful tool for understanding the Moran’s I test is the Moran Scatterplot. The idea of the Moran scatterplot is to display the variable for each region (on the horizontal axis) against the standardized spatial weighted average (average of the neighbors' $x$, also called spatial lag) on the vertical axis (See Figure \ref{fig:moran_scatterplot}). As pointed out by \cite{anselin1996chapter}, expressing the variables in standardized from (i.e. with mean zero and standard deviation equal to one) allows assessment of both the global spatial association, since the slope of the line is the Moran's I coefficient, and local spatial association (the quadrant in the scatterplot). The Moran scatterplot is therefore divided into four different quadrants corresponding to the four types of local spatial association between a region and its neighbors\index{Moran's I test!Moran scatterplot}:
 
@@ -1378,42 +1374,29 @@ The procedure is the following:
 \section{Application: Poverty in Santiago, Chile}
 %=====================================================
 
-In this section we undertake and exploratory spatial data analysis (ESDA) for poverty in Metropolitan Region, Chile.  We start by loading the required packages and the shape file. 
+In this section we undertake and exploratory spatial data analysis (ESDA) for poverty in Metropolitan Region, Chile.  
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# Load maptools ----}
-\hlkwd{library}\hlstd{(}\hlstr{"maptools"}\hlstd{)} \hlcom{# Tools for reading and handling spatial objects}
-\hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
-\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
-\hlstd{mr} \hlkwb{<-} \hlkwd{readShapeSpatial}\hlstd{(}\hlstr{"mr_chile"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
 
 %================================
 \subsection{Cloropeth Graphs}
 %================================
 
-
 If we are interested in the geographical variation in poverty, we should start by plotting the spatial distribution of poverty.  This can be useful in a variety of way.  Usually, aggregate or national level indicators hide important differences between different spatial units. Thus, poverty mapping helps to highlight geographical variations.  In addition to this, another advantage of poverty maps is their legibility- maps are powerful tools for representing complex information in a visual format that is easy to understand. 
 
-
-So, we start by plotting the geographical variation of poverty among communes by using the \code{spplot} function. In particular, we use a cloropleth\footnote{The name of this technique is derived from the Greek words choros - space, and pleth - value} map using the quantile classification. In a quantile graph, the variable is sorted and grouped in categories with equal number of observations, or quantiles. 
+So, we start by plotting the geographical variation of poverty among communes by using the \code{plot} function. In particular, we use a cloropleth\footnote{The name of this technique is derived from the Greek words choros - space, and pleth - value} map using the quantile classification. In a quantile graph, the variable is sorted and grouped in categories with equal number of observations, or quantiles. 
 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Cloropleth graphs ----}
-\hlkwd{spplot}\hlstd{(}\hlkwc{obj} \hlstd{= mr,}
-       \hlkwc{zcol} \hlstd{=} \hlstr{"POVERTY"}\hlstd{,}
-       \hlkwc{at} \hlstd{=} \hlkwd{quantile}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,} \hlkwc{p} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{.25}\hlstd{,} \hlnum{.5}\hlstd{,} \hlnum{.75}\hlstd{,} \hlnum{1}\hlstd{),}
-                     \hlkwc{na.rm} \hlstd{=} \hlnum{TRUE}\hlstd{),}
-       \hlkwc{col.regions} \hlstd{=} \hlkwd{brewer.pal}\hlstd{(}\hlnum{5}\hlstd{,} \hlstr{"Blues"}\hlstd{),}
-       \hlkwc{main} \hlstd{=} \hlstr{"Cloropleth map of Metropolitan Region"}\hlstd{,}
-       \hlkwc{sub} \hlstd{=} \hlstr{"Poverty"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
+\hlkwd{plot}\hlstd{(mr[}\hlstr{"POVERTY"}\hlstd{],}
+       \hlkwc{breaks} \hlstd{=} \hlstr{"quantile"}\hlstd{,}
+       \hlkwc{nbreaks} \hlstd{=} \hlnum{5}\hlstd{,}
+       \hlkwc{pal} \hlstd{=} \hlkwd{brewer.pal}\hlstd{(}\hlnum{5}\hlstd{,} \hlstr{"Blues"}\hlstd{),}
+       \hlkwc{main} \hlstd{=} \hlstr{""}\hlstd{,}
+       \hlkwc{axes} \hlstd{=} \hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1435,35 +1418,30 @@ Figure \ref{fig:cloro-graph} provides some useful insights. First, it clearly sh
 
 How to interpret quantile maps? A quantile classification scheme is an ordinal ranking of the data values, dividing the distribution into intervals that have an equal number of data values. Quantile classification ensures maps are easily comparable and can be `easy to read'.
 
-We can also plot the data using the equal interval classification. Equal interval divides the data into equal size classes (e.g., 0-10, 10-20, 20-30, etc) and works best on data that is generally spread across the entire range. In the following example we use a defined interval classification. 
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# Define interval classification }
-\hlstd{mr}\hlopt{$}\hlstd{pov.cat} \hlkwb{<-} \hlkwd{cut}\hlstd{(mr}\hlopt{$}\hlstd{POVERTY,}
-                  \hlkwc{breaks} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{9}\hlstd{,} \hlnum{12}\hlstd{,} \hlnum{16}\hlstd{,} \hlnum{28}\hlstd{),}
-                  \hlkwc{labels} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"< 9"}\hlstd{,} \hlstr{"9-12"}\hlstd{,} \hlstr{"12-16"}\hlstd{,} \hlstr{">16"}\hlstd{))}
-\hlkwd{spplot}\hlstd{(mr,} \hlstr{"pov.cat"}\hlstd{,} \hlkwc{col.regions} \hlstd{=} \hlkwd{brewer.pal}\hlstd{(}\hlnum{5}\hlstd{,} \hlstr{"Reds"}\hlstd{))}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-\begin{figure}[h]
-\caption{Cloropleth map: Poverty in the Metropolitan Region (Equal Interval)}\label{fig:cloro-graph2}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=\maxwidth]{figure/cloro-graphs2T-1} 
-
-}
-
-
-\end{knitrout}
-\end{figure}
+% We can also plot the data using the equal interval classification. Equal interval divides the data into equal size classes (e.g., 0-10, 10-20, 20-30, etc) and works best on data that is generally spread across the entire range. In the following example we use a defined interval classification. 
+% 
+% <<cloro-graphs2F, eval =  FALSE>>=
+% # Define interval classification 
+% mr$pov.cat <- cut(mr$POVERTY, 
+%                   breaks = c(0, 9, 12, 16, 28),
+%                   labels = c("< 9", "9-12", "12-16", ">16"))
+% spplot(mr, "pov.cat", col.regions = brewer.pal(5, "Reds"))
+% @
+% 
+% \begin{figure}[h]
+% \caption{Cloropleth map: Poverty in the Metropolitan Region (Equal Interval)}\label{fig:cloro-graph2}
+% <<cloro-graphs2T, fig.align='center', fig.height = 3, fig.width = 4, fig.show='hold', echo = FALSE>>=
+% plot(mr["POVERTY"], 
+%        breaks = "quantile",
+%        nbreaks = 5, 
+%        pal = brewer.pal(5, "Blues"), 
+%        main = "", 
+%        axes = TRUE)
+% @
+% \end{figure}
 
 
-However, regarding the possible spatial association that seems to be derived from the above figures for the poverty variable, it is necessary to note that the results are sensitive to the number of defined intervals (among other things). Therefore, it is necessary to conduct a comprehensive and formal analysis about the potential presence of spatial dependence to ascertain whether there exists a pattern of statistically significant spatial autocorrelation in the spatial distribution of poverty. That is why now we calculate the Moran’s I test.
+However, regarding the possible spatial association that seems to be derived from the above figure for the poverty variable, it is necessary to note that the results are sensitive to the number of defined intervals (among other things). Therefore, it is necessary to conduct a comprehensive and formal analysis about the potential presence of spatial dependence to ascertain whether there exists a pattern of statistically significant spatial autocorrelation in the spatial distribution of poverty. That is why now we calculate the Moran’s I test.
 
 
 %================================
@@ -1476,8 +1454,8 @@ First, we create two spatial weight matrices (queen and rook) to assess the robu
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Generate W matrices}
-\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(mr,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
-\hlstd{rook.w}  \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(mr,} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
+\hlstd{queen.w} \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlstd{rook.w}  \hlkwb{<-} \hlkwd{poly2nb}\hlstd{(}\hlkwd{as}\hlstd{(mr,} \hlstr{"Spatial"}\hlstd{),} \hlkwc{row.names} \hlstd{= mr}\hlopt{$}\hlstd{NAME,} \hlkwc{queen} \hlstd{=}  \hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1615,6 +1593,24 @@ The Moran scatter plot can also be obtained using the function \code{moran.plot}
 Figure \ref{fig:mp-poverty} displays the Moran scatterplot of poverty with the queen weight matrix. Positive spatial autocorrelation, detected by the value of the Moran's I, is reflected by the fact that most of the communes are located in quadrant I and III. However, there are some exceptions such as the communes located in quadrant II and IV. For example, San Miguel is a commune with low poverty rate, but surrounded by communes with high poverty.  
 
 A major limitation of Moran's I is that it cannot provide information on the specific locations of spatial patterns; it only indicates the presence of spatial autocorrelation globally. A single overall indication is given of whether spatial autocorrelation exists in the dataset, but no indication is given of whether local variations exist in spatial autocorrelation (e.g., concentrations, outliers) across the spatial extent of the data. 
+
+
+%-----------------------
+\section{Exercises}
+%-------------------
+
+\begin{exercises}
+ \exercise Another method used for creating spatial weight matrices in Monte Carlo studies is the ``$k$-ahead and $k$-behind'' criterion in a circular world. (This was introduced by \cite{kelejian1999generalized}). In this approach, each spatial unit is assumed to have $k$ neighbors which are ahead of it in the order of sample, and $k$ units which are behind it. The number $k$ is typically chosen to be small relative to the sample size. Thus, each spatial unit has $2k$ neighbors. Weighting matrices which are built on this framework are typically row normalized, and all of the nonzero elements in the matrix are $1/(2k)$. Suppose $n =10$ and $k =2$. Specify the third row of the $10\times 10$ weighting matrix.
+ \exercise For a general sample size, say $n$, which corresponds to a checkerboard of squares, what is the minimum number of neighbors a unit can have if the weighting matrix is based on a queen pattern?
+ \exercise  Let $INC_r$ the income per capita in cross-sectional unit $r = 1, ...., n$. Consider the following specification for $w_{ij}$:
+	
+	\begin{equation*}
+	w_{ij}= \alpha\left[1 - \frac{\left|INC_i - INC_j\right|}{INC_i+ INC_j}\right], 
+	\end{equation*}
+	%
+	where $\alpha$ is some pre-selected positive constant. Show that $\alpha$ will cancel if the weight matrix is row-normalized.
+	\exercise  Create in \proglang{R} your own function to plot a Moran Scatterplot. Show that your function works well using a simulated example. 
+\end{exercises}
 
 
 %==============================
