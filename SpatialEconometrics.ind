@@ -48,13 +48,13 @@
     \subitem Jacobian, \hyperpage{109}
   \item Moment conditions, \hyperpage{191}
   \item Moran's I test, \hyperpage{24}
-    \subitem Monte carlo, \hyperpage{27}
-    \subitem Moran scatterplot, \hyperpage{24}
-    \subitem moran.mc function, \hyperpage{31}
+    \subitem Monte carlo, \hyperpage{28}
+    \subitem Moran scatterplot, \hyperpage{25}
+    \subitem moran.mc function, \hyperpage{32}
     \subitem moran.plot function, \hyperpage{32}
     \subitem moran.test function, \hyperpage{30}
-    \subitem Normality, \hyperpage{26}
-    \subitem Randomization, \hyperpage{27}
+    \subitem Normality, \hyperpage{27}
+    \subitem Randomization, \hyperpage{28}
   \item Multiplier effect, \hyperpage{39}
 
   \indexspace
@@ -109,7 +109,7 @@
     \subitem Higher order, \hyperpage{13}
     \subitem Invertibility, \hyperpage{37}
     \subitem knearneigh function, \hyperpage{20}
-    \subitem lag.listw function, \hyperpage{23}
+    \subitem lag.listw function, \hyperpage{24}
     \subitem nb2listw function, \hyperpage{17}
     \subitem poly2nb function, \hyperpage{16}
     \subitem Queen contiguity, \hyperpage{9}

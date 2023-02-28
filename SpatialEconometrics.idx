@@ -13,14 +13,14 @@
 \indexentry{Weight matrix!poly2nb function|hyperpage}{16}
 \indexentry{Weight matrix!nb2listw function|hyperpage}{17}
 \indexentry{Weight matrix!knearneigh function|hyperpage}{20}
-\indexentry{Weight matrix!lag.listw function|hyperpage}{23}
+\indexentry{Weight matrix!lag.listw function|hyperpage}{24}
 \indexentry{Moran's I test|hyperpage}{24}
-\indexentry{Moran's I test!Moran scatterplot|hyperpage}{24}
-\indexentry{Moran's I test!Normality|hyperpage}{26}
-\indexentry{Moran's I test!Randomization|hyperpage}{27}
-\indexentry{Moran's I test!Monte carlo|hyperpage}{27}
+\indexentry{Moran's I test!Moran scatterplot|hyperpage}{25}
+\indexentry{Moran's I test!Normality|hyperpage}{27}
+\indexentry{Moran's I test!Randomization|hyperpage}{28}
+\indexentry{Moran's I test!Monte carlo|hyperpage}{28}
 \indexentry{Moran's I test!moran.test function|hyperpage}{30}
-\indexentry{Moran's I test!moran.mc function|hyperpage}{31}
+\indexentry{Moran's I test!moran.mc function|hyperpage}{32}
 \indexentry{Moran's I test!moran.plot function|hyperpage}{32}
 \indexentry{Spatial lag model|hyperpage}{35}
 \indexentry{Spatial autoregressive process|hyperpage}{36}
