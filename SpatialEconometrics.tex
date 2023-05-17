@@ -2555,10 +2555,32 @@ Intuition tell us that impacts arising from a change in the explanatory variable
 This expression allow us to observe the impact associated with each power of $\mW$, where these powers corresponds to the observation themselves (zero-order), immediate neighbors (first-order), neighbors of neighbors (second-order), and so on. Using this expansion we could account for both the cumulative effects as marginal and total direct, indirect associated with different order of neighbors.
 
 %==============================================
-\subsection{Lesage's Book Example}\label{sec:lesage-example}\index{Spillover effects!example}
+\section{Predictors for Spatial Models}
 %==============================================
 
-\subsubsection{Commuting Times and Congestion}
+\cite{kelejian2007relative} consider different information sets and define predictors as conditional means based on these information sets. Consider the SAC (SARAR) model:
+
+\begin{equation}
+  \begin{aligned}
+    \vy & = \rho\mW\vy + \mX\vbeta + \vu, \\
+    \vu & = \lambda\mW\vu + \vepsi. 
+  \end{aligned}
+\end{equation}
+
+Thus, the reduced form equation is:
+
+\begin{equation}
+\vy = \left(\mI_n -\rho \mW\right)^{-1}\mX\vbeta + \left(\mI_n -\rho \mW\right)^{-1}\left(\mI_n -\lambda \mW\right)^{-1}\vepsi. \\
+\end{equation}
+
+Assume that $\vepsi\sim\rN(\vzeros, \sigma^2_{\epsilon}\mI_n)$
+
+
+%==============================================
+\section{Lesage's Book Example}\label{sec:lesage-example}\index{Spillover effects!example}
+%==============================================
+
+\subsection{Commuting Times and Congestion}
 
 In this section we use \cite{lesage2010introduction}'s example as an illustration of spatial spillovers.\footnote{This example is further explore in \cite{kirby2009changes} with a real application.} For this purpose consider a set of seven regions show in Figure \ref{fig:lesage-example}, which represent three regions to the west and three to the east of a central business district (CBD). In particular, consider region $R4$ as being the central business district. Since the entire region contains only a single roadway, all commuters share this route to and from the CBD.
 
@@ -2595,7 +2617,7 @@ such that:
 %
 where the estimated parameters are $\widehat{\vbeta} = (0.135, 0.561)'$ and $\widehat{\rho} = 0.640$ (assume that somehow we have estimated these parameters). Note that the estimated spatial autoregressive parameters indicates positive spatial dependence in the commuting times. 
 
-\subsubsection{Computing Effects in R}
+\subsection{Computing Effects in R}
 
 Now think about the following question: What would be the estimated spillovers if region $R2$ doubles its population density? To answer this question we first obtain the predicted values of travel times before the change.\footnote{Note that there is a typo in \cite{lesage2010introduction}, because in their equation (1.19) they double distance, not density.} That is, we first obtain:
 
@@ -2876,7 +2898,7 @@ Equation (\ref{eq:total_effect_simple}) of Example \ref{example:pollution-kim}, 
 \end{kframe}
 \end{knitrout}
 
-\subsubsection{Cumulative Effects}
+\subsection{Cumulative Effects}
 
 The main idea of this exercise is to show how the change in some explanatory variable produces changes in the independent variable in all the spatial units by decomposing them into cumulative and marginal impacts for different order of neighbors as explained in Section \ref{sec:partitioning-effects}. 
     
@@ -4643,9 +4665,57 @@ The triangular array structure of $y$ is partly a consequence of allowing a tria
 
 We can identify each of the indices $i = 1,...,n$ with a location in space. In regularly-observed time series settings, these indices correspond to equidistant points on the real line, and it is evident what we usually mean by letting $n$ increase. However there is ambiguity when these points are in space. For example, consider $n$ points on a 2 dimensional regularly-spaced lattice, where both the number ($n_1$) of rows and the number $(n_2)$ of columns increases with $n=n_1\cdot n_2$. If we choose to list these points in lexicographic order (say first left to right, then second row, etc) then as $n$ increases there would have to be some re-labeling, as the triangular array permits. Another consequence of this listing is that dependence between locations $i$ and $j$ is not always naturally expressed as a function of the difference $i-j$. For example, this is so if the dependence is isotropic. 
 
+%----------------------------------
+\section{Matrix}
+%----------------------------------
+
+Let $\mC = \mA\mB$, then the $(i,j)$ element of $\mC$ is
+
+\begin{equation}
+c_{ij} = \sum_{k = 1}^na_{ik}b_{kj}
+\end{equation}
+
+
+
 
 %----------------------------------
-\section{Bounded Matrices}
+\section{Matrix Norm}
+%----------------------------------
+
+\begin{definition}[Matrix Norm]
+Given a square complex or real matrix $\mA$, a matrix norm $\lVert \mA \rVert$ is a nonnegative number associated with $\mA$ having the properties
+
+\begin{enumerate}
+  \item $\lVert \mA \rVert> 0$ when $\mA\neq 0$ and $\lVert \mA \rVert = 0$ if and only if $\mA = 0$, 
+  \item $\lVert k \mA \rVert = \left|k\right|\lVert \mA \rVert$ for any scalar $k$, 
+  \item $\lVert \mA  + \mB \rVert \leq \lVert \mA \rVert + \lVert \mB \rVert$, 
+  \item $\lVert \mA\mB \rVert \leq \lVert \mA \rVert \lVert \mB \rVert$
+\end{enumerate}
+\end{definition}
+
+The maximum absolute column sum norm $\lVert \mA \rVert_1$ is defined as
+
+\begin{equation}
+\lVert \mA \rVert_1 = \max_j\sum_{i = 1}^n\left|a_{ij}\right|
+\end{equation}
+
+The spectral norm $\lVert \mA \rVert_2$ is defined as
+
+\begin{equation}
+\lVert \mA \rVert_2 = \sigma_{\max}(\mA) = \sqrt{\lambda_{\max}\left(\mA^\top \mA\right)}
+\end{equation}
+
+The maximum absolute row sum norm is defined by
+
+\begin{equation}
+\lVert \mA \rVert_{\infty} = \max_i\sum_{j = 1}^n\left|a_{ij}\right|
+\end{equation}
+
+
+$\lVert \mA \rVert_1$, $\lVert \mA \rVert_2$ and $\lVert \mA \rVert_{\infty}$ satisfy the inequality $\lVert \mA \rVert_2^2 \leq \lVert \mA \rVert_1\lVert \mA \rVert_{\infty}$.
+
+%----------------------------------
+\section{Bounded Matrices and Useful Lemmas for Spatial Eonometrics}\label{sec:bounded-matrices}
 %----------------------------------
 
 \begin{definition}[Bounded Matrices]\label{def:Bounded_Matrices}
@@ -4654,17 +4724,17 @@ Let $\left\lbrace \mA_n \right\rbrace$ be a sequence of $n$-dimensional square m
     \item The column sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
+      \left\|\mA_n\right\|_{1} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
      \item The row sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_1 = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
+      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
   \end{enumerate}
 \end{definition}
 
-Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_1\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. 
+Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{1}\right\rbrace$ is a bounded sequence. 
 
 
 
@@ -4685,11 +4755,11 @@ If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are 
  \begin{aligned}
   r_i   = & \sum_{j = 1}^n \left|d_{ij}\right| \\
         = & \sum_{j = 1}^n \left|\sum_{r = 1}^n a_{ir}b_{rj}\right| \\
-     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality} \\
-      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of inequality} \\
+     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality \ref{def:triangle-inequality}} \\
+      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by multiplicativity \ref{def:abs-multiplicativity}} \\
       = & \sum_{r = 1}^n \sum_{j = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of summation} \\
       = & \sum_{r = 1}^n \left|a_{ir}\right| \sum_{j = 1}^n \left|b_{rj}\right| \\
-      =  \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
+        & \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
  \end{aligned}
  \end{equation}
  
@@ -4701,7 +4771,7 @@ If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are 
 \end{proof}
 
 \begin{lemma}\label{lemma:bounde_ON}
-If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
+If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
 \end{lemma}
 
 \begin{proof}
@@ -4711,7 +4781,7 @@ If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bo
     \begin{aligned}
       \delta_{ij} & = \sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj} \\
       \left|\delta_{ij}\right| & = \left|\sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj}\right| \\
-      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by triangle inequality} \\
+      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by \ref{def:triangle-inequality}} \\
        & \leq c_z^2\sum_{r = 1}^n\sum_{s = 1}^n  \left|a_{sr}\right| \\
         & \leq c_z^2\sum_{r = 1}^n c_a \\
         & \leq c_z^2c_an \\
@@ -4720,6 +4790,37 @@ If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bo
   \end{equation}
 \end{proof}
 
+%------------------------------------------------
+\begin{lemma}\label{lemma:bounde_trace}
+If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), then
+\begin{enumerate}
+ \item elements $a_{n,ij}$ of $\mA_n$ are uniformly bounded in $i$ and $j$,
+ \item $\tr(\mA^m) = O(n)$ for $m\geq 1$, and 
+ \item the elements of $\tr(\mA_n\mA_n^\top)= O(n)$.
+\end{enumerate}
+\end{lemma}
+%------------------------------------------------
+
+\begin{proof}
+Proof of (c). Suppressing the index $n$
+\begin{equation}
+  \begin{aligned}
+    \tr(\mA_n\mA_n^\top)               & = \sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2 \\
+    \left|\tr(\mA_n\mA_n^\top)\right|  & = \left|\sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2\right| \\
+     & \leq \sum_{i = 1}^n\sum_{j=1}^n\left|a_{ij}^2\right| \\
+     & \leq \sum_{i = 1}^n\left(\sum_{j=1}^n\left|a_{ij}\right|\right) ^2 \\
+     & \leq  n c_1^2\quad \mbox{if $\mA_n$ is uniformly bounded in row sums}
+  \end{aligned}
+\end{equation}
+
+
+\begin{equation}
+  \begin{aligned}
+    \left|\tr(\mA_n\mA_n^\top)\right|  & \leq \sum_{j = 1}^n\left(\sum_{i=1}^n\left|a_{ij}\right|\right) ^2 \\
+     & \leq  n c_2^2\quad \mbox{if $\mA_n$ is uniformly bounded in column sums}
+  \end{aligned}
+\end{equation}
+\end{proof}
 
 %---------------------------------
 \section{Quadratic forms}
@@ -4780,77 +4881,141 @@ In particular, if $\vepsi$'s are normally distributed with mean 0 and variance $
 \end{lemma}
 %--------------------------------------------------------------
 
+% \begin{proof}
+% We can write:
+% \begin{equation*}
+% \begin{aligned}
+% \vepsi^\top\mA\vepsi & = \left(\vepsi - \vmu\right)^\top\mA\vepsi + \vmu^\top\mA\vepsi \\
+% & = \left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right) + \vmu^\top\mA\vepsi + \left(\vepsi - \vmu\right)^\top\mA\vmu
+% \end{aligned}
+% \end{equation*}
+% If we take expectations, then the last term vanishes and we obtain
+% 
+% \begin{equation}
+% \E\left(\vepsi^\top\mA\vepsi\right) = \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] + \vmu^\top\mA\vmu
+% \end{equation}
+% 
+% Let $\upsilon_i = \epsilon_i - \mu_i$, so that $\vupsilon = \vepsi - \vmu$ and hence
+% 
+% \begin{equation*}
+% \begin{aligned}
+% \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] & = \E\left(\vupsilon^\top\mA\vupsilon\right) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^n\E(\upsilon_i a_{ij}\upsilon_j) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\upsilon_i\upsilon_j) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vupsilon)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi - \vmu)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\mSigma_{ij} \\
+% & = \sum_{i = 1}^n\sum_{i = 1}^na_{ij}\mSigma_{ij} \\
+% & = \sum_{i = 1}^n \left[\mA\mSigma\right]_{ii} \\
+% & = \tr\left(\mA\mSigma\right)
+% \end{aligned}
+% \end{equation*}
+% \end{proof}
+
+
+%--------------------------------------------------
+\begin{lemma}\label{lemma:O-lemma-lee}
+Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums. Then:
+
+\begin{enumerate}
+  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$,
+  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$
+  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n)$
+\end{enumerate}
+\end{lemma}
+%--------------------------------------------------
+
 \begin{proof}
-We can write:
-\begin{equation*}
-\begin{aligned}
-\vepsi^\top\mA\vepsi & = \left(\vepsi - \vmu\right)^\top\mA\vepsi + \vmu^\top\mA\vepsi \\
-& = \left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right) + \vmu^\top\mA\vepsi + \left(\vepsi - \vmu\right)^\top\mA\vmu
-\end{aligned}
-\end{equation*}
-If we take expectations, then the last term vanishes and we obtain
+Proof of (a). By Lemma \ref{lemma:second-mom-lee}, $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2\tr(\mA_n)$. By Lemma \ref{lemma:bounde_trace}, $\tr(\mA) = O(n)$. Then $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2 O(n) = O(n)$ since $\sigma_{0}^2$ is a constant. 
+
+% For (1): 
+% \begin{equation}
+%  \begin{aligned}
+%   \E\left|\eta\right|  & =  \E\left(\left|\vepsi^\top\mA\vepsi\right|\right) \\
+%                          & =  \E\left(\left|\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right|\right) \\
+%                          & \leq  \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\epsilon_i\epsilon_j\right|\right) \\
+%                          & = \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\left|\epsilon_i\right|\left|\epsilon_j\right|\right) \\
+%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\E\left|\epsilon_i\right|\E\left|\epsilon_j\right|\right) \\
+%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\sigma_i\sigma_j\right)
+%  \end{aligned}  
+% \end{equation}
+
+Proof of (b). From Lemma \ref{lemma:second-mom-lee}
 
 \begin{equation}
-\E\left(\vepsi^\top\mA\vepsi\right) = \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] + \vmu^\top\mA\vmu
+\begin{aligned}
+  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]
+\end{aligned}
 \end{equation}
 
-Let $\upsilon_i = \epsilon_i - \mu_i$, so that $\vupsilon = \vepsi - \vmu$ and hence
+From Lemma \ref{lemma:bounde_trace} $\tr(\mA_n\mA_n^\top) = O(n)$ and $\tr(\mA_n^2) = O(n)$. Since 
+\begin{equation*}
+  \sum_{i = 1}^n a_{n, ii}^2 \leq \tr(\mA_n\mA_n^\top) = O(n), 
+\end{equation*}
+%
+then 
+\begin{equation}
+\begin{aligned}
+  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)O(n)+\sigma^4_0\left[O(n)+ O(n)\right] \\
+  & = O(n)
+\end{aligned}
+\end{equation}
+
+Proof of (c). Since $\E((\vepsi_n^\top\mA_n\vepsi_n)^2)= \var(\vepsi_n^\top\mA_n\vepsi) +  \left(\E(\vepsi_n^\top\mA_n\vepsi_n)\right)^2 = O(n) + O(n)O(n)= O(n^2)$ by Property \ref{prop:blO-nest}. The Chebyshev inequality \ref{definition:chebyshev_ineq} implies that
 
 \begin{equation*}
-\begin{aligned}
-\E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] & = \E\left(\vupsilon^\top\mA\vupsilon\right) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^n\E(\upsilon_i a_{ij}\upsilon_j) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\upsilon_i\upsilon_j) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vupsilon)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi - \vmu)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\mSigma_{ij} \\
-& = \sum_{i = 1}^n\sum_{i = 1}^na_{ij}\mSigma_{ij} \\
-& = \sum_{i = 1}^n \left[\mA\mSigma\right]_{ii} \\
-& = \tr\left(\mA\mSigma\right)
-\end{aligned}
+\Pr\left(\frac{1}{n}\left|\vepsi_n^\top\mA_n\vepsi_n\right| \geq \delta\right) \leq \frac{1}{\delta^2n^2}\E\left[(\vepsi_n^\top\mA_n\vepsi_n)^2\right] = \frac{1}{\delta^2}O(1)
 \end{equation*}
+
+Then $\frac{1}{n}\vepsi^\top_n\mA_n\vepsi_n = O_p(1)$. Thus, $n^{-1}\vepsi_n^\top\mA_n\vepsi_n$ is bounded. 
 \end{proof}
 
-\begin{lemma}\label{lemma:O-lemma-lee}
-Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums, and the elements $a_{n, ij}$ of $\mA_n$ are $O(1/h_n)$ uniformly in all $i$ and $j$. Then:
-
-\begin{itemize}
-  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n/h_n)$,
-  \item $\var(\vepsi_n^\top\mA_n\vepsi_n)=O(n/h_n)$, and
-  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n/h_n)$.
-\end{itemize}
-
-Furthermore:
-
-\begin{itemize}
-\item $\lim_{n\to\infty}\frac{h_n}{n} = 0$, and,
-\item $\frac{h_n}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{h_n}{n}\E(\vepsi_n^\top\mA_n\vepsi_n) = o_p(1)$
-\end{itemize}
-\end{lemma}
-
-
+%-----------------------------------------------------------------------------------------------
 \begin{theorem}[Consistency of quadratic forms in spatial models]\label{teo:quadratic-forms-ley}
-Let $\mA$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}=(\epsilon_1, ..., \epsilon_n)$ where $\epsilon_i$ are iid $(0, \sigma^2)$ and $\E(v_i^4)<\infty$. Then
+Let $\mA_n$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}_n=(\epsilon_{n1}, ..., \epsilon_{nn})$ where $\epsilon_{ni}$ are iid $(0, \sigma^2_0)$ and $\E(\epsilon_{ni}^4)<\infty$. Then
 
 \begin{equation*}
-  \frac{\vepsi^\top \mA \vepsi}{n}\pto \E\left(\vepsi^\top \mA \vepsi\right) = \sigma^2\frac{\tr(\mA)}{n}
+  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \E\left(\vepsi_n^\top \mA_n \vepsi_n\right) = \sigma^2_0\frac{\tr(\mA_n)}{n}
 \end{equation*}
 
-If the limit of $\tr(\mA)/n$ exits, then:
+If the limit of $\tr(\mA_n)/n$ exits, then:
 
 \begin{equation*}
-\lim_{n\to\infty}\frac{\tr(\mA)}{n} = \mA^*
+\lim_{n\to\infty}\frac{\tr(\mA_n)}{n} = \mA^*
 \end{equation*}
 %
 and
 
 \begin{equation*}
-  \frac{\vepsi^\top \mA \vepsi}{n}\pto \sigma^2\mA^*.
+  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \sigma^2_0\mA^*.
 \end{equation*}
 \end{theorem}
+%-----------------------------------------------------------------------------------------------
+\begin{proof}
+ This result follows from Theorem \ref{teo:chebyshev}. By Chebyshev inequality \ref{definition:chebyshev_ineq}
+ 
+ \begin{equation*}
+ \begin{aligned}
+  \Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2 \delta^2} \\
+    \Pr\left[\left|\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n - \sigma^2_{0}\frac{\tr(\mA_n)}{n}\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2\delta^2}  \\
+    \leq \frac{1}{\delta^2}n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n)
+ \end{aligned}
+ \end{equation*}
+ 
+ By Lemma \ref{lemma:bounde_trace}, $\tr(\mA_n) = O(n)$. Hence $\lim_{n\to\infty} \frac{1}{n}\E(\vepsi_n^\top \mA_n \vepsi_n) = \sigma_{0}^2\mA^* = O(1)$ and the expectation exists. 
+ 
+ By Lemma \ref{lemma:O-lemma-lee} $\var(\vepsi_n\mA_n\vepsi_n) = O(n)$. Therefore, $n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n) = \var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n) = O(n^{1}) = o(1)$. Thus $\var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n)\to 0$ as $n\to \infty$ and $\Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right]\to 0$, so 
+\begin{equation*}
+\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top \mA_n\vepsi_n) = o_p(1)
+\end{equation*}
+%
+which can also be written as
+\begin{equation*}
+  \frac{\vepsi_n^\top \mA_n \vepsi}{n}\pto \sigma^2_0\mA^*.
+\end{equation*}
 
-
+\end{proof}
 
 
 %---------------------------------
@@ -4942,14 +5107,18 @@ Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is 
 
 
 \section*{Appendix}
-
-
 \begin{subappendices}
 
 %-------------------------------------------------------------------------
  \section{Inqualities}\label{appendix-inequalities}
 %-------------------------------------------------------------------------
 
+\begin{definition}[Multiplicativity of absolute value]\label{def:abs-multiplicativity}
+For any two random variables $a$ and $b$
+\begin{equation}
+\left|ab\right| = \left|a\right|\left|b\right|
+\end{equation}
+\end{definition}
 
 \begin{definition}[Triangle Inequality]\label{def:triangle-inequality}
 For any real numbers $x_j$, 
@@ -5281,7 +5450,6 @@ In this Section, we will give further insights about these issues. In particular
 %=========================================
 
 The SLM model is given by the following structural model:
-
 \begin{equation}
   \begin{aligned}
     \vy     & = \rho_0 \mW\vy + \mX\vbeta_0 + \vepsi, \\
@@ -5292,77 +5460,73 @@ The SLM model is given by the following structural model:
 where $\vy$ is a vector $n\times 1$ that collects the dependent variable for each spatial unit; $\mW$ is an $n\times n$ spatial weight matrix; $\mX$ is an $n \times k$ matrix of independent variables; $\vbeta_0$ is a known $k$-dimensional vector of parameters; $\rho_0$ measures the degree of spatial correlation; and $\vepsi$ is an $n$-dimensional vector of error terms. Note that we are making the explicit assumption that the error terms follow a multivariate normal distribution with mean $\vzeros$ and variance-covariance matrix $\sigma^2_0\mI_n$. That is, we are assuming that all spatial units have the same error variance. 
 
 Since we are explicitly assuming the distribution of the error term, we will be able to use the maximum likelihood estimation procedure. Under the maximum likelihood criterion, the parameter estimates $\widehat{\vtheta} = (\widehat{\vbeta}^\top, \widehat{\rho}, \widehat{\sigma}^2)^\top$ are chosen so as to maximize the probability of generating or obtaining the observed sample.  However, it should be noted that ML estimation is a highly parametric approach, which means that it is based on strong assumptions. We will see that within these assumptions, it has optimal asymptotic properties (such as consistency and asymptotic efficiency), but when the assumptions are violated, the optimal properties may no longer hold. 
-
 How can we estimate $\vtheta_0$? Note that we can rearrange the model as:
-
 \begin{equation*}
 \vy - \rho_0\mW\vy = \mX\vbeta_0 + \vepsi.
 \end{equation*}
 
-Following the derivation of the linear model, an estimate for $\vbeta_0$ would be:
-
+Using the OLS estimator, an estimate for $\vbeta_0$ would be
 \begin{equation*}
 \widehat{\vbeta}(\rho_0) = \left(\mX^\top \mX\right)^{-1}\mX^\top\left(\mI_n - \rho_0\mW\right)\vy,
 \end{equation*}
 %
-which depend on $\rho_0$, Given this, an estimate for the variance parameter would be
-
+which depend on $\rho_0$. Similarly, an estimate for the variance parameter would be
 \begin{equation*}
 \widehat{\sigma}^2(\rho_0) = \frac{\widehat{\vepsi}(\rho_0)^\top\widehat{\vepsi}(\rho_0)}{n},
 \end{equation*}
 %
-which also depends on $\rho_0$, and where the residuals $\widehat{\vepsi}(\rho_0)$ will be given by $\widehat{\vepsi}(\rho_0)=\vy - \rho_0\mW\vy - \mX\widehat{\vbeta}$. Since $\widehat{\vbeta}$ and $\widehat{\sigma}^2$ depend on $\rho_0$, we can \emph{concentrate} the full log-likelihood with respect to the parameters $\vbeta, \sigma^2$ and reduce maximum likelihood to an univariate optimization problem in the parameter $\rho$. This will be very useful later in order to derive the ML algorithm.
+which also depends on $\rho_0$, and where the residuals $\widehat{\vepsi}(\rho_0)$ are given by $\widehat{\vepsi}(\rho_0)=\vy - \rho_0\mW\vy - \mX\widehat{\vbeta}$. Since $\widehat{\vbeta}$ and $\widehat{\sigma}^2$ depend on $\rho_0$, we can \textbf{concentrate} the full log-likelihood with respect to the parameters $\vbeta, \sigma^2$ and reduce maximum likelihood to an univariate optimization problem in the parameter $\rho$. This will be very useful later in order to derive the ML algorithm.
 
 In order to derive the joint distribution of the data, we need to find the probability density function $f(y_1, y_2,...,y_n| \mX; \vtheta) = f(\vy|\mX;\vtheta)$, that is, the joint conditional distribution of $\vy$ given $\mX$. Using the \textbf{Transformation Theorem}, we know that
-
 \begin{equation*}
   f(\vy | \mX; \vtheta) = f(\vepsi(\vy)| \mX; \vtheta) \left|\frac{\partial \vepsi}{\partial \vy}\right|.
 \end{equation*}
+%
+where $\left|\cdot\right|$ is the determinant function. 
 
-Recall that the error term can be written as $\vepsi = \mA\vy - \mX\vbeta$ with $\mA=\mI_n - \rho\mW$ where $\mA\vy$ is \textbf{spatially filtered dependent variable}, i.e., with the effect of spatial autocorrelation taken out. Note that $\vepsi = f(\vy)$, that is, the error vector is a functional form of the observed $\vy$.\footnote{Since $y_i$ and not the $\epsilon_i$ are the observed quantities, the parameters must be estimated by maximizing $L(\vy)$, not $L(\vepsi)$. For more details about this, see \cite{mead1967mathematical} and \cite{doreian1981estimating}.} To move from the the distribution of the error term to the distribution for the observable random variable $\vy$ we need the Jacobian transformation\index{Maximum likelihood!Jacobian}:
-
+Recall that the error term can be written as $\vepsi = \mA\vy - \mX\vbeta$ with $\mA=\mI_n - \rho\mW$ where $\mA\vy$ is the \textbf{spatially filtered dependent variable}, i.e., with the effect of spatial autocorrelation taken out. Note that $\vepsi = f(\vy)$. That is, the error vector is a functional form of the observed $\vy$.\footnote{Since $y_i$, and not $\epsilon_i$, are the observed quantities, the parameters must be estimated by maximizing $L(\vy)$, not $L(\vepsi)$. For more details about this, see \cite{mead1967mathematical} and \cite{doreian1981estimating}.} To move from the the distribution of the error term to the distribution for the observable random variable $\vy$ we need the Jacobian transformation\index{Maximum likelihood!Jacobian}:
 \begin{equation*}
 \det\left(\frac{\partial \vepsi}{\partial \vy}\right)= \det\left(\mJ\right)=\det(\mA)=\det(\mI_n - \rho\mW),
 \end{equation*}
 %
 where $\mJ = \left(\frac{\partial \vepsi}{\partial \vy}\right)$ is the $n\times n$ Jacobian matrix, and $\det(\mI_n - \rho\mW)$ is the determinant of a $ n \times n$ matrix. In contrast to the time-series case, the spatial Jacobian is not the determinant of a triangular matrix, but of a full matrix. This may complicate its computation considerably. The Jacobian reduces to a scalar 1 in the standard regression model, since the partial derivative becomes $\left|\partial (\vy - \mX\vbeta)/ \partial \vy\right| = \left|\mI_n\right| = 1$. 
 
-Using the density function of the multivariate normal distribution we can find the joint pdf of $\vepsi|\mX$. By recognizing that $\vepsi \sim \rN(\vzeros, \sigma^2\mI_n)$, we can write: 
-
+Using the density function of the multivariate normal distribution we can find the joint pdf of $\vepsi|\mX$.\footnote{The multivariate normal distribution of an $n$-dimensional random vector $\vx$ with mean $\vmu$ and variance-covariance matrix $\mSigma$ can be written as 
+\begin{equation*}
+(2\pi)^{-n/2}\det(\mSigma)^{-1/2}\exp\left(-\frac{1}{2}\left(\vx - \vmu\right)^\top\mSigma^{-1}\left(\vx - \vmu\right)\right).
+\end{equation*}
+} By recognizing that $\vepsi \sim \rN(\vzeros, \sigma^2\mI_n)$, we can write: 
 \begin{equation*}
 	f(\vepsi | \mX) = (2\pi \cdot\sigma^2)^{-n/2}\exp\left[-\frac{1}{2\sigma^2}\vepsi^\top\vepsi\right].
 \end{equation*}
 
 Given an i.i.d sample of $n$ observations, $\vy$ and $\mX$, the joint density of the observed sample is:
-
 \begin{equation*}
 	f(\vy|\mX;\vtheta) = (2\pi \cdot\sigma^2)^{-n/2}\exp\left[-\frac{1}{2\sigma^2}(\mA\vy-\mX\vbeta)^\top (\mA\vy-\mX\vbeta)\right]\det\left(\frac{\partial (\mA\vy - \mX\vbeta)}{\partial \vy}\right).
 	\end{equation*}
 	
 Note that the likelihood function is defined as the joint density treated as a function of the parameters: $L(\vtheta|\vy, \mX) = f(\vy|\mX;\vtheta)$. Finally, the log-likelihood function, which will be maximized, takes the form:\footnote{Since the constant $- \frac{n\log(2\pi)}{2}$ is not a function of any of the parameters, some software programs do not include it when reporting maximized log-likelihood. See \cite{spdep}.}
-
 \begin{equation} \label{eq:LL_SLM_2}
   \begin{aligned}
-\log L(\vtheta) &= \log\left| \mA\right| - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}(\mA\vy-\mX\vbeta)^\top (\mA\vy-\mX\vbeta) \\
+\ell (\vtheta) &= \log\left| \mA\right| - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}(\mA\vy-\mX\vbeta)^\top (\mA\vy-\mX\vbeta) \\
 &= \log\left| \mA\right| - \frac{n\log(2\pi)}{2} - \frac{n\log(\sigma^2)}{2} - \frac{1}{2\sigma^2}\left[\vy^\top \mA^\top\mA\vy - 2\left(\mA\vy\right)^\top\mX\vbeta + \vbeta^\top\mX^\top\mX\vbeta\right],
 \end{aligned}
 \end{equation}	
 %	
 where this development uses the fact that the transpose of a scalar is the scalar, i.e., 	$\vy^\top\mA^\top\mX\vbeta = (\vy^\top\mA\mX\vbeta)^\top = \vbeta^\top\mX^\top\mA\vy$. This is similar to the typical linear-normal likelihood, except that the transformation from $\vepsi$ to $\vy$, is not by the usual factor of 1, but by $\log\left| \mA\right|$.
 
-As we will show in Section XX, we can directly estimate the $\vtheta$ by maximizing the log-likelihood function \eqref{eq:LL_SLM_2} using a constrained optimization algorithm. However, as shown in the next Section, we can create a more easy estimation algorithm by concentrating the log-likelihood function. 
+As we will show in Section \ref{sec:code-full-slm}, we can directly estimate the $\vtheta$ by maximizing the log-likelihood function \eqref{eq:LL_SLM_2} using a constrained optimization algorithm. However, as shown in the next Section, we can create a more easy estimation algorithm by concentrating the log-likelihood function. 
 
 %=========================================
 \subsection{Score Vector and Estimates}\label{sec:score_sml}
 %=========================================
 
-In order to find the ML estimates for the SLM model, we need to maximize Equation (\ref{eq:LL_SLM_2}) with respect to $\vtheta = (\vbeta^\top, \sigma^2 , \rho)^\top$. To do so, we need to find the first order condition (FOC) of this optimization problem. 
+In order to find the ML estimates for the SLM model, we need to maximize $\ell(\vtheta)$ in Equation (\ref{eq:LL_SLM_2}) with respect to $\vtheta = (\vbeta^\top, \sigma^2 , \rho)^\top$. To do so, we need to find the first order condition (FONC) of this optimization problem. 
 
-Before taking derivatives it is useful to review some important properties of matrix calculus given in the next definition. 
+Before taking derivatives, it is useful to review some important properties of matrix calculus given in the next definition. 
 
 \begin{definition}[Some useful results on matrix calculus]\label{definition:matrix_cal_sar}
 Some important results  are the followings:
-
 \begin{equation}\label{eq:mc_1}
 \frac{\partial (\rho \mW)}{\partial \rho} = \mW
 \end{equation}
@@ -5380,7 +5544,6 @@ Some important results  are the followings:
 \end{equation}
 
 Let $\vepsi = \mA\vy - \mX\vbeta$, then:
-
 \begin{equation}\label{eq:mc_4}
   \frac{\partial \vepsi}{\partial \rho} =  \frac{\partial (\mA\vy - \mX\vbeta)}{\partial \rho} = -\mW\vy 
 \end{equation}
@@ -5399,50 +5562,45 @@ Let $\vepsi = \mA\vy - \mX\vbeta$, then:
 \end{definition}
 
 Taking the derivative of Equation (\ref{eq:LL_SLM_2}) respect to $\vbeta$, we obtain:
-
 \begin{equation}\label{eq:foc_ml_sar_beta}
-\frac{\partial \log L(\vtheta)}{\partial \vbeta} = -\frac{1}{2\sigma^2}\left[-2\left(\left(\mA\vy\right)^\top\mX\right)^\top + 2 \mX^\top\mX\vbeta\right] = \frac{1}{\sigma^2}\mX^\top(\mA\vy - \mX\vbeta),
+\frac{\partial \ell(\vtheta)}{\partial \vbeta} = -\frac{1}{2\sigma^2}\left[-2\left(\left(\mA\vy\right)^\top\mX\right)^\top + 2 \mX^\top\mX\vbeta\right] = \frac{1}{\sigma^2}\mX^\top(\mA\vy - \mX\vbeta),
 \end{equation}
 %
-and with respect to $\sigma^2$ yields:
-
+and with respect to $\sigma^2$ yields
 \begin{equation}\label{eq:foc_ml_sar_sigma}
-\frac{\partial \log L(\vtheta)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\left(\mA\vy - \mX\vbeta\right)^\top\left(\mA\vy - \mX\vbeta\right).
+\frac{\partial \ell(\vtheta)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\left(\mA\vy - \mX\vbeta\right)^\top\left(\mA\vy - \mX\vbeta\right).
 \end{equation}
 
-Setting both (\ref{eq:foc_ml_sar_beta}) and (\ref{eq:foc_ml_sar_sigma}) to 0 and solving, we obtain:
-
+Setting both (\ref{eq:foc_ml_sar_beta}) and (\ref{eq:foc_ml_sar_sigma}) to 0 and solving, we obtain
 \begin{eqnarray}
 	\widehat{\vbeta}_{ML}(\rho) &=& \left(\mX^\top\mX\right)^{-1}\mX^\top\mA\vy \label{eq:beta_ML} \\
 	\widehat{\sigma}^2_{ML}(\rho) &=& \frac{\left(\mA\vy - \mX\vbeta_{ML}\right)^\top\left(\mA\vy - \mX\vbeta_{ML}\right)}{n}\label{eq:sigma_ML}.
 \end{eqnarray}
 
-Note that conditional on $\rho$ (assuming we know $\rho$), these estimates are simply OLS applied to the \emph{spatial filtered} dependent variable $\mA\vy$ and the exploratory variables $\mX$. Moreover, after some manipulation, Equation (\ref{eq:beta_ML}) can be re-written as:
+Note that conditional on $\rho$ (assuming we know $\rho$), these estimates are simply OLS applied to the \emph{spatial filtered} dependent variable $\mA\vy$ and the exploratory variables $\mX$. Moreover, after some manipulation, Equation (\ref{eq:beta_ML}) can be re-written as
+\begin{equation}\label{eq:beta_Ml_2}
+\begin{aligned}
+\widehat{\vbeta}_{ML}(\rho) &= \left(\mX^\top\mX\right)^{-1}\mX^\top\vy - \rho\left(\mX^\top\mX\right)^{-1}\mX^\top\mW\vy, \\
+&= \widehat{\vbeta}_O -\rho \widehat{\vbeta}_L.
+\end{aligned}
+\end{equation}
 
-\begin{eqnarray}\label{eq:beta_Ml_2}
-\vbeta_{ML}(\rho) &=& \left(\mX^\top\mX\right)^{-1}\mX^\top\vy - \rho\left(\mX^\top\mX\right)^{-1}\mX^\top\mW\vy \nonumber \\
-&=& \widehat{\vbeta}_O -\rho \widehat{\vbeta}_L\label{eq:beta_ml_exp}.
-\end{eqnarray}
-
-Note that the first term in  (\ref{eq:beta_Ml_2}) is just the OLS regression of $\vy$ on $\mX$, whereas the second term is just $\rho$ times the OLS regression of $\mW\vy$ on $\mX$. Next, define the following:
-
+Note that the first term in \eqref{eq:beta_Ml_2} is just the OLS regression of $\vy$ on $\mX$, whereas the second term is just $\rho$ times the OLS regression of $\mW\vy$ on $\mX$. Next, define the following:
 \begin{equation}\label{eq:SLM_aux_residuals}
 \ve_O = \vy - \mX\widehat{\vbeta}_0\,\,\mbox{and} \;\; \ve_L = \mW\vy - \mX\widehat{\vbeta_L}.
 \end{equation}
 
-Then, plugging (\ref{eq:beta_ml_exp}) into (\ref{eq:sigma_ML})
-
+Then, plugging \eqref{eq:beta_Ml_2} into \eqref{eq:sigma_ML}
 \begin{eqnarray}\label{eq:sigma_ml_con}
-\sigma^2_{ML}\left[\vbeta_{ML}(\rho) , \rho\right] &=& \frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}.
+\widetilde{\sigma}^2(\rho) &=& \frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}.
 \end{eqnarray}
 
-Note that both (\ref{eq:beta_ml_exp}) and (\ref{eq:sigma_ml_con}) rely only on observables, except for $\rho$, and so are readily calculable given some estimate of $\rho$. Therefore, plugging (\ref{eq:beta_ml_exp}) and (\ref{eq:sigma_ml_con}) back into the likelihood (\ref{eq:LL_SLM_2})  we obtain the \textbf{concentrated log-likelihood function}\index{Maximum likelihood!concentrated log-likelihood}:
-
+Note that both \eqref{eq:beta_Ml_2} and (\ref{eq:sigma_ml_con}) rely only on observables, except for $\rho$, and so are readily calculable given some estimate of $\rho$. Therefore, plugging \eqref{eq:beta_Ml_2} and \eqref{eq:sigma_ml_con} back into the likelihood \eqref{eq:LL_SLM_2}  we obtain the \textbf{concentrated log-likelihood function}\index{Maximum likelihood!concentrated log-likelihood}:
 \begin{equation}\label{eq:concentrated_ml_sar_1}
-\log L(\rho)_c=-\frac{n}{2}-\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\left[\frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}\right] + \log\left|\mI_n - \rho\mW\right|,
+\ell(\rho)=-\frac{n}{2}-\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\left[\frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}\right] + \log\left|\mI_n - \rho\mW\right|,
 \end{equation}	
 %	
-which is a \textbf{nonlinear} function of a single parameter $\rho$. A ML estimate for $\rho$, $\widehat{\rho}_{ML}$, is obtained from a numerical optimization of the concentrated log-likelihood function (\ref{eq:concentrated_ml_sar_1}). Once we obtain $\widehat{\rho}$, we can easily obtain $\widehat{\vbeta}$.  The procedure can be summarized in the following steps:
+which is a \textbf{nonlinear} function of a single parameter $\rho$. A ML estimate for $\rho$ is obtained from a numerical optimization of the concentrated log-likelihood function (\ref{eq:concentrated_ml_sar_1}). Once we obtain $\widehat{\rho}$, we can easily obtain $\widehat{\vbeta}$.  The procedure can be summarized in the following steps.
 
 \begin{algorithm}[ML estimation of SLM]\label{algorithm:SLM}
 The algorithm to perform the ML estimation of the SLM is the following: 
@@ -5454,13 +5612,12 @@ The algorithm to perform the ML estimation of the SLM is the following:
 \end{enumerate}	
 \end{algorithm}
 
-Since the score function will be important for understanding the asymptotic theory of MLE, we will derive also $\partial \log L(\vtheta) / \partial \rho$. Taking the derivative of Equation (\ref{eq:LL_SLM_2}) respect to $\rho$, we obtain:
-
+Since the score function will be important for understanding the asymptotic theory of MLE, we will derive also $\partial \ell(\vtheta) / \partial \rho$. Taking the derivative of Equation \eqref{eq:LL_SLM_2} respect to $\rho$, we obtain:
 \begin{equation}\label{eq:der1_rho}
   \begin{aligned}
-      \frac{\partial \log L(\vtheta)}{\partial \rho} & =  \left(\frac{\partial}{\partial \rho}\right)\log \left| \mA\right| -  \frac{1}{2\sigma^2}\left(\frac{\partial}{\partial \rho}\right)\vepsi^\top \vepsi \\
-      & = - \tr(\mA^{-1}\mW) +\frac{1}{2\sigma^2}2\vepsi^\top\mW\vy\quad\mbox{Using (\ref{eq:mc_3}) and (\ref{eq:mc_5})} \\
-      & = - \tr(\mA^{-1}\mW) +\frac{1}{2\sigma^2}2\vepsi^\top\mW\vy \\
+      \frac{\partial \ell(\vtheta)}{\partial \rho} & =  \left(\frac{\partial}{\partial \rho}\right)\log \left| \mA\right| -  \frac{1}{2\sigma^2}\left(\frac{\partial}{\partial \rho}\right)\vepsi^\top \vepsi, \\
+      & = - \tr(\mA^{-1}\mW) +\frac{1}{2\sigma^2}2\vepsi^\top\mW\vy,\quad\mbox{using (\ref{eq:mc_3}) and (\ref{eq:mc_5})} \\
+      & = - \tr(\mA^{-1}\mW) +\frac{1}{2\sigma^2}2\vepsi^\top\mW\vy, \\
       & = - \tr(\mA^{-1}\mW) +\frac{1}{\sigma^2}\vepsi^\top\mW\vy. 
   \end{aligned}
 \end{equation}
@@ -5468,7 +5625,7 @@ Since the score function will be important for understanding the asymptotic theo
 Thus the complete gradient (or score function) is:
 
 \begin{equation}\label{eq:full_agradient}
-  \nabla_{\vtheta} = \frac{\partial \log L(\vtheta)}{\partial \vtheta} = 
+  \nabla_{\vtheta} = \frac{\partial \ell(\vtheta)}{\partial \vtheta} = 
     \begin{pmatrix}
     \frac{\partial \log L(\vtheta)}{\partial \vbeta} \\
     \frac{\partial \log L(\vtheta)}{\partial \sigma^2} \\
@@ -5479,75 +5636,70 @@ Thus the complete gradient (or score function) is:
     \frac{1}{\sigma^2}\mX^\top\vepsi \\
     \frac{1}{2\sigma^4}(\vepsi^\top\vepsi-n\sigma^2) \\
     - \tr(\mA^{-1}\mW) +\frac{1}{\sigma^2}\vepsi^\top\mW\vy
-    \end{pmatrix}
+    \end{pmatrix},
 \end{equation}
+%
+where $\vepsi = \mA\vy - \mX\vbeta$.
 
-Note that if we replace $\vy = \mA^{-1}\mX\vbeta + \mA^{-1}\vepsi$ in Equation (\ref{eq:der1_rho}), we get:
-
+Note that if we replace $\vy = \mA^{-1}\mX\vbeta + \mA^{-1}\vepsi$ in Equation \eqref{eq:der1_rho}, we get
 \begin{equation*}
- \frac{\partial \log L(\vtheta)}{\partial \rho} = \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top \vepsi + \frac{1}{\sigma^2}(\vepsi^\top\mC\vepsi - \sigma^2 \tr(\mC)),
+ \frac{\partial \ell(\vtheta)}{\partial \rho} = \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top \vepsi + \frac{1}{\sigma^2}(\vepsi^\top\mC\vepsi - \sigma^2 \tr(\mC)),
 \end{equation*}
 %
 where:
-
 \begin{equation}\label{eq:Cmatrix}
   \mC = \mW\mA^{-1}.
 \end{equation}
 
+This expression will be useful later. 
+
 %**********************
-\subsection{Hessian}
+\subsection{Hessian}\label{sec:Hessian}
 %***********************
 
-The Hessian matrix will be very important in the following sections to obtain the asymptotic variance-covariance matrix. For this reason we devote a complete section in order to derive this matrix for the SLM. In this case, the Hessian is a $(k + 2)\times (k + 2)$ matrix of second derivatives given by :
-
+The Hessian matrix will be very important in the following sections to obtain the asymptotic variance-covariance matrix. For this reason we devote a complete section in order to derive this matrix for the SLM. In this case, the Hessian is a $(k + 2)\times (k + 2)$ matrix of second derivatives given by
 \begin{equation*}
 	\mH(\vbeta, \sigma^2, \rho) = 
 	\begin{pmatrix}
 		\frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \vbeta \partial \vbeta^\top} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \vbeta \partial \sigma^2} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \vbeta \partial \rho} \\
 		\frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \sigma^2 \partial \vbeta^\top} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial (\sigma^2)^2} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \sigma^2 \partial \rho} \\
 		\frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \rho \partial \vbeta^\top} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \rho \partial \sigma^2} & \frac{\ell(\vbeta, \sigma^2,\rho)}{\partial \rho^2}
-	\end{pmatrix} 
+	\end{pmatrix}. 
 \end{equation*}
 
-Now we work in the cross-derivatives for $\vbeta$. From (\ref{eq:foc_ml_sar_beta}):
-
+Now, we work in the cross-derivatives for $\vbeta$. From (\ref{eq:foc_ml_sar_beta}):
 \begin{align}
-  \frac{\partial^2 \log L(\vtheta)}{\partial \vbeta \partial \vbeta^\top}  & =  - \frac{1}{\sigma^2}(\mX^\top \mX) \label{eq:sar_der_beta_beta} \\
-  \frac{\partial^2  \log L(\vtheta)}{\partial \vbeta \partial \sigma^2} &= - \frac{1}{(\sigma^2)^2} \mX^\top \vepsi\label{eq:sar_der_beta_sigma} \\
-  \frac{\partial^2  \log L(\vtheta)}{\partial \vbeta \partial \rho}  & =  - \frac{1}{\sigma^2} \mX^\top \mW\vy\label{eq:sar_der_beta_rho},
+  \frac{\partial^2 \ell(\vtheta)}{\partial \vbeta \partial \vbeta^\top}  & =  - \frac{1}{\sigma^2}(\mX^\top \mX), \label{eq:sar_der_beta_beta} \\
+  \frac{\partial^2  \ell(\vtheta)}{\partial \vbeta \partial \sigma^2} &= - \frac{1}{(\sigma^2)^2} \mX^\top \vepsi,\label{eq:sar_der_beta_sigma} \\
+  \frac{\partial^2  \ell(\vtheta)}{\partial \vbeta \partial \rho}  & =  - \frac{1}{\sigma^2} \mX^\top \mW\vy\label{eq:sar_der_beta_rho},
 \end{align}
 
-
-Using the first derivative (\ref{eq:foc_ml_sar_sigma}) and working in the cross-derivatives for $\sigma^2$, we obtain:
-
+Using the first derivative \eqref{eq:foc_ml_sar_sigma} and working in the cross-derivatives for $\sigma^2$, we obtain
 \begin{equation}\label{eq:sar_der_sigma_sigma}
-	\frac{\partial^2 \log L(\vtheta)}{\partial (\sigma^2)^2}  = \frac{n}{2(\sigma^2) ^2} - \frac{1}{(\sigma^2)^3} \vepsi^\top \vepsi
+	\frac{\partial^2 \ell(\vtheta)}{\partial (\sigma^2)^2}  = \frac{n}{2(\sigma^2) ^2} - \frac{1}{(\sigma^2)^3} \vepsi^\top \vepsi,
 \end{equation}
 %
 and:
-
 \begin{equation}\label{eq:sar_der_sigma_rho}
 \begin{aligned}
-\frac{\partial \log L(\vtheta) }{\partial \sigma^2 \partial \rho}  & = \frac{1}{2\sigma ^ 4}\left[2\vepsi^\top \left(\frac{\partial \vepsi}{\partial \rho}\right)\right] \quad \mbox{Using Equation (\ref{eq:mc_5})}\\
+\frac{\partial^2 \ell(\vtheta) }{\partial \sigma^2 \partial \rho}  & = \frac{1}{2\sigma ^ 4}\left[2\vepsi^\top \left(\frac{\partial \vepsi}{\partial \rho}\right)\right] \quad \mbox{using Equation (\ref{eq:mc_5})}\\
 & =  - \frac{1}{\sigma ^ 4}\vepsi ^\top \mW\vy \\
 & =  -\frac{\vepsi^\top\mW\vy}{\sigma ^ 4}
 \end{aligned}
 \end{equation}
 
-Finally, working in the second derivative of $\rho$, and using (\ref{eq:der1_rho}), we obtain
-
+Finally, working in the second derivative of $\rho$, and using \eqref{eq:der1_rho}, we obtain
 \begin{equation}\label{eq:sar_der_rho_rho}
 \begin{aligned}
-\frac{\partial \log L(\vtheta) }{\partial \rho ^2}  & = -\left(\frac{\partial }{\partial \rho}\right)\tr(\mA^{-1}\mW) + \frac{1}{\sigma^2}\left(\frac{\partial }{\partial \rho}\right)\vepsi^\top\mW\vy \\
-& = - \tr\left( \frac{\partial \mA^{-1}\mW}{\partial \rho}\right) + \frac{1}{\sigma^2}\left(\frac{\partial }{\partial \rho}\right)(\mA\vy)^\top\mW\vy \\
-& = - \tr\left( \mA^{-1}\mW\mA^{-1}\mW \right)+ \frac{1}{\sigma^2}(- \vy^{\top}\mW^{\top}\mW\vy) \\
-& = - \tr\left[(\mW\mA^{-1})^2\right] - \frac{1}{\sigma^2}(\vy^{\top}\mW^{\top}\mW\vy)
+\frac{\partial^2 \ell(\vtheta) }{\partial \rho ^2}  & = -\left(\frac{\partial }{\partial \rho}\right)\tr(\mA^{-1}\mW) + \frac{1}{\sigma^2}\left(\frac{\partial }{\partial \rho}\right)\vepsi^\top\mW\vy, \\
+& = - \tr\left( \frac{\partial \mA^{-1}\mW}{\partial \rho}\right) + \frac{1}{\sigma^2}\left(\frac{\partial }{\partial \rho}\right)(\mA\vy)^\top\mW\vy, \\
+& = - \tr\left( \mA^{-1}\mW\mA^{-1}\mW \right)+ \frac{1}{\sigma^2}(- \vy^{\top}\mW^{\top}\mW\vy), \\
+& = - \tr\left[(\mW\mA^{-1})^2\right] - \frac{1}{\sigma^2}(\vy^{\top}\mW^{\top}\mW\vy).
 \end{aligned}
 \end{equation}
 
 
 Therefore, the Hessian is:
-
 \begin{equation}\label{eq:hessian_sml}
 	\mH(\vbeta, \sigma^2, \rho) = 
 	\begin{pmatrix}
@@ -5564,13 +5716,11 @@ which is symmetric and $\mC$ is given in Equation \eqref{eq:Cmatrix}.
 %=============================
 
 An important feature of the concentrated log-likelihood function (\ref{eq:concentrated_ml_sar_1}) is the Jacobian term $\left|\mI_n - \rho\mW\right|$. Computationally this is burdensome, since determining $\widehat{\rho}$ rests on the evaluation of the $n\times n$ matrix $\left|\mI_n - \rho\mW\right|$ in each iteration. However, \cite{ord1975estimation} note that:
-
 \begin{equation*}
 	\left|\omega\mI_n -\mW\right|=\prod_{i=1}^n(\omega-\omega_i).
 \end{equation*}	
 
 Therefore:
-
 \begin{equation*}
 \left|\mI_n -\rho\mW\right|=\prod_{i=1}^n(1-\rho\omega_i),
 \end{equation*}	
@@ -5583,12 +5733,12 @@ and the log-determinant term follows as
 
 The advantage of this approach is that the eigenvalues only need to be computed once, which carries some overhead, but greatly speeds up the calculation of the log-likelihood at each iteration. In practice, in all but the smallest data sets (< 4000 observations), the Ord's approach will be faster than the brute force approach. 
 
-This new formulation give us the possible domain of $\rho$. We need that $1 - \rho \omega_i \neq 0$, which occurs only if $1/\omega_{min} < \rho < 1/\omega_{max}$. For row-standardized matrix, the largest eigenvalues is 1. With this new approximation,  the new concentrated log-likelihood function is:
+This new formulation give us the possible domain of $\rho$. We need that $1 - \rho \omega_i \neq 0$, which occurs only if $1/\omega_{min} < \rho < 1/\omega_{max}$. For row-standardized matrix, the largest eigenvalues is 1. 
 
+With this new approximation, the new concentrated log-likelihood function is:
 \begin{equation}\label{eq:concentrated_ml_sar_2}
   \begin{aligned}
-\log L(\rho)_c & =-\frac{n}{2}-\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\left[\frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}\right] + \sum_{i=1}^n\log(1 - \rho\omega_i), \\
-& = \mbox{const}- \log\left[\frac{\ve_O^\top\ve_O - 2\rho\ve_L^\top\ve_O + \rho^2 \ve_L^\top\ve_L}{n}\right] + \frac{2}{n}\sum_{i=1}^n\log(1 - \rho\omega_i).
+\ell(\rho)& =-\frac{n}{2}-\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\left[\frac{\left(\ve_O - \rho\ve_L\right)^\top\left(\ve_O - \rho\ve_L\right)}{n}\right] + \sum_{i=1}^n\log(1 - \rho\omega_i).
   \end{aligned}
 \end{equation}	
 
@@ -5610,27 +5760,24 @@ As we reviewed in Section \ref{sec:tax_SEM}, a second way to incorporate spatial
 	\end{aligned}
 \end{equation}
 %
-where $\lambda_0$ is the spatial autoregressive coefficient for the error lag $\mW\vu$ (to distinguish the notation from the spatial autoregressive coefficient $\rho$ in a spatial lag model), $\mW$ is the spatial weight matrix, $\vepsi$ is an error $\vepsi \sim N(\vzeros, \sigma^2_0\mI_n)$. This model do not require a theoretical model for a spatial process, but instead, is consistent with a situation where determinants of the dependent variable omitted from the model are \textbf{spatially autocorrelated}, or with a situation where unobserved shocks follows a spatial pattern \citep{elhorst2014spatial}. In summary, SEM treats spatial correlation primarily as a nuisance. 
+where $\lambda_0$ is the spatial autoregressive coefficient for the error lag $\mW\vu$ (to distinguish the notation from the spatial autoregressive coefficient $\rho$ in a spatial lag model), $\mW$ is the spatial weight matrix, $\vepsi$ is the error term such that $\vepsi \sim N(\vzeros, \sigma^2_0\mI_n)$. This model do not require a theoretical model for a spatial process, but instead, is consistent with a situation where determinants of the dependent variable omitted from the model are \textbf{spatially autocorrelated}, or with a situation where unobserved shocks follows a spatial pattern \citep{elhorst2014spatial}. In summary, SEM treats spatial correlation primarily as a nuisance. 
 
-If $\lambda > 0$, then we face positive spatial correlation. This implies clustering of similar values; that is, the errors for spatial unit $i$ tend to vary systematically with the errors for other nearby observations $j$ so that smaller/larger errors for $i$ would tend to go together with smaller/larger errors for $j$. This violates the typical assumption of no autocorrelation in the error term of the OLS. 
+If $\lambda_0 > 0$, then we face positive spatial correlation. This implies clustering of similar values; that is, the errors for spatial unit $i$ tend to vary systematically with the errors for other nearby observations $j$ so that smaller/larger errors for $i$ would tend to go together with smaller/larger errors for $j$. This violates the typical assumption of no autocorrelation in the error term of the OLS. 
 
-Under the assumption that the spatial weights matrix is row standardized and the parameter is less than one in absolute value, the model can be also be expressed as:
-
+The reduced form of the SEM is
 \begin{equation*}
-	\vy = \mX\vbeta + \left(\mI_n-\lambda\mW\right)^{-1}\vepsi.
+	\vy = \mX\vbeta_0 + \left(\mI_n-\lambda_0\mW\right)^{-1}\vepsi.
 \end{equation*}
 
-Since $\vu = (\mI_n - \lambda\mW)^{-1}\vepsi$, it can be shown that $\E(\vu| \mW, \mX) = \vzeros$. Furthermore, the variance-covariance matrix of $\vu$ is: 
-
+Since $\vu = (\mI_n - \lambda_0\mW)^{-1}\vepsi$, it can be shown that $\E(\vu| \mW, \mX) = \vzeros$. Furthermore, the variance-covariance matrix of $\vu$ is: 
 \begin{equation}\label{eq:cov_error_sem}
-\var(\vu| \mW, \mX)=\E(\vu\vu^\top| \mW, \mX) = \sigma^2(\mI_n-\lambda\mW)^{-1}(\mI-\lambda\mW^\top)^{-1}=\sigma^2\mOmega_{u}^{-1},
+\var(\vu| \mW, \mX)=\E(\vu\vu^\top| \mW, \mX) = \sigma^2_0(\mI_n-\lambda_0\mW)^{-1}(\mI-\lambda_0\mW^\top)^{-1}=\sigma^2_0\mOmega_{u}^{-1},
 \end{equation}
 %
-where $\mOmega_{u}=(\mI_n-\lambda\mW)(\mI_n-\lambda\mW)^\top$. The variance covariance (\ref{eq:cov_error_sem}) is a full matrix implying a spatial autoregressive error process leading to a nonzero error covariance between every pair of observations, but decreasing in magnitude with the order of contiguity \citep{AnselinBera1998}. Furthermore, the complex structure in the inverse matrix in (\ref{eq:cov_error_sem}) yields nonconstant diagonal elements in the error covariance matrix, thus inducing heteroskedasticity in $\vu$, irrespective of the heteroskedasticity of $\vepsi$. Finally, $\vu \sim \rN(\vzeros, \sigma^2\mOmega_u^{-1})$.
-
+where $\mOmega_{u}=(\mI_n-\lambda_0\mW)(\mI_n-\lambda_0\mW)^\top$. The variance covariance \eqref{eq:cov_error_sem} is a full matrix implying a spatial autoregressive error process leading to a nonzero error covariance between every pair of observations, but decreasing in magnitude with the order of contiguity \citep{AnselinBera1998}. Furthermore, the complex structure in the inverse matrix in (\ref{eq:cov_error_sem}) yields non constant diagonal elements in the error covariance matrix, thus inducing heteroskedasticity in $\vu$, irrespective of the heteroskedasticity of $\vepsi$. Finally, $\vu \sim \rN(\vzeros, \sigma^2_0\mOmega_u^{-1})$.
 
 \begin{remark}\label{remark:ols_sem}
-  The OLS estimates of model in Equation (\ref{eq:sem_ml}) are unbiased, but inefficient if $\lambda \neq 0$.
+  The OLS estimates of model in Equation (\ref{eq:sem_ml}) are unbiased, but inefficient if $\lambda_0 \neq 0$.
 \end{remark}
 
 Given the previous Remark, we might used generalized least squares (GLS) for a more efficient parameters estimation. Recall that the inefficiency of OLS estimates of the regression coefficient would invalidate the statistical inference in the spatial error model. The invalidity of significance test arises from biased estimation of the variance and standard errors of the OLS estimates for $\vbeta$ and $\lambda$.
@@ -5639,104 +5786,89 @@ Given the previous Remark, we might used generalized least squares (GLS) for a m
 \subsection{Log-likelihood function}
 %----------------------------------------
 
-The model in Equation (\ref{eq:sem_ml}) implies that the reduced form is :
-
+The model in Equation \eqref{eq:sem_ml} implies that
 \begin{equation*}
-\vepsi = \left(\mI-\lambda\mW\right)\vy - \left(\mI_n-\lambda\mW\right)\mX\vbeta = \mB\vy - \mB\mX\vbeta,
+\vepsi = \left(\mI_n-\lambda_0\mW\right)\vy - \left(\mI_n-\lambda_0\mW\right)\mX\vbeta_0 = \mB_0\vy - \mB_0\mX\vbeta_0,
 \end{equation*}
 %
-where $\mB = (\mI_n-\lambda\mW)$. Recall that in order to create the log-likelihood function we need the joint density function. Using the Transformation Theorem we are able to find the joint conditional function:
-
+where $\mB_0 = (\mI_n-\lambda_0\mW)$. Recall that in order to create the log-likelihood function we need the joint density function. Using the Transformation Theorem we are able to find the joint conditional function:
 \begin{equation*}
-  f(y_1,...,y_n|\mX; \vtheta) = f(\vepsi(\vy)| \mX ; \vtheta) \cdot \left|\mJ\right|.
+  f(y_1,...,y_n|\mX; \vtheta) = f(\vepsi(\vy)| \mX ; \vtheta) \cdot \left|\mJ\right|
 \end{equation*}
 
 Again, the Jacobian term is not equal to one, but instead is
-
 \begin{equation*}
-\mJ = \frac{\partial \vepsi}{\partial \vy} =\mB.
+\mJ = \frac{\partial \vepsi}{\partial \vy} =\mB_0.
 \end{equation*}
 
 Thus, the joint density function of $\vepsi$---which is a function of $\vy$--- equals
-
 \begin{equation*}
   f(\vepsi(\vy)| \mX ; \vtheta) = (2\pi \sigma^2)^{-n/2}\exp\left[- \frac{\left[\left(\mI_n-\lambda\mW\right)(\vy - \mX\vbeta)\right]^\top \left[\left(\mI_n-\lambda\mW\right)(\vy - \mX\vbeta)\right]}{2\sigma^2}\right],
 \end{equation*}
 %
 and the joint density function of $\vy$, $f(y_1,...,y_n|\mX; \vtheta)$ equals
-
 \begin{equation*}
   f(\vy| \mX ; \vtheta) = (2\pi \sigma^2)^{-n/2}\exp\left[- \frac{(\vy - \mX\vbeta)^\top \mB^\top \mB (\vy - \mX\vbeta)}{2\sigma^2}\right]\cdot \left|\mB\right|
 \end{equation*}
 
 Finally, the log-likelihood can be expressed as
-
 \begin{equation}\label{eq:ll_sem}
-\log L(\vtheta) = - \frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2)-\frac{(\vy - \mX\vbeta)^\top \mOmega(\lambda) (\vy - \mX\vbeta)}{2\sigma^2} + \log\left|\mI_n - \lambda \mW\right|,
+\ell(\vtheta) = - \frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2)-\frac{(\vy - \mX\vbeta)^\top \mOmega(\lambda) (\vy - \mX\vbeta)}{2\sigma^2} + \log\left|\mI_n - \lambda \mW\right|,
 \end{equation}
 %
 where 
-
 \begin{equation*}
 \mOmega(\lambda) = \mB^\top \mB = \left(\mI_n-\lambda\mW\right)^\top \left(\mI_n-\lambda\mW\right)
 \end{equation*}
-
 
 Again, we run into complications over the log of the determinant $\left|\mI_n - \lambda \mW\right|$, which is an $n$th-order polynomial that is cumbersome to evaluate. 
 
 \subsection{Score Function and ML Estimates}\label{sec:sem_ml_estimates}
 
-Maximizing the log-likelihood function (\ref{eq:ll_sem}) is the same as to minimizing the sum of the transformed errors, $\vepsi^\top\vepsi$, corrected by the log of the Jacobian, $\log\left|\mI_n - \lambda \mW\right|$. Since we are accounting for this correction, the ML estimates will differ from the OLS estimates. They will coincide if $\lambda \to 0$. 
+Maximizing the log-likelihood function \eqref{eq:ll_sem} is the same as to minimizing the sum of the transformed errors, $\vepsi^\top\vepsi$, corrected by the log of the Jacobian, $\log\left|\mI_n - \lambda \mW\right|$. Since we are accounting for this correction, the ML estimates will differ from the OLS estimates. They will coincide if $\lambda \to 0$. 
 
-To obtain the ML estimates, we apply FOC to the log-likelihood function (\ref{eq:ll_sem}). Taking the derivative respect to $\vbeta$ yields:
-
+To obtain the ML estimates, we apply FONC to the log-likelihood function \eqref{eq:ll_sem}. Taking the derivative respect to $\vbeta$ yields:
 \begin{equation}\label{eq:beta_gls_ml}
   \begin{aligned}
-\vbeta_{ML}(\lambda) & =\left[\mX^\top\mOmega(\lambda)\mX\right]^{-1}\mX^\top\mOmega(\lambda)\vy\\
-                     & = \left[(\mB\mX)^\top (\mB \mX)\right]^{-1} (\mB\mX)^\top \mB \vy \\
+\vbeta_{ML}(\lambda) & =\left[\mX^\top\mOmega(\lambda)\mX\right]^{-1}\mX^\top\mOmega(\lambda)\vy,\\
+                     & = \left[(\mB\mX)^\top (\mB \mX)\right]^{-1} (\mB\mX)^\top \mB \vy, \\
                      & = \left[\mX(\lambda)^\top  \mX(\lambda)\right]^{-1} \mX(\lambda)^\top \vy(\lambda),
   \end{aligned}
 \end{equation}
 %
 where:
-
 \begin{equation}
   \begin{aligned}
-\mX(\lambda) & = \mB\mX = (\mI - \lambda\mW)\mX = (\mX - \lambda\mW\mX) \\
+\mX(\lambda) & = \mB\mX = (\mI - \lambda\mW)\mX = (\mX - \lambda\mW\mX), \\
 \vy(\lambda) & = (\vy - \lambda \mW \vy).
   \end{aligned}
 \end{equation}
 
-If $\lambda$ is known, this estimator is equal to the GLS estimator---$\widehat{\beta}_{ML} = \widehat{\beta}_{GLS}$---and it can be thought as the OLS estimator resulting from a regression of $\vy(\lambda)$ on $\mX(\lambda)$. In other words, for a known value of the spatial autoregressive coefficient ,$\lambda$, this is equivalent to OLS on the transformed variables.
-
+If $\lambda$ is known, this estimator is equal to the GLS estimator---$\widehat{\beta}_{ML} = \widehat{\beta}_{GLS}$---and it can be thought as the OLS estimator resulting from a regression of $\vy(\lambda)$ on $\mX(\lambda)$. In other words, for a known value of the spatial autoregressive coefficient, $\lambda$, this is equivalent to OLS on the transformed variables.
 
 \begin{remark}
 In the literature, the transformations:
-
 \begin{eqnarray*}
 \mX(\lambda) &=&(\mX - \lambda\mW\mX) \\
 \vy(\lambda) &=& (\vy - \lambda \mW \vy)
 \end{eqnarray*}
-
+%
 are known as the \emph{Cochrane-Orcutt transformation}.
 \end{remark}
 
 In the same way, a first-order condition resulting from the spatial derivative of (\ref{eq:ll_sem}) with respect to $\sigma^2$ gives the ML estimator for the error variance:
-
 \begin{equation}
-	\sigma^2_{ML}(\lambda) = \frac{1}{n}\left(\widehat{\vepsi}^\top\mB^\top\mB \vepsi\right)= \frac{1}{n}\widehat{\vepsi}^\top(\lambda)\widehat{\vepsi}(\lambda)
+	\sigma^2_{ML}(\lambda) = \frac{1}{n}\left(\widehat{\vepsi}^\top\mB^\top\mB \vepsi\right)= \frac{1}{n}\widehat{\vepsi}^\top(\lambda)\widehat{\vepsi}(\lambda),
 \end{equation}
 %
 where $\widehat{\vepsi} = \vy - \mX\widehat{\vbeta}_{ML}$ and $\widehat{\vepsi}(\lambda) = \mB(\lambda)(\vy - \mX\widehat{\vbeta}_{ML}) = \mB(\lambda)\vy - \mB(\lambda)\mX\widehat{\vbeta}_{ML}$. 
 
-
-First order condition derived from the expression of the likelihood are highly non-linear and therefore the likelihood in Equation (\ref{eq:ll_sem}) cannot be directly maximized. Again, a concentrated likelihood approach is necessary.
+First order condition derived from the expression of the likelihood are highly non-linear and therefore the likelihood in Equation \eqref{eq:ll_sem} cannot be directly maximized. Again, a concentrated likelihood approach is necessary.
 
 The estimators for $\vbeta$ and $\sigma^2$ are both functions of the value of $\lambda$. A concentrated log-likelihood can then be obtained as:
 
-
 \begin{equation}
-	\log L(\lambda)^c= \mbox{const} + \frac{n}{2}\log\left[\frac{1}{n}\widehat{\vepsi}^\top\mB^\top\mB \widehat{\vepsi}\right] + \log\left|\mB\right|
+	\ell(\lambda)= \mbox{const} + \frac{n}{2}\log\left[\frac{1}{n}\widehat{\vepsi}^\top\mB^\top\mB \widehat{\vepsi}\right] + \log\left|\mB\right|
 \end{equation}
 
 The residual vector of the concentrated likelihood is also, indirectly, a function of the spatial autoregressive parameter.
@@ -5774,9 +5906,8 @@ Finally, the asymptotic variance-covariance matrix is:
 where $\mW_B = \mW(\mI - \lambda\mW)^{-1}$.
 
 %====================================
-\section{Asymptotic Properties}
+\section{Asymptotic Properties of SLM}
 %====================================
-
 
 In this section we review the asymptotic properties of the ML and Quasi ML for the SLM. In particular, we follow \cite{lee2004asymptotic}.
 
@@ -5784,20 +5915,23 @@ In this section we review the asymptotic properties of the ML and Quasi ML for t
 \subsection{Consistency of QMLE}
 %------------------------------------
 
+We now write the true SLM as
+\begin{equation*}
+\vy_n = \mX_n\vbeta_0 + \lambda_0\mW_n\vy_n + \vepsi_n,
+\end{equation*}
 
-\cite{lee2004asymptotic} derives the asymptotic properties (consistency and asymptotic normality) of the ML and QML estimator for the SLM model. \cite{lee2004asymptotic} starts with the following assumption about the error terms $\epsilon_{i}$. 
+We now index the variables of the model, and $\mW$, by $n$ to indicate that they depend on the sample size. 
 
-\begin{assumption}[Errors]\label{assu:ml_1}
+\cite{lee2004asymptotic} derives the asymptotic properties (consistency and asymptotic normality) of the ML and QML estimator for the SLM. \cite{lee2004asymptotic} starts with the following assumption about the error terms $\epsilon_{i}$. 
+
+\begin{assumption}[Errors \citep{lee2004asymptotic}]\label{assu:ml_1}
 Assume the following
   \begin{enumerate}
-    \item The disturbances $\left\lbrace \epsilon_{i,n}: 1 \leq i \leq n, n\geq 1\right\rbrace$ are identically distributed. Furthermore, for each sample size $n$, they are jointly independent distributed with mean $ \E(\epsilon_{i, n}) = 0$ and $\E(\epsilon_{i, n}^2)=\sigma^2_{\epsilon, n}$ where $0 < \sigma^2_{\epsilon, n} < b$. 
-    \item Its moments $\E\left(|\epsilon_{i,n}|^{4 + \gamma}\right)$ for some $\gamma > 0$ exits.
+    \item The disturbances $\left\lbrace \epsilon_{i}\right\rbrace, i = 1, ..., n$, in $\vepsi_n = (\epsilon_i, ..., \epsilon_n)^\top$ are iid with mean zero and variance $\sigma^2$. Its moment $\E\left(|\epsilon|^{4 + \gamma}\right)$ for some $\gamma > 0$ exits.
   \end{enumerate}  
 \end{assumption}
 
-Note that Assumption \ref{assu:ml_1}(1) allows the error term to depend on the sample size $n$, i.e., to form a triangular array. %(For simplicity of notation we will, for the most part, drop again subscripts $n$ in the following).
-
-Moreover, because statistics involving quadratic forms of $\epsilon_n$ will be present in the estimation, the existence of the fourth order moment of $\epsilon_{i,n}$ will guarantee finite variances for the quadratic forms and we will be able to apply a CLT. 
+Note that Assumption \ref{assu:ml_1} states that the error variance is homoskedastic. Moreover, because statistics involving quadratic forms of $\vepsi_n$ will be present in the estimation, the existence of the fourth order moment of $\epsilon_{i}$ will guarantee finite variances for the quadratic forms and we will be able to apply a CLT. 
 
 In order to understand the asymptotic behavior of $\mW_n$ under some \textbf{regularity conditions}, we need to understand some useful terminologies.
 
@@ -5810,11 +5944,11 @@ Let $\left\lbrace b_{ni} \right\rbrace, i = 1,...,n$ be a triangular array of co
 \end{enumerate}
 \end{definition}
 
-Again, we must think the $\mW$ matrices as triangular arrays of constants. Recall that the elements of $\mW$ are denoted as $w_{ij}$.  However, since as we add more spatial units the spatial structure changes, it might be the case that the element $w_{ij}$ is not the same when $n = 50$ or $n = 55$. Therefore, we need triangular arrays in order to make explicit this possibility. That is why we will index the elements of $\mW_n$ as $w_{n, ij}$.
+Again, we must think the $\mW_n$ matrices as triangular arrays of constants. As explained in Section \ref{sec:triangular-array}, as we add more spatial units the spatial structure changes. Thus, it might be the case that the element $w_{ij}$ is not the same when $n = 50$ or $n = 55$. By considering triangular arrays, we make explicit this possibility. This explains why we index the elements of $\mW_n$ as $w_{n, ij}$.
 
-Another question is whether each element of $\mW_n$---or sequences--- are bounded. That is, they are limited as $n\to \infty$. In this context, Definition \ref{def:tria_array_const} provides a specific setting for sequences bounded away from zero. If sequences are divergent, this definition describes how fast the sequences tend to infinity. Now, we apply this definition to the spatial weight matrices:
+Another question is whether each element of $\mW_n$---or sequences---are bounded. That is, they are limited as $n\to \infty$. In this context, Definition \ref{def:tria_array_const} provides a specific setting for sequences bounded away from zero. If sequences are divergent, this definition describes how fast the sequences tend to infinity. Now, we apply this definition to the spatial weight matrices:
 
-\begin{assumption}[Weight Matrix]\label{assu:ml_2}
+\begin{assumption}[Weight Matrix \citep{lee2004asymptotic}]\label{assu:ml_2}
 	The elements $w_{n,ij}$ of $\mW_n$ are at most of order $h_n^{-1}$, denoted by $O(1/h_n)$, uniformly in all $i,j$, where the rate sequence ${h_n}$ can be \textbf{bounded} or \textbf{divergent}. As a normalization, $w_{n,ii} = 0$ for all $i$.
 \end{assumption}
 
@@ -5824,22 +5958,15 @@ Recall that in econometric we are often interested in the asymptotic behavior of
   X_n = O(b_n) \implies \lim_{n\to \infty}\frac{X_n}{b_n} = -\infty < c < \infty.
 \end{equation*}
 
-This implies that $X_n$ is a bounded sequence of rate $b_n$. %Probably you recall from you econometric class that we can write:
+This implies that $X_n$ is a bounded sequence of rate $b_n$. Assumption \ref{assu:ml_2} states that the elements of $\mW_{n}$ are sequences that might be bounded or divergent at rate $h_n$. That is, we do not know if $h_nw_{n,ij}$ is bounded or divergent.
 
-%\begin{equation*}
-%\sqrt{n}\left(\widehat{\vbeta} - \vbeta\right)=\left(\frac{\mX^\top\mX}{n}\right)^{-1}\frac{1}{\sqrt{n}}\mX^\top\vepsi,
-%\end{equation*}
-%
-%and we usually state that $\mX^\top\mX = O(n)$ and $\mX^\top\vepsi = O_p(n^{1/2})$. That is, the sequence $(1/n)\mX^\top\mX$ is a bounded sequence and $(1/n^{1/2})\mX^\top\vepsi$ is a bounded sequence in terms of probability (it converges to something as fast as rate $1/\sqrt{n}$).
-Assumption \ref{assu:ml_2} states that the elements of $\mW_{n}$ are sequences that might be bounded or divergent at rate $h_n$. That is, we do not know if $h_nw_{n,ij}$ is bounded or divergent.
-
-\begin{assumption}\label{assu:ml_3}
+\begin{assumption}[\citep{lee2004asymptotic}]\label{assu:ml_3}
 	The ratio $h_n/n \to 0$ as $n$ goes to infinity
 \end{assumption}
 
 Assumptions~\ref{assu:ml_2} and \ref{assu:ml_3} link directly the spatial weight matrix to the sample size $n$. The intuition tell us that as the sample size $n$ increases, the row sum of the weight matrices will also tend to increase, since one region could have more neighbors (see our discussion in Section ~\ref{sec:triangular-array}). The rate at which the spatial weights $w_{n,ij}$ increases as $n$ increases can be bounded (limit on the number of neighbors) or can be divergent (not limit in the number of neighbors). Therefore, Assumptions~\ref{assu:ml_2} and \ref{assu:ml_3} are intended to cover weight matrices whose elements are not restricted to be nonnegative and those that might not be row-standardized. 
 
-What are the implications of those assumption? These assumptions have to be with the row and column sums of the matrix $\mW$. In particular, the row and column sums of $\mW$ before $\mW$ is row-normalized should not diverge to infinity at a rate equal to or faster than the rate of the sample size $n$. This condition is slightly different in \cite{kelejian1998generalized, kelejian1999generalized}. Their condition states that the row and columns sums of the matrices $\mW$ and $(\mI_n - \rho\mW)^{-1}$ before $\mW$ is row-normalized should be uniformly bounded in absolute value as $n$ goes to infinity. In both cases these conditions limit the cross-sectional correlation to a manageable degree, i.e., the correlation between two spatial units should converge to zero as the distance separating them increases to infinity. 
+What are the implications of those assumption? These assumptions deal with the row and column sums of the matrix $\mW_n$. In particular, the row and column sums of $\mW_n$ before $\mW_n$ is row-normalized should not diverge to infinity at a rate equal to or faster than the rate of the sample size $n$. This condition is slightly different in \cite{kelejian1998generalized, kelejian1999generalized}. Their condition states that the row and columns sums of the matrices $\mW$ and $(\mI_n - \rho\mW)^{-1}$ before $\mW$ is row-normalized should be uniformly bounded in absolute value as $n$ goes to infinity. In both cases these conditions limit the cross-sectional correlation to a manageable degree, i.e., the correlation between two spatial units should converge to zero as the distance separating them increases to infinity. 
 
 In addition to the technicality, these assumptions have applied implications. Normally, no spatial unit is assumed to be a neighbor to more than a given number, say $q$, of other units. Therefore, the number of neighbors is limited and \cite{lee2004asymptotic}'s and  \cite{kelejian1998generalized, kelejian1999generalized}'s assumption is satisfied. 
 
@@ -5881,14 +6008,11 @@ representing a series that is not finite. This is perhaps the main motivation of
 
 %where $d_{ij} > 0$ represents a function of the spatial distance of the $i$th and $j$th units in some space. For a row-normalized $\mW_n$, as $d_{i,j}$ are nonnegative constants and uniformly bounded, if the $\sum_{j = 1}^nd_{ij}, i = 1,...,n$ are uniformly bounded away from zero at the rate $h_n$ in the sense that $\sum_{j = 1}^nd_{ij} =O(h_n)$ uniformly in $i$ and $\lim \inf _{n\to \infty} h_n^{-1}\sum_{j = 1}^nd_{ij} > c$, where $c$ is a positive constant independent of $i$ and $n$, the implied normalized weights matrix will have the property of Assumption \ref{assu:ml_2}.
 
-
 What if $h_n$ is unbounded? Under this case $\sum_{j = 1}^nd_{ij}$ is uniformly bounded away from zero at the rate $h_n$, where $\lim_{n\to \infty}h_n = \infty$. This particular case \textbf{rules out} cases where each unit has only a (fixed) finite number of neighbors even when the total number of unit increases to infinity. For example, it rules out the case where units correspond to counties and neighbors are defined as counties with contiguous border.
 
 In which cases $h_n \to \infty$? This case requires that each unit in the limit has infinitely many neighbors. As stated by \cite{lee2002consistency}, in economic applications where either the neighbors of any unit are dense in a relevant space or each unit is influenced by many of its neighboring units, which represents a significant proportion of the total population units, it is likely that $\sum_{j = 1}^nd_{ij}$ will diverge and $(1/n)\sum_{j = 1}^nd_{ij}$ will converge as $n$ becomes large. Consider the case where $d_{ij} = 1 / \left|r_i - r_j\right|$, where $r_i$ is the proportion of state $i$'s population that is of African descent. As no state in USA has zero proportion of African-Americans in its population, $d_{ij}$ will be positive, and $(1/n)\sum_{j = 1}^nd_{ij}$ will be bounded away from zero and $\sum_{j = 1}^nd_{ij}$ will be likely to possess the $n$ rate of divergence in this example.
 
 Another example occurs when all cross-sectional units are assumed to be neighbors of each other and are given equal weights. In that case all off-diagonal elements of the spatial weights matrix are $w_{ij} = 1$. Since the row and column sums are $n - 1$, these sums diverge to infinity as $n\to \infty$. In contrast to the previous case, however, $(n - 1)/ n\to 1$ instead of $0$ as $n\to\infty$. This implies that a spatial weight matrix that has equal weights and that is row-normalized subsequently, $w_{ij} - 1 / (n - 1)$ must be excluded for reasons of consistency since is satisfies neither \cite{lee2004asymptotic}'s and  \cite{kelejian1998generalized, kelejian1999generalized}'s condition. The alternative is a group interaction matrix, introduced by Case (1991). Here ``neighbors'' refer to farmers who live in the same district. Suppose that there are $R$ districts and there are $m$ farmers in each district. The sample size is $n = mR$. Case assumed that in a district, each neighbor of a farmer is given equal weight. In that case, $\mW_n  = \mI_R \otimes \mB_m$, where $\mB_m = (\vones_m\vones_m^\top - \mI_m)/(m - 1)$. For this example, $h_n = (m - 1)$ and $h_n/n = (m - 1) / (mR) = O(1/R)$. If sample size $n$ increases by increasing both $R$ and $m$, then $h_n$ goes to infinity and $h_n/n$ goes to zero as $n$ tends to infinity. Thus, this matrix satisfies \cite{lee2004asymptotic}'s condition. 
-
-
 
 \begin{remark}
   Whether $\left\lbrace h_n \right\rbrace$ is a bounded or divergent sequence has interesting implications on the OLS estimation. The OLS estimators of $\vbeta$ and $\rho$ are inconsistent when $\left\lbrace h_n \right\rbrace$ is bounded, but they can be consistent when $\left\lbrace h_n \right\rbrace$ is divergent \citep[see][]{lee2002consistency}.
@@ -5896,71 +6020,22 @@ Another example occurs when all cross-sectional units are assumed to be neighbor
 
 In summary, when $\left\lbrace h_n \right\rbrace$ is a bounded sequence, it implies a cross sectional unit has only a small number of neighbors, where the spatial dependence is usually defined based on geographical implications. When $\left\lbrace h_n \right\rbrace$ is divergent, it corresponds to the scenario where each unit has a large number of neighbors that often emerges in empirical studies of social interactions or cluster sampling data. 
 
-\begin{assumption}\label{assu:ml_4}
+\begin{assumption}[Non-singularity of $\mA_n$ \citep{lee2004asymptotic}]\label{assu:ml_4}
 	The matrix $\mA_n$ is nonsingular.
 \end{assumption}
 
-Under Assumption \ref{assu:ml_4}, the SLM model (system) has the reduced form (equilibrium) given by Equation (\ref{eq:equilibrium_slm}) with the following expectation and variance:
-
+Under Assumption \ref{assu:ml_4}, the SLM (system) has the reduced form (equilibrium) given by
+\begin{equation}
+\vy = \mA^{-1}_{n0}(\mX_n\vbeta_0 + \vepsi_n)
+\end{equation}
+%
+where $\mA^{-1}_{n0} = (\mI_n - \rho_0\mW_n)$ and with the following expectation and variance:
 \begin{eqnarray}
-\E(\vy_n)   &=& \left(\mI_n - \rho_0\mW_n\right)^{-1}\mX_n\vbeta  = \mA_n^{-1}\mX_n\vbeta_0\\
-\var(\vy_n) &=& \sigma^2_{0}\left(\mI_n - \rho_0\mW_n\right)^{-1}\left(\mI_n - \rho_0\mW_n\right)^{-1\top} = \sigma^2_0\mA_n^{-1}\mA_n^{-1\top}
+\E(\vy_n)   &=& \left(\mI_n - \rho_0\mW_n\right)^{-1}\mX_n\vbeta  = \mA_{n0}^{-1}\mX_n\vbeta_0\\
+\var(\vy_n) &=& \E(\vy_n\vy_n^\top) = \sigma^2_{0}\left(\mI_n - \rho_0\mW_n\right)^{-1}\left[\left(\mI_n - \rho_0\mW_n\right)^{-1}\right]^\top = \sigma^2_0\mA_{n0}^{-1}(\mA_{n0}^{-1})^\top
 \end{eqnarray}
 
-
-\begin{assumption}\label{assu:ml_5}
-	The sequences of matrices $\left\lbrace \mW_n \right\rbrace$ and $\left\lbrace \mA_n^{-1} \right\rbrace$ are uniformly bounded in both row and column sums 
-\end{assumption}
-
-The uniform boundedness of the matrices is a condition to limit the spatial correlation to a manageable degree. For example, it guarantees that the variances of $\vy_n$ are bounded as $n$ goes to infinity.
-
-Technically, this assumes that $\left\lbrace \left\|\mW_n\right\|_1\right\rbrace$ and $\left\lbrace \left\|\mW_n\right\|_{\infty}\right\rbrace$ are bounded sequences. Formally, let $\mA_n$ be a square matrix. Using Definition \ref{def:Bounded_Matrices}, we say that the row and column sums of the sequences of matrices $\mA_n$ is bounded uniformly in absolute value if there exists a constant $c < \infty$ that does not depend on $N$ such that
-
-
-\begin{equation*}
-   \left\|\mA_n\right\|_{\infty} = \underset{1\leq i \leq n}{\sum_{j = 1} ^ N \left|a_{ij, N}\right|} < c, \quad  \left\|\mA_n\right\|_{1} = \underset{1\leq j \leq n}{\sum_{i = 1} ^ N \left|a_{ij, N}\right|} < c \quad \forall N
-\end{equation*}
-
-Why do we care about this? Because we need the variance goes to zero when the sample size goes to infinity in order to apply some consistency theorem.\footnote{Equivalently, this assumption rules out the unit root case in time series.}
-
-\begin{lemma}[Uniform Boundedness of Matrices in Row and Column Sums]
-  Suppose that the spatial weights matrix $\mW_n$ is a non-negative matrix with its $(i,j)$th element being 
-  
-  \begin{equation*}
-    w_{n,ij} = \frac{d_{ij}}{\sum_{l = 1}^nd_{il}}
-  \end{equation*}
-  
-  and $d_{ij}>0$ for all $i,j$.
-  
-  \begin{enumerate}
-    \item If the row sums $\sum_{j = 1}^nd_{ij}$ are bounded away from zero at the rate $h_n$ uniformly in $i$, and the column sums $\sum_{i = 1}^nd_{ij}$ are $O(h_n)$ uniformly in $j$, then $\left\lbrace \mW_n \right\rbrace$  are uniformly bounded in column sums.
-    \item (Symmetric Matrix) If $d_{ij} = d_{ji}$ for all $i$ and $j$ and the row sums $\sum_{j = 1}^nd_{ij}$ are $O(h_n)$ and bounded away from zero at the rate $h_n$ uniformly in $i$, then $\left\lbrace \mW_n \right\rbrace$  are uniformly bounded in column sums.
-  \end{enumerate}
-\end{lemma}
-
-\begin{assumption}\label{assu:ml_6}
-	The elements of $\mX_n$ are uniformly bounded constants for all $n$. The $\lim_{n\to \infty}\mX_n^\top\mX_n/n$ exists and is nonsingular. 
-\end{assumption}
-
-This rules out multicollinearity among the regressors. Note also that we are assuming that $\mX_n$ is \textbf{nonstochastic}. If $\mX_n$ were stochastic, then we will require:
-
-\begin{equation*}
-  \plim_{n\to \infty}\mX_n^\top\mX_n/ n,
-\end{equation*}
-
-to exists.
-
-\begin{assumption}\label{assu:ml_7}
-	${\mA_n^{-1}(\rho)}$ are uniformly bounded in either row or column sums, uniformly in $\rho$ in a compact parameter space $\mP$. The true parameter $\rho_0$ is in the interior of $\mP$
-\end{assumption}
-
-This assumption is needed to deal with the nonlinearity of $\log \left|\left(\mI_n - \rho \mW\right)^{-1}\right|$ in the log-likelihood function. Recall that if $\left\| \mW\right\| < 1$, then $\mI_n - \rho\mW_n$ is invertible for all $n$. Then if $\left\| \mW\right\| < 1$, then the sequence of matrices $\left\|\left(\mI_n- \mW_n\right)^{-1}\right\|$ are uniformly bounded in any subset of $(-1, 1)$ bounded away from the boundary. As we previously see, if $\mW$ is row-standardized $\left(\mI_n- \mW\right)^{-1}$ is uniformly bounded in row sums norm uniformly in any closed subset of $(-1, 1)$. Therefore, $\mP$ from Assumption~\ref{assu:ml_7} can be considered as a single closed set contained in (-1, 1).
-
-What if $\mW$ is not row-normalized but its eigenvalues are real? Then, the Jacobian of $\left|\left(\mI_n- \mW\right)^{-1}\right|$ will be positive if $-1/\omega_{min} < \rho < 1/\omega_{max}$, where $\omega_{min}$ and $\omega_{max}$ are the minimum and maximum eigenvalues of $\mW$, and $\mP$ will be a closed interval contained in $(-1/\omega_{min}, 1/\omega_{max})$ for all $n$. Thus, Assumption~\ref{assu:ml_7} rules out models where $\rho_0$ is close to -1 and 1.  
-
-Now, noting that:
-
-
+We can also write the reduced-form equation as follows:
 \begin{equation}
 	\begin{aligned}
 	\vy_n & = \mX_n\vbeta_0 + \rho_0\mW_n\vy_n + \vepsi_n \\
@@ -5972,93 +6047,115 @@ Now, noting that:
 	\end{aligned}
 \end{equation}
 
-because $\mI_n + \rho_0\mC_n = \mA_n^{-1}$ (see Exercise  \ref{lab:4.6}), where $\mC_n=\mW_n\mA_n^{-1}$.
+because $\mI_n + \rho_0\mC_n = \mA_n^{-1}$ (see Exercise  \ref{lab:4.6}), where $\mC_n=\mW_n\mA_n^{-1}$. This expression will also be useful later. 
 
 
-\begin{assumption}\label{assu:ml_8}
+\begin{assumption}[Uniform boundedness  \citep{lee2004asymptotic}]\label{assu:ml_5}
+	The sequences of matrices $\left\lbrace \mW_n \right\rbrace$ and $\left\lbrace \mA_n^{-1} \right\rbrace$ are uniformly bounded in both row and column sums 
+\end{assumption}
+
+The uniform boundedness of the matrices is a condition to limit the spatial correlation to a manageable degree. For example, it guarantees that the variances of $\vy_n$ are bounded as $n$ goes to infinity. See our discussion in Section \ref{sec:bounded-matrices}.
+
+Why do we care about this? Because we need the variance goes to zero when the sample size goes to infinity in order to apply some consistency theorem.\footnote{Equivalently, this assumption rules out the unit root case in time series.}
+
+\begin{lemma}[Uniform Boundedness of Matrices in Row and Column Sums]
+  Suppose that the spatial weights matrix $\mW_n$ is a non-negative matrix with its $(i,j)$th element being 
+  \begin{equation*}
+    w_{n,ij} = \frac{d_{ij}}{\sum_{l = 1}^nd_{il}}
+  \end{equation*}
+  %
+  and $d_{ij}>0$ for all $i,j$.
+  
+  \begin{enumerate}
+    \item If the row sums $\sum_{j = 1}^nd_{ij}$ are bounded away from zero at the rate $h_n$ uniformly in $i$, and the column sums $\sum_{i = 1}^nd_{ij}$ are $O(h_n)$ uniformly in $j$, then $\left\lbrace \mW_n \right\rbrace$  are uniformly bounded in column sums.
+    \item (Symmetric Matrix) If $d_{ij} = d_{ji}$ for all $i$ and $j$ and the row sums $\sum_{j = 1}^nd_{ij}$ are $O(h_n)$ and bounded away from zero at the rate $h_n$ uniformly in $i$, then $\left\lbrace \mW_n \right\rbrace$  are uniformly bounded in column sums.
+  \end{enumerate}
+\end{lemma}
+
+\begin{assumption}[No asymptotic multicollinearity \citep{lee2004asymptotic}]\label{assu:ml_6}
+	The elements of $\mX_n$ are uniformly bounded constants for all $n$. The $\lim_{n\to \infty}\mX_n^\top\mX_n/n$ exists and is nonsingular. 
+\end{assumption}
+
+This rules out multicollinearity among the regressors. Note also that we are assuming that $\mX_n$ is \textbf{nonstochastic}. If $\mX_n$ were stochastic, then we will require:
+\begin{equation*}
+  \plim_{n\to \infty}\mX_n^\top\mX_n/ n,
+\end{equation*}
+
+to exists.
+
+\begin{assumption}[Uniform Boundedness of ${\mA_n^{-1}(\rho)}$ \cite{lee2004asymptotic}]\label{assu:ml_7}
+	${\mA_n^{-1}(\rho)}$ are uniformly bounded in either row or column sums, uniformly in $\rho$ in a compact parameter space $\Gamma$. The true parameter $\rho_0$ is in the interior of $\Gamma$
+\end{assumption}
+
+This assumption is needed to deal with the nonlinearity of $\log \left|\left(\mI_n - \rho \mW\right)^{-1}\right|$ in the log-likelihood function. Recall that if $\left\| \mW\right\| < 1$, then $\mI_n - \rho\mW_n$ is invertible for all $n$. Then if $\left\| \mW\right\| < 1$, then the sequence of matrices $\left\|\left(\mI_n- \mW_n\right)^{-1}\right\|$ are uniformly bounded in any subset of $(-1, 1)$ bounded away from the boundary. As we previously see, if $\mW_n$ is row-standardized $\left(\mI_n- \mW\right)^{-1}$ is uniformly bounded in row sums norm uniformly in any closed subset of $(-1, 1)$. Therefore, $\Gamma$ from Assumption~\ref{assu:ml_7} can be considered as a single closed set contained in (-1, 1).
+
+What if $\mW_n$ is not row-normalized but its eigenvalues are real? Then, the Jacobian of $\left|\left(\mI_n- \mW\right)^{-1}\right|$ will be positive if $-1/\omega_{min} < \rho < 1/\omega_{max}$, where $\omega_{min}$ and $\omega_{max}$ are the minimum and maximum eigenvalues of $\mW_n$, and $\Gamma$ will be a closed interval contained in $(-1/\omega_{min}, 1/\omega_{max})$ for all $n$. Thus, Assumption~\ref{assu:ml_7} rules out models where $\rho_0$ is close to -1 and 1.  
+
+\begin{assumption}[Identification \citep{lee2004asymptotic}]\label{assu:ml_8}
 		The
 		\begin{equation*}
 			\lim_{n\to \infty}\frac{1}{n}\left(\mX_n, \mC_n\mX_n\vbeta_0\right)'\left(\mX_n, \mC_n\mX_n\vbeta_0\right)
 		\end{equation*}
+		%
 		 exists and is nonsingular.
 \end{assumption}
 
 This is a sufficient condition for global identification of $\vtheta_0$
 
-
 \begin{theorem}[Consistency]\label{teorem:Consistency_ML}
-	Under assumption \ref{assu:ml_1}-\ref{assu:ml_8}, $\vtheta_0$ is globally identifiable and $\widehat{\vtheta}_n$ is a consistent estimator of $\vtheta_0$.
+	Let $\vtheta_0 = (\vbeta_0^\top, \rho_0, \sigma_0^2)^\top$. Under assumption \ref{assu:ml_1}-\ref{assu:ml_8}, $\vtheta_0$ is globally identifiable and $\widehat{\vtheta}_n$ is a consistent estimator of $\vtheta_0$.
 \end{theorem}
 
-The proof is given in \cite{lee2004asymptotic}. Identification of $\rho_0$ can be based on the maximum values of the concentrated log-likelihood function $Q_n(\rho) / n$. With identification and uniform convergence of $\left[\log L_n(\rho) - Q_n(\rho)\right] / n$ to zero on $\mP$, consistency of the QMLE $\widehat{\vtheta}_n$ follows.
+Identification of $\rho_0$ can be based on the maximum values of the concentrated log-likelihood function $Q_n(\rho) / n$. With identification and uniform convergence of $\left[\log L_n(\rho) - Q_n(\rho)\right] / n$ to zero on $\Gamma$, consistency of the QMLE $\widehat{\vtheta}_n$ follows. The sketch of the proof for Theorem \ref{teorem:Consistency_ML} is given in Appendix \ref{appendix-consistency}. 
 
-For a proof without compactness of the parameter space see \cite{liu2022consistency}.
+For a proof without compactness of the parameter space (proving concavity of the log-likelihood function) see \cite{liu2022consistency}.
 
 %=====================================
 \subsection{Asymptotic Normality}
 %=====================================
 
-To derive the asymptotic distribution of the QML and ML we need the asymptotic behavior of the gradient. Taking a Taylor series expansion around $\vtheta_0$ of $\partial \log L_n(\widehat{\vtheta}_n)/ \partial \vtheta = 0$ at $\vtheta_0$, we get:
-
+To derive the asymptotic distribution of the QML and ML we need the asymptotic behavior of the gradient. Taking a Taylor series expansion around $\vtheta_0$ of $\partial \ell_n(\widehat{\vtheta}_n)/ \partial \vtheta = 0$ at $\vtheta_0$, we get
 \begin{equation}
-  \frac{\partial \log L_n(\widehat{\vtheta}_n)}{\partial \vtheta} =  \frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} + \frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}(\widehat{\vtheta}_n - \vtheta_0),
+  \frac{\partial \ell_n(\widehat{\vtheta}_n)}{\partial \vtheta} =  \frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta} + \frac{\partial^2 \ell_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}(\widehat{\vtheta}_n - \vtheta_0),
 \end{equation}
 %
 where $\widetilde{\vtheta}_n = \alpha_n \widehat{\vtheta}_n + (1 - \alpha_n)\vtheta_0$ and $\alpha_n\in \left[ 0, 1\right]$, therefore:
-
 \begin{equation}\label{eq:sampling-error-ml}
-  \sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) = - \left[\frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\right]^{-1}\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}.
+  \sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) = - \left[\frac{1}{n}\frac{\partial^2 \ell_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\right]^{-1}\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta}.
 \end{equation}
 
-As standard in asymptotic theory of ML, we need to show that the first element of the rhs of (\ref{eq:sampling-error-ml}) converges to something. We also need to find the limiting distribution of $\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}$. Recall that the first-order derivatives of the log-likelihood function at $\vtheta_0$ are given by (see Section \ref{sec:score_sml}):
+As standard in asymptotic theory of MLE, we need to show that the first element of the rhs of \eqref{eq:sampling-error-ml} converges to something. We also need to find the limiting distribution of $\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta}$. Recall that the first-order derivatives of the log-likelihood function \textbf{evaluated at $\vtheta_0$} are given by (see Section \ref{sec:score_sml}):
 
+\begin{align}
+	\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta} & = \frac{1}{\sigma^2_0\sqrt{n}}\mX_n^\top\vepsi_n \\
+	\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2} & = \frac{1}{2\sigma_0^4\sqrt{n}}\left(\vepsi_n'\vepsi_n - n\sigma_0^2\right) \\
+		\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho} & = \frac{1}{\sigma_0^2\sqrt{n}}(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n + \frac{1}{\sigma_0^2\sqrt{n}}(\vepsi_n^\top\mC_{n0}\vepsi_n - \sigma_0^2\tr(\mC_{n0}))\label{eq:asy_der_rho}
+\end{align}	
+
+As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of (\ref{eq:asy_der_rho}) may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_{n0}$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_{n0}\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
+
+Let $\vtheta = (\vbeta^\top, \rho, \sigma^2)^\top$ be the $k+2$-dimensional vector. Since $\E\left[(1 / \sqrt{n}) \partial \ell_n (\vtheta_0)/\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \ell_n(\vtheta_0) /\partial \vtheta$ is:
 \begin{equation}
-	\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vbeta} = \frac{1}{\sigma^2_0\sqrt{n}}\mX_n^\top\vepsi_n
-\end{equation}	
-
-
-\begin{equation}
-\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \sigma^2} = \frac{1}{2\sigma_0^4\sqrt{n}}\left(\vepsi_n'\vepsi_n - n\sigma_0^2\right)
-\end{equation}
-
-and
-
-\begin{equation}\label{eq:asy_der_rho}
-	\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \rho} = \frac{1}{\sigma_0^2\sqrt{n}}(\mC_n\mX_n\vbeta_0)^\top \vepsi_n + \frac{1}{\sigma_0^2\sqrt{n}}(\vepsi_n^\top\mC_n\vepsi_n - \sigma_0^2\tr(\mC_n))
-\end{equation}
-
-As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of (\ref{eq:asy_der_rho}) may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_n$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_n\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
-
-%Recall that we need to show that:
-
-
-%\begin{equation}
-%  \frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} \dto \rN(\vzeros, \mSigma)\quad \mbox{where}\quad \mSigma_{\vtheta} = \E\left[\left(\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}\right)\left(\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}\right)^\top\right]
-%\end{equation}
-
-
-Since $\E\left[(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta$ is:
-
-\begin{equation}
-  \E\left[\frac{1}{\sqrt{n}}\frac{\partial \log L_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \log L_n (\vtheta_0)}{\partial \vtheta^\top}\ \right] = - \E\left(\frac{1}{n} \frac{\partial \log L_n(\vtheta)}{\partial \vtheta \partial \vtheta^\top}\right) + \mOmega_{\vtheta, n},
+  \E\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top} \right] = - \E\left(\frac{1}{n} \frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right) + \mOmega_{\vtheta, n},
 \end{equation}
 %
 where 
-
 \begin{equation}\label{eq:expected-hessian-slm-asy}
-- \E\left(\frac{1}{n} \frac{\partial \log L_n(\vtheta)}{\partial \vtheta \partial \vtheta^\top}\right)= 
+- \E\left(\frac{1}{n} \frac{\partial^2 \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right)= 
 	\begin{pmatrix}
-	\frac{1}{\sigma^2n}(\mX_n^\top \mX_n) & \vzeros^\top & \frac{1}{\sigma^2n} \mX_n^\top (\mC_n\mX_n\vbeta) \\
-		 &  \frac{1}{2\sigma^4} & \frac{1}{\sigma^2n} \tr(\mC_n)\\
-		 &  & \frac{1}{n}\tr(\mC^s_n\mC_n) + \frac{1}{\sigma^2n}(\mC_n\mX_n\vbeta)^\top(\mC_n\mX_n\vbeta)
+	\frac{1}{n\sigma^2_0}(\mX_n^\top \mX_n)  & \frac{1}{n\sigma^2_0} \mX_n^\top (\mC_n\mX_n\vbeta_0) & \vzeros^\top \\
+	   & \frac{1}{n}\tr(\mC^s_{n0}\mC_{n0}) + \frac{1}{n\sigma^2_0}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) &  \frac{1}{n\sigma^2_0} \tr(\mC_{n0}) \\
+		 &  & \frac{1}{2\sigma^4_0}
 	\end{pmatrix} 
 \end{equation}
 %
-and $\mC^s_n = \mC_n + \mC_n^\top$. Equation \ref{eq:expected-hessian-slm-asy} represents the average Hessian matrix (or information matrix when $\vepsi$'s are \textbf{normal}). The matrix $ \mOmega_{\vtheta, n}$ is a matrix with the second, third, and fourth moments of $\vepsi$. If $\vepsi_n$ is normally distributed, then $\mOmega_{\vtheta, n} = \vzeros$. Derivation of \ref{eq:expected-hessian-slm-asy} is given in Appendix \ref{appendix-EH-sml}.
+and $\mC^s_{n0} = \mC_{n0} + \mC_{n0}^\top$. Equation \eqref{eq:expected-hessian-slm-asy} represents the average Hessian matrix (or information matrix when $\vepsi$'s are \textbf{normal}). The matrix $ \mOmega_{\vtheta, n}$ is a matrix with the second, third, and fourth moments of $\vepsi$. If $\vepsi_n$ is normally distributed, then $\mOmega_{\vtheta, n} = \vzeros$. 
+
+Derivation of \eqref{eq:expected-hessian-slm-asy} is given in Appendix \ref{appendix-EH-sml} and the variance of the score function is given in Appendix \ref{appendix-score}.
 
 
-
-\begin{theorem}[Asymptotic Normality]
+%---------------------------------------------------
+\begin{theorem}[Asymptotic Normality]\label{teo:asymptotic-normality-slm}
 Under Assumptions \ref{assu:ml_1}-\ref{assu:ml_8}, 
 
 \begin{equation}
@@ -6066,7 +6163,6 @@ Under Assumptions \ref{assu:ml_1}-\ref{assu:ml_8},
 \end{equation}
 %
 where $\mOmega_{\vtheta} = \lim_{n\to\infty}\mOmega_{\vtheta, n}$ and
-
 \begin{equation}
   \mSigma_{\vtheta}= - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right],
 \end{equation}
@@ -6076,234 +6172,9 @@ which are assumed to exists. If the $\epsilon_i$'s are \textbf{normally distribu
   \sqrt{n}\left(\widehat{\vtheta}_n- \vtheta_0\right)\dto \rN\left(\vtheta, \mSigma_{\vtheta}^{-1}\right).
 \end{equation}
 \end{theorem}
+%-------------------------------------
 
-
-%The following lemmas and statements summarize some basic properties on spatial weight matrices and some law of large numbers and central limit theorems on linear and quadratic forms. For proof of these lemmas see \cite{lee2004asymptotic}' appendix. The error term $\vepsi_n$ are assumed to be i.i.d. with zero mean and finite variance $\sigma_0^2$ according to Assumption \ref{assu:ml_1}. For quadratic forms involving $\vepsi$, the fourth moment $\mu_4$ for the $\vepsi$'s is assumed to exists. 
-
-
-
-% \begin{lemma}
-% Suppose that $\left\lbrace \mA_n\right\rbrace$ is a sequence of symmetric matrices with row and column sums uniformly bounded and $\left\lbrace \vb_n\right\rbrace$ is  a sequence of constant  vectors with its elements uniformly bounded. The moment $\E\left(\left|\vepsi\right|\right)$ for some $\delta>0$ of $\vepsi$ exists. Let $\sigma^2_{Q_n}$ be the variance of $Q_n$ where $Q_n = \vb_n^\top\vepsi + \vepsi^\top\mA_n\vepsi_n -\sigma^2_0$. Assume that the variance $\sigma^2_{Q_n}$ is $O(n/h_n)$ with $\left\lbrace(h_n / n)\sigma^2_{Q_n}\right\rbrace$ bounded away from zero, the elements of $\mA_n$ are uniform order $O(1/h_n)$ and the elements of $\vb_n$ of uniform order $O(1/\sqrt{h_n})$. If $\lim_{n\to\infty}\frac{h_n^{1 + 2/\delta}}{n} = 0$, then $Q_n/\sigma_{Q_n}\dto \rN(0,1)$
-% \end{lemma}
-
-%-------------------------------------------------------
-\begin{proof}[Sketch of Proof Asymptotic Normality] We will sketch the proof of asymptotic normality assuming consistency (Theorem \ref{teorem:Consistency_ML}) and normality of the error terms. The sketch consists in the following steps: 
-\begin{enumerate}
-  \item First, we need to show that:
-  
-    \begin{equation*}
-    \mSigma_{\vtheta} = - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right]
-    \end{equation*}
-    %
-    is non-singular. To show this is beyond the scope of this class notes. We will take this as given. 
-  \item Now we will show that 
-  
-   \begin{equation*}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\pto \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}
-   \end{equation*}
-   
-   Recall that the second derivatives are given by Equations (\ref{eq:sar_der_beta_beta})-(\ref{eq:sar_der_rho_rho}).
-   
-   By Assumption \ref{assu:ml_6} (No asymptotic multicolinearity), we know that  $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, therefore $\mX_n^\top\mX_n = O(n)$ so that $\mX_n^\top\mX_n/n = O(1)$ (Lemma \ref{lemma:bounde_ON})\footnote{Since $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, then, each of its elements is o(1) and hence O(1). In other words, $\frac{1}{n}\mX_n^\top\mX_n$ is a bounded matrix.}   and $\widetilde{\sigma}^2_n\pto \sigma_0^2$ from consistency, then from Equation (\ref{eq:sar_der_beta_beta}), we have:
-   
-   \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \vbeta^\top} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mX_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mX_n)}{n} \\
-    & = \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{(\mX^\top_n \mX_n)}{n}}_{O(1)} \\
-    & = o_p(1)O(1)  \\
-    & = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-  By Lemma \ref{lemma:limiting-distr-lee}, we obtain the following results:
-   
-   \begin{equation*}
-    \begin{aligned}
-      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n & =o_p(1) \\
-      \frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n & = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-   It follows that:
-   
-   \begin{equation*}
-    \begin{aligned}
-      \frac{1}{n}\mX_n^\top\mW_n^\top\vy_n & = \frac{1}{n}\mX_n^\top\mC_n\mX_n\vbeta_0 + o_p(1) \\
-      \frac{1}{n}\vy_n^{\top}\mW_n^{\top}\vepsi_n &= \frac{1}{n}\vepsi_n^\top\mC_n^{\top}\vepsi_n + o_p(1) \\
-      \frac{1}{n}\vy_n^\top\mW_n^\top\mW_n\vy_n & = \frac{1}{n}\left(\mX_n\vbeta_0\right)^\top\mC_n^\top\mC_n\mX_n\vbeta_0 + \frac{1}{n}\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n + o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-   
-   As $\mX_n^\top\mW_n\vy_n /n = O_p(1)$ (it convergences to something in distribution), it follows from Equation (\ref{eq:sar_der_beta_rho}):
-   
-   \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \rho} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mW_n\vy_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mW_n\vy_n)}{n} \\
-    & = \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{(\mX^\top_n \mW_n\vy_n)}{n}}_{O_p(1)} \\
-    & = o_p(1)O_p(1)  = o_p(1)
-    \end{aligned}
-   \end{equation*} 
-   
-   The following identity will be useful:
-   
-   \begin{equation}\label{eq:error_slm_lee}
-    \begin{aligned}
-    \vepsi(\widetilde{\vdelta}_n) & = \vy_n - \mX_n\widetilde{\vbeta}_n - \widetilde{\rho}_n\mW_n\vy_n +(\vepsi(\vdelta_0) -  \vepsi(\vdelta_0)) \\
-    & = \vy_n - \mX_n\widetilde{\vbeta}_n - \widetilde{\rho}_n\mW_n\vy_n - \vy_n + \mX_n\vbeta_0 - \rho_0\mW_n\vy_n + \vepsi_n(\vdelta_0) \\
-    & = \mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) 
-    \end{aligned}
-   \end{equation}
-   
-   Then, taking into account Equation (\ref{eq:sar_der_beta_sigma}) and using our result in Equation (\ref{eq:error_slm_lee}) yields:
-   
-      \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \sigma^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \sigma^2} & = - \frac{1}{\widetilde{\sigma}^4_n} \frac{\mX_n^\top \vepsi(\widetilde{\vdelta}_n)}{n}+  \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n}. \\
-    & = - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\left(\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) \right)+  \\
-    & \quad + \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} \\
-  & = \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\mW_n\vy_n(\rho_0 - \widetilde{\rho}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top \vepsi_n(\vdelta_0) + \\
-   & \quad + \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} \\
-  & = \left(\frac{1}{\sigma^4_0} - \frac{1}{\widetilde{\sigma}^4_n}\right)\frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} + \frac{\mX^\top_n\mX_n}{n\widetilde{\sigma}^4_n}(\vbeta_0 - \widetilde{\vbeta}_n) + \frac{\mW_n^\top\mW_n\vy_n}{n\widetilde{\sigma}^4_n}(\rho_0 - \widetilde{\rho}_n) \\
-  & = o_p(1)O_p(1) + O(1)o_p(1) + O_p(1)o_p(1) \\
-  & = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-   From Equation (\ref{eq:sar_der_rho_rho}), we know that:
-   
-   \begin{equation*}
-   \frac{\partial \log L_n(\vtheta) }{\partial \rho ^2} = - \tr\left[(\mC_n(\rho))^2\right] - \frac{1}{\sigma^2}(\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n)\quad \mbox{where}\quad \mC_n(\rho) = \mW_n\mA_n(\rho)^{-1}
-   \end{equation*}
-   
-   From Mean Value Theorem around of  $\tr\left[(\mC_n(\widetilde{\rho}_n))^2\right]$ around $\rho_0$:
-   
-   \begin{equation*}
-    \begin{aligned}
-    \tr\left[(\mC_n(\widetilde{\rho}_n))^2\right] & = \tr\left[(\mC_n(\rho_0))^2\right]+ 2\tr\left[(\mC_n(\bar{\rho}))^3\right](\rho_0 - \widetilde{\rho}_n) \\
-    \tr\left[(\mC_n(\widetilde{\rho}_n))^2\right] - \tr\left[(\mC_n(\rho_0))^2\right] & = 2\tr\left[(\mC_n(\bar{\rho}))^3\right](\rho_0 - \widetilde{\rho}_n)
-    \end{aligned}
-   \end{equation*}
-   
-   Then:
-   
-   \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \rho^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial\rho^2} & = \underbrace{2\frac{1}{n}\tr\left[(\mC_n(\bar{\rho}))^3\right]}_{O(n/h_n)} \underbrace{(\rho_0 - \widetilde{\rho}_n)}_{o_p(1)} + \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n}{n}}_{O_p(n/h_n)} = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-   Note that $\mC_n(\bar{\rho})$ is uniformly bounded in row and column sums uniformly in a neighborhood of $\rho_0$ by  Assumption \ref{assu:ml_5} and \ref{assu:ml_7}. Note that $\tr\left[(\mC_n(\bar{\rho}))^3\right] = O(n/h_n)$ by Lemma 
-   
-  Considering Equation (\ref{eq:sar_der_sigma_rho}):
-   
-   
-    \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \sigma^2 \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \sigma^2 \partial \rho}& = -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\widetilde{\vdelta}_n) + \frac{1}{\sigma^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\vdelta_n)\\
-    & = -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\left[\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0)\right] + \\
-    &  \frac{1}{\sigma^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\vdelta_n) \\
-    &= -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n)  + \frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\mW_n\vy_n(\widetilde{\rho}_n-\rho_0) + \\
-    & \left(\frac{1}{\sigma^4}-\frac{1}{\widetilde{\sigma}^4}\right)\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_{n} \\
-    & = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-    Note the following:
-   
-   \begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) & = \left(\widetilde{\vbeta}_n - \vbeta_0\right)^\top\frac{\mX_n^\top\mX_n}{n} + (\widetilde{\rho}_n -\rho_0)^2\frac{\vy_n^\top\mW_n^\top\mW_n\vy_n}{n} + \frac{\vepsi_n^{\top}\vepsi_n}{n} + \\
-    & 2(\widetilde{\rho}_n -\rho_0)\left(\widetilde{\vbeta}_n - \vbeta_0\right)^\top\frac{\mX_n^\top\mW_n\vy_n}{n} + 2\left(\vbeta_0-\widetilde{\vbeta}_n\right)^\top\frac{\mX_n^\top\vepsi_n}{n} + 2(\rho_0-\widetilde{\rho}_n)\frac{\vy_n^\top\mW_n^\top\vepsi_n}{n} \\
-    & = \frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-   
-   Finally, considering the second derivative in Equation (\ref{eq:sar_der_sigma_sigma})
-   
-   \begin{equation*}
-    \begin{aligned}
-      \frac{1}{n}\frac{\partial^2 \log L(\widetilde{\vtheta})}{\partial (\sigma^2)^2} -	\frac{1}{n}\frac{\partial^2 \log L(\vtheta_0)}{\partial (\sigma^2)^2}  & = \frac{1}{2(\widetilde{\sigma}^2) ^2} - \frac{1}{(\widetilde{\sigma}^2)^3} \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) -\frac{1}{2(\sigma^2) ^2} + \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
-      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)- \frac{1}{(\widetilde{\sigma}^2)^3} \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) + \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
-      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)- \frac{1}{(\widetilde{\sigma}^2)^3} \left(\frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1)\right)+ \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
-      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)+ \left(\frac{1}{(\sigma^2)^3} -\frac{1}{(\widetilde{\sigma}^2)^3}\right)\frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1) \\
-      & = o_p(1)
-    \end{aligned}
-   \end{equation*}
-   
-
-   
-   \item Now, we need to show that:
-   
-   \begin{equation}
-     \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\pto \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right]
-   \end{equation}
-   
-   Form Appendix \ref{appendix-EH-sml}, we know that:
-   
-   \begin{equation*}
-    \begin{aligned}
-     \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} \right|\mW, \mX\right] & = -\frac{1}{\sigma^2_0}\frac{1}{n}(\mX^\top\mX) \\
-     \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \sigma^2} \right|\mW, \mX\right] & = \vzeros \\
-      \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \rho} \right|\mW, \mX\right] & = - \frac{1}{\sigma^2_0} \frac{1}{n}\mX^\top\mC\mX\vbeta_0 \\
-      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial (\sigma^2)^2}\right|\mW, \mX\right] & = - \frac{1}{2\sigma^4_0}  \\
-      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial \sigma^2 \partial \rho}\right|\mW,\mX\right] & = - \frac{1}{n}\tr(\mC)/\sigma^2_0 \\
-      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial \rho ^2}\right|\mW, \mX\right] & = - \frac{1}{n}\tr(\mC^s\mC) - \frac{1}{\sigma^2_0}\frac{1}{n}(\mC\mX\vbeta_0)^\top(\mC\mX\vbeta_0)
-    \end{aligned}
-   \end{equation*}
-   
-   All these expectations exist in the limit by Assumption \ref{assu:ml_8} and Lemma \ref{lemma:second-mom-lee}-\ref{lemma:O-lemma-lee}. Then, by nonsingularity of $\E\left[\mH(\vw_i;\vtheta)\right]$, we can say that 
-   
-   \begin{equation*}
-   \left(\frac{1}{n}\mH(\vw;\widehat{\vtheta})\right)^{-1}\pto \E\left[\mH(\vw;\vtheta_0)\right]^{-1}
-   \end{equation*}
-   
-
-   % Lemma \ref{lemma:second-mom-lee} implies that $\E(\vepsi_n^\top\mC_n^\top\vepsi_n)=\sigma_0^2\tr(\mC_n)$ and, under normality assumption, 
-   % 
-   % \begin{equation}
-   % \var\left(\frac{1}{n}\vepsi_n^\top\mC_n^\top\vepsi_n\right) = \frac{\sigma_{0}^4}{n^2}\left[\tr\left(\mC_n\mC_n^\top\right) +\tr(\mC_n^2)\right] =O\left(\frac{1}{nh_n}\right)
-   % \end{equation}
-   % 
-   % Similarly, $\E(\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n)=\sigma_0^2\tr(\mC_n^\top\mC_n)$ and, under normality assumption, 
-   % 
-   % \begin{equation}
-   % \var\left(\frac{1}{n}\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n\right) =O\left(\frac{1}{nh_n}\right)
-   % \end{equation}
-   % 
-   % By the law of large numbers $\frac{1}{n}\vepsi_n^\top\vepsi_n\pto \sigma^2_0$. With these properties the convergence results follows. 
-   
-   
-   \item Recall that the first-order derivatives of the log-likelihood function at $\vtheta_0$ are given by:
-   
-  \begin{equation*}
-   \frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} = \begin{pmatrix}
-   \frac{1}{\sigma^2_0\sqrt{n}}\mX_n^\top\vepsi_n\\
-   \frac{1}{2\sigma_0^4\sqrt{n}}\left(\vepsi_n'\vepsi_n - n\sigma_0^2\right) \\
-   \frac{1}{\sigma_0^2\sqrt{n}}(\mC_n\mX_n\vbeta_0)^\top \vepsi_n + \frac{1}{\sigma_0^2\sqrt{n}}(\vepsi_n^\top\mC_n\vepsi_n - \sigma_0^2\tr(\mC_n))
-   \end{pmatrix}
-  \end{equation*}
-
-
-As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of $\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}$ may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_n$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_n\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
-   
-Since $\E\left[(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta$ \textbf{under normality} is given by Equation \eqref{eq:expected-hessian-slm-asy}. Then:
-
-
-\begin{equation}
- \frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} \dto \rN(\vzeros, -\E\left[\mH(\vw_i;\vtheta)\right]), 
-\end{equation}
-%
-and:
-
-\begin{equation*}
-\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)\dto -\E\left[\mH(\vw_i;\vtheta)\right]^{-1}\rN(\vzeros, -\E\left[\mH(\vw_i;\vtheta)\right]) = \rN(\vzeros, \mSigma_{\vtheta}^{-1}).
-\end{equation*}
-
-\end{enumerate}
-\end{proof}
-
+A sketch of the proof of Theorem \ref{teo:asymptotic-normality-slm} is given in Appendix \ref{appendix-asymptotic normality}.
 
 %=====================================
 \section{Computing the Standard Errors For The Marginal Effects}
@@ -6984,7 +6855,7 @@ We can also observe the cumulative impacts using the argument \code{Q}. When \co
 In this Section, we show how to create our own function to estimate a SLM using ML estimation and two different approaches. First, we create a function to estimate the MLE using a constrained optimization procedure and the log-likelihood function \eqref{eq:LL_SLM_2}. The second approach uses the algorithm outline in Algorithm \eqref{algorithm:SLM}. 
 
 %---------------------------
-\subsection{First approach}
+\subsection{First approach}\label{sec:code-full-slm}
 %----------------------------
 
 To estimate the SLM using a maximum likelihood procedure, we first create a function that returns the log-likelihood, gradient and Hessian functions. Then, we optimize this function using \code{maxLik} function from \pkg{maxLik} package. 
@@ -7033,14 +6904,14 @@ The following function returns the log-likelihood function:
     \hlstd{h_sr} \hlkwb{<-}  \hlopt{-} \hlkwd{t}\hlstd{(res)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y} \hlopt{/} \hlstd{sig.sq} \hlopt{^} \hlnum{2}
     \hlstd{h_rr} \hlkwb{<-} \hlopt{-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(C} \hlopt{%*%} \hlstd{C))} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlstd{(}\hlkwd{t}\hlstd{(y)} \hlopt{%*%} \hlkwd{t}\hlstd{(W)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y)}
     \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K,} \hlnum{1}\hlopt{:}\hlstd{K]}     \hlkwb{<-} \hlstd{h_bb}
-    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{1}\hlstd{]}   \hlkwb{<-} \hlstd{h_bs}
-    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{2}\hlstd{]}   \hlkwb{<-} \hlstd{h_br}
-    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_bs)}
-    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{, K} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{h_ss}
+    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{1}\hlstd{]}   \hlkwb{<-} \hlstd{h_br}
+    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{2}\hlstd{]}   \hlkwb{<-} \hlstd{h_bs}
+    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_br)}
+    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{, K} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{h_rr}
     \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{, K} \hlopt{+} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{h_sr}
-    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_br)}
+    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_bs)}
     \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{, K} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{h_sr}
-    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{, K} \hlopt{+} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{h_rr}
+    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{, K} \hlopt{+} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{h_ss}
     \hlkwd{attr}\hlstd{(ll,} \hlstr{'hessian'}\hlstd{)} \hlkwb{<-} \hlstd{H}
   \hlstd{\}}
   \hlkwd{return}\hlstd{(ll)}
@@ -7144,10 +7015,10 @@ Now, we use our function:
 ## Estimates:
 ##             Estimate Std. error t value  Pr(> t)    
 ## (Intercept) 44.87928    7.83040   5.731 9.96e-09 ***
-## INC         -1.02620    0.32675  -3.141  0.00169 ** 
-## HOVAL       -0.26550    0.08778  -3.025  0.00249 ** 
-## rho          0.43394   19.12486   0.023  0.98190    
-## sig.sq      94.54494    0.12299 768.723  < 2e-16 ***
+## INC         -1.02620    0.32675  -3.141 0.001686 ** 
+## HOVAL       -0.26550    0.08778  -3.025 0.002490 ** 
+## rho          0.43394    0.12299   3.528 0.000418 ***
+## sig.sq      94.54494   19.12486   4.944 7.67e-07 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -7194,7 +7065,7 @@ Now, we use our function:
 \end{knitrout}
 
 %---------------------------
-\subsection{Second approach}
+\subsection{Second approach}\label{sec:code-condentrated-slm}
 %----------------------------
 
 Now, we create a function that estimates the parameters of the SLM using the steps in  Algorithm \eqref{algorithm:SLM}.
@@ -7329,6 +7200,25 @@ Now, we create a function that estimates the parameters of the SLM using the ste
 
 \begin{exercises}
     \exercise Consider the concentrated log-likelihood in Equation \eqref{eq:concentrated_ml_sar_1}. Find the first and second derivative respect to $\rho$.
+    % \textbf{Solution}:
+% 
+% Taking the first derivate:
+% 
+% \begin{eqnarray}
+% 	\frac{\partial \ell^c(\rho)}{\partial \rho} &=& \frac{-2\ve_0'\ve_L + 2\rho\ve_L'\ve_L}{\frac{\ve_0'\ve_0 - 2\rho\ve_L'\ve_0 + \rho^2 \ve_L'\ve_L}{N}} +\frac{2}{N}\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i} \\
+% 	&=& 2\left(\frac{ \rho\ve_L'\ve_L -\ve_0'\ve_L}{\widehat{\sigma}^2(\rho)}\right) +\frac{2}{N}\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i} 
+% \end{eqnarray}
+% 
+% The second derivative is:
+% 
+% 
+% \begin{eqnarray}
+% 	\frac{\partial^2 \ell^c(\rho)}{\partial \rho ^2}  &=& \frac{2}{N}\sum_{i=1}^n\frac{\omega_i^2}{(1-\rho\omega_i)^2} + 2\left(\frac{\ve_L'\ve_L\cdot \sigma ^2(\rho)-N^{-1}(-2\ve_0'\ve_L + 2\rho\ve_L'\ve_L)(\rho\ve_L'\ve_L -\ve_0'\ve_L)}{\widehat{\sigma} ^4(\rho)}\right) \\
+% 	 &=& \frac{2}{N}\sum_{i=1}^n\frac{\omega_i^2}{(1-\rho\omega_i)^2} + 2\frac{\ve_L'\ve_L}{\sigma ^2(\rho)} - 4 \frac{(\rho\ve_L'\ve_L -\ve_0'\ve_L)^2}{\widehat{\sigma} ^4(\rho)}
+% \end{eqnarray}
+
+	
+%\end{enumerate}
     \exercise Consider the Spatial Lag Model:
   
       \begin{eqnarray*}
@@ -7432,174 +7322,691 @@ where $\lambda = 0.8$, $\alpha = 0.5$, $\beta = 1$ and $x_i \sim \rN(0, 2^2)$. U
     
 
 \section*{Appendix}
-
-
 \begin{subappendices}
+
+%-------------------------------------------------------------------------
+ \section{Consistency of SLM Model}\label{appendix-consistency}
+%-------------------------------------------------------------------------
+
+Since $\widehat{\vbeta}_n$ and $\widehat{\sigma}^2_n$ are continuous functions of $\widehat{\rho}_n$, it suffice to show consistency of $\widehat{\rho}_n$. To prove that $\widehat{\rho}_n$ is consistent, we will show that $\frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho)$ converges in probability to zero uniformly on $\Gamma$ (where $Q_n(\rho)$ is the expectation of the concentrated log-likelihood), and the identification-uniqueness condition holds. 
+
+\paragraph{Uniform convergence}
+
+In this first part, we need to show that
+\begin{equation*}
+  \frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho) \pto 0,
+\end{equation*}
+%
+uniformly on $\mGamma$, where $\ell_n(\rho)$ is the concentrated log-likelihood and $Q_n(\rho)$ is the expectation of the log-likelihood function evaluated in the optimal values of $\vbeta$ and $\sigma^2$, $Q_n(\rho) = \underset{\vbeta, \sigma^2}{\max}\; \E(\ell_n(\vtheta))$.
+
+For simplicity in the notation, let 
+\begin{equation*}
+ \mA_n = \mA_n(\rho) = (\mI - \rho\mW) \quad \mbox{and} \quad  \mA_{n0} = \mA_n(\rho_0) = (\mI - \rho_0\mW). 
+\end{equation*}
+
+For further reference, recall that the log-likelihood function is 
+\begin{equation*}
+\ell_n(\vtheta) = -\frac{n}{2}\ln (2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\vepsi_n^\top\vepsi_n + \ln\left|\mA_n\right|,
+\end{equation*}
+with $\vepsi_n = \mA_n\vy_n - \mX_n\vbeta$. The concentrated log-likelihood can be written as
+\begin{equation*}
+ \ell_n(\rho) =-\frac{n}{2}\left(\ln(2\pi) + 1\right) - \frac{n}{2}\ln(\widetilde{\sigma}(\rho)) + \log\left|\mA_n\right|,
+\end{equation*}
+%
+where
+\begin{equation}\label{eq:sigma-mle-consistency}
+\begin{aligned}
+\widetilde{\sigma}(\rho) & = \frac{1}{n}\left[\mA_n\vy_n - \mX_n\widehat{\vbeta}_n(\rho)\right]^\top \left[\mA_n\vy_n - \mX_n\widehat{\vbeta}_n(\rho)\right],  \\
+& = \frac{1}{n}\vy_n^\top\mA_n^\top(\mI_n - \mP_{nX})\mA_n\vy_n, \\
+& = \frac{1}{n}\vy_n^\top\mA_n^\top\mM_n\mA_n\vy_n,
+\end{aligned}
+\end{equation}
+%
+with $\widehat{\vbeta}_n(\rho)$ being the MLE of $\vbeta_0$ with depends on $\rho$, $\mP_{nX} = \mX_n\left(\mX_n^\top\mX_n\right)^{-1}\mX_n^\top$, and $\mM_n = \mI_n - \mP_{nX}$ is the projection matrix.
+
+The expectation of $\ell_n(\vtheta)$ is:
+\begin{equation}\label{eq:expectation-log-slm}
+  \begin{aligned}
+    \E(\ell_n(\vtheta)) & = -\frac{n}{2}\ln (2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\E\left(\vepsi_n^\top\vepsi_n\right) + \ln\left|\mA_n\right|.
+  \end{aligned}
+\end{equation}
+
+We need to work on $\E\left(\vepsi_n^\top\vepsi_n\right)$. To do so, note that under the true DGP $\vy_n = \mA_{n0}^{-1}\mX_n\vbeta_0 + \mA_{n0}^{-1}\vepsi_n$, then
+\begin{equation}\label{eq:equality-for-consistency}
+\begin{aligned}
+\E(\vy_n) & = \vmu_{\vy}     = \mA_{n0}^{-1}\mX_n\vbeta_0, \\
+\var(\vy_n)& = \mSigma_{\vy}  = \sigma_0^2\mA_{n0}^{-1}(\mA_{n0}^{-1})^\top, \\
+\tr\left(\mA_n^\top(\rho)\mA_n(\rho)\mSigma_{\vy}\right) & = \sigma_0^2\tr\left[\mA_n^\top\mA_n\mA_{n0}^{-1}(\mA_{n0}^{-1})^\top\right], \\
+& = \sigma_0^2\tr\left[\mD_n(\rho_0, \rho)\right], \\
+\vmu_{\vy}^\top\mA_n^\top(\rho)\mA_n(\rho)\vmu_{\vy} & = \vbeta_0^\top\mX_n^\top(\mA_{n0}^{-1})^\top\mA_n^\top\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0, \\
+& = \vbeta_0^\top\mX_n^\top\mD_n(\rho_0, \rho)\mX_n\vbeta_0,
+\end{aligned}
+\end{equation}
+%
+where $\mD_n(\rho_0, \rho) = (\mA_{n0}^{-1})^\top\mA_n^\top\mA_n\mA_{n0}^{-1}$.
+
+Then, using Lemma \ref{lemma:second-mom-lee} for the expectation of quadratic forms and the results in Equation \eqref{eq:equality-for-consistency}
+\begin{equation}
+\begin{aligned}
+\E(\vepsi_n^\top\vepsi_n) & = \E\left[\left(\mA_n\vy_n - \mX_n\vbeta\right)^\top\left(\mA\vy_n - \mX_n\vbeta\right)\right], \\
+& = \E\left[\vy_n^\top\mA_n^\top\mA_n\vy_n - 2\vbeta^\top\mX_n^\top\mA_n\vy_n + \vbeta^\top\mX_n^\top\mX_n\vbeta\right], \\
+& = \E\left[\vy_n^\top\mA_n^\top\mA_n\vy_n \right]- \E\left[2\vbeta^\top\mX_n^\top\mA_n\vy_n\right] + \E\left[\vbeta^\top\mX_n^\top\mX_n\vbeta\right], \\
+& = \tr\left(\mA_n^\top\mA_n\mSigma_{\vy}\right) + \vmu_{\vy}^\top\mA_n^\top\mA_n\vmu_{\vy} - 2\vbeta^\top\mX_n^\top\mA_n\vmu_{\vy} + \vbeta^\top\mX_n^\top\mX_n\vbeta, \\
+& = \sigma_0^2\tr\left[\mD_n(\rho_0, \rho)\right] + \vbeta_0^\top\mX_n^\top\mD_n(\rho_0, \rho)\mX_n\vbeta_0 -2\vbeta^\top\mX_n^\top\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0 + \vbeta^\top\mX_n^\top\mX_n\vbeta.
+\end{aligned}
+\end{equation}
+
+Then, the FONC for the optimal solutions of $\E(\ell_n(\vtheta))$ in Equation \eqref{eq:expectation-log-slm} are 
+\begin{equation*}
+\begin{aligned}
+\frac{\partial  \E(\ell_n(\vtheta))}{\partial \vbeta} & = -2\mX_n^\top\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0 +  2\mX_n^\top\mX_n\vbeta, \\
+\frac{\partial  \E(\ell_n(\vtheta))}{\partial \sigma^2} & = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\E\left(\vepsi_n^\top\vepsi_n\right), 
+\end{aligned}
+\end{equation*}
+%
+such that
+\begin{equation*}
+\vbeta_n^*  = \left(\mX_n^\top\mX_n\right)^{-1}\mX_n^\top\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0,
+\end{equation*}
+and 
+\begin{equation}\label{eq:sigma-star-consistency}
+\begin{aligned}
+\sigma^{2*}_n  &  = \frac{1}{n}\E\left(\vepsi_n^\top\vepsi_n\right), \\
+               & =  \frac{1}{n}\E\left(\left[\mA_n\vy_n - \mX_n\vbeta_n^*\right]^\top \left[\mA_n\vy_n - \mX_n\vbeta_n^*\right]\right), \\
+               &= \frac{1}{n}\left\lbrace (\rho_0 - \rho)^2(\mC_n\mX_n\vbeta_0)^\top \mM_n(\mC_n\mX_n\vbeta_0) + \sigma_0^2\tr(\mD_n(\rho_0, \rho)) \right\rbrace, \\
+               & = \frac{1}{n}\left\lbrace (\rho_0 - \rho)^2(\mC_n\mX_n\vbeta_0)^\top \mM_n(\mC_n\mX_n\vbeta_0))\right\rbrace + \sigma_n^2(\rho), 
+\end{aligned}
+\end{equation}
+%
+where $\sigma_n^2(\lambda) = \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)$.
+
+Therefore
+\begin{equation*}
+  Q_n(\rho) = -\frac{n}{2}\left(\ln(2\pi) + 1\right) - \frac{n}{2}\ln(\sigma^{2*}_n(\rho)) + \log\left|\mA_n\right|.
+\end{equation*}
+
+Then, 
+\begin{equation}
+\frac{1}{n}\left[\ell_n(\rho) - Q_n(\rho)\right] = -\frac{1}{2}\left[\ln( \widetilde{\sigma}^{2}) - \ln(\sigma^{2*}_n(\rho)) \right],
+\end{equation}
+%
+thus, we need to show that $\widetilde{\sigma}^{2}\pto \sigma^{2*}_n$. 
+
+We can show that $\mA_n\mA_{n0}^{-1} = \mI_n + (\rho_0 - \rho)\mC_n(\rho_0)$, then we can also write
+\begin{equation*}
+\begin{aligned}
+  (\mI_n - \mP_{nX})\mA_n\vy_n & = \mM_n\mA_n\vy_n, \\
+                               & = \mM_n\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n, \\
+& = \mM_n\left(\mI_n + (\rho_0 - \rho)\mC_n(\rho_0)\right)\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n,       \\
+& = (\rho_0 - \rho)\mM_n\mC_{n0}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n, 
+\end{aligned}
+\end{equation*}
+
+From \eqref{eq:sigma-mle-consistency}, we can write
+\begin{equation*}
+\begin{aligned}
+\widetilde{\sigma}(\rho)  = & \frac{1}{n}\vy_n^\top\mA_n^\top(\mI_n - \mP_{nX})\mA_n\vy_n, \\
+ = & \frac{1}{n}\left((\rho_0 - \rho)\mM_n\mC_{n0}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n \right)^\top \left((\rho_0 - \rho)\mM_n\mC_{n0}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n \right), \\
+ = & \frac{1}{n}(\rho_0 - \rho)^2(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n(\mC_{n0}\mX_n\vbeta_0) + 2(\rho_0 - \rho)\underbrace{\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n}_{B_{n1}} +  \\
+& \underbrace{\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n}_{B_{n2}} \\
+= & \sigma^{2*}_n + B_{n1} + (B_{n2} - \sigma^2_n(\lambda)), 
+\end{aligned}
+\end{equation*}
+%
+where the last equality comes from Equation \eqref{eq:sigma-star-consistency}. 
+
+It can be shown that 
+\begin{equation}
+    \begin{aligned}
+      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n \pto \vzeros \\
+      \frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n \pto \vzeros. 
+    \end{aligned}
+\end{equation}
+
+This implies that $\frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n  =o_p(1)$ and $\frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n = o_p(1)$.
+
+$B_{n1}$ can be expanded as
+\begin{equation*}
+\begin{aligned}
+B_{n1}  = &  \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n \\
+        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\left(\mI_n + (\rho_0 - \rho)\mC_n (\rho_0)\right)\vepsi_n \\
+        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n + (\rho_0 - \rho)\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mC_n(\rho_0)\vepsi_n \\
+        = & o_p(1) + o_p(1) = o_p(1)
+\end{aligned} 
+\end{equation*}
+
+So that $B_{n1} = o_p(1)$ uniformly in $\rho \in \Gamma$.
+
+$B_{n2}$ can be expanded as
+\begin{equation*}
+\begin{aligned}
+B_{n2} - \sigma^2_n(\lambda) = & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)\\
+= & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top(\mI_n - \mP_{nX})\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho) \\
+= & \left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n -   \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)\right] - \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mP_{nX}\mA_n\mA_{n0}^{-1}\vepsi_n  \\
+= & o_p(1) + o_p(1)
+\end{aligned}
+\end{equation*}
+
+So that $B_{n2}  - \sigma^2_n(\lambda) = o_p(1)$ uniformly in $\rho \in \Gamma$. Then 
+\begin{equation*}
+\widetilde{\sigma}(\rho)  \pto \sigma^{2*}_n
+\end{equation*}
+
+Consequently, 
+\begin{equation*}
+\begin{aligned}
+\ln( \widetilde{\sigma}^{2}) - \ln(\sigma^{2*}_n(\rho)) & = \ln\left(\frac{\widetilde{\sigma}^{2}}{\sigma^{2*}_n(\rho)}\right) \\
+& = \ln\left(\frac{\sigma^{2*}_n + B_{n1} + (B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right) \\
+& = \ln\left(1 + \frac{B_{n1}) }{\sigma^{2*}_n(\rho)} + \frac{(B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right) \\
+& = o_p(1)
+\end{aligned}
+\end{equation*}
+%
+and
+\begin{equation*}
+\sup_{\rho\in \Gamma} \left\lbrace \frac{1}{n}\left|  \ell_n(\rho) - Q_n(\rho)\right|\right\rbrace = o_p(1)
+\end{equation*}
+
+\paragraph{Identification}
+
+Here, we need to show that for any $\epsilon>0$, $\lim\sup_{n \to \infty}\left[\max_{\rho\in\bar{N}_{\epsilon}(\rho_0)}\frac{1}{n}Q_n(\rho) - \frac{1}{n}Q_n(\rho_0)\right]<0$, where $\bar{N}_{\epsilon}(\rho_0)$ is the complement of an open neighborhood of $\rho$ in $\Gamma$ with radius $\epsilon$.
+
+Consider the log-likelihood function of a pure SLM process $\vy_n = \rho\mW_n\vy_n + \vepsi_n$, where $\vepsi_n \sim \rN(\vzeros, \sigma_0^2\mI_n)$ is
+\begin{equation*}
+\ell_{p, n}(\rho, \sigma^2)= -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln\sigma^2 + \ln\left|\mA_n(\rho)\right|-\frac{1}{2\sigma^2}\vy_n^\top\mA_n(\rho)^\top\mA_n(\rho)\vy_n.
+\end{equation*}
+
+Consider $Q_{p,n}(\rho) = \max_{\sigma^2}\E_p\left[\ell_{p, n}(\rho, \sigma^2)\right]$. Then
+\begin{equation*}
+\begin{aligned}
+  Q_{p,n}(\rho)  = &\max_{\sigma^2} \E_p\left[\ell_{p, n}(\rho, \sigma^2)\right] \\
+                 \leq & \E_p\left[\max_{\sigma^2}\ell_{p, n}(\rho, \sigma^2)\right],\quad \mbox{by Jensen's inequality} \\
+                  = & Q_{p, n}(\rho_0), \quad \mbox{for all $\rho$}. 
+\end{aligned}
+\end{equation*}
+
+This implies that 
+\begin{equation*}
+  \frac{1}{n}\left(Q_{p,n}(\rho) - Q_{p, n}(\rho_0)\right)\leq 0 \quad \mbox{for all $\rho$}. 
+\end{equation*}
+
+It is also clear that:
+\begin{equation}
+\ln(\sigma_n^2(\rho)) \leq \ln\sigma_n^{2*}(\rho)
+\end{equation}
+
+At $\rho_0, \sigma^{2*}_n(\rho) = \sigma_0^2$ (see Equation \eqref{eq:sigma-star-consistency}). Then, 
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n}Q_n(\rho) - \frac{1}{n}Q_n(\rho_0) & = -\frac{1}{2}(\ln \sigma_n(\rho) - \ln \sigma_0^2) + \frac{1}{n}\left(\ln \left|\mA_n\right| - \ln \left|\mA_0\right|\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right] \\
+& = \frac{1}{n}\left(Q_{p,n}(\rho) - Q_{p, n}(\rho_0)\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right] 
+\end{aligned}
+\end{equation*}
+
+It follows that 
+\begin{equation*}
+\frac{1}{n}Q_n(\rho) - \frac{1}{n}Q_n(\rho_0) \leq 0.
+\end{equation*}
+
+
+
+
+%Note also that 
+%\begin{equation}
+%\begin{aligned}
+%\mP(\rho_0, \rho)  & = \left[\mI_n + (\rho_0 - \rho)\mC_n(\rho_0)\right]^\top\left[\mI_n + (\rho_0 - \rho)\mC_n%(\rho_0)\right] \\
+%& = \mI + 2(\rho_0 - \rho)\mC_n(\rho_0) + (\rho_0 - \rho)^2\mC_n(\rho_0) \mC_n(\rho_0)^\top
+%\end{aligned}
+%\end{equation}
+
+
+%It is also important to note that:
+
+%\begin{equation}
+%\begin{aligned}
+%\sigma^2(\rho_0, \rho) & = \sigma_0^2\tr\left[\mP_n(\rho_0, \rho)\right] \\
+%                       & = \sigma_0^2\tr\left[\mI_n + 2(\rho_0 - \rho)\mC_n(\rho_0) + (\rho_0 - \rho)^2\mC_n(\rho_0) %\mC_n(\rho_0)^\top\right] \\
+%                       & = \sigma_0^2\left[1 + 2(\rho_0 - \rho)\tr(\mC_n(\rho_0)) + (\rho_0 - \rho)^2\tr(\mC_n(\rho_0) \mC_n(\rho_0)^\top)\right]
+%\end{aligned}
+%\end{equation}
 
 %-------------------------------------------------------------------------
  \section{Expected Value of Hessian for SLM}\label{appendix-EH-sml}
 %-------------------------------------------------------------------------
 
+In this Section we drop the subindex $n$ and use the results from Section \ref{sec:Hessian}. The following definitions and relations for the Spatial Lag Model are very useful:
 
-%Under some regularity conditions, the ML estimates will be asymptotically  efficient. This means that they achieve the Cramer-Rao lower variance bound, given by the inverse of the information matrix:
+Since $\vepsi  =  \mA_0\vy - \mX\vbeta_0$, it follows that
+\begin{align*}
+	\E\left(\vepsi\right)      & = \vzeros \\
+	\E\left(\vepsi\vepsi^\top\right) &= \sigma^2_0\mI_n, \\
+	\E\left(\vepsi^\top\vepsi\right) &= \E(\tr(\vepsi^\top\mI_n\vepsi)) = n\E(\vepsi\vepsi^\top)
+\end{align*}
 
-%\begin{equation*}
-%  \left[I(\vtheta)\right]^{-1} = - \E\left[\mH(\vbeta, \sigma^2, \rho)\right] ^{-1}.
-%\end{equation*}
+Using Lemma \ref{lemma:second-mom-lee} for the expectation of quadratic forms, yields
+\begin{equation}
+\begin{aligned}
+	\vy & =  \mA_0^{-1}\mX\vbeta_0 + \mA_0^{-1}\vepsi, \\
+	\E\left(\vy\right)   & = \vmu_{\vu} = \mA_0^{-1}\mX\vbeta_0, \\
+	\E\left(\vy^\top\vy\right) & = \mSigma_{\vy} = \mA_0^{-1}\sigma^2_0\mI_n(\mA_0^{-1})^\top, \\
+	\E\left(\vy\vy^\top\right) & = \left(\mA_0^{-1}\mX\vbeta_0\right) \left(\mA_0^{-1}\mX\vbeta_0\right)^\top + \mA_0^{-1}\sigma^2_0\mI_n(\mA_0^{-1})^\top.
+\end{aligned}
+\end{equation}
 
-In this Section we drop the subindex $n$. The following definitions and relations for the Spatial Lag Model are very useful:
-
-\begin{equation*}
-	\vepsi  =  \mA\vy - \mX\vbeta. 
-\end{equation*}
-
-If follows that, in terms of expected values:
-
-\begin{align}
-	\E\left[\left.\vepsi\right|\mW, \mX\right] &= \vzeros \\
-	\E\left[\left.\vepsi\vepsi^\top\right|\mW, \mX\right] &= \sigma^2\mI_n,
-\end{align}
-%
-and, for $\vy$:
-
-\begin{align}
-	\vy & =  \mA^{-1}\mX\vbeta + \mA^{-1}\vepsi \\
-	\E\left[\left.\vy\right|\mW, \mX\right]   & =  \mA^{-1}\mX\vbeta \\
-	\E\left[\left.\vy\vy^\top\right|\mW, \mX\right] & =  \left(\mA^{-1}\mX\vbeta\right) \left(\mA^{-1}\mX\vbeta\right)^\top + \mA^{-1}\sigma^2\mI_n\mA^{-1\top}
-\end{align}
-
-We now derive the most difficult expectations. From (\ref{eq:sar_der_beta_rho}):
-
+We now derive the most difficult expectations. From \eqref{eq:sar_der_beta_rho} and letting $\mC_0 = \mW\mA^{-1}_0$
 \begin{equation}\label{eq:E_der_beta_rho}
 \begin{aligned}
-\E\left[\left.\frac{\partial^2  \log L(\vtheta)}{\partial \vbeta \partial \rho} \right|\mW, \mX\right] & = - \frac{1}{\sigma^2} \mX^\top\E\left[\left.\mW\vy\right| \mW, \mX\right] \\
-& = - \frac{1}{\sigma^2} \mX^\top\E\left[\left.\mW\mA^{-1}\mX\vbeta + \mW\mA^{-1}\vepsi\right| \mW, \mX\right] \\
-& = - \frac{1}{\sigma^2} \mX^\top\mW\mA^{-1}\mX\vbeta \\
-& = - \frac{1}{\sigma^2} \mX^\top\mC\mX\vbeta
+\E\left(\frac{\partial^2  \ell(\vtheta_0)}{\partial \vbeta \partial \rho}\right) & = - \frac{1}{\sigma^2_0} \mX^\top\E\left(\mW\vy\right) \\
+& = - \frac{1}{\sigma^2_0} \mX^\top\mW\mA^{-1}_0\mX\vbeta_0 \\
+& = - \frac{1}{\sigma^2_0} \mX^\top(\mC_0\mX\vbeta_0)
 \end{aligned}	
 \end{equation}
 
-
-For (\ref{eq:sar_der_sigma_sigma}) we obtain:
-
+For \eqref{eq:sar_der_sigma_sigma} we obtain:
 \begin{equation}\label{eq:E_der_sigma_sigma}
   \begin{aligned}
-\E\left[\left.\frac{\partial^2 \log L(\vtheta)}{\partial (\sigma^2)^2}\right|\mW, \mX\right] & = \E\left[\left.\frac{n}{2(\sigma^2) ^2} - \frac{1}{(\sigma^2)^3} \vepsi^\top \vepsi\right|\mW, \mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\E\left[\left.\vepsi^\top \vepsi\right|\mW, \mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\E\left[\left.\vepsi^\top \mI \vepsi\right|\mW, \mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\E\left[\left.\tr(\vepsi^\top \mI \vepsi)\right|\mW,\mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\E\left[\left.\tr( \mI_n )\vepsi\vepsi^\top\right|\mW,\mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\tr( \mI_n )\E\left[\left.\vepsi\vepsi^\top\right|\mW,\mX\right] \\
-& = \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\tr( \mI_n )\sigma^2\mI_n \\
-& = \frac{n}{2\sigma^4} - \frac{n}{\sigma^6} \sigma^2 \mI_n \\
-& = - \frac{n}{2\sigma^4} 
+\E\left(\frac{\partial^2 \ell(\vtheta_0)}{\partial (\sigma^2)^2}\right) & = \E\left[\frac{n}{2(\sigma^2_0) ^2} - \frac{1}{(\sigma^2_0)^3} \vepsi^\top \vepsi\right] \\
+& = \frac{n}{2\sigma^4_0} - \frac{1}{\sigma^6_0}\E\left[\vepsi^\top \vepsi\right] \\
+& = \frac{n}{2\sigma^4_0} - \frac{n}{\sigma^6_0} \sigma^2_0 \mI_n \\
+& = - \frac{n}{2\sigma^4_0} 
   \end{aligned}
 \end{equation}
 
 From (\ref{eq:sar_der_sigma_rho}):
-
 \begin{equation}\label{eq:E_der_sigma_rho}
 	\begin{aligned}
-	\E\left[\left.\frac{\partial^2 \log L(\vtheta)}{\partial \sigma^2 \partial \rho}\right|\mW,\mX\right] &= \E\left[\left.-\frac{\vepsi^\top\mW\vy}{\sigma ^ 4}\right|\mW, \mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\vepsi^\top\mW\vy\right|\mW,\mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\vepsi^\top\mW(\mA^{-1}\mX\vbeta + \mA^{-1}\vepsi)\right|\mW,\mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\vepsi^\top\mW\mA^{-1}\mX\vbeta + \vepsi^\top\mW\mA^{-1}\vepsi\right|\mW, \mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\vepsi^\top\mC\mX\vbeta + \vepsi^\top\mC\vepsi\right|\mW, \mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\vepsi^\top\mC\vepsi\right|\mW, \mX\right] \\
-	& = - \frac{1}{\sigma^4}\E\left[\left.\tr \left(\vepsi^\top\mC\vepsi\right)\right|\mW, \mX\right] \\ 
-	& = - \frac{1}{\sigma^4}\tr\left(\mC\right) \E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right) \\
-	& = - \frac{1}{\sigma^4}\tr \left(\mC\right) \sigma^2\mI_n \\
-	& = - \tr(\mC)/\sigma^2
+	\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \sigma^2 \partial \rho}\right] &= \E\left[-\frac{\vepsi^\top\mW\vy}{\sigma^4_0}\right] \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mW(\mA^{-1}_0\mX\vbeta_0 + \mA^{-1}_0\vepsi)\right] \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\mX\vbeta_0 + \vepsi^\top\mC_0\vepsi\right] \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\vepsi\right] \\
+	& = - \frac{1}{\sigma^4_0}\tr\left(\mC_0\right) \E\left(\vepsi\vepsi^\top\right) \\
+	& = - \tr(\mC_0)/\sigma^2_0
 	\end{aligned}
 \end{equation}
 
-For (\ref{eq:sar_der_rho_rho}):
-
+From \eqref{eq:sar_der_rho_rho}:
 \begin{equation}\label{eq:E_der_rho_rho}
   \begin{aligned}
-\E\left[\left.\frac{\partial^2 \log L(\vtheta)}{\partial \rho ^2}\right|\mW, \mX\right]  & =  \E\left[\left.- \tr\left[(\mW\mA^{-1})^2\right] - \frac{1}{\sigma^2}(\vy^{\top}\mW^{\top}\mW\vy)\right|\mW, \mX\right] \\
-  & =  - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2} \E\left[\left(\mA^{-1}\mX\vbeta + \mA^{-1}\vepsi\right)^\top\mW^\top\mW\left(\mA^{-1}\mX\vbeta + \mA^{-1}\vepsi\right)\right] \\
- & =  - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2} \E\left[\vbeta^\top\mX^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\mX\vbeta + \vbeta^\top\mX^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\vepsi\right.  + \\  
- &\quad \left. \vepsi^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\mX\vbeta + \vepsi^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\vepsi\right] \\
-  & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\E\left[\vbeta^\top\mX^\top\mA^{-1'}\mW^\top\mW\mA^{-1}\mX\vbeta + \right.\\
-  &\quad\left. 2\vepsi^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\mX\vbeta + \vepsi^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\vepsi\right] \\
-  & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\E\left[\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta + 2\vepsi^\top\mC^\top\mC\mX\vbeta + \vepsi^\top\mC^\top\mC\vepsi\right] \\
-  & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\left(\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta + \E\left[2\vepsi^\top\mC^\top\mC\mX\vbeta\right]+ \E\left[\vepsi^\top\mC^\top\mC\vepsi\right]\right) \\
- & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\left(\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta +  \E\left[\tr(\vepsi^\top\mC^\top\mC\vepsi)\right]\right) \\
- & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\left(\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta +  \E\left[\tr(\mC^\top\mC)\vepsi\vepsi^\top\right]\right) \\
- & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\left(\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta +  \tr(\mC^\top\mC)\E\left[\left.\vepsi\vepsi^\top\right|\mW,\mX\right]\right) \\
- & = - \tr(\mW\mA^{-1})^2 - \frac{1}{\sigma^2}\left(\vbeta^\top\mX^\top\mC^\top\mC\mX\vbeta +  \tr(\mC^\top\mC)\sigma^2\right) \\
- & = - \tr(\mC)^2 - \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta) - \tr(\mC^\top\mC) \\
- & = - \tr(\mC^s\mC) - \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \rho ^2}\right]  & =  \E\left[- \tr\left[(\mW\mA_0^{-1})^2\right] - \frac{1}{\sigma^2_0}(\vy^{\top}\mW^{\top}\mW\vy)\right] \\
+  & =  - \tr\left[(\mW\mA^{-1}_0)^2\right] - \frac{1}{\sigma^2_0} \E\left[\vy^{\top}\mW^{\top}\mW\vy\right] \\
+  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0} \left(\tr(\mW^{\top}\mW\mSigma_{\vy}) + \mu_{\vy}^\top\mW^{\top}\mW\vmu_{\vy}\right) \\
+  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0}\left(\sigma_0^2\tr(\mW^{\top}\mW\mA_0^{-1}(\mA_0^{-1})^\top) + (\mA_0^{-1}\mX\vbeta_0)^\top\mW^{\top}\mW\mA_0^{-1}\mX\vbeta_0\right) \\
+ & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}\left(\vbeta_0^\top\mX^\top\mC_0^\top\mC_0\mX\vbeta_0 + \sigma_0^2\tr(\mC_0^\top\mC_0)\right) \\
+ & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0) - \tr(\mC_0^\top\mC_0) \\
+ & = - \tr(\mC_0^s\mC_0) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0)
 \end{aligned}
 \end{equation}
 %
-where $\vepsi^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\mX\vbeta = (\vbeta^\top\mX^\top\mA^{-1\top}\mW^\top\mW\mA^{-1}\vepsi)^\top$ because is a scalar. Thus, the expected value of the Hessian is:
+where $\mC_0^s = \mC_0 + \mC_0^\top$. 
 
-\begin{equation}\label{eq:expected-hessian-slm}
-	- \E\left[\mH(\vbeta, \sigma^2, \rho) \right]= 
-	\begin{pmatrix}
-	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
-		 &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
-		 &  & \tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+Let $\mH(\vtheta) = \frac{\partial \ell^2(\vtheta)}{\partial \vtheta \partial \vtheta^\top}$. Thus, minus the expected value of the Hessian evaluated at $\vtheta_0$ is:
+\begin{equation}
+	- \E\left[\mH(\vtheta_0)\right]= 
+\begin{pmatrix}
+	\frac{1}{n\sigma^2_0}(\mX^\top \mX)  & \frac{1}{\sigma^2_0} \mX^\top (\mC\mX\vbeta_0) & \vzeros^\top \\
+	   & \tr(\mC^s_{0}\mC_{0}) + \frac{1}{\sigma^2_0}(\mC_{0}\mX\vbeta_0)^\top(\mC_{0}\mX\vbeta_0) &  \frac{1}{\sigma^2_0} \tr(\mC_{0}) \\
+		 &  & \frac{n}{2\sigma^4_0}
 	\end{pmatrix} 
 \end{equation}
 
-The asymptotic variance matrix follows as the inverse of the information matrix:
+By multiplying $-\E\left[\mH(\vtheta_0)\right]$ by $(1/n)$, we obtain Equation \eqref{eq:expected-hessian-slm-asy}. 
 
-\begin{equation}\label{eq:asyvar_slm}
-	\var(\vbeta, \sigma^2, \rho)= 
-	\begin{pmatrix}
-	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
-		 &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
-		 &  & \tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
-	\end{pmatrix} ^{-1}
+
+% The asymptotic variance matrix follows as the inverse of the information matrix:
+% 
+% \begin{equation}\label{eq:asyvar_slm}
+% 	\var(\vbeta, \sigma^2, \rho)= 
+% 	\begin{pmatrix}
+% 	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
+% 		 &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
+% 		 &  & \tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+% 	\end{pmatrix} ^{-1}
+% \end{equation}
+% 
+% An important feature is that the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. This lack of block diagonality in the information matrix for the spatial lag model will lead to some interesting results on the structure of specification test.
+% 
+% However, we can use the eigenvalues approximation. Recall that 
+% 
+% \begin{equation}
+% \left(\frac{\partial }{\partial \rho}\right)\log \left|\mA \right| = -\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i}, 
+% \end{equation}
+% %
+% so that, 
+% 
+% \begin{equation*}
+% 	\var(\vbeta, \sigma^2, \rho)= 
+% 	\begin{pmatrix}
+% 	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros' & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
+% 		. &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
+% 		. &  .& \alpha + \tr(\mC\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+% 	\end{pmatrix} ^{-1}
+% \end{equation*}
+% %
+% where $\alpha = \sum_{i=1}^n\left(\frac{\omega_i^2}{(1-\rho\omega_i)^2}\right)$. Note that while the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. 
+
+%-------------------------------------------------------------------------
+ \section{Variance of the Score Function}\label{appendix-score}
+%-------------------------------------------------------------------------
+
+In this Appendix, we will derive the variance of the score function. That is
+\begin{equation}
+\begin{aligned}
+ \var\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\right] = \E\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}\right] & = \mJ_{\theta, n} = \mSigma_{\theta, n} + \mOmega_{\theta, n}
+  \end{aligned}
+\end{equation}
+%
+where $\mSigma_{\theta, n}= - \E\left[(1/n)\mH(\vtheta_0)\right]$ is given in Equation \eqref{eq:expected-hessian-slm-asy}. The following results are important. For i.i.d $\vepsi_n = (\epsilon_1, ..., \epsilon_n)$, it can be shown that
+\begin{equation}
+\begin{aligned}
+\E(\epsilon_i\epsilon_j) & = 
+\begin{cases}
+  \sigma_0^2 & \mbox{for $i = j$}, \\
+  0          &  \mbox{for $i\neq j$}
+\end{cases} \\
+\E(\epsilon_i\epsilon_j\epsilon_s) & =
+\begin{cases}
+  \mu_3 & \mbox{for $i = j = s$}, \\
+  0          &  \mbox{otherwise}
+\end{cases} \\
+\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t) & =
+\begin{cases}
+  \mu_4 & \mbox{for $i = j = s = t$}, \\
+   \sigma_0^4          &  \mbox{for $i=j \neq s=t$ or $i =s\neq j= t$ or $i = t \neq s = t$}, \\
+   0 & \mbox{otherwise}
+\end{cases} \\
+\end{aligned}
 \end{equation}
 
-An important feature is that the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. This lack of block diagonality in the information matrix for the spatial lag model will lead to some interesting results on the structure of specification test.
+If $\epsilon_i \sim \rN(0, \sigma_0^2)$, we have $\E(\epsilon_i^3) = \mu_3 = 0$ and $\E(\epsilon_i^4) = \mu_4 = 3\sigma_0^4$. Thus
+\begin{equation}\label{eq:moments-linear-cuadratic}
+\begin{aligned}
+  \E(\vepsi_n^\top\mA_n\vepsi_n) & = \E\left[\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right] = \sum_{i = 1}^na_{ii}\E(\epsilon_i\epsilon_i) = \sigma^2_0\sum_{i = i}a_{ii} = \sigma_0^2\tr(\mA_n), \\
+  \E(\vepsi_n\vepsi_n^\top\mA_n\vepsi_n) & = \sum_{s = 1}^n\sum_{i = 1}^n\sum_{j = 1}^n a_{ij}\E(\epsilon_i\epsilon_j\epsilon_s) = \sum_i a_{ii}\E(\epsilon_i^3), \\
+  & =  \mu_3\tr(\mA_n) \\
+\E(\vepsi_n^\top\mA_n^\top\vepsi_n\vepsi_n^\top\mA^\top\vepsi_n) & = \sum_i\sum_j\sum_s\sum_ta_{ij}a_{st}\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t), \\
+& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA_n^2)\right], \\
+& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n^s\mA_n)\right] 
+\end{aligned}
+\end{equation}
+%
+where $\mA_n^s = (\mA_n + \mA_n^\top)$.
 
-However, we can use the eigenvalues approximation. Recall that 
+Then, the expectation for the elements of $  \frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}$ are
+\begin{equation}
+\begin{aligned}
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right)^\top\right] & = \frac{1}{\sigma_0^4}\frac{1}{n}\E(\mX_n^\top\vepsi\vepsi^\top\mX_n), \\
+& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n.
+\end{aligned}
+\end{equation}
 
 \begin{equation}
-\left(\frac{\partial }{\partial \rho}\right)\log \left|\mA \right| = -\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i}, 
+\begin{aligned}
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right]  = &  \frac{1}{\sigma_0^4}\frac{1}{n}\left[\E(\mX_n^\top\vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)) + \E(\mX_n^\top\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n) - \right. \\
+& \left. \sigma_0^2\E(\mX_n^\top\vepsi_n\tr(\mC_{n0})) \right], \\
+& = \frac{1}{\sigma_0^4}\frac{1}{n}\left[\mX_n^\top\E(\vepsi_n\vepsi_n^\top)(\mC_{n0}\mX_n\vbeta_0) + \mX_n^\top\E(\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n)\right], \\
+& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{\sigma_0^4}\frac{\mu_3}{n}\mX^\top\diag(\mC_{n0}).
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{\sigma_0^6}\frac{1}{n}\E\left[\frac{1}{2}\mX_n^\top\vepsi_n\vepsi_n^\top\vepsi_n - \frac{n\sigma_0^2}{2}\mX_n^\top\vepsi_n\right], \\
+& = \frac{\mu_3}{\sigma_0^6}\frac{1}{2n}\mX_n^\top\vones_n.
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & =  \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
+\end{aligned}
+\end{equation}
+
+Note that:
+\begin{align*}
+\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top  = &  (\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0) + (\vepsi_n^\top\mC_{n0}\vepsi)^2 + \sigma_{0}^4\tr^2(\mC_{n0}) \\
+& + 2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n - 2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n  \\
+& - 2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n
+\end{align*}
+Taking the expectation for each element of this gives and given the results in Equation \eqref{eq:moments-linear-cuadratic}
+\begin{align*}
+ \E\left[(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)\right] & = \sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) \\
+ \E\left[(\vepsi_n^\top\mC_{n0}\vepsi)^2\right] & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \\
+  \E\left[\sigma_{0}^4\tr^2(\mC_{n0})\right] & = \sigma_0^4\tr^2(\mC_{n0}) \\
+  \E\left[2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n\right] & = 2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) \\
+  \E\left[2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\right] & = \vzeros \\
+  \E\left[2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n\right] & = 2\sigma_0^4\tr^2(\mC_{n0})
+\end{align*}
+
+Using these results, we obtain 
+\begin{equation}
+\begin{aligned}
+  \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & = \frac{1}{\sigma_0^4n}\left[\sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) - \sigma_0^4\tr^2(\mC_{n0})\right. \\
+  & + \left. (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \right. \\
+  & + \left.2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0})\right] \\
+ & =   \frac{1}{\sigma_0^2}\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) \\
+ &  + \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{\sigma_0^4}\frac{2\mu_3}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0})
+\end{aligned}
+\end{equation}
+
+Then, 
+\begin{equation}
+\mJ_{\theta, n} = 
+\begin{pmatrix}
+  \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n & \frac{1}{n\sigma_0^2}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
+  *  & \frac{1}{n\sigma_0^2}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) +  J_{22, n} & \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ J_{23,n} \\
+  * & * & \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
+\end{pmatrix}
 \end{equation}
 %
-so that, 
+where 
+\begin{align*}
+J_{22, n} & = \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{\sigma_0^4}\frac{2\mu_3}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}), \\
+J_{23, n} &= \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right].
+\end{align*}
+
+Thus, we can write $\mJ_{\theta, n} = \mSigma_{\theta, n} + \mOmega_{\theta, n}$ with
+\scriptsize
+\begin{equation}
+\mOmega_{\theta, n} = 
+\begin{pmatrix}
+  \mZeros & \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
+  * & \frac{1}{n\sigma_0^4}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{2\mu_3}{n\sigma_0^4}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) & \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
+  * & * & \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
+\end{pmatrix}.
+\end{equation}
+\normalsize
+
+
+%-------------------------------------------------------------------------
+ \section{Proof of Asymptotic Normality}\label{appendix-asymptotic normality}
+%-------------------------------------------------------------------------
+
+From Equation \eqref{eq:sampling-error-ml}, we know 
 
 \begin{equation*}
-	\var(\vbeta, \sigma^2, \rho)= 
-	\begin{pmatrix}
-	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros' & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
-		. &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
-		. &  .& \alpha + \tr(\mC\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
-	\end{pmatrix} ^{-1}
+  \sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) = - \left[\frac{1}{n}\frac{\partial^2 \ell_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\right]^{-1}\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta}.
 \end{equation*}
-%
-where $\alpha = \sum_{i=1}^n\left(\frac{\omega_i^2}{(1-\rho\omega_i)^2}\right)$. Note that while the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. 
+
+The sketch consists in the following steps: 
+\begin{enumerate}
+  \item First, we need to show that:
+
+    \begin{equation*}
+    \mSigma_{\vtheta} = - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right],
+    \end{equation*}
+    %
+    is non-singular. To show this is beyond the scope of this class notes. We will take this as given. 
+  \item Now we will show that 
+   \begin{equation*}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\pto \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}
+   \end{equation*}
+   
+   By Assumption \ref{assu:ml_6} (No asymptotic multicolinearity), we know that  $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, therefore $\mX_n^\top\mX_n = O(n)$ so that $\mX_n^\top\mX_n/n = O(1)$ (Lemma \ref{lemma:bounde_ON})\footnote{Since $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, then, each of its elements is o(1) and hence O(1). In other words, $\frac{1}{n}\mX_n^\top\mX_n$ is a bounded matrix.}   and $\widetilde{\sigma}^2_n\pto \sigma_0^2$ from consistency, then from Equation (\ref{eq:sar_der_beta_beta}), we have:
+   \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \vbeta^\top} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mX_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mX_n)}{n} \\
+    & = \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{(\mX^\top_n \mX_n)}{n}}_{O(1)} \\
+    & = o_p(1)O(1)  \\
+    & = o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   It can also be shown that
+   \begin{equation*}
+    \begin{aligned}
+      \frac{1}{n}\mX_n^\top\mW_n^\top\vy_n & = \frac{1}{n}\mX_n^\top\mC_n\mX_n\vbeta_0 + o_p(1) \\
+      \frac{1}{n}\vy_n^{\top}\mW_n^{\top}\vepsi_n &= \frac{1}{n}\vepsi_n^\top\mC_n^{\top}\vepsi_n + o_p(1) \\
+      \frac{1}{n}\vy_n^\top\mW_n^\top\mW_n\vy_n & = \frac{1}{n}\left(\mX_n\vbeta_0\right)^\top\mC_n^\top\mC_n\mX_n\vbeta_0 + \frac{1}{n}\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n + o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   
+   As $\mX_n^\top\mW_n\vy_n /n = O_p(1)$, it follows from Equation (\ref{eq:sar_der_beta_rho}):
+   \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \rho} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mW_n\vy_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mW_n\vy_n)}{n} \\
+    & = \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{(\mX^\top_n \mW_n\vy_n)}{n}}_{O_p(1)} \\
+    & = o_p(1)O_p(1)  = o_p(1)
+    \end{aligned}
+   \end{equation*} 
+   
+   The following identity will be useful:
+   \begin{equation}\label{eq:error_slm_lee}
+    \begin{aligned}
+    \vepsi(\widetilde{\vdelta}_n) & = \vy_n - \mX_n\widetilde{\vbeta}_n - \widetilde{\rho}_n\mW_n\vy_n +(\vepsi(\vdelta_0) -  \vepsi(\vdelta_0)) \\
+    & = \vy_n - \mX_n\widetilde{\vbeta}_n - \widetilde{\rho}_n\mW_n\vy_n - \vy_n + \mX_n\vbeta_0 - \rho_0\mW_n\vy_n + \vepsi_n(\vdelta_0) \\
+    & = \mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) 
+    \end{aligned}
+   \end{equation}
+   
+   Then, taking into account Equation (\ref{eq:sar_der_beta_sigma}) and using our result in Equation (\ref{eq:error_slm_lee}) yields:
+      \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \sigma^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \sigma^2}  = & - \frac{1}{\widetilde{\sigma}^4_n} \frac{\mX_n^\top \vepsi(\widetilde{\vdelta}_n)}{n}+  \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n}. \\
+     = & - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\left(\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) \right)+  \\
+    & + \frac{1}{\sigma^4_0} \frac{\mX_n^\top \vepsi_n(\vdelta_0)}{n} \\
+   = & \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\mW_n\vy_n(\rho_0 - \widetilde{\rho}_n)  \\
+   & - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top \vepsi_n(\vdelta_0)  + \frac{1}{\sigma^4_0} \frac{\mX_n^\top \vepsi_n(\vdelta_0)}{n} \\
+   = & \left(\frac{1}{\sigma^4_0} - \frac{1}{\widetilde{\sigma}^4_n}\right)\frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} + \frac{\mX^\top_n\mX_n}{n\widetilde{\sigma}^4_n}(\vbeta_0 - \widetilde{\vbeta}_n)  \\
+   & + \frac{\mW_n^\top\mW_n\vy_n}{n\widetilde{\sigma}^4_n}(\rho_0 - \widetilde{\rho}_n) \\
+   = & o_p(1)O_p(1) + O(1)o_p(1) + O_p(1)o_p(1) \\
+   = & o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   From Equation (\ref{eq:sar_der_rho_rho}), we know that:
+   \begin{equation*}
+   \frac{\partial \log L_n(\vtheta) }{\partial \rho ^2} = - \tr\left[(\mC_n(\rho))^2\right] - \frac{1}{\sigma^2}(\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n)\quad \mbox{where}\quad \mC_n(\rho) = \mW_n\mA_n(\rho)^{-1}
+   \end{equation*}
+   
+   From Mean Value Theorem around of  $\tr\left[(\mC_n(\widetilde{\rho}_n))^2\right]$ around $\rho_0$:
+   \begin{equation*}
+    \begin{aligned}
+    \tr\left[(\mC_n(\widetilde{\rho}_n))^2\right] & = \tr\left[(\mC_n(\rho_0))^2\right]+ 2\tr\left[(\mC_n(\bar{\rho}))^3\right](\rho_0 - \widetilde{\rho}_n) \\
+    \tr\left[(\mC_n(\widetilde{\rho}_n))^2\right] - \tr\left[(\mC_n(\rho_0))^2\right] & = 2\tr\left[(\mC_n(\bar{\rho}))^3\right](\rho_0 - \widetilde{\rho}_n)
+    \end{aligned}
+   \end{equation*}
+   
+   Then:
+\begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \rho^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial\rho^2} & = \underbrace{2\frac{1}{n}\tr\left[(\mC_n(\bar{\rho}))^3\right]}_{O(n)} \underbrace{(\rho_0 - \widetilde{\rho}_n)}_{o_p(1)} + \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n}{n}}_{O_p(n)} \\
+    & = o_p(1)
+    \end{aligned}
+\end{equation*}
+   
+   Note that $\mC_n(\bar{\rho})$ is uniformly bounded in row and column sums uniformly in a neighborhood of $\rho_0$ by  Assumption \ref{assu:ml_5} and \ref{assu:ml_7}. Note that $\tr\left[(\mC_n(\bar{\rho}))^3\right] = O(n)$.
+   
+  Considering Equation (\ref{eq:sar_der_sigma_rho}):
+    \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \sigma^2 \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \sigma^2 \partial \rho}& = -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\widetilde{\vdelta}_n) + \frac{1}{\sigma^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\vdelta_n)\\
+    & = -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\left[\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0)\right] + \\
+    &  \frac{1}{\sigma^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\vdelta_n) \\
+    &= -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n)  + \frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\mW_n\vy_n(\widetilde{\rho}_n-\rho_0) + \\
+    & \left(\frac{1}{\sigma^4}-\frac{1}{\widetilde{\sigma}^4}\right)\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_{n} \\
+    & = o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+    Note the following:
+   \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) & = \left(\widetilde{\vbeta}_n - \vbeta_0\right)^\top\frac{\mX_n^\top\mX_n}{n} + (\widetilde{\rho}_n -\rho_0)^2\frac{\vy_n^\top\mW_n^\top\mW_n\vy_n}{n} + \frac{\vepsi_n^{\top}\vepsi_n}{n} + \\
+    & 2(\widetilde{\rho}_n -\rho_0)\left(\widetilde{\vbeta}_n - \vbeta_0\right)^\top\frac{\mX_n^\top\mW_n\vy_n}{n} + 2\left(\vbeta_0-\widetilde{\vbeta}_n\right)^\top\frac{\mX_n^\top\vepsi_n}{n} + 2(\rho_0-\widetilde{\rho}_n)\frac{\vy_n^\top\mW_n^\top\vepsi_n}{n} \\
+    & = \frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   
+   Finally, considering the second derivative in Equation (\ref{eq:sar_der_sigma_sigma})
+   \begin{equation*}
+    \begin{aligned}
+      \frac{1}{n}\frac{\partial^2 \log L(\widetilde{\vtheta})}{\partial (\sigma^2)^2} -	\frac{1}{n}\frac{\partial^2 \log L(\vtheta_0)}{\partial (\sigma^2)^2}  & = \frac{1}{2(\widetilde{\sigma}^2) ^2} - \frac{1}{(\widetilde{\sigma}^2)^3} \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) -\frac{1}{2(\sigma^2) ^2} + \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
+      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)- \frac{1}{(\widetilde{\sigma}^2)^3} \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) + \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
+      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)- \frac{1}{(\widetilde{\sigma}^2)^3} \left(\frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1)\right)+ \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
+      & = \frac{1}{2}\left(\frac{1}{\widetilde{\sigma}^2) ^2}-\frac{1}{(\sigma^2) ^2}\right)+ \left(\frac{1}{(\sigma^2)^3} -\frac{1}{(\widetilde{\sigma}^2)^3}\right)\frac{\vepsi_n^{\top}\vepsi_n}{n} + o_p(1) \\
+      & = o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+
+   
+   \item Now, we need to show that:
+   \begin{equation}
+     \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\pto \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right]
+   \end{equation}
+   
+   Form Appendix \ref{appendix-EH-sml}, we know that:
+   \begin{equation*}
+    \begin{aligned}
+     \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} \right|\mW, \mX\right] & = -\frac{1}{\sigma^2_0}\frac{1}{n}(\mX^\top\mX) \\
+     \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \sigma^2} \right|\mW, \mX\right] & = \vzeros \\
+      \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \rho} \right|\mW, \mX\right] & = - \frac{1}{\sigma^2_0} \frac{1}{n}\mX^\top\mC\mX\vbeta_0 \\
+      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial (\sigma^2)^2}\right|\mW, \mX\right] & = - \frac{1}{2\sigma^4_0}  \\
+      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial \sigma^2 \partial \rho}\right|\mW,\mX\right] & = - \frac{1}{n}\tr(\mC)/\sigma^2_0 \\
+      \E\left[\frac{1}{n}\left.\frac{\partial^2 \log L(\vtheta_0)}{\partial \rho ^2}\right|\mW, \mX\right] & = - \frac{1}{n}\tr(\mC^s\mC) - \frac{1}{\sigma^2_0}\frac{1}{n}(\mC\mX\vbeta_0)^\top(\mC\mX\vbeta_0)
+    \end{aligned}
+   \end{equation*}
+   
+   All these expectations exist in the limit by Assumption \ref{assu:ml_8} and Lemma \ref{lemma:second-mom-lee}-\ref{lemma:O-lemma-lee}. Then, by nonsingularity of $\E\left[\mH(\vw_i;\vtheta)\right]$, we can say that 
+   
+   \begin{equation*}
+   \left(\frac{1}{n}\mH(\vw;\widehat{\vtheta})\right)^{-1}\pto \E\left[\mH(\vw;\vtheta_0)\right]^{-1}
+   \end{equation*}
+   
+
+   % Lemma \ref{lemma:second-mom-lee} implies that $\E(\vepsi_n^\top\mC_n^\top\vepsi_n)=\sigma_0^2\tr(\mC_n)$ and, under normality assumption, 
+   % 
+   % \begin{equation}
+   % \var\left(\frac{1}{n}\vepsi_n^\top\mC_n^\top\vepsi_n\right) = \frac{\sigma_{0}^4}{n^2}\left[\tr\left(\mC_n\mC_n^\top\right) +\tr(\mC_n^2)\right] =O\left(\frac{1}{nh_n}\right)
+   % \end{equation}
+   % 
+   % Similarly, $\E(\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n)=\sigma_0^2\tr(\mC_n^\top\mC_n)$ and, under normality assumption, 
+   % 
+   % \begin{equation}
+   % \var\left(\frac{1}{n}\vepsi_n^\top\mC_n^\top\mC_n\vepsi_n\right) =O\left(\frac{1}{nh_n}\right)
+   % \end{equation}
+   % 
+   % By the law of large numbers $\frac{1}{n}\vepsi_n^\top\vepsi_n\pto \sigma^2_0$. With these properties the convergence results follows. 
+   
+   
+   \item Recall that the first-order derivatives of the log-likelihood function at $\vtheta_0$ are given by:
+   
+  \begin{equation*}
+   \frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} = \begin{pmatrix}
+   \frac{1}{\sigma^2_0\sqrt{n}}\mX_n^\top\vepsi_n\\
+   \frac{1}{2\sigma_0^4\sqrt{n}}\left(\vepsi_n'\vepsi_n - n\sigma_0^2\right) \\
+   \frac{1}{\sigma_0^2\sqrt{n}}(\mC_n\mX_n\vbeta_0)^\top \vepsi_n + \frac{1}{\sigma_0^2\sqrt{n}}(\vepsi_n^\top\mC_n\vepsi_n - \sigma_0^2\tr(\mC_n))
+   \end{pmatrix}
+  \end{equation*}
+
+
+As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of $\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}$ may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_n$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_n\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
+\end{enumerate}
+
 \end{subappendices}
-
-
-
-% \textbf{Solution}:
-% 
-% Taking the first derivate:
-% 
-% \begin{eqnarray}
-% 	\frac{\partial \ell^c(\rho)}{\partial \rho} &=& \frac{-2\ve_0'\ve_L + 2\rho\ve_L'\ve_L}{\frac{\ve_0'\ve_0 - 2\rho\ve_L'\ve_0 + \rho^2 \ve_L'\ve_L}{N}} +\frac{2}{N}\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i} \\
-% 	&=& 2\left(\frac{ \rho\ve_L'\ve_L -\ve_0'\ve_L}{\widehat{\sigma}^2(\rho)}\right) +\frac{2}{N}\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i} 
-% \end{eqnarray}
-% 
-% The second derivative is:
-% 
-% 
-% \begin{eqnarray}
-% 	\frac{\partial^2 \ell^c(\rho)}{\partial \rho ^2}  &=& \frac{2}{N}\sum_{i=1}^n\frac{\omega_i^2}{(1-\rho\omega_i)^2} + 2\left(\frac{\ve_L'\ve_L\cdot \sigma ^2(\rho)-N^{-1}(-2\ve_0'\ve_L + 2\rho\ve_L'\ve_L)(\rho\ve_L'\ve_L -\ve_0'\ve_L)}{\widehat{\sigma} ^4(\rho)}\right) \\
-% 	 &=& \frac{2}{N}\sum_{i=1}^n\frac{\omega_i^2}{(1-\rho\omega_i)^2} + 2\frac{\ve_L'\ve_L}{\sigma ^2(\rho)} - 4 \frac{(\rho\ve_L'\ve_L -\ve_0'\ve_L)^2}{\widehat{\sigma} ^4(\rho)}
-% \end{eqnarray}
-
-	
-%\end{enumerate}
-
 
 
 
@@ -11447,7 +11854,7 @@ and $\widehat{\vepsi} = \vy_s(\widehat{\lambda}) - \mZ_{s}(\widehat{\lambda})\wi
 \bibliographystyle{apalike}
 
 
-%\backmatter 
+%\backmatter  
 
 %\begin{appendices}
 %\appendixpage

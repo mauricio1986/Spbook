@@ -1,38 +1,38 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  28 FEB 2023 11:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2023.4.7)  17 MAY 2023 18:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **SpatialEconometrics.tex
 (./SpatialEconometrics.tex
-LaTeX2e <2020-02-02> patch level 5
-L3 programming layer <2020-03-06>
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18>
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2019/12/20 v1.4l Standard LaTeX document class
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/bk12.clo
-File: bk12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+File: bk12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count167
-\c@chapter=\count168
-\c@section=\count169
-\c@subsection=\count170
-\c@subsubsection=\count171
-\c@paragraph=\count172
-\c@subparagraph=\count173
-\c@figure=\count174
-\c@table=\count175
+\c@part=\count179
+\c@chapter=\count180
+\c@section=\count181
+\c@subsection=\count182
+\c@subsubsection=\count183
+\c@paragraph=\count184
+\c@subparagraph=\count185
+\c@figure=\count186
+\c@table=\count187
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
-\bibindent=\dimen134
+\bibindent=\dimen138
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks15
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
@@ -43,10 +43,10 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: pdftex.def on input line 105.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen135
-\Gin@req@width=\dimen136
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -68,32 +68,30 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip49
-\fb@frw=\dimen137
-\fb@frh=\dimen138
-\FrameRule=\dimen139
-\FrameSep=\dimen140
+\fb@frw=\dimen141
+\fb@frh=\dimen142
+\FrameRule=\dimen143
+\FrameSep=\dimen144
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/alltt.sty
 Package: alltt 1997/06/16 v2.0g defines alltt environment
 ) (./structure.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2020/03/22 3.42 The Babel package
-
-(/usr/local/texlive/2020/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2020/03/22 3.42 Babel switching mechanism
-)
-(/usr/local/texlive/2020/texmf-dist/tex/generic/babel-english/english.ldf
-Language: english 2017/06/06 v3.3r English support from the babel system
+Package: babel 2021/03/03 3.55 The Babel package
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2020/03/22 3.42 Babel common definitions
-\babel@savecnt=\count176
-\U@D=\dimen141
+File: babel.def 2021/03/03 3.55 Babel common definitions
+\babel@savecnt=\count188
+\U@D=\dimen145
+\l@babelnohyphens=\language86
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count177
 )
+\bbl@dirlevel=\count189
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: \l@canadian = using hyphenrules for english
 (babel)             (\language0) on input line 102.
 Package babel Info: \l@australian = using hyphenrules for ukenglish
@@ -102,12 +100,12 @@ Package babel Info: \l@newzealand = using hyphenrules for ukenglish
 (babel)             (\language21) on input line 108.
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2018/08/11 v1.3c Input encoding file
+Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks16
 \inpenc@posthook=\toks17
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
@@ -145,7 +143,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2020/01/20 v2.17e AMS math features
+Package: amsmath 2020/09/23 v2.17i AMS math features
 \@mathmargin=\skip50
 
 For additional information on amsmath, use the `?' option.
@@ -155,52 +153,52 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks18
-\ex@=\dimen142
+\ex@=\dimen146
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen143
+\pmbraise@=\dimen147
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count178
-LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count179
-\leftroot@=\count180
-LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count181
-\DOTSCASE@=\count182
-LaTeX Info: Redefining \ldots on input line 486.
-LaTeX Info: Redefining \dots on input line 489.
-LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box45
-\strutbox@=\box46
-\big@size=\dimen144
-LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count183
-\c@MaxMatrixCols=\count184
+\inf@bad=\count190
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count191
+\leftroot@=\count192
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count193
+\DOTSCASE@=\count194
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen148
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count195
+\c@MaxMatrixCols=\count196
 \dotsspace@=\muskip16
-\c@parentequation=\count185
-\dspbrk@lvl=\count186
+\c@parentequation=\count197
+\dspbrk@lvl=\count198
 \tag@help=\toks19
-\row@=\count187
-\column@=\count188
-\maxfields@=\count189
+\row@=\count199
+\column@=\count266
+\maxfields@=\count267
 \andhelp@=\toks20
-\eqnshift@=\dimen145
-\alignsep@=\dimen146
-\tagshift@=\dimen147
-\tagwidth@=\dimen148
-\totwidth@=\dimen149
-\lineht@=\dimen150
+\eqnshift@=\dimen149
+\alignsep@=\dimen150
+\tagshift@=\dimen151
+\tagwidth@=\dimen152
+\totwidth@=\dimen153
+\lineht@=\dimen154
 \@envbody=\toks21
 \multlinegap=\skip51
 \multlinetaggap=\skip52
 \mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2859.
-LaTeX Info: Redefining \] on input line 2860.
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -233,7 +231,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip53
 \bibsep=\skip54
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count190
+\c@NAT@ctr=\count268
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
@@ -245,26 +243,23 @@ Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
 x
 \pgfutil@everybye=\toks24
-\pgfutil@tempdima=\dimen151
-\pgfutil@tempdimb=\dimen152
+\pgfutil@tempdima=\dimen155
+\pgfutil@tempdimb=\dimen156
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
 sts.tex))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box47
-(/usr/local/texlive/2020/texmf-dist/tex/latex/ms/everyshi.sty
-Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
-))
-(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+\pgfutil@abb=\box49
+) (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgfrcs 2020/12/27 v3.1.8b (3.1.8b)
 ))
-Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks25
 \pgfkeys@temptoks=\toks26
@@ -273,59 +268,59 @@ Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
 ode.tex
 \pgfkeys@tmptoks=\toks27
 ))
-\pgf@x=\dimen153
-\pgf@y=\dimen154
-\pgf@xa=\dimen155
-\pgf@ya=\dimen156
-\pgf@xb=\dimen157
-\pgf@yb=\dimen158
-\pgf@xc=\dimen159
-\pgf@yc=\dimen160
-\pgf@xd=\dimen161
-\pgf@yd=\dimen162
+\pgf@x=\dimen157
+\pgf@y=\dimen158
+\pgf@xa=\dimen159
+\pgf@ya=\dimen160
+\pgf@xb=\dimen161
+\pgf@yb=\dimen162
+\pgf@xc=\dimen163
+\pgf@yc=\dimen164
+\pgf@xd=\dimen165
+\pgf@yd=\dimen166
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
-\c@pgf@counta=\count191
-\c@pgf@countb=\count192
-\c@pgf@countc=\count193
-\c@pgf@countd=\count194
+\c@pgf@counta=\count269
+\c@pgf@countb=\count270
+\c@pgf@countc=\count271
+\c@pgf@countd=\count272
 \t@pgf@toka=\toks28
 \t@pgf@tokb=\toks29
 \t@pgf@tokc=\toks30
-\pgf@sys@id@count=\count195
+\pgf@sys@id@count=\count273
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+File: pgf.cfg 2020/12/27 v3.1.8b (3.1.8b)
 )
 Driver file for pgf: pgfsys-pdftex.def
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
 ef
-File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfsys-pdftex.def 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
 df.def
-File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfsys-common-pdf.def 2020/12/27 v3.1.8b (3.1.8b)
 )))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
 code.tex
-File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfsyssoftpath@smallbuffer@items=\count196
-\pgfsyssoftpath@bigbuffer@items=\count197
+File: pgfsyssoftpath.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfsyssoftpath@smallbuffer@items=\count274
+\pgfsyssoftpath@bigbuffer@items=\count275
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
 code.tex
-File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfsysprotocol.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen163
-\pgfmath@count=\count198
-\pgfmath@box=\box48
+\pgfmath@dimen=\dimen167
+\pgfmath@count=\count276
+\pgfmath@box=\box50
 \pgfmath@toks=\toks31
 \pgfmath@stack@operand=\toks32
 \pgfmath@stack@operation=\toks33
@@ -349,125 +344,125 @@ code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
 erarithmetics.code.tex)))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count199
+\c@pgfmathroundto@lastzeros=\count277
 )) (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
-File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@picminx=\dimen164
-\pgf@picmaxx=\dimen165
-\pgf@picminy=\dimen166
-\pgf@picmaxy=\dimen167
-\pgf@pathminx=\dimen168
-\pgf@pathmaxx=\dimen169
-\pgf@pathminy=\dimen170
-\pgf@pathmaxy=\dimen171
-\pgf@xx=\dimen172
-\pgf@xy=\dimen173
-\pgf@yx=\dimen174
-\pgf@yy=\dimen175
-\pgf@zx=\dimen176
-\pgf@zy=\dimen177
+File: pgfcorepoints.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@picminx=\dimen168
+\pgf@picmaxx=\dimen169
+\pgf@picminy=\dimen170
+\pgf@picmaxy=\dimen171
+\pgf@pathminx=\dimen172
+\pgf@pathmaxx=\dimen173
+\pgf@pathminy=\dimen174
+\pgf@pathmaxy=\dimen175
+\pgf@xx=\dimen176
+\pgf@xy=\dimen177
+\pgf@yx=\dimen178
+\pgf@yy=\dimen179
+\pgf@zx=\dimen180
+\pgf@zy=\dimen181
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
 ruct.code.tex
-File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@path@lastx=\dimen178
-\pgf@path@lasty=\dimen179
+File: pgfcorepathconstruct.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@path@lastx=\dimen182
+\pgf@path@lasty=\dimen183
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
 .code.tex
-File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@shorten@end@additional=\dimen180
-\pgf@shorten@start@additional=\dimen181
+File: pgfcorepathusage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@shorten@end@additional=\dimen184
+\pgf@shorten@start@additional=\dimen185
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
 de.tex
-File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfpic=\box49
-\pgf@hbox=\box50
-\pgf@layerbox@main=\box51
-\pgf@picture@serial@count=\count266
+File: pgfcorescopes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfpic=\box51
+\pgf@hbox=\box52
+\pgf@layerbox@main=\box53
+\pgf@picture@serial@count=\count278
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
-File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgflinewidth=\dimen182
+File: pgfcoregraphicstate.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgflinewidth=\dimen186
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
 ations.code.tex
-File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@pt@x=\dimen183
-\pgf@pt@y=\dimen184
-\pgf@pt@temp=\dimen185
+File: pgfcoretransformations.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@pt@x=\dimen187
+\pgf@pt@y=\dimen188
+\pgf@pt@temp=\dimen189
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
 e.tex
-File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorequick.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
 ode.tex
-File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcoreobjects.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
 ssing.code.tex
-File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorepathprocessing.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
 de.tex
-File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowsep=\dimen186
+File: pgfcorearrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfarrowsep=\dimen190
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
 e.tex
-File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@max=\dimen187
-\pgf@sys@shading@range@num=\count267
-\pgf@shadingcount=\count268
+File: pgfcoreshade.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@max=\dimen191
+\pgf@sys@shading@range@num=\count279
+\pgf@shadingcount=\count280
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
-File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
 code.tex
-File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfexternal@startupbox=\box52
+File: pgfcoreexternal.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfexternal@startupbox=\box54
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
 de.tex
-File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorelayers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
 ncy.code.tex
-File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcoretransparency.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
 code.tex
-File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorepatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
 tex
-File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorerdf.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
 e.tex
-File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodeparttextbox=\box53
+File: pgfmoduleshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfnodeparttextbox=\box55
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
 tex
-File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfmoduleplot.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -0-65.sty
-Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@nodesepstart=\dimen188
-\pgf@nodesepend=\dimen189
+Package: pgfcomp-version-0-65 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@nodesepstart=\dimen192
+\pgf@nodesepend=\dimen193
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -1-18.sty
-Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgfcomp-version-1-18 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
@@ -475,122 +470,122 @@ Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/math/pgfmath.sty
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen190
-\pgffor@skip=\dimen191
+\pgffor@iter=\dimen194
+\pgffor@skip=\dimen195
 \pgffor@stack=\toks34
 \pgffor@toks=\toks35
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
-Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
+Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
-File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@plot@mark@count=\count269
-\pgfplotmarksize=\dimen192
+File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@plot@mark@count=\count281
+\pgfplotmarksize=\dimen196
 )
-\tikz@lastx=\dimen193
-\tikz@lasty=\dimen194
-\tikz@lastxsaved=\dimen195
-\tikz@lastysaved=\dimen196
-\tikz@lastmovetox=\dimen197
-\tikz@lastmovetoy=\dimen198
-\tikzleveldistance=\dimen199
-\tikzsiblingdistance=\dimen256
-\tikz@figbox=\box54
-\tikz@figbox@bg=\box55
-\tikz@tempbox=\box56
-\tikz@tempbox@bg=\box57
-\tikztreelevel=\count270
-\tikznumberofchildren=\count271
-\tikznumberofcurrentchild=\count272
-\tikz@fig@count=\count273
+\tikz@lastx=\dimen197
+\tikz@lasty=\dimen198
+\tikz@lastxsaved=\dimen199
+\tikz@lastysaved=\dimen256
+\tikz@lastmovetox=\dimen257
+\tikz@lastmovetoy=\dimen258
+\tikzleveldistance=\dimen259
+\tikzsiblingdistance=\dimen260
+\tikz@figbox=\box56
+\tikz@figbox@bg=\box57
+\tikz@tempbox=\box58
+\tikz@tempbox@bg=\box59
+\tikztreelevel=\count282
+\tikznumberofchildren=\count283
+\tikznumberofcurrentchild=\count284
+\tikz@fig@count=\count285
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
-File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfmatrixcurrentrow=\count274
-\pgfmatrixcurrentcolumn=\count275
-\pgf@matrix@numberofcolumns=\count276
+File: pgfmodulematrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfmatrixcurrentrow=\count286
+\pgfmatrixcurrentcolumn=\count287
+\pgf@matrix@numberofcolumns=\count288
 )
-\tikz@expandcount=\count277
+\tikz@expandcount=\count289
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarytopaths.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarycalc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytrees.code.tex
-File: tikzlibrarytrees.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarytrees.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarypositioning.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 code.tex
-File: pgflibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\arrowsize=\dimen257
+File: pgflibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\arrowsize=\dimen261
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 meta.code.tex
-File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowinset=\dimen258
-\pgfarrowlength=\dimen259
-\pgfarrowwidth=\dimen260
-\pgfarrowlinewidth=\dimen261
+File: pgflibraryarrows.meta.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfarrowinset=\dimen262
+\pgfarrowlength=\dimen263
+\pgfarrowwidth=\dimen264
+\pgfarrowlinewidth=\dimen265
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryfit.code.tex
-File: tikzlibraryfit.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryfit.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.code.tex
-File: tikzlibraryshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.geometric.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.geometric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryshapes.geometric.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.misc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.misc.code.tex
-File: pgflibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryshapes.misc.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.symbols.code.tex
-File: tikzlibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.symbols.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.symbols.code.tex
-File: pgflibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryshapes.symbols.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.arrows.code.tex
-File: tikzlibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.arrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.arrows.code.tex
-File: pgflibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryshapes.arrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.callouts.code.tex
@@ -598,74 +593,74 @@ s/tikzlibraryshapes.callouts.code.tex
 shapes.callouts.code.tex))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshapes.multipart.code.tex
-File: tikzlibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.multipart.code.tex
-File: pgflibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodepartlowerbox=\box58
-\pgfnodeparttwobox=\box59
-\pgfnodepartthreebox=\box60
-\pgfnodepartfourbox=\box61
-\pgfnodeparttwentybox=\box62
-\pgfnodepartnineteenbox=\box63
-\pgfnodeparteighteenbox=\box64
-\pgfnodepartseventeenbox=\box65
-\pgfnodepartsixteenbox=\box66
-\pgfnodepartfifteenbox=\box67
-\pgfnodepartfourteenbox=\box68
-\pgfnodepartthirteenbox=\box69
-\pgfnodeparttwelvebox=\box70
-\pgfnodepartelevenbox=\box71
-\pgfnodeparttenbox=\box72
-\pgfnodepartninebox=\box73
-\pgfnodeparteightbox=\box74
-\pgfnodepartsevenbox=\box75
-\pgfnodepartsixbox=\box76
-\pgfnodepartfivebox=\box77
+File: pgflibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfnodepartlowerbox=\box60
+\pgfnodeparttwobox=\box61
+\pgfnodepartthreebox=\box62
+\pgfnodepartfourbox=\box63
+\pgfnodeparttwentybox=\box64
+\pgfnodepartnineteenbox=\box65
+\pgfnodeparteighteenbox=\box66
+\pgfnodepartseventeenbox=\box67
+\pgfnodepartsixteenbox=\box68
+\pgfnodepartfifteenbox=\box69
+\pgfnodepartfourteenbox=\box70
+\pgfnodepartthirteenbox=\box71
+\pgfnodeparttwelvebox=\box72
+\pgfnodepartelevenbox=\box73
+\pgfnodeparttenbox=\box74
+\pgfnodepartninebox=\box75
+\pgfnodeparteightbox=\box76
+\pgfnodepartsevenbox=\box77
+\pgfnodepartsixbox=\box78
+\pgfnodepartfivebox=\box79
 )))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarydecorations.code.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoration
 s.code.tex
-\pgfdecoratedcompleteddistance=\dimen262
-\pgfdecoratedremainingdistance=\dimen263
-\pgfdecoratedinputsegmentcompleteddistance=\dimen264
-\pgfdecoratedinputsegmentremainingdistance=\dimen265
-\pgf@decorate@distancetomove=\dimen266
-\pgf@decorate@repeatstate=\count278
-\pgfdecorationsegmentamplitude=\dimen267
-\pgfdecorationsegmentlength=\dimen268
+\pgfdecoratedcompleteddistance=\dimen266
+\pgfdecoratedremainingdistance=\dimen267
+\pgfdecoratedinputsegmentcompleteddistance=\dimen268
+\pgfdecoratedinputsegmentremainingdistance=\dimen269
+\pgf@decorate@distancetomove=\dimen270
+\pgf@decorate@repeatstate=\count290
+\pgfdecorationsegmentamplitude=\dimen271
+\pgfdecorationsegmentlength=\dimen272
 )
-\tikz@lib@dec@box=\box78
+\tikz@lib@dec@box=\box80
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarychains.code.tex
-File: tikzlibrarychains.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarychains.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryshadows.code.tex
-File: tikzlibraryshadows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryshadows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryfadings.code.tex
-File: tikzlibraryfadings.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings
 .code.tex
-File: pgflibraryfadings.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryfadings.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )))
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarymatrix.code.tex
-File: tikzlibrarymatrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarymatrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarypatterns.code.tex
-File: tikzlibrarypatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibrarypatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibrarypattern
 s.code.tex
-File: pgflibrarypatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibrarypatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pgfplots/pgfplots.sty
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
@@ -675,9 +670,9 @@ Package: pgfplots 2020/02/29 v1.17 Data Visualization (1.17)
 \t@pgfplots@toka=\toks36
 \t@pgfplots@tokb=\toks37
 \t@pgfplots@tokc=\toks38
-\pgfplots@tmpa=\dimen269
-\c@pgfplots@coordindex=\count279
-\c@pgfplots@scanlineindex=\count280
+\pgfplots@tmpa=\dimen273
+\c@pgfplots@coordindex=\count291
+\c@pgfplots@scanlineindex=\count292
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric
 .code.tex))
@@ -695,13 +690,13 @@ liststructure.code.tex)
 liststructureext.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 array.code.tex
-\c@pgfplotsarray@tmp=\count281
+\c@pgfplotsarray@tmp=\count293
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 matrix.code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable
 shared.code.tex
-\c@pgfplotstable@counta=\count282
+\c@pgfplotstable@counta=\count294
 \t@pgfplotstable@a=\toks39
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
@@ -714,7 +709,7 @@ ta.code.tex))
 .code.tex)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplot
 s.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count283
+\c@pgfplotslibrarysurf@no=\count295
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots
 .surfshading.pgfsys-pdftex.def)))
@@ -750,43 +745,43 @@ brarydecorations.pathmorphing.code.tex))
 s/tikzlibrarydecorations.pathreplacing.code.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
 brarydecorations.pathreplacing.code.tex))
-\pgfplots@numplots=\count284
-\pgfplots@xmin@reg=\dimen270
-\pgfplots@xmax@reg=\dimen271
-\pgfplots@ymin@reg=\dimen272
-\pgfplots@ymax@reg=\dimen273
-\pgfplots@zmin@reg=\dimen274
-\pgfplots@zmax@reg=\dimen275
+\pgfplots@numplots=\count296
+\pgfplots@xmin@reg=\dimen274
+\pgfplots@xmax@reg=\dimen275
+\pgfplots@ymin@reg=\dimen276
+\pgfplots@ymax@reg=\dimen277
+\pgfplots@zmin@reg=\dimen278
+\pgfplots@zmax@reg=\dimen279
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryplotmarks.code.tex
-File: tikzlibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: tikzlibraryplotmarks.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmar
 ks.code.tex
-File: pgflibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryplotmarks.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 ))) (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/array.sty
-Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen276
-\ar@mcellbox=\box79
-\extrarowheight=\dimen277
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen280
+\ar@mcellbox=\box81
+\extrarowheight=\dimen281
 \NC@list=\toks40
 \extratabsurround=\skip55
 \backup@length=\skip56
-\ar@cellbox=\box80
+\ar@cellbox=\box82
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/adjustbox/adjustbox.sty
-Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
+Package: adjustbox 2020/08/19 v1.3 Adjusting TeX boxes (trim, clip, ...)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/local/texlive/2020/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks41
 \XKV@tempa@toks=\toks42
 )
-\XKV@depth=\count285
+\XKV@depth=\count297
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/adjustbox/adjcalc.sty
@@ -794,63 +789,63 @@ Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
 -ends (calc, etex, pgfmath)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/adjustbox/trimclip.sty
-Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
+Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box81
+\collectedbox=\box83
 )
-\tc@llx=\dimen278
-\tc@lly=\dimen279
-\tc@urx=\dimen280
-\tc@ury=\dimen281
+\tc@llx=\dimen282
+\tc@lly=\dimen283
+\tc@urx=\dimen284
+\tc@ury=\dimen285
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen282
-\adjbox@Height=\dimen283
-\adjbox@Depth=\dimen284
-\adjbox@Totalheight=\dimen285
-\adjbox@pwidth=\dimen286
-\adjbox@pheight=\dimen287
-\adjbox@pdepth=\dimen288
-\adjbox@ptotalheight=\dimen289
+\adjbox@Width=\dimen286
+\adjbox@Height=\dimen287
+\adjbox@Depth=\dimen288
+\adjbox@Totalheight=\dimen289
+\adjbox@pwidth=\dimen290
+\adjbox@pheight=\dimen291
+\adjbox@pdepth=\dimen292
+\adjbox@ptotalheight=\dimen293
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count286
+\c@checkoddpage=\count298
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box82
-\sift@deathcycles=\count287
-\@vwid@loff=\dimen290
-\@vwid@roff=\dimen291
+\@vwid@box=\box84
+\sift@deathcycles=\count299
+\@vwid@loff=\dimen294
+\@vwid@roff=\dimen295
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen292
-\lightrulewidth=\dimen293
-\cmidrulewidth=\dimen294
-\belowrulesep=\dimen295
-\belowbottomsep=\dimen296
-\aboverulesep=\dimen297
-\abovetopsep=\dimen298
-\cmidrulesep=\dimen299
-\cmidrulekern=\dimen300
-\defaultaddspace=\dimen301
-\@cmidla=\count288
-\@cmidlb=\count289
-\@aboverulesep=\dimen302
-\@belowrulesep=\dimen303
-\@thisruleclass=\count290
-\@lastruleclass=\count291
-\@thisrulewidth=\dimen304
+\heavyrulewidth=\dimen296
+\lightrulewidth=\dimen297
+\cmidrulewidth=\dimen298
+\belowrulesep=\dimen299
+\belowbottomsep=\dimen300
+\aboverulesep=\dimen301
+\abovetopsep=\dimen302
+\cmidrulesep=\dimen303
+\cmidrulekern=\dimen304
+\defaultaddspace=\dimen305
+\@cmidla=\count300
+\@cmidlb=\count301
+\@aboverulesep=\dimen306
+\@belowrulesep=\dimen307
+\@thisruleclass=\count302
+\@lastruleclass=\count303
+\@thisrulewidth=\dimen308
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
@@ -859,51 +854,50 @@ Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/lscape.sty
-Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count292
+\c@float@type=\count304
 \float@exts=\toks43
-\float@box=\box83
+\float@box=\box85
 \@float@everytoks=\toks44
-\@floatcapt=\box84
+\@floatcapt=\box86
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 61.
-\captionmargin=\dimen305
-\captionmargin@=\dimen306
-\captionwidth=\dimen307
-\caption@tempdima=\dimen308
-\caption@indent=\dimen309
-\caption@parindent=\dimen310
-\caption@hangindent=\dimen311
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen309
+\captionmargin@=\dimen310
+\captionwidth=\dimen311
+\caption@tempdima=\dimen312
+\caption@indent=\dimen313
+\caption@parindent=\dimen314
+\caption@hangindent=\dimen315
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count293
-\c@continuedfloat=\count294
+\c@caption@flags=\count305
+\c@continuedfloat=\count306
 Package caption Info: float package is loaded.
 )
-\c@KVtest=\count295
+\c@KVtest=\count307
 \sf@farskip=\skip57
-\sf@captopadj=\dimen312
+\sf@captopadj=\dimen316
 \sf@capskip=\skip58
 \sf@nearskip=\skip59
-\c@subfigure=\count296
-\c@subfigure@save=\count297
-\c@lofdepth=\count298
-\c@subtable=\count299
-\c@subtable@save=\count300
-\c@lotdepth=\count301
+\c@subfigure=\count308
+\c@subfigure@save=\count309
+\c@lofdepth=\count310
+\c@subtable=\count311
+\c@subtable@save=\count312
+\c@lotdepth=\count313
 \sf@top=\skip60
 \sf@bottom=\skip61
 )
@@ -913,23 +907,23 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTright=\skip63
 \LTpre=\skip64
 \LTpost=\skip65
-\LTchunksize=\count302
-\LTcapwidth=\dimen313
-\LT@head=\box85
-\LT@firsthead=\box86
-\LT@foot=\box87
-\LT@lastfoot=\box88
-\LT@cols=\count303
-\LT@rows=\count304
-\c@LT@tables=\count305
-\c@LT@chunks=\count306
+\LTchunksize=\count314
+\LTcapwidth=\dimen317
+\LT@head=\box87
+\LT@firsthead=\box88
+\LT@foot=\box89
+\LT@lastfoot=\box90
+\LT@cols=\count315
+\LT@rows=\count316
+\c@LT@tables=\count317
+\c@LT@chunks=\count318
 \LT@p@ftn=\toks45
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2020/02/08 v1.2c extra appendix facilities
-\c@@pps=\count307
-\c@@ppsavesec=\count308
-\c@@ppsaveapp=\count309
+\c@@pps=\count319
+\c@@ppsavesec=\count320
+\c@@ppsaveapp=\count321
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
@@ -937,21 +931,21 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count310
-\Gm@cntv=\count311
-\c@Gm@tempcnt=\count312
-\Gm@bindingoffset=\dimen314
-\Gm@wd@mp=\dimen315
-\Gm@odd@mp=\dimen316
-\Gm@even@mp=\dimen317
-\Gm@layoutwidth=\dimen318
-\Gm@layoutheight=\dimen319
-\Gm@layouthoffset=\dimen320
-\Gm@layoutvoffset=\dimen321
+\Gm@cnth=\count322
+\Gm@cntv=\count323
+\c@Gm@tempcnt=\count324
+\Gm@bindingoffset=\dimen318
+\Gm@wd@mp=\dimen319
+\Gm@odd@mp=\dimen320
+\Gm@even@mp=\dimen321
+\Gm@layoutwidth=\dimen322
+\Gm@layoutheight=\dimen323
+\Gm@layouthoffset=\dimen324
+\Gm@layoutvoffset=\dimen325
 \Gm@dimlist=\toks46
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amscls/amsthm.sty
-Package: amsthm 2017/10/31 v2.20.4
+Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks47
 \thm@bodyfont=\toks48
 \thm@headfont=\toks49
@@ -962,48 +956,46 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip68
 \dth@everypar=\toks52
 )
-\c@notation=\count313
-\c@dummy=\count314
-\c@problem=\count315
-\c@exampleT=\count316
-\c@vocabulary=\count317
-\c@definitionT=\count318
+\c@notation=\count325
+\c@dummy=\count326
+\c@problem=\count327
+\c@exampleT=\count328
+\c@vocabulary=\count329
+\c@definitionT=\count330
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/mdframed/mdframed.sty
 Package: mdframed 2013/07/01 1.9b: mdframed
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2020-03-06 L3 programming layer (loader) 
+Package: expl3 2021-02-18 L3 programming layer (loader) 
 
-(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
-File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count319
-\l__pdf_internal_box=\box89
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count331
+\l__pdf_internal_box=\box91
 ))
-Package: xparse 2020-03-06 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count320
-\g__xparse_grabber_int=\count321
-\l__xparse_m_args_int=\count322
-\l__xparse_v_nesting_int=\count323
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count324
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-
+01.sty
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex))) (/usr/local/texlive/2020/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count332
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/zref/zref-abspage.sty
-Package: zref-abspage 2020-03-03 v2.29 Module abspage for zref (HO)
+Package: zref-abspage 2020-07-03 v2.32 Module abspage for zref (HO)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/zref/zref-base.sty
-Package: zref-base 2020-03-03 v2.29 Module base for zref (HO)
+Package: zref-base 2020-07-03 v2.32 Module base for zref (HO)
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
@@ -1011,8 +1003,8 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
@@ -1024,21 +1016,23 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-Package zref Info: New property list: main on input line 763.
-Package zref Info: New property: default on input line 764.
-Package zref Info: New property: page on input line 765.
+Package zref Info: New property list: main on input line 764.
+Package zref Info: New property: default on input line 765.
+Package zref Info: New property: page on input line 766.
 )
-(/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty
-Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
+ge
+with kernel methods
 )
-\c@abspage=\count325
+\c@abspage=\count333
 Package zref Info: New property: abspage on input line 66.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/needspace/needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
 \mdf@templength=\skip69
-\c@mdf@globalstyle@cnt=\count326
+\c@mdf@globalstyle@cnt=\count334
 \mdf@skipabove@length=\skip70
 \mdf@skipbelow@length=\skip71
 \mdf@leftmargin@length=\skip72
@@ -1082,11 +1076,11 @@ Package: needspace 2010/09/12 v1.3d reserve vertical space
 (/usr/local/texlive/2020/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
 File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 )
-\mdf@frametitlebox=\box90
-\mdf@footnotebox=\box91
-\mdf@splitbox@one=\box92
-\mdf@splitbox@two=\box93
-\mdf@splitbox@save=\box94
+\mdf@frametitlebox=\box92
+\mdf@footnotebox=\box93
+\mdf@splitbox@one=\box94
+\mdf@splitbox@two=\box95
+\mdf@splitbox@save=\box96
 \mdfsplitboxwidth=\skip109
 \mdfsplitboxtotalwidth=\skip110
 \mdfsplitboxheight=\skip111
@@ -1114,20 +1108,20 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \mdf@horizontalspaceofbox=\skip133
 \mdfsubtitleheight=\skip134
 \mdfsubsubtitleheight=\skip135
-\c@mdfcountframes=\count327
+\c@mdfcountframes=\count335
 
 ****** mdframed patching \endmdf@trivlist
 
 ****** -- success******
 
-\mdf@envdepth=\count328
-\c@mdf@env@i=\count329
-\c@mdf@env@ii=\count330
-\c@mdf@zref@counter=\count331
+\mdf@envdepth=\count336
+\c@mdf@env@i=\count337
+\c@mdf@env@ii=\count338
+\c@mdf@zref@counter=\count339
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
@@ -1138,34 +1132,43 @@ Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 )
-\@linkdim=\dimen322
-\Hy@linkcounter=\count332
-\Hy@pagecounter=\count333
+\@linkdim=\dimen326
+\Hy@linkcounter=\count340
+\Hy@pagecounter=\count341
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-(/usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel la
+nguages
+) (/usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count334
-Package hyperref Info: Hyper figures OFF on input line 4547.
-Package hyperref Info: Link nesting OFF on input line 4552.
-Package hyperref Info: Hyper index ON on input line 4555.
-Package hyperref Info: Plain pages OFF on input line 4562.
-Package hyperref Info: Backreferencing OFF on input line 4567.
+\Hy@SavedSpaceFactor=\count342
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4192.
+Package hyperref Info: Link nesting OFF on input line 4197.
+Package hyperref Info: Hyper index ON on input line 4200.
+Package hyperref Info: Plain pages OFF on input line 4207.
+Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4800.
-\c@Hy@tempcnt=\count335
+Package hyperref Info: Bookmarks ON on input line 4445.
+\c@Hy@tempcnt=\count343
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5159.
-\XeTeXLinkMargin=\dimen323
+LaTeX Info: Redefining \url on input line 4804.
+\XeTeXLinkMargin=\dimen327
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -1174,33 +1177,35 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count336
-\Field@Width=\dimen324
-\Fld@charsize=\dimen325
-Package hyperref Info: Hyper figures OFF on input line 6430.
-Package hyperref Info: Link nesting OFF on input line 6435.
-Package hyperref Info: Hyper index ON on input line 6438.
-Package hyperref Info: backreferencing OFF on input line 6445.
-Package hyperref Info: Link coloring OFF on input line 6450.
-Package hyperref Info: Link coloring with OCG OFF on input line 6455.
-Package hyperref Info: PDF/A mode OFF on input line 6460.
-LaTeX Info: Redefining \ref on input line 6500.
-LaTeX Info: Redefining \pageref on input line 6504.
-\Hy@abspage=\count337
-\c@Item=\count338
-\c@Hfootnote=\count339
+\Fld@menulength=\count344
+\Field@Width=\dimen328
+\Fld@charsize=\dimen329
+Package hyperref Info: Hyper figures OFF on input line 6075.
+Package hyperref Info: Link nesting OFF on input line 6080.
+Package hyperref Info: Hyper index ON on input line 6083.
+Package hyperref Info: backreferencing OFF on input line 6090.
+Package hyperref Info: Link coloring OFF on input line 6095.
+Package hyperref Info: Link coloring with OCG OFF on input line 6100.
+Package hyperref Info: PDF/A mode OFF on input line 6105.
+LaTeX Info: Redefining \ref on input line 6145.
+LaTeX Info: Redefining \pageref on input line 6149.
+\Hy@abspage=\count345
+\c@Item=\count346
+\c@Hfootnote=\count347
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+File: hpdftex.def 2021-02-27 v7.00k Hyperref driver for pdfTeX
 
-(/usr/local/texlive/2020/texmf-dist/tex/latex/atveryend/atveryend.sty
-Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
 )
-\HyAnn@Count=\count340
-\Fld@listcount=\count341
-\c@bookmark@seq@number=\count342
+\HyAnn@Count=\count348
+\Fld@listcount=\count349
+\c@bookmark@seq@number=\count350
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
@@ -1233,11 +1238,11 @@ Package hyperref Warning: Option `bookmarks' has already been used,
 
 Package hyperref Info: Option `bookmarksopen' set `false' on input line 289.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bookmark.sty
-Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
+Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
-File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
-\BKM@id=\count343
+File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
+\BKM@id=\count351
 ))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
@@ -1258,10 +1263,10 @@ Package: fncychap 2007/07/30 v1.34 LaTeX package (Revised chapters)
 \pxx=\skip143
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
-Package: tcolorbox 2019/11/15 version 4.22 text color boxes
+Package: tcolorbox 2020/10/09 version 4.42 text color boxes
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/verbatim.sty
-Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
+Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks53
 \verbatim@line=\toks54
 \verbatim@in@stream=\read4
@@ -1272,32 +1277,32 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 (/usr/local/texlive/2020/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\tcb@titlebox=\box95
-\tcb@upperbox=\box96
-\tcb@lowerbox=\box97
-\tcb@phantombox=\box98
-\c@tcbbreakpart=\count344
-\c@tcblayer=\count345
-\tcolorbox@number=\count346
-\tcb@temp=\box99
-\tcb@temp=\box100
+\tcb@titlebox=\box97
+\tcb@upperbox=\box98
+\tcb@lowerbox=\box99
+\tcb@phantombox=\box100
+\c@tcbbreakpart=\count352
+\c@tcblayer=\count353
+\c@tcolorbox@number=\count354
 \tcb@temp=\box101
 \tcb@temp=\box102
+\tcb@temp=\box103
+\tcb@temp=\box104
 \tcb@out=\write5
 \tcb@record@out=\write6
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip144
-\enit@outerparindent=\dimen326
+\enit@outerparindent=\dimen330
 \enit@toks=\toks55
-\enit@inbox=\box103
-\enit@count@id=\count347
-\enitdp@description=\count348
+\enit@inbox=\box105
+\enit@count@id=\count355
+\enitdp@description=\count356
 )
-\c@exercisesi=\count349
-\c@exercisesii=\count350
-\enitdp@exercises=\count351
+\c@exercisesi=\count357
+\c@exercisesii=\count358
+\enitdp@exercises=\count359
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
@@ -1306,6 +1311,12 @@ tim
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 ))
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 61
+.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 (./SpatialEconometrics.aux
 
 LaTeX Warning: Label `definition:chebyshev_ineq' multiply defined.
@@ -1329,23 +1340,20 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
 LaTeX Font Info:    ... okay on input line 61.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 61.
 LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 61
-.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-(/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+ (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count352
-\scratchdimen=\dimen327
-\scratchbox=\box104
-\nofMPsegments=\count353
-\nofMParguments=\count354
+\scratchcounter=\count360
+\scratchdimen=\dimen331
+\scratchbox=\box106
+\nofMPsegments=\count361
+\nofMParguments=\count362
 \everyMPshowfont=\toks56
-\MPscratchCnt=\count355
-\MPscratchDim=\dimen328
-\MPnumerator=\count356
-\makeMPintoPDFobject=\count357
+\MPscratchCnt=\count363
+\MPscratchDim=\dimen332
+\MPnumerator=\count364
+\makeMPintoPDFobject=\count365
 \everyMPtoPDFconversion=\toks57
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1356,7 +1364,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-ABD: EveryShipout initializing macros
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.17} into 
@@ -1368,7 +1375,7 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty
-Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
+Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 
@@ -1406,10 +1413,9 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box105
 Package hyperref Info: Link coloring ON on input line 61.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
@@ -1418,7 +1424,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count358
+\c@section@level=\count366
 )
 LaTeX Info: Redefining \ref on input line 61.
 LaTeX Info: Redefining \pageref on input line 61.
@@ -1509,10 +1515,10 @@ Chapter 1.
 LaTeX Font Info:    Trying to load font information for OT1+pzc on input line 8
 7.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1pzc.fd
-File: ot1pzc.fd 2001/06/04 font definitions for OT1/pzc.
+File: ot1pzc.fd 2020/03/25 font definitions for OT1/pzc.
 )
 LaTeX Font Info:    Font shape `OT1/pzc/m/n' in size <76> not available
-(Font)              Font shape `OT1/pzc/mb/it' tried instead on input line 87.
+(Font)              Font shape `OT1/pzc/m/it' tried instead on input line 87.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 87--87
 [][][][][][][][][]  
@@ -1521,13 +1527,13 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 87--87
 [3
 
 ]
-<figure/MetroRegion-1.pdf, id=413, 505.89pt x 505.89pt>
+<figure/MetroRegion-1.pdf, id=431, 505.89pt x 505.89pt>
 File: figure/MetroRegion-1.pdf Graphic file (type pdf)
 <use figure/MetroRegion-1.pdf>
 Package pdftex.def Info: figure/MetroRegion-1.pdf  used on input line 164.
 (pdftex.def)             Requested size: 227.62523pt x 227.62523pt.
  [4]
-<figure/Autocorrelation-1.pdf, id=422, 505.89pt x 505.89pt>
+<figure/Autocorrelation-1.pdf, id=440, 505.89pt x 505.89pt>
 File: figure/Autocorrelation-1.pdf Graphic file (type pdf)
 <use figure/Autocorrelation-1.pdf>
 Package pdftex.def Info: figure/Autocorrelation-1.pdf  used on input line 191.
@@ -1577,7 +1583,7 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [14]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 671.
-<figure/plot_mr-1.pdf, id=555, 505.89pt x 505.89pt>
+<figure/plot_mr-1.pdf, id=573, 505.89pt x 505.89pt>
 File: figure/plot_mr-1.pdf Graphic file (type pdf)
 <use figure/plot_mr-1.pdf>
 Package pdftex.def Info: figure/plot_mr-1.pdf  used on input line 730.
@@ -1587,13 +1593,13 @@ Package pdftex.def Info: figure/plot_mr-1.pdf  used on input line 730.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [15] [16 <./figure/plot_mr-1.pdf>]
-<figure/neight-1.pdf, id=579, 505.89pt x 505.89pt>
+<figure/neight-1.pdf, id=597, 505.89pt x 505.89pt>
 File: figure/neight-1.pdf Graphic file (type pdf)
 <use figure/neight-1.pdf>
 Package pdftex.def Info: figure/neight-1.pdf  used on input line 824.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
  [17] [18 <./figure/neight-1.pdf>] [19]
-<figure/plot-queen-rookT-1.pdf, id=603, 505.89pt x 505.89pt>
+<figure/plot-queen-rookT-1.pdf, id=621, 505.89pt x 505.89pt>
 File: figure/plot-queen-rookT-1.pdf Graphic file (type pdf)
 <use figure/plot-queen-rookT-1.pdf>
 Package pdftex.def Info: figure/plot-queen-rookT-1.pdf  used on input line 981.
@@ -1625,7 +1631,7 @@ aipo with 51 links[]
  []
 
 [21]
-<figure/plot-all-wsT-1.pdf, id=620, 505.89pt x 505.89pt>
+<figure/plot-all-wsT-1.pdf, id=638, 505.89pt x 505.89pt>
 File: figure/plot-all-wsT-1.pdf Graphic file (type pdf)
 <use figure/plot-all-wsT-1.pdf>
 Package pdftex.def Info: figure/plot-all-wsT-1.pdf  used on input line 1117.
@@ -1635,7 +1641,7 @@ Package pdftex.def Info: figure/plot-all-wsT-1.pdf  used on input line 1117.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [22] [23 <./figure/plot-all-wsT-1.pdf>] [24]
-<figure/moran-1.pdf, id=648, 289.08pt x 361.35pt>
+<figure/moran-1.pdf, id=667, 289.08pt x 361.35pt>
 File: figure/moran-1.pdf Graphic file (type pdf)
 <use figure/moran-1.pdf>
 Package pdftex.def Info: figure/moran-1.pdf  used on input line 1232.
@@ -1664,7 +1670,7 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: Not enough space on this page on input line 1397.
  [28]
 Package mdframed Info: Not enough space on this page on input line 1397.
-<figure/cloro-graphs-1.pdf, id=695, 289.08pt x 216.81pt>
+<figure/cloro-graphs-1.pdf, id=713, 289.08pt x 216.81pt>
 File: figure/cloro-graphs-1.pdf Graphic file (type pdf)
 <use figure/cloro-graphs-1.pdf>
 Package pdftex.def Info: figure/cloro-graphs-1.pdf  used on input line 1449.
@@ -1676,7 +1682,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 [30 <./figure/cloro-graphs-1.pdf>] [31]
-<figure/moran-plotT-1.pdf, id=726, 289.08pt x 361.35pt>
+<figure/moran-plotT-1.pdf, id=744, 289.08pt x 361.35pt>
 File: figure/moran-plotT-1.pdf Graphic file (type pdf)
 <use figure/moran-plotT-1.pdf>
 Package pdftex.def Info: figure/moran-plotT-1.pdf  used on input line 1623.
@@ -1773,39 +1779,37 @@ L/lmm/b/it/12 A\OT1/lmr/m/n/12 (\OML/lmm/b/it/12 W\OT1/lmr/m/n/12 )[] []$
 
 [48]
 Package mdframed Info: Not enough space on this page on input line 2418.
- [49] [50] [51]
-Overfull \hbox (1.01277pt too wide) in paragraph at lines 2563--2564
+ [49] [50] [51] [52]
+Overfull \hbox (1.01277pt too wide) in paragraph at lines 2585--2586
 \T1/lmr/m/n/12 In this sec-tion we use [][]LeSage and Pace[][] ([][]2010[][])'s
  ex-am-ple as an il-lus-tra-tion of spa-tial spillovers.[][][][][]
  []
 
-[52]
-<figure/lesage.png, id=994, 471.7625pt x 241.90375pt>
+<figure/lesage.png, id=1015, 471.7625pt x 241.90375pt>
 File: figure/lesage.png Graphic file (type png)
 <use figure/lesage.png>
-Package pdftex.def Info: figure/lesage.png  used on input line 2569.
+Package pdftex.def Info: figure/lesage.png  used on input line 2591.
 (pdftex.def)             Requested size: 227.62398pt x 170.72302pt.
-<figure/lesage2.png, id=996, 866.23625pt x 287.0725pt>
+<figure/lesage2.png, id=1017, 866.23625pt x 287.0725pt>
 File: figure/lesage2.png Graphic file (type png)
 <use figure/lesage2.png>
-Package pdftex.def Info: figure/lesage2.png  used on input line 2576.
+Package pdftex.def Info: figure/lesage2.png  used on input line 2598.
 (pdftex.def)             Requested size: 227.62173pt x 170.72046pt.
- [53 <./figure/lesage.png> <./figure/lesage2.png>] [54] [55] [56] [57]
-[58]
-Overfull \hbox (3.22685pt too wide) in paragraph at lines 2900--2900
+[53 <./figure/lesage.png>] [54 <./figure/lesage2.png>] [55] [56] [57] [58]
+Overfull \hbox (3.22685pt too wide) in paragraph at lines 2922--2922
 [][]\T1/lmtt/m/n/12 out[] []<-[] []\T1/lmtt/b/n/12 matrix[][]\T1/lmtt/m/n/12 ([
 ][]NA[][],[] []nrow[] []=[] []11[][],[] []ncol[] []=[] []3[][])[]             [
 ]\T1/lmtt/m/it/12 # Matrix for the results [][] 
  []
 
 
-Overfull \hbox (21.62688pt too wide) in paragraph at lines 2905--2905
+Overfull \hbox (21.62688pt too wide) in paragraph at lines 2927--2927
 []  []\T1/lmtt/b/n/12 if[] []\T1/lmtt/m/n/12 (q[] []==[] []0[][]) {[]          
                           []\T1/lmtt/m/it/12 # If q=0, then Sr = I * beta[][] 
  []
 
 
-Overfull \hbox (21.3769pt too wide) in paragraph at lines 2910--2910
+Overfull \hbox (21.3769pt too wide) in paragraph at lines 2932--2932
 []  []\T1/lmtt/m/n/12 q[] []<-[] []q[] []+[] []1[]                             
           []\T1/lmtt/m/it/12 # the row = 0 doesn\TS1/lmtt/m/it/12 '\T1/lmtt/m/i
 t/12 t exist![][] 
@@ -1816,294 +1820,308 @@ t/12 t exist![][]
 ] [64]
 Chapter 3.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 3080--3080
+Overfull \hbox (10.0pt too wide) in paragraph at lines 3102--3102
 [][][][][][][][][]  
  []
 
-<figure/SeqConv-1.pdf, id=1091, 505.89pt x 505.89pt>
+<figure/SeqConv-1.pdf, id=1110, 505.89pt x 505.89pt>
 File: figure/SeqConv-1.pdf Graphic file (type pdf)
 <use figure/SeqConv-1.pdf>
-Package pdftex.def Info: figure/SeqConv-1.pdf  used on input line 3105.
+Package pdftex.def Info: figure/SeqConv-1.pdf  used on input line 3127.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
-Package mdframed Info: mdframed works in twoside mode on input line 3119.
+Package mdframed Info: mdframed works in twoside mode on input line 3141.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3119.
+(mdframed)              on input line 3141.
 [65
 
 ]
-Package mdframed Info: mdframed works in twoside mode on input line 3178.
+Package mdframed Info: mdframed works in twoside mode on input line 3200.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3178.
+(mdframed)              on input line 3200.
  [66 <./figure/SeqConv-1.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 3186.
+Package mdframed Info: mdframed works in twoside mode on input line 3208.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3186.
-Package mdframed Info: mdframed works in twoside mode on input line 3206.
+(mdframed)              on input line 3208.
+Package mdframed Info: mdframed works in twoside mode on input line 3228.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3206.
+(mdframed)              on input line 3228.
  [67]
-Package mdframed Info: mdframed works in twoside mode on input line 3243.
+Package mdframed Info: mdframed works in twoside mode on input line 3265.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3243.
-<figure/SeqConvBoun-1.pdf, id=1129, 505.89pt x 505.89pt>
+(mdframed)              on input line 3265.
+<figure/SeqConvBoun-1.pdf, id=1148, 505.89pt x 505.89pt>
 File: figure/SeqConvBoun-1.pdf Graphic file (type pdf)
 <use figure/SeqConvBoun-1.pdf>
-Package pdftex.def Info: figure/SeqConvBoun-1.pdf  used on input line 3292.
+Package pdftex.def Info: figure/SeqConvBoun-1.pdf  used on input line 3314.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
  [68]
-Package mdframed Info: mdframed works in twoside mode on input line 3319.
+Package mdframed Info: mdframed works in twoside mode on input line 3341.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3319.
+(mdframed)              on input line 3341.
  [69 <./figure/SeqConvBoun-1.pdf>]
-<figure/convinprob-1.pdf, id=1161, 505.89pt x 505.89pt>
+<figure/convinprob-1.pdf, id=1180, 505.89pt x 505.89pt>
 File: figure/convinprob-1.pdf Graphic file (type pdf)
 <use figure/convinprob-1.pdf>
-Package pdftex.def Info: figure/convinprob-1.pdf  used on input line 3349.
+Package pdftex.def Info: figure/convinprob-1.pdf  used on input line 3371.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
 
 [70 <./figure/convinprob-1.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 3400.
+Package mdframed Info: mdframed works in twoside mode on input line 3422.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3400.
-Package mdframed Info: mdframed works in twoside mode on input line 3418.
+(mdframed)              on input line 3422.
+Package mdframed Info: mdframed works in twoside mode on input line 3440.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3418.
+(mdframed)              on input line 3440.
 
-Overfull \hbox (1.32266pt too wide) in paragraph at lines 3419--3420
+Overfull \hbox (1.32266pt too wide) in paragraph at lines 3441--3442
 [][][][]\T1/lmss/bx/n/10.95 Theorem 3.2 []--- Con-tin-u-ous Map-ping The-o-rem.
  [][][][]\T1/lmr/m/n/12 Given a con-tin-u-ous func-tion $\OML/lmm/m/it/12 g\OT1
 /lmr/m/n/12 (\OML/lmm/m/it/12 X\OT1/lmr/m/n/12 )$\T1/lmr/m/n/12 , if $\OML/lmm/
 m/it/12 X[] []
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 3436.
+Package mdframed Info: mdframed works in twoside mode on input line 3458.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3436.
+(mdframed)              on input line 3458.
 [71]
-Package mdframed Info: Not enough space on this page on input line 3449.
-Package mdframed Info: mdframed works in twoside mode on input line 3484.
+Package mdframed Info: Not enough space on this page on input line 3471.
+Package mdframed Info: mdframed works in twoside mode on input line 3506.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3484.
+(mdframed)              on input line 3506.
  [72]
-Package mdframed Info: mdframed works in twoside mode on input line 3511.
+Package mdframed Info: mdframed works in twoside mode on input line 3533.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3511.
+(mdframed)              on input line 3533.
  [73]
-Package mdframed Info: mdframed works in twoside mode on input line 3547.
+Package mdframed Info: mdframed works in twoside mode on input line 3569.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3547.
-Package mdframed Info: mdframed works in twoside mode on input line 3559.
+(mdframed)              on input line 3569.
+Package mdframed Info: mdframed works in twoside mode on input line 3581.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3559.
-Package mdframed Info: mdframed works in twoside mode on input line 3603.
+(mdframed)              on input line 3581.
+Package mdframed Info: mdframed works in twoside mode on input line 3625.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3603.
+(mdframed)              on input line 3625.
  [74] [75]
-Package mdframed Info: mdframed works in twoside mode on input line 3683.
+Package mdframed Info: mdframed works in twoside mode on input line 3705.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3683.
+(mdframed)              on input line 3705.
  [76]
-<figure/CLT-normalplot-1.pdf, id=1247, 505.89pt x 505.89pt>
+<figure/CLT-normalplot-1.pdf, id=1266, 505.89pt x 505.89pt>
 File: figure/CLT-normalplot-1.pdf Graphic file (type pdf)
 <use figure/CLT-normalplot-1.pdf>
-Package pdftex.def Info: figure/CLT-normalplot-1.pdf  used on input line 3775.
+Package pdftex.def Info: figure/CLT-normalplot-1.pdf  used on input line 3797.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
  [77]
-Overfull \hbox (35.22673pt too wide) in paragraph at lines 3800--3800
+Overfull \hbox (35.22673pt too wide) in paragraph at lines 3822--3822
 [][]\T1/lmtt/m/n/12 n[] []<-[] []1[][]:[][]N[]                                 
 []\T1/lmtt/m/it/12 # vector: n = 1, 2, ...., N; Toss number[][] 
  []
 
 
-Overfull \hbox (29.07666pt too wide) in paragraph at lines 3803--3803
+Overfull \hbox (29.07666pt too wide) in paragraph at lines 3825--3825
 [][]\T1/lmtt/m/n/12 h[] []<-[] []\T1/lmtt/b/n/12 rbinom[][]\T1/lmtt/m/n/12 ([][
 ]n[] []= n,[] []size[] []=[] []1[][],[] []prob[] []=[] []1[][]/[][]2[][])[] []\
 T1/lmtt/m/it/12 # vector: H = 0 or 1 each with p = 1./2[][] 
  []
 
-<figure/CLT-binomialPlot-1.pdf, id=1253, 505.89pt x 505.89pt>
+<figure/CLT-binomialPlot-1.pdf, id=1272, 505.89pt x 505.89pt>
 File: figure/CLT-binomialPlot-1.pdf Graphic file (type pdf)
 <use figure/CLT-binomialPlot-1.pdf>
-Package pdftex.def Info: figure/CLT-binomialPlot-1.pdf  used on input line 3820
+Package pdftex.def Info: figure/CLT-binomialPlot-1.pdf  used on input line 3842
 .
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
 [78 <./figure/CLT-normalplot-1.pdf>]
-Overfull \hbox (4.61911pt too wide) in paragraph at lines 3843--3844
+Overfull \hbox (4.61911pt too wide) in paragraph at lines 3865--3866
 [][][][]\T1/lmss/bx/n/10.95 Proposition 3.9 [][][]\T1/lmr/m/n/12 If $[]$ is an 
 i.i.d ran-dom se-quence, then $[]$, $[]$, $[]$,
  []
 
 [79 <./figure/CLT-binomialPlot-1.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 3901.
+Package mdframed Info: mdframed works in twoside mode on input line 3923.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 3901.
+(mdframed)              on input line 3923.
  [80]
-<figure/cheby-convergence-1.pdf, id=1298, 505.89pt x 505.89pt>
+<figure/cheby-convergence-1.pdf, id=1317, 505.89pt x 505.89pt>
 File: figure/cheby-convergence-1.pdf Graphic file (type pdf)
 <use figure/cheby-convergence-1.pdf>
-Package pdftex.def Info: figure/cheby-convergence-1.pdf  used on input line 393
-4.
+Package pdftex.def Info: figure/cheby-convergence-1.pdf  used on input line 395
+6.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
  [81]
-Package mdframed Info: mdframed works in twoside mode on input line 4006.
+Package mdframed Info: mdframed works in twoside mode on input line 4028.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4006.
+(mdframed)              on input line 4028.
  [82 <./figure/cheby-convergence-1.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 4043.
+Package mdframed Info: mdframed works in twoside mode on input line 4065.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4043.
+(mdframed)              on input line 4065.
  [83]
-Package mdframed Info: mdframed works in twoside mode on input line 4090.
+Package mdframed Info: mdframed works in twoside mode on input line 4112.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4090.
+(mdframed)              on input line 4112.
  [84]
-Package mdframed Info: mdframed works in twoside mode on input line 4140.
+Package mdframed Info: mdframed works in twoside mode on input line 4162.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4140.
-Package mdframed Info: mdframed works in twoside mode on input line 4146.
+(mdframed)              on input line 4162.
+Package mdframed Info: mdframed works in twoside mode on input line 4168.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4146.
+(mdframed)              on input line 4168.
  [85]
-Package mdframed Info: mdframed works in twoside mode on input line 4185.
+Package mdframed Info: mdframed works in twoside mode on input line 4207.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4185.
+(mdframed)              on input line 4207.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4208--4211
+Underfull \hbox (badness 10000) in paragraph at lines 4230--4233
 
  []
 
 [86]
-Package mdframed Info: mdframed works in twoside mode on input line 4275.
+Package mdframed Info: mdframed works in twoside mode on input line 4297.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4275.
-Package mdframed Info: mdframed works in twoside mode on input line 4289.
+(mdframed)              on input line 4297.
+Package mdframed Info: mdframed works in twoside mode on input line 4311.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4289.
+(mdframed)              on input line 4311.
 Package mdframed Info: Box was splittet wrong
  starting loop to iterate the splitting point
-(mdframed)              on input line 4317.
+(mdframed)              on input line 4339.
  [87]
-Package mdframed Info: mdframed works in twoside mode on input line 4322.
+Package mdframed Info: mdframed works in twoside mode on input line 4344.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4322.
-Package mdframed Info: mdframed works in twoside mode on input line 4352.
+(mdframed)              on input line 4344.
+Package mdframed Info: mdframed works in twoside mode on input line 4374.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4352.
+(mdframed)              on input line 4374.
  [88]
-Package mdframed Info: mdframed works in twoside mode on input line 4365.
+Package mdframed Info: mdframed works in twoside mode on input line 4387.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4365.
-Package mdframed Info: mdframed works in twoside mode on input line 4376.
+(mdframed)              on input line 4387.
+Package mdframed Info: mdframed works in twoside mode on input line 4398.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4376.
-Package mdframed Info: mdframed works in twoside mode on input line 4413.
+(mdframed)              on input line 4398.
+Package mdframed Info: mdframed works in twoside mode on input line 4435.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4413.
+(mdframed)              on input line 4435.
  [89]
-Package mdframed Info: mdframed works in twoside mode on input line 4446.
+Package mdframed Info: mdframed works in twoside mode on input line 4468.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4446.
+(mdframed)              on input line 4468.
  [90]
-Package mdframed Info: mdframed works in twoside mode on input line 4480.
+Package mdframed Info: mdframed works in twoside mode on input line 4502.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4480.
+(mdframed)              on input line 4502.
  [91]
-<figure/CLT-normalplot-bigO-1.pdf, id=1403, 505.89pt x 505.89pt>
+<figure/CLT-normalplot-bigO-1.pdf, id=1422, 505.89pt x 505.89pt>
 File: figure/CLT-normalplot-bigO-1.pdf Graphic file (type pdf)
 <use figure/CLT-normalplot-bigO-1.pdf>
 Package pdftex.def Info: figure/CLT-normalplot-bigO-1.pdf  used on input line 4
-559.
+581.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
  [92 <./figure/CLT-normalplot-bigO-1.pdf>]
-Package mdframed Info: mdframed works in twoside mode on input line 4580.
+Package mdframed Info: mdframed works in twoside mode on input line 4602.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4580.
+(mdframed)              on input line 4602.
 
-[93]
-Package mdframed Info: mdframed works in twoside mode on input line 4651.
+[93] [94]
+Package mdframed Info: mdframed works in twoside mode on input line 4685.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4651.
- [94]
-Package mdframed Info: Not enough space on this page on input line 4665.
-Package mdframed Info: mdframed works in twoside mode on input line 4673.
+(mdframed)              on input line 4685.
+Package mdframed Info: mdframed works in twoside mode on input line 4721.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4673.
+(mdframed)              on input line 4721.
+ [95]
+Package mdframed Info: mdframed works in twoside mode on input line 4743.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4743.
+Package mdframed Info: mdframed works in twoside mode on input line 4773.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4773.
+ [96]
+Package mdframed Info: mdframed works in twoside mode on input line 4794.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4794.
+Package mdframed Info: mdframed works in twoside mode on input line 4829.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 4829.
 
-Overfull \hbox (9.24089pt too wide) detected at line 4694
-[][][]
+Overfull \hbox (5.07909pt too wide) has occurred while \output is active
+\T1/lmr/m/sl/12 3.10.  BOUNDED MATRICES AND USEFUL LEMMAS FOR SPATIAL EONOMETRI
+CS \T1/lmr/m/n/12 97
  []
 
-[95]
-Package mdframed Info: mdframed works in twoside mode on input line 4703.
+[97]
+Package mdframed Info: mdframed works in twoside mode on input line 4840.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4703.
-Package mdframed Info: mdframed works in twoside mode on input line 4728.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 4728.
-Package mdframed Info: mdframed works in twoside mode on input line 4739.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 4739.
+(mdframed)              on input line 4840.
 
-Overfull \hbox (57.48444pt too wide) detected at line 4772
+Overfull \hbox (57.48444pt too wide) detected at line 4873
 [] [] [] \OT1/lmr/m/n/12 = 2 [] [] + 4\OML/lmm/b/it/12 ^^V[][] [] ^^F[] [] ^^V
  []
 
-[96] [97]
-Package mdframed Info: mdframed works in twoside mode on input line 4815.
+Package mdframed Info: mdframed works in twoside mode on input line 4918.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4815.
-Package mdframed Info: mdframed works in twoside mode on input line 4833.
+(mdframed)              on input line 4918.
+[98]
+Package mdframed Info: mdframed works in twoside mode on input line 4975.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4833.
-Package mdframed Info: Box was splittet wrong
- starting loop to iterate the splitting point
-(mdframed)              on input line 4851.
- [98]
-Package mdframed Info: mdframed works in twoside mode on input line 4863.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 4863.
+(mdframed)              on input line 4975.
+ [99]
+Overfull \hbox (3.12263pt too wide) in paragraph at lines 5008--5009
+\OML/lmm/m/it/12 O\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 n[]\OT1/lmr/m/n/12 ) = \OML
+/lmm/m/it/12 o\OT1/lmr/m/n/12 (1)$\T1/lmr/m/n/12 . Thus $\U/msb/m/n/12 V\OT1/lm
+r/m/n/12 (\OML/lmm/m/it/12 n[]\OML/lmm/b/it/12 "[]A[]"[]\OT1/lmr/m/n/12 ) \OMS/
+lmsy/m/n/12 ! \OT1/lmr/m/n/12 0$ \T1/lmr/m/n/12 as $\OML/lmm/m/it/12 n \OMS/lms
+y/m/n/12 ! 1$ \T1/lmr/m/n/12 and $[] [] \OMS/lmsy/m/n/12 !
+ []
 
-Overfull \hbox (2.67276pt too wide) in paragraph at lines 4864--4865
+Package mdframed Info: mdframed works in twoside mode on input line 5028.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 5028.
+
+Overfull \hbox (2.67276pt too wide) in paragraph at lines 5029--5030
 \T1/lmr/m/n/12 tributed for each $\OML/lmm/m/it/12 n$ \T1/lmr/m/n/12 with $\U/m
 sb/m/n/12 E\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 v[]\OT1/lmr/m/n/12 ) = 0$ \T1/lmr/
 m/n/12 and $\U/msb/m/n/12 E\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 v[]\OT1/lmr/m/n/12
@@ -2111,54 +2129,54 @@ m/n/12 and $\U/msb/m/n/12 E\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 v[]\OT1/lmr/m/n/12
 lmm/m/it/12 ; j \OT1/lmr/m/n/12 =
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 4893.
+Package mdframed Info: mdframed works in twoside mode on input line 5058.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4893.
-Package mdframed Info: Box was splittet wrong
- starting loop to iterate the splitting point
-(mdframed)              on input line 4927.
-[99]
-Package mdframed Info: mdframed works in twoside mode on input line 4954.
+(mdframed)              on input line 5058.
+Package mdframed Info: Not enough space on this page on input line 5092.
+[100]
+Package mdframed Info: Not enough space on this page on input line 5092.
+ [101]
+Package mdframed Info: mdframed works in twoside mode on input line 5116.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4954.
-Package mdframed Info: You first box width is to small
- mdframed fixed it
-(mdframed)              on input line 4959.
- [100]
-Package mdframed Info: mdframed works in twoside mode on input line 4961.
+(mdframed)              on input line 5116.
+Package mdframed Info: mdframed works in twoside mode on input line 5123.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4961.
-Package mdframed Info: mdframed works in twoside mode on input line 4971.
+(mdframed)              on input line 5123.
+Package mdframed Info: mdframed works in twoside mode on input line 5130.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4971.
-Package mdframed Info: mdframed works in twoside mode on input line 4979.
+(mdframed)              on input line 5130.
+Package mdframed Info: mdframed works in twoside mode on input line 5140.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4979.
-Package mdframed Info: mdframed works in twoside mode on input line 4987.
+(mdframed)              on input line 5140.
+Package mdframed Info: mdframed works in twoside mode on input line 5148.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 4987.
- [101] [102
-
-]
+(mdframed)              on input line 5148.
+Package mdframed Info: mdframed works in twoside mode on input line 5156.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 5156.
+ [102]
 Chapter 4.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 4998--4998
+Overfull \hbox (10.0pt too wide) in paragraph at lines 5167--5167
 [][][][][][][][][]  
  []
 
-[103] [104]
-Package mdframed Info: mdframed works in twoside mode on input line 5117.
+[103
+
+] [104]
+Package mdframed Info: mdframed works in twoside mode on input line 5286.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5117.
+(mdframed)              on input line 5286.
  [105]
-Overfull \hbox (4.72667pt too wide) in paragraph at lines 5193--5193
+Overfull \hbox (4.72667pt too wide) in paragraph at lines 5362--5362
 [][]\T1/lmtt/m/n/12 w[]       []<-[] []\T1/lmtt/b/n/12 cell2nb[][]\T1/lmtt/m/n/
 12 ([][]\T1/lmtt/b/n/12 sqrt[][]\T1/lmtt/m/n/12 (n),[] []\T1/lmtt/b/n/12 sqrt[]
 []\T1/lmtt/m/n/12 (n))[]            []\T1/lmtt/m/it/12 # Create artificial W ma
@@ -2166,421 +2184,414 @@ trix[][]
  []
 
 
-Overfull \hbox (28.80176pt too wide) in paragraph at lines 5194--5194
+Overfull \hbox (28.80176pt too wide) in paragraph at lines 5363--5363
 [][]\T1/lmtt/m/n/12 iw[]      []<-[] []\T1/lmtt/b/n/12 invIrM[][]\T1/lmtt/m/n/1
 2 (w, rho)[]                       []\T1/lmtt/m/it/12 # Compute inverse of (I -
  rho*W)[][] 
  []
 
 [106]
-<figure/ols-rho-sim-1.pdf, id=1571, 505.89pt x 505.89pt>
+<figure/ols-rho-sim-1.pdf, id=1624, 505.89pt x 505.89pt>
 File: figure/ols-rho-sim-1.pdf Graphic file (type pdf)
 <use figure/ols-rho-sim-1.pdf>
-Package pdftex.def Info: figure/ols-rho-sim-1.pdf  used on input line 5260.
+Package pdftex.def Info: figure/ols-rho-sim-1.pdf  used on input line 5429.
 (pdftex.def)             Requested size: 227.62523pt x 227.62523pt.
  [107 <./figure/ols-rho-sim-1.pdf>] [108] [109]
-Package mdframed Info: mdframed works in twoside mode on input line 5363.
+Package mdframed Info: mdframed works in twoside mode on input line 5528.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5363.
+(mdframed)              on input line 5528.
+Package mdframed Info: Box was splittet wrong
+ starting loop to iterate the splitting point
+(mdframed)              on input line 5562.
  [110]
-Package mdframed Info: mdframed works in twoside mode on input line 5447.
+Package mdframed Info: mdframed works in twoside mode on input line 5605.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5447.
- [111] [112] [113]
+(mdframed)              on input line 5605.
+Package mdframed Info: Not enough space on this page on input line 5613.
+ [111]
+Package mdframed Info: Not enough space on this page on input line 5613.
+ [112] [113]
 [114] [115] [116]
-Package mdframed Info: mdframed works in twoside mode on input line 5748.
+Package mdframed Info: mdframed works in twoside mode on input line 5880.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5748.
+(mdframed)              on input line 5880.
  [117]
-Package mdframed Info: mdframed works in twoside mode on input line 5790.
+Package mdframed Info: mdframed works in twoside mode on input line 5927.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5790.
-Package mdframed Info: mdframed works in twoside mode on input line 5804.
+(mdframed)              on input line 5927.
+Package mdframed Info: mdframed works in twoside mode on input line 5938.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5804.
-Package mdframed Info: mdframed works in twoside mode on input line 5817.
+(mdframed)              on input line 5938.
+Package mdframed Info: mdframed works in twoside mode on input line 5951.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5817.
+(mdframed)              on input line 5951.
  [118]
-Package mdframed Info: mdframed works in twoside mode on input line 5836.
+Package mdframed Info: mdframed works in twoside mode on input line 5963.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5836.
+(mdframed)              on input line 5963.
  [119]
-Package mdframed Info: mdframed works in twoside mode on input line 5899.
+Package mdframed Info: mdframed works in twoside mode on input line 6023.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5899.
+(mdframed)              on input line 6023.
  [120]
-Package mdframed Info: Not enough space on this page on input line 5901.
-Package mdframed Info: mdframed works in twoside mode on input line 5911.
+Package mdframed Info: Not enough space on this page on input line 6025.
+Package mdframed Info: mdframed works in twoside mode on input line 6053.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 5911.
-Package mdframed Info: mdframed works in twoside mode on input line 5926.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5926.
-Package mdframed Info: mdframed works in twoside mode on input line 5941.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5941.
- [121]
-Package mdframed Info: mdframed works in twoside mode on input line 5953.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5953.
-Package mdframed Info: mdframed works in twoside mode on input line 5978.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5978.
-Package mdframed Info: mdframed works in twoside mode on input line 5989.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5989.
- [122]
+(mdframed)              on input line 6053.
 Package mdframed Info: mdframed works in twoside mode on input line 6061.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 6061.
- [123]
-Package mdframed Info: Not enough space on this page on input line 6078.
 
 
-LaTeX Warning: Reference `lemma:limiting-distr-lee' on page 124 undefined on in
-put line 6118.
+Package mdframed Warning: You got a bad break
+(mdframed)                because the last box will be empty
+(mdframed)                you have to change it manually
+(mdframed)                by changing the text, the space
+(mdframed)                or something else on input line 6073.
 
-[124]
-Overfull \hbox (88.70212pt too wide) detected at line 6171
-[][]
- []
-
-[125]
-Overfull \hbox (69.80276pt too wide) detected at line 6194
-[][]
- []
-
-
-Overfull \hbox (41.24588pt too wide) detected at line 6210
-[][]
- []
-
-[126]
-Overfull \hbox (23.7767pt too wide) detected at line 6220
-[][]
- []
-
-
-Overfull \hbox (18.63986pt too wide) detected at line 6233
-[][]
- []
-
-[127] [128]
-Package mdframed Info: mdframed works in twoside mode on input line 6337.
+Package mdframed Info: Box was splittet wrong
+ starting loop to iterate the splitting point
+(mdframed)              on input line 6073.
+[121]
+Package mdframed Info: mdframed works in twoside mode on input line 6075.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 6337.
- [129]
-Overfull \hbox (10.74387pt too wide) in paragraph at lines 6402--6402
+(mdframed)              on input line 6075.
+Package mdframed Info: mdframed works in twoside mode on input line 6086.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 6086.
+Package mdframed Info: mdframed works in twoside mode on input line 6094.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 6094.
+Package mdframed Info: mdframed works in twoside mode on input line 6105.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 6105.
+ [122]
+Overfull \hbox (13.16656pt too wide) detected at line 6150
+[] \OMS/lmsy/m/n/12 ^^@ \U/msb/m/n/12 E [] \OT1/lmr/m/n/12 = []
+ []
+
+Package mdframed Info: mdframed works in twoside mode on input line 6158.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 6158.
+Package mdframed Info: Not enough space on this page on input line 6174.
+[123]
+Package mdframed Info: Not enough space on this page on input line 6174.
+Package mdframed Info: mdframed works in twoside mode on input line 6208.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 6208.
+ [124]
+Package mdframed Info: Not enough space on this page on input line 6217.
+ [125]
+Overfull \hbox (10.74387pt too wide) in paragraph at lines 6273--6273
 []       []\T1/lmtt/m/n/12 at[] []=[] []\T1/lmtt/b/n/12 quantile[][]\T1/lmtt/m/
 n/12 (columbus[][]$[][]CRIME,[] []p[] []=[] []\T1/lmtt/b/n/12 c[][]\T1/lmtt/m/n
 /12 ([][]0[][],[] [].25[][],[] [].5[][],[] [].75[][],[] []1[][]),[] []na.rm[] [
 ]=[] []TRUE[][]),[][] 
  []
 
-<figure/spatial-crime-1.pdf, id=1947, 505.89pt x 505.89pt>
+<figure/spatial-crime-1.pdf, id=1972, 505.89pt x 505.89pt>
 File: figure/spatial-crime-1.pdf Graphic file (type pdf)
 <use figure/spatial-crime-1.pdf>
-Package pdftex.def Info: figure/spatial-crime-1.pdf  used on input line 6419.
+Package pdftex.def Info: figure/spatial-crime-1.pdf  used on input line 6290.
 (pdftex.def)             Requested size: 256.07838pt x 256.07838pt.
-[130] [131 <./figure/spatial-crime-1.pdf>] [132] [133]
-Overfull \hbox (13.25018pt too wide) detected at line 6543
+[126 <./figure/spatial-crime-1.pdf>] [127] [128]
+Overfull \hbox (13.25018pt too wide) detected at line 6414
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 619[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6543
+Overfull \hbox (13.25018pt too wide) detected at line 6414
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 029[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6543
+Overfull \hbox (13.25018pt too wide) detected at line 6414
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 851[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6543
+Overfull \hbox (13.25018pt too wide) detected at line 6414
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 593[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6543
+Overfull \hbox (13.25018pt too wide) detected at line 6414
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 054[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6544
+Overfull \hbox (13.25018pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 051[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6544
+Overfull \hbox (4.56934pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 735)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6544
+Overfull \hbox (4.56934pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 722)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6544
+Overfull \hbox (4.56934pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 315)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6544
+Overfull \hbox (4.56934pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 129)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6544
+Overfull \hbox (4.56934pt too wide) detected at line 6415
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 315)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6545
+Overfull \hbox (4.56934pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 055)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6545
+Overfull \hbox (13.25018pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 597[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6545
+Overfull \hbox (9.00012pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 108[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6545
+Overfull \hbox (13.25018pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 074[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6545
+Overfull \hbox (9.00012pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 939[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6545
+Overfull \hbox (9.00012pt too wide) detected at line 6416
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 995[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6546
+Overfull \hbox (9.00012pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 069[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6546
+Overfull \hbox (4.56934pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 334)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6546
+Overfull \hbox (4.56934pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 375)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6546
+Overfull \hbox (4.56934pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 311)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6546
+Overfull \hbox (4.56934pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 338)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6546
+Overfull \hbox (4.56934pt too wide) detected at line 6417
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 337)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6547
+Overfull \hbox (4.56934pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 333)$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 6547
+Overfull \hbox (4.75006pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 274[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6547
+Overfull \hbox (9.00012pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 295[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6547
+Overfull \hbox (9.00012pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 270[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6547
+Overfull \hbox (13.25018pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 300[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6547
+Overfull \hbox (13.25018pt too wide) detected at line 6418
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 308[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6548
+Overfull \hbox (9.00012pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 283[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6548
+Overfull \hbox (4.56934pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 103)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6548
+Overfull \hbox (4.56934pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 101)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6548
+Overfull \hbox (4.56934pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 090)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6548
+Overfull \hbox (4.56934pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 091)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6548
+Overfull \hbox (4.56934pt too wide) detected at line 6419
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 093)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6549
+Overfull \hbox (4.56934pt too wide) detected at line 6420
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 092)$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 6549
+Overfull \hbox (4.75006pt too wide) detected at line 6420
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 383[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6550
+Overfull \hbox (4.56934pt too wide) detected at line 6421
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 559)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6550
+Overfull \hbox (4.56934pt too wide) detected at line 6421
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 577)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6552
+Overfull \hbox (4.56934pt too wide) detected at line 6423
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 203)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6552
+Overfull \hbox (4.56934pt too wide) detected at line 6423
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 184)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6553
+Overfull \hbox (13.25018pt too wide) detected at line 6424
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 404[]$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 6553
+Overfull \hbox (4.75006pt too wide) detected at line 6424
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 383[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6554
+Overfull \hbox (4.56934pt too wide) detected at line 6425
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 121)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6554
+Overfull \hbox (4.56934pt too wide) detected at line 6425
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 162)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6555
+Overfull \hbox (4.56934pt too wide) detected at line 6426
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 197)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6555
+Overfull \hbox (13.25018pt too wide) detected at line 6426
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 521[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6556
+Overfull \hbox (4.56934pt too wide) detected at line 6427
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 141)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 6557
+Overfull \hbox (4.56934pt too wide) detected at line 6428
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 299)$ 
  []
 
-
-Overfull \hbox (40.15189pt too wide) in paragraph at lines 6587--6587
+[129]
+Overfull \hbox (40.15189pt too wide) in paragraph at lines 6458--6458
 [][]\T1/lmtt/m/n/12 rho[]       []<-[] []slm[][]$[][]rho[]                     
            []\T1/lmtt/m/it/12 # Estimated rho from SLM model[][] 
  []
 
 
-Overfull \hbox (40.77681pt too wide) in paragraph at lines 6590--6590
+Overfull \hbox (40.77681pt too wide) in paragraph at lines 6461--6461
 [][]\T1/lmtt/m/n/12 X[]         []<-[] []\T1/lmtt/b/n/12 cbind[][]\T1/lmtt/m/n/
 12 ([][]1[][], columbus[][]$[][]INC, columbus[][]$[][]HOVAL)[] []\T1/lmtt/m/it/
 12 # Matrix of observed variables[][] 
  []
 
-[134] [135]
-<figure/predicted-effect-1.pdf, id=1988, 505.89pt x 505.89pt>
+[130]
+<figure/predicted-effect-1.pdf, id=2010, 505.89pt x 505.89pt>
 File: figure/predicted-effect-1.pdf Graphic file (type pdf)
 <use figure/predicted-effect-1.pdf>
-Package pdftex.def Info: figure/predicted-effect-1.pdf  used on input line 6674
+Package pdftex.def Info: figure/predicted-effect-1.pdf  used on input line 6545
 .
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
-<figure/predicted-effect2-1.pdf, id=1990, 505.89pt x 505.89pt>
+ [131 <./figure/predicted-effect-1.pdf>]
+<figure/predicted-effect2-1.pdf, id=2022, 505.89pt x 505.89pt>
 File: figure/predicted-effect2-1.pdf Graphic file (type pdf)
 <use figure/predicted-effect2-1.pdf>
-Package pdftex.def Info: figure/predicted-effect2-1.pdf  used on input line 670
-8.
+Package pdftex.def Info: figure/predicted-effect2-1.pdf  used on input line 657
+9.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
- [136 <./figure/predicted-effect-1.pdf>] [137 <./figure/predicted-effect2-1.pdf
->] [138] [139] [140]
-Underfull \vbox (badness 10000) detected at line 6977
+ [132 <./figure/predicted-effect2-1.pdf>] [133] [134] [135]
+Underfull \vbox (badness 10000) detected at line 6848
  []
 
 
-Underfull \vbox (badness 10000) detected at line 6977
+Underfull \vbox (badness 10000) detected at line 6848
  []
 
-[141]
-Overfull \hbox (54.7188pt too wide) in paragraph at lines 7016--7016
+[136] [137]
+Overfull \hbox (54.7188pt too wide) in paragraph at lines 6887--6887
 []  []\T1/lmtt/m/n/12 ll[]   []<-[] []-[][]0.5[] []*[] []N[] []*[] []\T1/lmtt/b
 /n/12 log[][]\T1/lmtt/m/n/12 ([][]2[] []*[] []pi[] []*[] []sig.sq)[] []-[] []0.
 5[] []*[] []\T1/lmtt/b/n/12 crossprod[][]\T1/lmtt/m/n/12 (res)[] []/[] []sig.sq
@@ -2588,7 +2599,7 @@ Overfull \hbox (54.7188pt too wide) in paragraph at lines 7016--7016
  []
 
 
-Overfull \hbox (4.56886pt too wide) in paragraph at lines 7034--7034
+Overfull \hbox (4.56886pt too wide) in paragraph at lines 6905--6905
 []    []\T1/lmtt/m/n/12 h_rr[] []<-[] []-[] []\T1/lmtt/b/n/12 sum[][]\T1/lmtt/m
 /n/12 ([][]\T1/lmtt/b/n/12 diag[][]\T1/lmtt/m/n/12 (C[] []%*%[] []C))[] []-[] [
 ]([][]1[] []/[] []sig.sq)[] []*[] []([][]\T1/lmtt/b/n/12 t[][]\T1/lmtt/m/n/12 (
@@ -2596,14 +2607,14 @@ y)[] []%*%[] []\T1/lmtt/b/n/12 t[][]\T1/lmtt/m/n/12 (W)[] []%*%[] []W[] []%*%[]
  []y)[][] 
  []
 
-[142] [143]
-Overfull \hbox (8.0012pt too wide) in paragraph at lines 7087--7087
+[138]
+Overfull \hbox (8.0012pt too wide) in paragraph at lines 6958--6958
 []  []\T1/lmtt/m/it/12 # Restricted optimization: A %*% theta + B >= 0: Constra
 int rho and sigma2[][] 
  []
 
 
-Overfull \hbox (173.66866pt too wide) in paragraph at lines 7090--7090
+Overfull \hbox (173.66866pt too wide) in paragraph at lines 6961--6961
 []  []\T1/lmtt/m/n/12 lambda_space[] []<-[] []\T1/lmtt/b/n/12 if[] []\T1/lmtt/m
 /n/12 ([][]\T1/lmtt/b/n/12 is.complex[][]\T1/lmtt/m/n/12 (omega[][]$[][]values)
 )[] []1[] []/[] []\T1/lmtt/b/n/12 range[][]\T1/lmtt/m/n/12 ([][]\T1/lmtt/b/n/12
@@ -2613,7 +2624,7 @@ Overfull \hbox (173.66866pt too wide) in paragraph at lines 7090--7090
  []
 
 
-Overfull \hbox (96.06905pt too wide) in paragraph at lines 7106--7106
+Overfull \hbox (96.06905pt too wide) in paragraph at lines 6977--6977
 []               []\TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 control\TS1/lmtt/m/n/12 '[
 ][]\T1/lmtt/m/n/12 ,[] []\TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 finalHessian\TS1/lmt
 t/m/n/12 '[][]\T1/lmtt/m/n/12 ,[] []\TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 reltol\TS
@@ -2623,14 +2634,14 @@ ter.iterations\TS1/lmtt/m/n/12 '[][]\T1/lmtt/m/n/12 ,[] []\TS1/lmtt/m/n/12 '\T1
 /lmtt/m/n/12 outer.eps\TS1/lmtt/m/n/12 '[][]\T1/lmtt/m/n/12 ),[][] 
  []
 
-[144]
-Overfull \hbox (9.619pt too wide) in paragraph at lines 7167--7167
+[139]
+Overfull \hbox (9.619pt too wide) in paragraph at lines 7038--7038
 []\T1/lmtt/m/n/12 ## Call:lagsarlm(formula = CRIME ~ INC + HOVAL, data = COL.OL
 D, listw = listw)[] 
  []
 
-[145]
-Overfull \hbox (68.44363pt too wide) in paragraph at lines 7210--7210
+[140] [141]
+Overfull \hbox (68.44363pt too wide) in paragraph at lines 7081--7081
 []  []\T1/lmtt/m/n/12 det[]    []<-[] []\T1/lmtt/b/n/12 if[] []\T1/lmtt/m/n/12 
 ([][]\T1/lmtt/b/n/12 is.complex[][]\T1/lmtt/m/n/12 (omega))[] []\T1/lmtt/b/n/12
  Re[][]\T1/lmtt/m/n/12 ([][]\T1/lmtt/b/n/12 prod[][]\T1/lmtt/m/n/12 ([][]1[] []
@@ -2639,15 +2650,15 @@ Overfull \hbox (68.44363pt too wide) in paragraph at lines 7210--7210
  []
 
 
-Overfull \hbox (23.09387pt too wide) in paragraph at lines 7215--7215
+Overfull \hbox (23.09387pt too wide) in paragraph at lines 7086--7086
 []  []\T1/lmtt/m/n/12 l_c[]    []<-[] []-[] [](n[] []/[] []2[][])[] []-[] [](n[
 ] []/[] []2[][])[] []*[] []\T1/lmtt/b/n/12 log[][]\T1/lmtt/m/n/12 ([][]2[] []*[
 ] []pi)[] []-[] [](n[] []/[] []2[][])[] []*[] []\T1/lmtt/b/n/12 log[][]\T1/lmtt
 /m/n/12 (sigma2)[] []+[] []\T1/lmtt/b/n/12 log[][]\T1/lmtt/m/n/12 (det)[][] 
  []
 
-[146]
-Overfull \hbox (13.11858pt too wide) in paragraph at lines 7256--7256
+
+Overfull \hbox (13.11858pt too wide) in paragraph at lines 7127--7127
 []  []\T1/lmtt/m/n/12 rho_space[] []<-[] []\T1/lmtt/b/n/12 if[] []\T1/lmtt/m/n/
 12 ([][]\T1/lmtt/b/n/12 is.complex[][]\T1/lmtt/m/n/12 (omega))[] []1[] []/[] []
 \T1/lmtt/b/n/12 range[][]\T1/lmtt/m/n/12 ([][]\T1/lmtt/b/n/12 Re[][]\T1/lmtt/m/
@@ -2656,7 +2667,7 @@ n/12 (eig))[] []\T1/lmtt/b/n/12 else[] []\T1/lmtt/m/n/12 1[] []/[] []\T1/lmtt/b
  []
 
 
-Overfull \hbox (17.20166pt too wide) in paragraph at lines 7268--7268
+Overfull \hbox (17.20166pt too wide) in paragraph at lines 7139--7139
 []  []\T1/lmtt/m/n/12 beta_hat[]   []<-[] []\T1/lmtt/b/n/12 solve[][]\T1/lmtt/m
 /n/12 ([][]\T1/lmtt/b/n/12 crossprod[][]\T1/lmtt/m/n/12 (X))[] []%*%[] []\T1/lm
 tt/b/n/12 crossprod[][]\T1/lmtt/m/n/12 (X, Ay)[] []\T1/lmtt/m/it/12 # See Equat
@@ -2664,77 +2675,142 @@ ion (3.25)[][]
  []
 
 
-Overfull \hbox (15.45187pt too wide) in paragraph at lines 7270--7270
+Overfull \hbox (15.45187pt too wide) in paragraph at lines 7141--7141
 []  []\T1/lmtt/m/n/12 sigma2_hat[] []<-[] []\T1/lmtt/b/n/12 crossprod[][]\T1/lm
 tt/m/n/12 (error)[] []/[] []n[]                     []\T1/lmtt/m/it/12 # See Eq
 uation (3.26)[][] 
  []
 
-[147] [148] [149] [150] [151]
-Overfull \hbox (75.07564pt too wide) detected at line 7535
+[142]
+Underfull \vbox (badness 10000) detected at line 7171
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 7171
+ []
+
+[143] [144] [145] [146] [147] [148]
+Overfull \hbox (13.5665pt too wide) detected at line 7488
+[][]
+ []
+
+
+Overfull \hbox (62.625pt too wide) in paragraph at lines 7512--7513
+ []\T1/lmr/bx/n/12 Identification[] \T1/lmr/m/n/12 Here, we need to show that f
+or any $\OML/lmm/m/it/12 ^^O > \OT1/lmr/m/n/12 0$\T1/lmr/m/n/12 , $[] [][] [] \
+OML/lmm/m/it/12 <
+ []
+
+[149] [150] [151]
+Overfull \hbox (9.26076pt too wide) detected at line 7749
 [][][]
  []
 
-[152] [153] [154]
-Chapter 5.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 7606--7606
-[][][][][][][][][]  
+[152]
+Overfull \hbox (31.99794pt too wide) detected at line 7763
+[][][]
  []
 
-[155
 
-]
-Package mdframed Info: mdframed works in twoside mode on input line 7639.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 7639.
+Overfull \hbox (6.78583pt too wide) detected at line 7790
+[][][]
+ []
+
+[153]
+Overfull \hbox (11.38922pt too wide) detected at line 7800
+[]\OML/lmm/b/it/12 J[] \OT1/lmr/m/n/12 = []
+ []
+
+[154]
+Overfull \hbox (28.46953pt too wide) detected at line 7896
+[][]
+ []
+
+[155]
+Overfull \hbox (18.55624pt too wide) detected at line 7917
+[][]
+ []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 7718.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 7718.
+Overfull \hbox (41.24588pt too wide) detected at line 7931
+[][]
+ []
 
 [156]
-Overfull \hbox (85.843pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/12 5.1.  TEST FOR RESIDUAL SPATIAL AUTOCORRELATION BASED ON THE MO
-RAN I STATISTIC \T1/lmr/m/n/12 157
+Overfull \hbox (23.7767pt too wide) detected at line 7940
+[][]
+ []
+
+
+Overfull \hbox (18.63986pt too wide) detected at line 7952
+[][]
  []
 
 [157] [158]
-Package mdframed Info: mdframed works in twoside mode on input line 7837.
+Chapter 5.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 8013--8013
+[][][][][][][][][]  
+ []
+
+[159
+
+]
+Package mdframed Info: mdframed works in twoside mode on input line 8046.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 7837.
- [159] [160]
-Package mdframed Info: mdframed works in twoside mode on input line 7938.
+(mdframed)              on input line 8046.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 8125.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 8125.
+
+[160]
+Overfull \hbox (85.843pt too wide) has occurred while \output is active
+\T1/lmr/m/sl/12 5.1.  TEST FOR RESIDUAL SPATIAL AUTOCORRELATION BASED ON THE MO
+RAN I STATISTIC \T1/lmr/m/n/12 161
+ []
+
+[161] [162]
+Package mdframed Info: mdframed works in twoside mode on input line 8244.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 7938.
- [161]
-Package mdframed Info: mdframed works in twoside mode on input line 7995.
+(mdframed)              on input line 8244.
+ [163] [164]
+Package mdframed Info: mdframed works in twoside mode on input line 8345.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 7995.
- [162]
-Package mdframed Info: mdframed works in twoside mode on input line 8024.
+(mdframed)              on input line 8345.
+ [165]
+Package mdframed Info: mdframed works in twoside mode on input line 8402.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8024.
- [163]
-Package mdframed Info: mdframed works in twoside mode on input line 8089.
+(mdframed)              on input line 8402.
+ [166]
+Package mdframed Info: mdframed works in twoside mode on input line 8431.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8089.
-Package mdframed Info: mdframed works in twoside mode on input line 8121.
+(mdframed)              on input line 8431.
+
+
+LaTeX Warning: Reference `eq:asyvar_slm' on page 167 undefined on input line 84
+63.
+
+[167]
+Package mdframed Info: mdframed works in twoside mode on input line 8496.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8121.
- [164] [165]
-Overfull \hbox (16.79097pt too wide) in paragraph at lines 8178--8181
+(mdframed)              on input line 8496.
+Package mdframed Info: mdframed works in twoside mode on input line 8528.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 8528.
+ [168] [169]
+Overfull \hbox (16.79097pt too wide) in paragraph at lines 8585--8588
 \T1/lmr/m/n/12 where $\OML/lmm/b/it/12 W[] \OT1/lmr/m/n/12 = \OML/lmm/b/it/12 W
 \OT1/lmr/m/n/12 (\OML/lmm/b/it/12 I \OMS/lmsy/m/n/12 ^^@ \OML/lmm/m/it/12 ^^U\O
 ML/lmm/b/it/12 W\OT1/lmr/m/n/12 )[]$\T1/lmr/m/n/12 . Un-der the null, $\U/msb/m
@@ -2742,13 +2818,17 @@ ML/lmm/b/it/12 W\OT1/lmr/m/n/12 )[]$\T1/lmr/m/n/12 . Un-der the null, $\U/msb/m
 m/n/12 E[] [] \OT1/lmr/m/n/12 =
  []
 
-[166] [167] [168]
-Overfull \hbox (41.38881pt too wide) detected at line 8365
+
+LaTeX Warning: Reference `eq:asyvar_slm' on page 170 undefined on input line 86
+22.
+
+[170] [171] [172]
+Overfull \hbox (41.38881pt too wide) detected at line 8772
 [][]
  []
 
 
-Overfull \hbox (52.69263pt too wide) detected at line 8371
+Overfull \hbox (52.69263pt too wide) detected at line 8778
 [][][]\OML/lmm/b/it/12 W[][] \OT1/lmr/m/n/12 = []\OML/lmm/b/it/12 u[]Wu[] \OMS/
 lmsy/m/n/12 ^^@ []\OML/lmm/b/it/12 u[] [] D[][]\OT1/lmr/m/n/12 ([] \OMS/lmsy/m/
 n/12 ^^@ \OML/lmm/b/it/12 ^^R[]\OT1/lmr/m/n/12 ) + ([] \OMS/lmsy/m/n/12 ^^@ \OM
@@ -2756,284 +2836,284 @@ L/lmm/b/it/12 ^^R[]\OT1/lmr/m/n/12 )[] [] []([] \OMS/lmsy/m/n/12 ^^@ \OML/lmm/b
 /it/12 ^^R[]\OT1/lmr/m/n/12 )
  []
 
-[169]
-Overfull \hbox (59.49947pt too wide) in paragraph at lines 8417--8418
+[173]
+Overfull \hbox (59.49947pt too wide) in paragraph at lines 8824--8825
 []\T1/lmr/m/n/12 The the sec-ond part of ([][]5.44[][]), note that $[]\OML/lmm/
 b/it/12 u[] [] D[] \OT1/lmr/m/n/12 = \OML/lmm/b/it/12 "[] [][] [] D[]$
  []
 
 
-Overfull \hbox (27.65149pt too wide) in paragraph at lines 8417--8418
+Overfull \hbox (27.65149pt too wide) in paragraph at lines 8824--8825
 \T1/lmr/m/n/12 where $\OML/lmm/b/it/12 D[] \OT1/lmr/m/n/12 = []$\T1/lmr/m/n/12 
 , and $\OML/lmm/b/it/12 y[] \OT1/lmr/m/n/12 = [][] \OML/lmm/b/it/12 X[]^^L[] \O
 T1/lmr/m/n/12 + [][] [][] \OML/lmm/b/it/12 "[]$\T1/lmr/m/n/12 ,
  []
 
 
-Overfull \hbox (108.33873pt too wide) detected at line 8427
+Overfull \hbox (108.33873pt too wide) detected at line 8834
 [][]
  []
 
-[170] [171] [172
+[174] [175] [176
 
 ]
 Chapter 6.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 8479--8479
+Overfull \hbox (10.0pt too wide) in paragraph at lines 8886--8886
 [][][][][][][][][]  
  []
 
-[173] [174] [175]
-Overfull \hbox (7.8641pt too wide) detected at line 8658
+[177] [178] [179]
+Overfull \hbox (7.8641pt too wide) detected at line 9065
 [][] [] \OT1/lmr/m/n/12 = \OMS/lmsy/m/n/12 ^^@ [][] [][] \OML/lmm/b/it/12 ^^G[]
  [] \OT1/lmr/m/n/12 + \OML/lmm/m/it/12 o[]\OT1/lmr/m/n/12 (1)\OML/lmm/m/it/12 ;
 
  []
 
-[176] [177] [178] [179]
-Package mdframed Info: mdframed works in twoside mode on input line 8849.
+[180] [181] [182] [183]
+Package mdframed Info: mdframed works in twoside mode on input line 9256.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8849.
+(mdframed)              on input line 9256.
 
-Overfull \hbox (60.86415pt too wide) in paragraph at lines 8850--8851
+Overfull \hbox (60.86415pt too wide) in paragraph at lines 9257--9258
 [][][][]\T1/lmss/bx/n/10.95 Assumption 6.1 []--- Het-erokedas-tic Er-rors ([][]
 Kele-jian and Prucha[][], [][]2010[][]). [][][][]\T1/lmr/m/n/12 The er-rors $[]
 $
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 8857.
+Package mdframed Info: mdframed works in twoside mode on input line 9264.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8857.
-Package mdframed Info: mdframed works in twoside mode on input line 8863.
+(mdframed)              on input line 9264.
+Package mdframed Info: mdframed works in twoside mode on input line 9270.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8863.
-[180]
-Package mdframed Info: Not enough space on this page on input line 8865.
-Package mdframed Info: mdframed works in twoside mode on input line 8888.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8888.
-Package mdframed Info: mdframed works in twoside mode on input line 8900.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8900.
-Package mdframed Info: mdframed works in twoside mode on input line 8906.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8906.
-Package mdframed Info: mdframed works in twoside mode on input line 8910.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8910.
-Package mdframed Info: Not enough space on this page on input line 8917.
- [181]
-Package mdframed Info: Not enough space on this page on input line 8917.
-Package mdframed Info: mdframed works in twoside mode on input line 8925.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8925.
- [182] [183]
-Overfull \hbox (4.69775pt too wide) detected at line 9029
-[][][]
- []
-
-
-Overfull \hbox (21.5681pt too wide) detected at line 9038
-[][][]
- []
-
+(mdframed)              on input line 9270.
 [184]
-Overfull \hbox (31.85971pt too wide) detected at line 9084
+Package mdframed Info: Not enough space on this page on input line 9272.
+Package mdframed Info: mdframed works in twoside mode on input line 9295.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9295.
+Package mdframed Info: mdframed works in twoside mode on input line 9307.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9307.
+Package mdframed Info: mdframed works in twoside mode on input line 9313.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9313.
+Package mdframed Info: mdframed works in twoside mode on input line 9317.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9317.
+Package mdframed Info: Not enough space on this page on input line 9324.
+ [185]
+Package mdframed Info: Not enough space on this page on input line 9324.
+Package mdframed Info: mdframed works in twoside mode on input line 9332.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9332.
+ [186] [187]
+Overfull \hbox (4.69775pt too wide) detected at line 9436
 [][][]
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 9148.
+
+Overfull \hbox (21.5681pt too wide) detected at line 9445
+[][][]
+ []
+
+[188]
+Overfull \hbox (31.85971pt too wide) detected at line 9491
+[][][]
+ []
+
+Package mdframed Info: mdframed works in twoside mode on input line 9555.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9148.
-Package mdframed Info: Not enough space on this page on input line 9177.
-[185]
-Package mdframed Info: Not enough space on this page on input line 9177.
- [186] [187]
-Overfull \hbox (44.56776pt too wide) in paragraph at lines 9296--9296
+(mdframed)              on input line 9555.
+Package mdframed Info: Not enough space on this page on input line 9584.
+[189]
+Package mdframed Info: Not enough space on this page on input line 9584.
+ [190] [191]
+Overfull \hbox (44.56776pt too wide) in paragraph at lines 9703--9703
 []\T1/lmtt/b/n/12 ## Error in UseMethod("impacts", obj): no applicable method f
 or 'impacts' applied
  []
 
 
-Overfull \hbox (44.56776pt too wide) in paragraph at lines 9301--9301
+Overfull \hbox (44.56776pt too wide) in paragraph at lines 9708--9708
 []\T1/lmtt/b/n/12 ## Error in UseMethod("impacts", obj): no applicable method f
 or 'impacts' applied
  []
 
 
-Overfull \hbox (38.26778pt too wide) in paragraph at lines 9306--9306
+Overfull \hbox (38.26778pt too wide) in paragraph at lines 9713--9713
 []\T1/lmtt/b/n/12 ## Error in h(simpleError(msg, call)): error in evaluating th
 e argument 'object'
  []
 
 
-Overfull \hbox (38.26778pt too wide) in paragraph at lines 9311--9311
+Overfull \hbox (38.26778pt too wide) in paragraph at lines 9718--9718
 []\T1/lmtt/b/n/12 ## Error in h(simpleError(msg, call)): error in evaluating th
 e argument 'object'
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 9325
+Overfull \hbox (13.25018pt too wide) detected at line 9732
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 851[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 9325
+Overfull \hbox (13.25018pt too wide) detected at line 9732
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 116[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 9326
+Overfull \hbox (13.25018pt too wide) detected at line 9733
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 116[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9326
+Overfull \hbox (4.56934pt too wide) detected at line 9733
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 315)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9326
+Overfull \hbox (4.56934pt too wide) detected at line 9733
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 172)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9327
+Overfull \hbox (4.56934pt too wide) detected at line 9734
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 632)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 9327
+Overfull \hbox (13.25018pt too wide) detected at line 9734
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 074[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 9327
+Overfull \hbox (9.00012pt too wide) detected at line 9734
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 008[]$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 9328
+Overfull \hbox (4.75006pt too wide) detected at line 9735
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 008[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9328
+Overfull \hbox (4.56934pt too wide) detected at line 9735
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 311)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9328
+Overfull \hbox (4.56934pt too wide) detected at line 9735
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 391)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9329
+Overfull \hbox (4.56934pt too wide) detected at line 9736
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 458)$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 9329
+Overfull \hbox (9.00012pt too wide) detected at line 9736
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 270[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 9329
+Overfull \hbox (9.00012pt too wide) detected at line 9736
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 270[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9330
+Overfull \hbox (4.56934pt too wide) detected at line 9737
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 090)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9330
+Overfull \hbox (4.56934pt too wide) detected at line 9737
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 093)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9331
+Overfull \hbox (4.56934pt too wide) detected at line 9738
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 174)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 9331
+Overfull \hbox (13.25018pt too wide) detected at line 9738
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 404[]$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 9331
+Overfull \hbox (4.75006pt too wide) detected at line 9738
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 455[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 9332
+Overfull \hbox (9.00012pt too wide) detected at line 9739
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 455[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9332
+Overfull \hbox (4.56934pt too wide) detected at line 9739
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 121)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9332
+Overfull \hbox (4.56934pt too wide) detected at line 9739
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 191)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 9333
+Overfull \hbox (4.56934pt too wide) detected at line 9740
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 141)$ 
  []
 
-[188] [189]
-Package mdframed Info: mdframed works in twoside mode on input line 9373.
+[192] [193]
+Package mdframed Info: mdframed works in twoside mode on input line 9780.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9373.
-Package mdframed Info: mdframed works in twoside mode on input line 9381.
+(mdframed)              on input line 9780.
+Package mdframed Info: mdframed works in twoside mode on input line 9788.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9381.
- [190] [191]
-Package mdframed Info: mdframed works in twoside mode on input line 9475.
+(mdframed)              on input line 9788.
+ [194] [195]
+Package mdframed Info: mdframed works in twoside mode on input line 9882.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9475.
- [192] [193]
-Package mdframed Info: mdframed works in twoside mode on input line 9634.
+(mdframed)              on input line 9882.
+ [196] [197]
+Package mdframed Info: mdframed works in twoside mode on input line 10041.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9634.
-Package mdframed Info: mdframed works in twoside mode on input line 9638.
+(mdframed)              on input line 10041.
+Package mdframed Info: mdframed works in twoside mode on input line 10045.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9638.
-Package mdframed Info: mdframed works in twoside mode on input line 9654.
+(mdframed)              on input line 10045.
+Package mdframed Info: mdframed works in twoside mode on input line 10061.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9654.
-Package mdframed Info: mdframed works in twoside mode on input line 9657.
+(mdframed)              on input line 10061.
+Package mdframed Info: mdframed works in twoside mode on input line 10064.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9657.
- [194] [195] [196]
-Package mdframed Info: mdframed works in twoside mode on input line 9816.
+(mdframed)              on input line 10064.
+ [198] [199] [200]
+Package mdframed Info: mdframed works in twoside mode on input line 10223.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9816.
+(mdframed)              on input line 10223.
 
-Overfull \hbox (75.69293pt too wide) in paragraph at lines 9817--9818
+Overfull \hbox (75.69293pt too wide) in paragraph at lines 10224--10225
 [][] \OML/lmm/m/it/12 n[]\OML/lmm/b/it/12 X[]X$ \T1/lmr/m/n/12 is fi-nite and n
 on-sin-gu-lar. Fur-ther-more, the ma-tri-ces $\OML/lmm/b/it/12 Q[]\OT1/lmr/m/n/
 12 (\OML/lmm/m/it/12 ^^U\OT1/lmr/m/n/12 ) = [][] \OML/lmm/m/it/12 n[]\OML/lmm/b
@@ -3041,271 +3121,264 @@ on-sin-gu-lar. Fur-ther-more, the ma-tri-ces $\OML/lmm/b/it/12 Q[]\OT1/lmr/m/n/
 \OT1/lmr/m/n/12 (\OML/lmm/m/it/12 ^^U\OT1/lmr/m/n/12 )[]\OML/lmm/b/it/12 X$
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 9822.
+Package mdframed Info: mdframed works in twoside mode on input line 10229.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9822.
-[197]
-Overfull \hbox (3.85324pt too wide) in paragraph at lines 9916--9919
+(mdframed)              on input line 10229.
+[201]
+Overfull \hbox (3.85324pt too wide) in paragraph at lines 10323--10326
 \T1/lmr/m/n/12 where $[][] \OML/lmm/m/it/12 n[]^^[[]\OML/lmm/b/it/12 A[]A \OT1/
 lmr/m/n/12 = \OML/lmm/m/it/12 ^^[[] [][] n[]\OML/lmm/b/it/12 X[] [][] [] X \OT1
 /lmr/m/n/12 = \OML/lmm/m/it/12 ^^[[]\OML/lmm/b/it/12 Q[]\OT1/lmr/m/n/12 (\OML/l
 mm/m/it/12 ^^U\OT1/lmr/m/n/12 )$\T1/lmr/m/n/12 . Con-
  []
 
-[198]
-Overfull \hbox (2.1657pt too wide) detected at line 9958
+[202]
+Overfull \hbox (2.1657pt too wide) detected at line 10365
 []\OML/lmm/b/it/12 X[] [] X \OT1/lmr/m/n/12 = [] [] + [] []
  []
 
 
-Overfull \hbox (6.78262pt too wide) detected at line 9970
+Overfull \hbox (6.78262pt too wide) detected at line 10377
 [][][]
  []
 
-[199]
-Package mdframed Info: mdframed works in twoside mode on input line 9995.
+[203]
+Package mdframed Info: mdframed works in twoside mode on input line 10402.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9995.
- [200]
-Overfull \hbox (28.14401pt too wide) in paragraph at lines 10073--10073
+(mdframed)              on input line 10402.
+ [204]
+Overfull \hbox (28.14401pt too wide) in paragraph at lines 10480--10480
 []\T1/lmtt/m/n/12 ## Call:GMerrorsar(formula = CRIME ~ HOVAL + INC, data = colu
 mbus, listw = listw,[] 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 10108
+Overfull \hbox (13.25018pt too wide) detected at line 10515
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 054[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 10109
+Overfull \hbox (13.25018pt too wide) detected at line 10516
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 487[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10109
+Overfull \hbox (4.56934pt too wide) detected at line 10516
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 315)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10110
+Overfull \hbox (4.56934pt too wide) detected at line 10517
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 084)$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 10110
+Overfull \hbox (9.00012pt too wide) detected at line 10517
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 995[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 10111
+Overfull \hbox (13.25018pt too wide) detected at line 10518
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 180[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10111
+Overfull \hbox (4.56934pt too wide) detected at line 10518
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 337)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10112
+Overfull \hbox (4.56934pt too wide) detected at line 10519
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 342)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 10112
+Overfull \hbox (13.25018pt too wide) detected at line 10519
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 308[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 10113
+Overfull \hbox (9.00012pt too wide) detected at line 10520
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 300[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10113
+Overfull \hbox (4.56934pt too wide) detected at line 10520
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 093)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10114
+Overfull \hbox (4.56934pt too wide) detected at line 10521
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 097)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 10114
+Overfull \hbox (13.25018pt too wide) detected at line 10521
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 521[]$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10115
+Overfull \hbox (4.56934pt too wide) detected at line 10522
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 141)$ 
  []
 
 
-Overfull \hbox (4.56934pt too wide) detected at line 10116
+Overfull \hbox (4.56934pt too wide) detected at line 10523
 $\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 432)$ 
  []
 
 
 Overfull \hbox (251.4539pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
-GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 201
- []
-
-[201] [202]
-Overfull \hbox (251.4539pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
-GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 203
- []
-
-[203] [204]
-Overfull \hbox (251.4539pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
 GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 205
  []
 
 [205] [206]
-Package mdframed Info: mdframed works in twoside mode on input line 10486.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10486.
-Package mdframed Info: Not enough space on this page on input line 10493.
-
 Overfull \hbox (251.4539pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
 GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 207
  []
 
-[207]
-Package mdframed Info: Not enough space on this page on input line 10493.
-Package mdframed Info: mdframed works in twoside mode on input line 10517.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10517.
-
-Overfull \hbox (56.78111pt too wide) in paragraph at lines 10518--10519
-[][][][]\T1/lmss/bx/n/10.95 Assumption 6.19 []--- Het-eroskedas-tic Er-rors ([]
-[]Ar-raiz et al.[][], [][]2010[][]). [][][][]\T1/lmr/m/n/12 The er-ror term $[]
-$
- []
-
-Package mdframed Info: mdframed works in twoside mode on input line 10523.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10523.
-[208]
-Package mdframed Info: mdframed works in twoside mode on input line 10547.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10547.
-Package mdframed Info: mdframed works in twoside mode on input line 10553.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10553.
-Package mdframed Info: mdframed works in twoside mode on input line 10563.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10563.
-
+[207] [208]
 Overfull \hbox (251.4539pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
 GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 209
  []
 
 [209] [210]
-Package mdframed Info: mdframed works in twoside mode on input line 10653.
+Package mdframed Info: mdframed works in twoside mode on input line 10893.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 10653.
-
-Overfull \hbox (101.04459pt too wide) detected at line 10688
-[][]
- []
-
+(mdframed)              on input line 10893.
+Package mdframed Info: Not enough space on this page on input line 10900.
 
 Overfull \hbox (251.4539pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
 GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 211
  []
 
-[211] [212]
+[211]
+Package mdframed Info: Not enough space on this page on input line 10900.
+Package mdframed Info: mdframed works in twoside mode on input line 10924.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10924.
+
+Overfull \hbox (56.78111pt too wide) in paragraph at lines 10925--10926
+[][][][]\T1/lmss/bx/n/10.95 Assumption 6.19 []--- Het-eroskedas-tic Er-rors ([]
+[]Ar-raiz et al.[][], [][]2010[][]). [][][][]\T1/lmr/m/n/12 The er-ror term $[]
+$
+ []
+
+Package mdframed Info: mdframed works in twoside mode on input line 10930.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10930.
+[212]
+Package mdframed Info: mdframed works in twoside mode on input line 10954.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10954.
+Package mdframed Info: mdframed works in twoside mode on input line 10960.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10960.
+Package mdframed Info: mdframed works in twoside mode on input line 10970.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10970.
+
 Overfull \hbox (251.4539pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
 GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 213
  []
 
 [213] [214]
-Overfull \hbox (40.49402pt too wide) in paragraph at lines 11140--11141
+Package mdframed Info: mdframed works in twoside mode on input line 11060.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 11060.
+
+Overfull \hbox (101.04459pt too wide) detected at line 11095
+[][]
+ []
+
+
+Overfull \hbox (251.4539pt too wide) has occurred while \output is active
+\T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
+GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 215
+ []
+
+[215] [216]
+Overfull \hbox (251.4539pt too wide) has occurred while \output is active
+\T1/lmr/m/sl/12 6.4.  ESTIMATION OF SAC MODEL: THE FEASIBLE GENERALIZED TWO STA
+GE LEAST SQUARES ESTIMATOR PROCEDURE \T1/lmr/m/n/12 217
+ []
+
+[217] [218]
+Overfull \hbox (40.49402pt too wide) in paragraph at lines 11547--11548
 []\T1/lmtt/m/n/12 ## Warning: shapelib support is provided by GDAL through the 
 sf and terra packages
  []
 
 
-Overfull \hbox (46.66902pt too wide) in paragraph at lines 11142--11143
+Overfull \hbox (46.66902pt too wide) in paragraph at lines 11549--11550
 []\T1/lmtt/m/n/12 ## Warning: shapelib support is provided by GDAL through the 
 sf and terra paackages
  []
 
 
-Overfull \hbox (40.49402pt too wide) in paragraph at lines 11144--11144
+Overfull \hbox (40.49402pt too wide) in paragraph at lines 11551--11551
 []\T1/lmtt/m/n/12 ## Warning: shapelib support is provided by GDAL through the 
 sf and terra packages
  []
 
-[215]
-Overfull \hbox (28.14401pt too wide) in paragraph at lines 11174--11174
+[219]
+Overfull \hbox (28.14401pt too wide) in paragraph at lines 11581--11581
 []\T1/lmtt/m/n/12 ## Call:gstsls(formula = dui ~ police + nondui + vehicles + d
 ry, data = us_shape,[] 
  []
 
-[216]
-Overfull \hbox (0.33118pt too wide) in paragraph at lines 11202--11202
+[220]
+Overfull \hbox (0.33118pt too wide) in paragraph at lines 11609--11609
 []\T1/lmr/bx/n/14.4 SAC Model with Homokedas-tic-ity and Ad-di-tional En-do-gen
 e-
  []
 
-[217] [218]
-Overfull \hbox (31.15538pt too wide) detected at line 11353
+[221] [222]
+Overfull \hbox (31.15538pt too wide) detected at line 11760
 [][][]
  []
 
-[219]
-Overfull \hbox (5.39331pt too wide) detected at line 11383
+[223]
+Overfull \hbox (5.39331pt too wide) detected at line 11790
 [][][]
  []
 
 
-Overfull \hbox (39.61656pt too wide) detected at line 11398
+Overfull \hbox (39.61656pt too wide) detected at line 11805
 [] [] [][]\OT1/lmr/m/n/12 ([])[]\OML/lmm/b/it/12 M[]u[] \OT1/lmr/m/n/12 = [] []
  [] []\OML/lmm/b/it/12 H[]M[]u[]
  []
 
 
-Overfull \hbox (35.23955pt too wide) in paragraph at lines 11400--11401
+Overfull \hbox (35.23955pt too wide) in paragraph at lines 11807--11808
 []\T1/lmr/m/n/12 Note that $\U/msb/m/n/12 E [] \OT1/lmr/m/n/12 = 0$ \T1/lmr/m/n
 /12 and $\U/msb/m/n/12 E [] \OT1/lmr/m/n/12 = \OML/lmm/m/it/12 n[]\OML/lmm/b/it
 /12 H[]M[]^^F[]M[]H[]$\T1/lmr/m/n/12 ,
  []
 
-[220] (./SpatialEconometrics.bbl [221] [222
+[224] (./SpatialEconometrics.bbl [225] [226
 
-] [223] [224] [225]) [226]
-(./SpatialEconometrics.ind [227
+] [227] [228] [229]) [230]
+(./SpatialEconometrics.ind [231
 
 
-] [228
+] [232
 
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 11475.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 11475.
- (./SpatialEconometrics.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 11475.
-
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 11475.
-
+]) (./SpatialEconometrics.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -3314,13 +3387,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 40888 strings out of 480608
- 939247 string characters out of 5903631
- 1344554 words of memory out of 5000000
- 54823 multiletter control sequences out of 15000+600000
- 679247 words of font info for 128 fonts, out of 8000000 for 9000
+ 43699 strings out of 479014
+ 976989 string characters out of 5859149
+ 1438279 words of memory out of 5000000
+ 59172 multiletter control sequences out of 15000+600000
+ 550339 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,20n,104p,1572b,927s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 92i,20n,136p,1572b,926s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
 texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2020/t
 exmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-dist/
@@ -3339,29 +3412,30 @@ al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/
 dist/fonts/type1/public/lm/lmmib10.pfb></usr/local/texlive/2020/texmf-dist/font
 s/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pub
 lic/lm/lmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr1
-7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/
-local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texliv
-e/2020/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2020/texmf-dist/font
-s/type1/public/lm/lmri12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/pu
-blic/lm/lmro12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lm
-ss12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb
-></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/
-2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2020/texmf-
-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2020/texmf-dist/fonts/
-type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
-ic/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt
-12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></us
-r/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/t
-exlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/
-local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></
-usr/local/texlive/2020/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on SpatialEconometrics.pdf (238 pages, 2376656 bytes).
+7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/
+local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2020/texmf-dist/fonts/
+type1/public/lm/lmri10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
+ic/lm/lmri12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmro
+12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmss12.pfb></u
+sr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local
+/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2020/texmf-d
+ist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
+ype1/public/lm/lmsy8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public
+/lm/lmtk10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt10
+.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr
+/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2020/
+texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on SpatialEconometrics.pdf (242 pages, 2433687 bytes).
 PDF statistics:
- 3842 PDF objects out of 4296 (max. 8388607)
- 3470 compressed objects within 35 object streams
- 1108 named destinations out of 1200 (max. 500000)
- 1187 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3997 PDF objects out of 4296 (max. 8388607)
+ 3618 compressed objects within 37 object streams
+ 1155 named destinations out of 1200 (max. 500000)
+ 1259 words of extra memory for PDF output out of 10000 (max. 10000000)
 

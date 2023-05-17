@@ -907,7 +907,7 @@ This expression allow us to observe the impact associated with each power of $\m
 
 \cite{kelejian2007relative} consider different information sets and define predictors as conditional means based on these information sets. Consider the SAC (SARAR) model:
 
-\begin{equation}
+\begin{equation}\label{eq:sac_predictors}
   \begin{aligned}
     \vy & = \rho\mW\vy + \mX\vbeta + \vu, \\
     \vu & = \lambda\mW\vu + \vepsi. 
@@ -920,7 +920,42 @@ Thus, the reduced form equation is:
 \vy = \left(\mI_n -\rho \mW\right)^{-1}\mX\vbeta + \left(\mI_n -\rho \mW\right)^{-1}\left(\mI_n -\lambda \mW\right)^{-1}\vepsi. \\
 \end{equation}
 
-Assume that $\vepsi\sim\rN(\vzeros, \sigma^2_{\epsilon}\mI_n)$
+Assume that $\vepsi\sim\rN(\vzeros, \sigma^2_{\epsilon}\mI_n)$ and let $\left(\mI_n -\rho \mW\right)^{-1}_i$ be the $i$th row of $n\times n$ matrix $\left(\mI_n -\rho \mW\right)^{-1}$. Thus, the predicted value for the $i$th spatial unit is:
+
+\begin{equation}\label{eq:reduced_i}
+y_i = \left(\mI_n -\rho \mW\right)^{-1}_i\odot\mX\vbeta + \left(\mI_n -\rho \mW\right)^{-1}_i\odot\vu, 
+\end{equation}
+%
+where $\odot$ is the element-by-element (pointwise) multiplication. 
+
+For further reference, note that the SAC model \eqref{eq:sac_predictors} for $y_i$ is:
+
+\begin{equation}\label{eq:sac_predictors_i}
+  \begin{aligned}
+    y_i & = \rho\vw_i\odot \vy + \vx_i \odot \vbeta + u_i, \\
+    u_i & = \lambda \vw_i\odot \vu + \epsilon_i, 
+  \end{aligned}
+\end{equation}
+%
+where $\vx_i$ is the $i$th row of $\mX$.
+
+Let $\vtheta = \left(\vbeta^\top, \rho, \lambda\right)^\top$. The first predictor is based on the conditional mean of $y_i$ in Equation \eqref{eq:reduced_i}, namely
+
+\begin{equation}
+  y_i^{\left[1\right]} = \E\left(y_i|\mX, \mM, \vtheta \right) = \left(\mI_n -\rho \mW\right)^{-1}_i\odot\mX\vbeta,
+\end{equation}
+%
+which is based on the information set $\mPsi_1 = \left(\mX, \mW, \vtheta\right)$. Note that $\mPsi_1$ does not contain any random element. 
+
+As stated by \cite{kelejian2007relative}, we can also increase the precision of the predictor by increasing the information. Namely, $\mPsi_2 = \left(\mX, \mW, \vtheta, \vw_i\odot \vy\right)$. Considering, the expected value of $y_i$ in Equation \eqref{eq:sac_predictors_i}, we obtain
+
+\begin{equation}
+  \begin{aligned}
+     y_i^{\left[2\right]} & = \E(y_i|\mPsi_2) \\
+                          & 
+  \end{aligned}
+\end{equation}
+
 
 
 %==============================================

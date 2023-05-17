@@ -1647,9 +1647,57 @@ The triangular array structure of $y$ is partly a consequence of allowing a tria
 
 We can identify each of the indices $i = 1,...,n$ with a location in space. In regularly-observed time series settings, these indices correspond to equidistant points on the real line, and it is evident what we usually mean by letting $n$ increase. However there is ambiguity when these points are in space. For example, consider $n$ points on a 2 dimensional regularly-spaced lattice, where both the number ($n_1$) of rows and the number $(n_2)$ of columns increases with $n=n_1\cdot n_2$. If we choose to list these points in lexicographic order (say first left to right, then second row, etc) then as $n$ increases there would have to be some re-labeling, as the triangular array permits. Another consequence of this listing is that dependence between locations $i$ and $j$ is not always naturally expressed as a function of the difference $i-j$. For example, this is so if the dependence is isotropic. 
 
+%----------------------------------
+\section{Matrix}
+%----------------------------------
+
+Let $\mC = \mA\mB$, then the $(i,j)$ element of $\mC$ is
+
+\begin{equation}
+c_{ij} = \sum_{k = 1}^na_{ik}b_{kj}
+\end{equation}
+
+
+
 
 %----------------------------------
-\section{Bounded Matrices}
+\section{Matrix Norm}
+%----------------------------------
+
+\begin{definition}[Matrix Norm]
+Given a square complex or real matrix $\mA$, a matrix norm $\lVert \mA \rVert$ is a nonnegative number associated with $\mA$ having the properties
+
+\begin{enumerate}
+  \item $\lVert \mA \rVert> 0$ when $\mA\neq 0$ and $\lVert \mA \rVert = 0$ if and only if $\mA = 0$, 
+  \item $\lVert k \mA \rVert = \left|k\right|\lVert \mA \rVert$ for any scalar $k$, 
+  \item $\lVert \mA  + \mB \rVert \leq \lVert \mA \rVert + \lVert \mB \rVert$, 
+  \item $\lVert \mA\mB \rVert \leq \lVert \mA \rVert \lVert \mB \rVert$
+\end{enumerate}
+\end{definition}
+
+The maximum absolute column sum norm $\lVert \mA \rVert_1$ is defined as
+
+\begin{equation}
+\lVert \mA \rVert_1 = \max_j\sum_{i = 1}^n\left|a_{ij}\right|
+\end{equation}
+
+The spectral norm $\lVert \mA \rVert_2$ is defined as
+
+\begin{equation}
+\lVert \mA \rVert_2 = \sigma_{\max}(\mA) = \sqrt{\lambda_{\max}\left(\mA^\top \mA\right)}
+\end{equation}
+
+The maximum absolute row sum norm is defined by
+
+\begin{equation}
+\lVert \mA \rVert_{\infty} = \max_i\sum_{j = 1}^n\left|a_{ij}\right|
+\end{equation}
+
+
+$\lVert \mA \rVert_1$, $\lVert \mA \rVert_2$ and $\lVert \mA \rVert_{\infty}$ satisfy the inequality $\lVert \mA \rVert_2^2 \leq \lVert \mA \rVert_1\lVert \mA \rVert_{\infty}$.
+
+%----------------------------------
+\section{Bounded Matrices and Useful Lemmas for Spatial Eonometrics}\label{sec:bounded-matrices}
 %----------------------------------
 
 \begin{definition}[Bounded Matrices]\label{def:Bounded_Matrices}
@@ -1658,17 +1706,17 @@ Let $\left\lbrace \mA_n \right\rbrace$ be a sequence of $n$-dimensional square m
     \item The column sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
+      \left\|\mA_n\right\|_{1} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
      \item The row sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
     
     \begin{equation*}
-      \left\|\mA_n\right\|_1 = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
+      \left\|\mA_n\right\|_{\infty} = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
   \end{enumerate}
 \end{definition}
 
-Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_1\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. 
+Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{1}\right\rbrace$ is a bounded sequence. 
 
 
 
@@ -1689,11 +1737,11 @@ If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are 
  \begin{aligned}
   r_i   = & \sum_{j = 1}^n \left|d_{ij}\right| \\
         = & \sum_{j = 1}^n \left|\sum_{r = 1}^n a_{ir}b_{rj}\right| \\
-     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality} \\
-      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of inequality} \\
+     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality \ref{def:triangle-inequality}} \\
+      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by multiplicativity \ref{def:abs-multiplicativity}} \\
       = & \sum_{r = 1}^n \sum_{j = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of summation} \\
       = & \sum_{r = 1}^n \left|a_{ir}\right| \sum_{j = 1}^n \left|b_{rj}\right| \\
-      =  \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
+        & \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
  \end{aligned}
  \end{equation}
  
@@ -1705,7 +1753,7 @@ If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are 
 \end{proof}
 
 \begin{lemma}\label{lemma:bounde_ON}
-If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
+If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
 \end{lemma}
 
 \begin{proof}
@@ -1715,7 +1763,7 @@ If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bo
     \begin{aligned}
       \delta_{ij} & = \sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj} \\
       \left|\delta_{ij}\right| & = \left|\sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj}\right| \\
-      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by triangle inequality} \\
+      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by \ref{def:triangle-inequality}} \\
        & \leq c_z^2\sum_{r = 1}^n\sum_{s = 1}^n  \left|a_{sr}\right| \\
         & \leq c_z^2\sum_{r = 1}^n c_a \\
         & \leq c_z^2c_an \\
@@ -1724,6 +1772,37 @@ If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable, and $\mZ_n$ has bo
   \end{equation}
 \end{proof}
 
+%------------------------------------------------
+\begin{lemma}\label{lemma:bounde_trace}
+If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), then
+\begin{enumerate}
+ \item elements $a_{n,ij}$ of $\mA_n$ are uniformly bounded in $i$ and $j$,
+ \item $\tr(\mA^m) = O(n)$ for $m\geq 1$, and 
+ \item the elements of $\tr(\mA_n\mA_n^\top)= O(n)$.
+\end{enumerate}
+\end{lemma}
+%------------------------------------------------
+
+\begin{proof}
+Proof of (c). Suppressing the index $n$
+\begin{equation}
+  \begin{aligned}
+    \tr(\mA_n\mA_n^\top)               & = \sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2 \\
+    \left|\tr(\mA_n\mA_n^\top)\right|  & = \left|\sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2\right| \\
+     & \leq \sum_{i = 1}^n\sum_{j=1}^n\left|a_{ij}^2\right| \\
+     & \leq \sum_{i = 1}^n\left(\sum_{j=1}^n\left|a_{ij}\right|\right) ^2 \\
+     & \leq  n c_1^2\quad \mbox{if $\mA_n$ is uniformly bounded in row sums}
+  \end{aligned}
+\end{equation}
+
+
+\begin{equation}
+  \begin{aligned}
+    \left|\tr(\mA_n\mA_n^\top)\right|  & \leq \sum_{j = 1}^n\left(\sum_{i=1}^n\left|a_{ij}\right|\right) ^2 \\
+     & \leq  n c_2^2\quad \mbox{if $\mA_n$ is uniformly bounded in column sums}
+  \end{aligned}
+\end{equation}
+\end{proof}
 
 %---------------------------------
 \section{Quadratic forms}
@@ -1784,77 +1863,141 @@ In particular, if $\vepsi$'s are normally distributed with mean 0 and variance $
 \end{lemma}
 %--------------------------------------------------------------
 
+% \begin{proof}
+% We can write:
+% \begin{equation*}
+% \begin{aligned}
+% \vepsi^\top\mA\vepsi & = \left(\vepsi - \vmu\right)^\top\mA\vepsi + \vmu^\top\mA\vepsi \\
+% & = \left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right) + \vmu^\top\mA\vepsi + \left(\vepsi - \vmu\right)^\top\mA\vmu
+% \end{aligned}
+% \end{equation*}
+% If we take expectations, then the last term vanishes and we obtain
+% 
+% \begin{equation}
+% \E\left(\vepsi^\top\mA\vepsi\right) = \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] + \vmu^\top\mA\vmu
+% \end{equation}
+% 
+% Let $\upsilon_i = \epsilon_i - \mu_i$, so that $\vupsilon = \vepsi - \vmu$ and hence
+% 
+% \begin{equation*}
+% \begin{aligned}
+% \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] & = \E\left(\vupsilon^\top\mA\vupsilon\right) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^n\E(\upsilon_i a_{ij}\upsilon_j) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\upsilon_i\upsilon_j) \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vupsilon)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi - \vmu)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi)\right]_{ij} \\
+% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\mSigma_{ij} \\
+% & = \sum_{i = 1}^n\sum_{i = 1}^na_{ij}\mSigma_{ij} \\
+% & = \sum_{i = 1}^n \left[\mA\mSigma\right]_{ii} \\
+% & = \tr\left(\mA\mSigma\right)
+% \end{aligned}
+% \end{equation*}
+% \end{proof}
+
+
+%--------------------------------------------------
+\begin{lemma}\label{lemma:O-lemma-lee}
+Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums. Then:
+
+\begin{enumerate}
+  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$,
+  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$
+  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n)$
+\end{enumerate}
+\end{lemma}
+%--------------------------------------------------
+
 \begin{proof}
-We can write:
-\begin{equation*}
-\begin{aligned}
-\vepsi^\top\mA\vepsi & = \left(\vepsi - \vmu\right)^\top\mA\vepsi + \vmu^\top\mA\vepsi \\
-& = \left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right) + \vmu^\top\mA\vepsi + \left(\vepsi - \vmu\right)^\top\mA\vmu
-\end{aligned}
-\end{equation*}
-If we take expectations, then the last term vanishes and we obtain
+Proof of (a). By Lemma \ref{lemma:second-mom-lee}, $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2\tr(\mA_n)$. By Lemma \ref{lemma:bounde_trace}, $\tr(\mA) = O(n)$. Then $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2 O(n) = O(n)$ since $\sigma_{0}^2$ is a constant. 
+
+% For (1): 
+% \begin{equation}
+%  \begin{aligned}
+%   \E\left|\eta\right|  & =  \E\left(\left|\vepsi^\top\mA\vepsi\right|\right) \\
+%                          & =  \E\left(\left|\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right|\right) \\
+%                          & \leq  \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\epsilon_i\epsilon_j\right|\right) \\
+%                          & = \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\left|\epsilon_i\right|\left|\epsilon_j\right|\right) \\
+%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\E\left|\epsilon_i\right|\E\left|\epsilon_j\right|\right) \\
+%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\sigma_i\sigma_j\right)
+%  \end{aligned}  
+% \end{equation}
+
+Proof of (b). From Lemma \ref{lemma:second-mom-lee}
 
 \begin{equation}
-\E\left(\vepsi^\top\mA\vepsi\right) = \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] + \vmu^\top\mA\vmu
+\begin{aligned}
+  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]
+\end{aligned}
 \end{equation}
 
-Let $\upsilon_i = \epsilon_i - \mu_i$, so that $\vupsilon = \vepsi - \vmu$ and hence
+From Lemma \ref{lemma:bounde_trace} $\tr(\mA_n\mA_n^\top) = O(n)$ and $\tr(\mA_n^2) = O(n)$. Since 
+\begin{equation*}
+  \sum_{i = 1}^n a_{n, ii}^2 \leq \tr(\mA_n\mA_n^\top) = O(n), 
+\end{equation*}
+%
+then 
+\begin{equation}
+\begin{aligned}
+  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)O(n)+\sigma^4_0\left[O(n)+ O(n)\right] \\
+  & = O(n)
+\end{aligned}
+\end{equation}
+
+Proof of (c). Since $\E((\vepsi_n^\top\mA_n\vepsi_n)^2)= \var(\vepsi_n^\top\mA_n\vepsi) +  \left(\E(\vepsi_n^\top\mA_n\vepsi_n)\right)^2 = O(n) + O(n)O(n)= O(n^2)$ by Property \ref{prop:blO-nest}. The Chebyshev inequality \ref{definition:chebyshev_ineq} implies that
 
 \begin{equation*}
-\begin{aligned}
-\E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] & = \E\left(\vupsilon^\top\mA\vupsilon\right) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^n\E(\upsilon_i a_{ij}\upsilon_j) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\upsilon_i\upsilon_j) \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vupsilon)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi - \vmu)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi)\right]_{ij} \\
-& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\mSigma_{ij} \\
-& = \sum_{i = 1}^n\sum_{i = 1}^na_{ij}\mSigma_{ij} \\
-& = \sum_{i = 1}^n \left[\mA\mSigma\right]_{ii} \\
-& = \tr\left(\mA\mSigma\right)
-\end{aligned}
+\Pr\left(\frac{1}{n}\left|\vepsi_n^\top\mA_n\vepsi_n\right| \geq \delta\right) \leq \frac{1}{\delta^2n^2}\E\left[(\vepsi_n^\top\mA_n\vepsi_n)^2\right] = \frac{1}{\delta^2}O(1)
 \end{equation*}
+
+Then $\frac{1}{n}\vepsi^\top_n\mA_n\vepsi_n = O_p(1)$. Thus, $n^{-1}\vepsi_n^\top\mA_n\vepsi_n$ is bounded. 
 \end{proof}
 
-\begin{lemma}\label{lemma:O-lemma-lee}
-Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums, and the elements $a_{n, ij}$ of $\mA_n$ are $O(1/h_n)$ uniformly in all $i$ and $j$. Then:
-
-\begin{itemize}
-  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n/h_n)$,
-  \item $\var(\vepsi_n^\top\mA_n\vepsi_n)=O(n/h_n)$, and
-  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n/h_n)$.
-\end{itemize}
-
-Furthermore:
-
-\begin{itemize}
-\item $\lim_{n\to\infty}\frac{h_n}{n} = 0$, and,
-\item $\frac{h_n}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{h_n}{n}\E(\vepsi_n^\top\mA_n\vepsi_n) = o_p(1)$
-\end{itemize}
-\end{lemma}
-
-
+%-----------------------------------------------------------------------------------------------
 \begin{theorem}[Consistency of quadratic forms in spatial models]\label{teo:quadratic-forms-ley}
-Let $\mA$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}=(\epsilon_1, ..., \epsilon_n)$ where $\epsilon_i$ are iid $(0, \sigma^2)$ and $\E(v_i^4)<\infty$. Then
+Let $\mA_n$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}_n=(\epsilon_{n1}, ..., \epsilon_{nn})$ where $\epsilon_{ni}$ are iid $(0, \sigma^2_0)$ and $\E(\epsilon_{ni}^4)<\infty$. Then
 
 \begin{equation*}
-  \frac{\vepsi^\top \mA \vepsi}{n}\pto \E\left(\vepsi^\top \mA \vepsi\right) = \sigma^2\frac{\tr(\mA)}{n}
+  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \E\left(\vepsi_n^\top \mA_n \vepsi_n\right) = \sigma^2_0\frac{\tr(\mA_n)}{n}
 \end{equation*}
 
-If the limit of $\tr(\mA)/n$ exits, then:
+If the limit of $\tr(\mA_n)/n$ exits, then:
 
 \begin{equation*}
-\lim_{n\to\infty}\frac{\tr(\mA)}{n} = \mA^*
+\lim_{n\to\infty}\frac{\tr(\mA_n)}{n} = \mA^*
 \end{equation*}
 %
 and
 
 \begin{equation*}
-  \frac{\vepsi^\top \mA \vepsi}{n}\pto \sigma^2\mA^*.
+  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \sigma^2_0\mA^*.
 \end{equation*}
 \end{theorem}
+%-----------------------------------------------------------------------------------------------
+\begin{proof}
+ This result follows from Theorem \ref{teo:chebyshev}. By Chebyshev inequality \ref{definition:chebyshev_ineq}
+ 
+ \begin{equation*}
+ \begin{aligned}
+  \Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2 \delta^2} \\
+    \Pr\left[\left|\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n - \sigma^2_{0}\frac{\tr(\mA_n)}{n}\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2\delta^2}  \\
+    \leq \frac{1}{\delta^2}n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n)
+ \end{aligned}
+ \end{equation*}
+ 
+ By Lemma \ref{lemma:bounde_trace}, $\tr(\mA_n) = O(n)$. Hence $\lim_{n\to\infty} \frac{1}{n}\E(\vepsi_n^\top \mA_n \vepsi_n) = \sigma_{0}^2\mA^* = O(1)$ and the expectation exists. 
+ 
+ By Lemma \ref{lemma:O-lemma-lee} $\var(\vepsi_n\mA_n\vepsi_n) = O(n)$. Therefore, $n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n) = \var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n) = O(n^{1}) = o(1)$. Thus $\var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n)\to 0$ as $n\to \infty$ and $\Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right]\to 0$, so 
+\begin{equation*}
+\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top \mA_n\vepsi_n) = o_p(1)
+\end{equation*}
+%
+which can also be written as
+\begin{equation*}
+  \frac{\vepsi_n^\top \mA_n \vepsi}{n}\pto \sigma^2_0\mA^*.
+\end{equation*}
 
-
+\end{proof}
 
 
 %---------------------------------
@@ -1946,14 +2089,18 @@ Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is 
 
 
 \section*{Appendix}
-
-
 \begin{subappendices}
 
 %-------------------------------------------------------------------------
  \section{Inqualities}\label{appendix-inequalities}
 %-------------------------------------------------------------------------
 
+\begin{definition}[Multiplicativity of absolute value]\label{def:abs-multiplicativity}
+For any two random variables $a$ and $b$
+\begin{equation}
+\left|ab\right| = \left|a\right|\left|b\right|
+\end{equation}
+\end{definition}
 
 \begin{definition}[Triangle Inequality]\label{def:triangle-inequality}
 For any real numbers $x_j$, 

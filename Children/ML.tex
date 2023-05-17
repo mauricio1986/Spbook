@@ -183,52 +183,90 @@ where the true value $\rho_0 = 0.7$; the sample size for each sample is $n = 225
 
 The syntax for creating the global parameters for the simulation in \proglang{R} is the following: 
 
-<<sim_set_up1>>=
-# Global parameters
-library("spdep")
-library("spatialreg")
-set.seed(123)                                   # Set seed
-S       <- 100                                  # Number of simulations
-n       <- 225                                  # Spatial units
-rho     <- 0.7                                  # True rho
-w       <- cell2nb(sqrt(n), sqrt(n))            # Create artificial W matrix
-iw      <- invIrM(w, rho)                       # Compute inverse of (I - rho*W)
-rho_hat <- vector(mode = "numeric", length = S) # Vector to save results.
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Global parameters}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: spData}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# To access larger datasets in this package, install the spDataLarge\\\#\# package with: `install.packages('spDataLarge',\\\#\# repos='https://nowosad.github.io/drat/', type='source')`}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: sf}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf\_use\_s2() is TRUE}}\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{"spatialreg"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'spatialreg'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:spdep':\\\#\# \\\#\# \ \ \ \ get.ClusterOption, get.coresOption, get.mcOption,\\\#\# \ \ \ \ get.VerboseOption, get.ZeroPolicyOption, set.ClusterOption,\\\#\# \ \ \ \ set.coresOption, set.mcOption, set.VerboseOption,\\\#\# \ \ \ \ set.ZeroPolicyOption}}\begin{alltt}
+\hlkwd{set.seed}\hlstd{(}\hlnum{123}\hlstd{)}                                   \hlcom{# Set seed}
+\hlstd{S}       \hlkwb{<-} \hlnum{100}                                  \hlcom{# Number of simulations}
+\hlstd{n}       \hlkwb{<-} \hlnum{225}                                  \hlcom{# Spatial units}
+\hlstd{rho}     \hlkwb{<-} \hlnum{0.7}                                  \hlcom{# True rho}
+\hlstd{w}       \hlkwb{<-} \hlkwd{cell2nb}\hlstd{(}\hlkwd{sqrt}\hlstd{(n),} \hlkwd{sqrt}\hlstd{(n))}            \hlcom{# Create artificial W matrix}
+\hlstd{iw}      \hlkwb{<-} \hlkwd{invIrM}\hlstd{(w, rho)}                       \hlcom{# Compute inverse of (I - rho*W)}
+\hlstd{rho_hat} \hlkwb{<-} \hlkwd{vector}\hlstd{(}\hlkwc{mode} \hlstd{=} \hlstr{"numeric"}\hlstd{,} \hlkwc{length} \hlstd{= S)} \hlcom{# Vector to save results.}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function \code{cell2nb} creates a list of neighbors for a grid of cells. By default it creates neighbors based on rook criteria. The \code{invIrM} function generates the full weights $\mW$, checks that $\rho$ lies in its feasible range between $1 / \min{\vomega}$ and $1 / \max{\vomega}$, where $\vomega = eigen (\mW)$, and returns the $n\times n$ inverted matrix $(\mI_n - \rho\mW)^{-1}$. 
 
 
 The loop for the simulation is the following:
-<<loop_sim_1>>=
-# Loop for simulation
-for (s in 1:S) {
-  e <- rnorm(n, mean = 0 , sd = 1) # Create error term
-  y <- iw %*% e                    # True DGP
-  Wy <- lag.listw(nb2listw(w), y)  # Create spatial lag
-  out <- lm(y ~ Wy)                # Estimate OLS
-  rho_hat[s] <- coef(out)["Wy"]    # Save results
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Loop for simulation}
+\hlkwa{for} \hlstd{(s} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{S) \{}
+  \hlstd{e} \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n,} \hlkwc{mean} \hlstd{=} \hlnum{0} \hlstd{,} \hlkwc{sd} \hlstd{=} \hlnum{1}\hlstd{)} \hlcom{# Create error term}
+  \hlstd{y} \hlkwb{<-} \hlstd{iw} \hlopt{%*%} \hlstd{e}                    \hlcom{# True DGP}
+  \hlstd{Wy} \hlkwb{<-} \hlkwd{lag.listw}\hlstd{(}\hlkwd{nb2listw}\hlstd{(w), y)}  \hlcom{# Create spatial lag}
+  \hlstd{out} \hlkwb{<-} \hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{Wy)}                \hlcom{# Estimate OLS}
+  \hlstd{rho_hat[s]} \hlkwb{<-} \hlkwd{coef}\hlstd{(out)[}\hlstr{"Wy"}\hlstd{]}    \hlcom{# Save results}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Note that since $\mW$ is considered as fixed (nonstochastic) it is created out of simulation loop. 
 The results are the following:
-<<sum-loop-1>>=
-# Summary of rho_hat
-summary(rho_hat)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Summary of rho_hat}
+\hlkwd{summary}\hlstd{(rho_hat)}
+\end{alltt}
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.8309  0.9981  1.0331  1.0332  1.0751  1.1680
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 It can be noticed that the estimated $\rho$ ranges from 0.8 to 1.2, that is, the range does not include the true parameter $\rho_0 = 0.7$. Moreover, the mean of the estimated parameters is 1, which is very far away from $0.7$! We can conclude that the OLS estimator of the pure SLM model is highly biased.
 
 Finally, we can plot the sampling distribution of the estimated parameters in the following way:
 
-<<ols-rho-sim-F, eval = FALSE>>=
-# Plot density of estimated rho_hat. 
-plot(density(rho_hat),
-     xlab = expression(hat(rho)), 
-     main = "")
-abline(v = rho, col = "red")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Plot density of estimated rho_hat. }
+\hlkwd{plot}\hlstd{(}\hlkwd{density}\hlstd{(rho_hat),}
+     \hlkwc{xlab} \hlstd{=} \hlkwd{expression}\hlstd{(}\hlkwd{hat}\hlstd{(rho)),}
+     \hlkwc{main} \hlstd{=} \hlstr{""}\hlstd{)}
+\hlkwd{abline}\hlstd{(}\hlkwc{v} \hlstd{= rho,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Figure \ref{fig:ols-rho-sim} present the sampling distribution of $\rho$ estimated by OLS for each sample in the Monte Carlo simulation study. The observed pattern is the same as previously discussed: the distribution does not contain $\rho_0 = 0.7$.
 
@@ -237,14 +275,15 @@ Figure \ref{fig:ols-rho-sim} present the sampling distribution of $\rho$ estimat
     \label{fig:ols-rho-sim}
     \centering 
 	\begin{minipage}{.9\linewidth}
-<<ols-rho-sim, echo = FALSE, message = FALSE, fig.align='center', out.width = '8cm', out.height = '8cm'>>=
-plot(density(rho_hat),
-     xlab = expression(hat(rho)), 
-     main = "",
-     xlim = c(0.6, 1.3)
-     )
-abline(v = rho, col = "red")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=8cm,height=8cm]{figure/ols-rho-sim-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the sampling distribution of $\rho$ estimated by OLS for each sample in the Monte Carlo simulation study. The true DGP follows a pure Spatial Lag Model where the true parameter is $\rho_0 = 0.7$
 	\end{minipage}	
@@ -467,7 +506,7 @@ where:
 This expression will be useful later. 
 
 %**********************
-\subsection{Hessian}\label{sec:Hessian}
+\subsection{Hessian}
 %***********************
 
 The Hessian matrix will be very important in the following sections to obtain the asymptotic variance-covariance matrix. For this reason we devote a complete section in order to derive this matrix for the SLM. In this case, the Hessian is a $(k + 2)\times (k + 2)$ matrix of second derivatives given by
@@ -916,7 +955,7 @@ What if $\mW_n$ is not row-normalized but its eigenvalues are real? Then, the Ja
 This is a sufficient condition for global identification of $\vtheta_0$
 
 \begin{theorem}[Consistency]\label{teorem:Consistency_ML}
-	Let $\vtheta_0 = (\vbeta_0^\top, \rho_0, \sigma_0^2)^\top$. Under assumption \ref{assu:ml_1}-\ref{assu:ml_8}, $\vtheta_0$ is globally identifiable and $\widehat{\vtheta}_n$ is a consistent estimator of $\vtheta_0$.
+	Under assumption \ref{assu:ml_1}-\ref{assu:ml_8}, $\vtheta_0$ is globally identifiable and $\widehat{\vtheta}_n$ is a consistent estimator of $\vtheta_0$.
 \end{theorem}
 
 Identification of $\rho_0$ can be based on the maximum values of the concentrated log-likelihood function $Q_n(\rho) / n$. With identification and uniform convergence of $\left[\log L_n(\rho) - Q_n(\rho)\right] / n$ to zero on $\Gamma$, consistency of the QMLE $\widehat{\vtheta}_n$ follows. The sketch of the proof for Theorem \ref{teorem:Consistency_ML} is given in Appendix \ref{appendix-consistency}. 
@@ -947,28 +986,24 @@ As standard in asymptotic theory of MLE, we need to show that the first element 
 
 As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of (\ref{eq:asy_der_rho}) may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_{n0}$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_{n0}\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
 
-Let $\vtheta = (\vbeta^\top, \rho, \sigma^2)^\top$ be the $k+2$-dimensional vector. Since $\E\left[(1 / \sqrt{n}) \partial \ell_n (\vtheta_0)/\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \ell_n(\vtheta_0) /\partial \vtheta$ is:
+Since $\E\left[(1 / \sqrt{n}) \partial \ell_n /\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \ell_n /\partial \vtheta$ is:
 \begin{equation}
-  \E\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top} \right] = - \E\left(\frac{1}{n} \frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right) + \mOmega_{\vtheta, n},
+  \E\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top} \right] = - \E\left(\frac{1}{n} \frac{\partial \ell_n(\vtheta)}{\partial \vtheta \partial \vtheta^\top}\right) + \mOmega_{\vtheta, n},
 \end{equation}
 %
 where 
 \begin{equation}\label{eq:expected-hessian-slm-asy}
-- \E\left(\frac{1}{n} \frac{\partial^2 \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right)= 
+- \E\left(\frac{1}{n} \frac{\partial \log L_n(\vtheta)}{\partial \vtheta \partial \vtheta^\top}\right)= 
 	\begin{pmatrix}
-	\frac{1}{n\sigma^2_0}(\mX_n^\top \mX_n)  & \frac{1}{n\sigma^2_0} \mX_n^\top (\mC_n\mX_n\vbeta_0) & \vzeros^\top \\
-	   & \frac{1}{n}\tr(\mC^s_{n0}\mC_{n0}) + \frac{1}{n\sigma^2_0}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) &  \frac{1}{n\sigma^2_0} \tr(\mC_{n0}) \\
-		 &  & \frac{1}{2\sigma^4_0}
+	\frac{1}{\sigma^2n}(\mX_n^\top \mX_n) & \vzeros^\top & \frac{1}{\sigma^2n} \mX_n^\top (\mC_n\mX_n\vbeta) \\
+		 &  \frac{1}{2\sigma^4} & \frac{1}{\sigma^2n} \tr(\mC_n)\\
+		 &  & \frac{1}{n}\tr(\mC^s_n\mC_n) + \frac{1}{\sigma^2n}(\mC_n\mX_n\vbeta)^\top(\mC_n\mX_n\vbeta)
 	\end{pmatrix} 
 \end{equation}
 %
-and $\mC^s_{n0} = \mC_{n0} + \mC_{n0}^\top$. Equation \eqref{eq:expected-hessian-slm-asy} represents the average Hessian matrix (or information matrix when $\vepsi$'s are \textbf{normal}). The matrix $ \mOmega_{\vtheta, n}$ is a matrix with the second, third, and fourth moments of $\vepsi$. If $\vepsi_n$ is normally distributed, then $\mOmega_{\vtheta, n} = \vzeros$. 
+and $\mC^s_n = \mC_n + \mC_n^\top$. Equation \ref{eq:expected-hessian-slm-asy} represents the average Hessian matrix (or information matrix when $\vepsi$'s are \textbf{normal}). The matrix $ \mOmega_{\vtheta, n}$ is a matrix with the second, third, and fourth moments of $\vepsi$. If $\vepsi_n$ is normally distributed, then $\mOmega_{\vtheta, n} = \vzeros$. Derivation of \ref{eq:expected-hessian-slm-asy} is given in Appendix \ref{appendix-EH-sml}.
 
-Derivation of \eqref{eq:expected-hessian-slm-asy} is given in Appendix \ref{appendix-EH-sml} and the variance of the score function is given in Appendix \ref{appendix-score}.
-
-
-%---------------------------------------------------
-\begin{theorem}[Asymptotic Normality]\label{teo:asymptotic-normality-slm}
+\begin{theorem}[Asymptotic Normality]
 Under Assumptions \ref{assu:ml_1}-\ref{assu:ml_8}, 
 
 \begin{equation}
@@ -976,6 +1011,7 @@ Under Assumptions \ref{assu:ml_1}-\ref{assu:ml_8},
 \end{equation}
 %
 where $\mOmega_{\vtheta} = \lim_{n\to\infty}\mOmega_{\vtheta, n}$ and
+
 \begin{equation}
   \mSigma_{\vtheta}= - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right],
 \end{equation}
@@ -985,9 +1021,6 @@ which are assumed to exists. If the $\epsilon_i$'s are \textbf{normally distribu
   \sqrt{n}\left(\widehat{\vtheta}_n- \vtheta_0\right)\dto \rN\left(\vtheta, \mSigma_{\vtheta}^{-1}\right).
 \end{equation}
 \end{theorem}
-%-------------------------------------
-
-A sketch of the proof of Theorem \ref{teo:asymptotic-normality-slm} is given in Appendix \ref{appendix-asymptotic normality}.
 
 %=====================================
 \section{Computing the Standard Errors For The Marginal Effects}
@@ -1047,36 +1080,48 @@ In this example we use \cite{anselin1988spatial}'s dataset. This sample correspo
 
 We start our analysis by loading the required packages into \proglang{R} workspace.
 
-<<message = FALSE, warning=FALSE>>=
-# Load packages
-library("spdep")   
-library("spatialreg")
-library("memisc")            # Package for tables
-library("maptools")          
-library("RColorBrewer") 
-library("classInt")
-source("getSummary.sarlm.R") # Function for spdep models
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Load packages}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"spatialreg"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"memisc"}\hlstd{)}            \hlcom{# Package for tables}
+\hlkwd{library}\hlstd{(}\hlstr{"maptools"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"classInt"}\hlstd{)}
+\hlkwd{source}\hlstd{(}\hlstr{"getSummary.sarlm.R"}\hlstd{)} \hlcom{# Function for spdep models}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The dataset is currently part of the \pkg{spdep} package. We load the data using the following commands.
 
-<<load-columbus, warning = FALSE>>=
-# Load data
-columbus   <- readShapePoly(system.file("etc/shapes/columbus.shp",
-                                      package = "spdep")[1])
-col.gal.nb <- read.gal(system.file("etc/weights/columbus.gal",
-                                   package = "spdep")[1])
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Load data}
+\hlstd{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/shapes/columbus.shp"}\hlstd{,}
+                                      \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
+\hlstd{col.gal.nb} \hlkwb{<-} \hlkwd{read.gal}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/weights/columbus.gal"}\hlstd{,}
+                                   \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 As usual in applied work, we start the analysis by asking whether there exists a spatial pattern in the variable we are interested in. To get some insights about the spatial distribution of \code{CRIME} we use the following quantile clorophet graph:
 
-<<spatial-crime-false, eval = FALSE >>=
-# Spatial distribution of crime
-spplot(columbus, "CRIME", 
-       at = quantile(columbus$CRIME, p = c(0, .25, .5, .75, 1), na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = "")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Spatial distribution of crime}
+\hlkwd{spplot}\hlstd{(columbus,} \hlstr{"CRIME"}\hlstd{,}
+       \hlkwc{at} \hlstd{=} \hlkwd{quantile}\hlstd{(columbus}\hlopt{$}\hlstd{CRIME,} \hlkwc{p} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{.25}\hlstd{,} \hlnum{.5}\hlstd{,} \hlnum{.75}\hlstd{,} \hlnum{1}\hlstd{),} \hlkwc{na.rm} \hlstd{=} \hlnum{TRUE}\hlstd{),}
+       \hlkwc{col.regions} \hlstd{=} \hlkwd{brewer.pal}\hlstd{(}\hlnum{5}\hlstd{,} \hlstr{"Blues"}\hlstd{),}
+       \hlkwc{main} \hlstd{=} \hlstr{""}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Figure \ref{fig:spatial-crime} shows the spatial pattern of crime. It can be observed that the spatial distribution of crime follows a clear pattern of positive autocorrelation. However, we must corroborate this statement by using a global test of spatial autocorrelation. To do so, we use a row-normalized binary contiguity matrix $\mW$, \code{col.gal.nb},  based on the queen criteria and carry out a Moran's I test. In particular, we use a Moran test based on Monte Carlo simulations using the \code{moran.mc} function with 99 simulations. 
 
@@ -1085,26 +1130,43 @@ Figure \ref{fig:spatial-crime} shows the spatial pattern of crime. It can be obs
     \label{fig:spatial-crime}
     \centering 
 	\begin{minipage}{.9\linewidth}
-<<spatial-crime, echo = FALSE, message = FALSE, fig.align='center', out.width = '9cm', out.height = '9cm'>>=
-par(mar = c(0.1, 0.1, 0.1, 0.1))
-spplot(columbus, "CRIME", 
-       at = quantile(columbus$CRIME, p = c(0, .25, .5, .75, 1), na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = "")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=9cm,height=9cm]{figure/spatial-crime-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of crime on the 49 Columbus, Ohio neighborhoods. Darker color indicates greater rate of crime. 
 	\end{minipage}	
 \end{figure}
 
 
-<<moran-oldcol>>=
-# Moran's I test
-set.seed(1234)
-listw <- nb2listw(col.gal.nb, style = "W")
-moran.mc(columbus$CRIME, listw = listw, 
-           nsim = 99, alternative = 'greater')
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Moran's I test}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1234}\hlstd{)}
+\hlstd{listw} \hlkwb{<-} \hlkwd{nb2listw}\hlstd{(col.gal.nb,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
+\hlkwd{moran.mc}\hlstd{(columbus}\hlopt{$}\hlstd{CRIME,} \hlkwc{listw} \hlstd{= listw,}
+           \hlkwc{nsim} \hlstd{=} \hlnum{99}\hlstd{,} \hlkwc{alternative} \hlstd{=} \hlstr{'greater'}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Monte-Carlo simulation of Moran I
+## 
+## data:  columbus$CRIME 
+## weights: listw  
+## number of simulations + 1: 100 
+## 
+## statistic = 0.48577, observed rank = 100, p-value = 0.01
+## alternative hypothesis: greater
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The results show that the Moran's I statistic is 0.51 and the p-value is 0.01. This implies that we reject the null hypothesis of random spatial distribution and there exists evidence of positive global spatial autocorrelation in the crime variable: places with high (low) crime rate are surrounded by places with high (low) crime rate. 
 
@@ -1121,43 +1183,51 @@ Our next step is to estimate different spatial models using the functions alread
 
 All models are estimated using ML procedure outline in the previous section. In order to compute the determinant of the Jacobian we use the \cite{ord1975estimation}'s procedure by explicitly using the argument \code{method = "eigen"} in each spatial model. That is, the Jacobian is computed as in (\ref{eq:Ord-determinant}).
 
-<<models-crime>>=
-# Models
-columbus$lag.INC   <- lag.listw(listw, 
-                         columbus$INC)   # Create spatial lag of INC
-columbus$lag.HOVAL <- lag.listw(listw, 
-                         columbus$HOVAL) # Create spatial lag of HOVAL
-ols <- lm(CRIME ~ INC + HOVAL, 
-          data =  columbus)        
-slx <- lm(CRIME ~ INC + HOVAL + lag.INC + lag.HOVAL, 
-          data =  columbus)
-slm <- lagsarlm(CRIME ~ INC + HOVAL, 
-                data = columbus,
-                listw, 
-                method = "eigen")
-sdm <- lagsarlm(CRIME ~ INC + HOVAL, 
-                data = columbus,
-                listw, 
-                method = "eigen",
-                type = "mixed")
-sem <- errorsarlm(CRIME ~ INC + HOVAL, 
-                data = columbus,
-                listw,
-                method = "eigen")
-sac <- sacsarlm(CRIME ~ INC + HOVAL, 
-                data = columbus,
-                listw,
-                method = "eigen")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Models}
+\hlstd{columbus}\hlopt{$}\hlstd{lag.INC}   \hlkwb{<-} \hlkwd{lag.listw}\hlstd{(listw,}
+                         \hlstd{columbus}\hlopt{$}\hlstd{INC)}   \hlcom{# Create spatial lag of INC}
+\hlstd{columbus}\hlopt{$}\hlstd{lag.HOVAL} \hlkwb{<-} \hlkwd{lag.listw}\hlstd{(listw,}
+                         \hlstd{columbus}\hlopt{$}\hlstd{HOVAL)} \hlcom{# Create spatial lag of HOVAL}
+\hlstd{ols} \hlkwb{<-} \hlkwd{lm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+          \hlkwc{data} \hlstd{=  columbus)}
+\hlstd{slx} \hlkwb{<-} \hlkwd{lm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL} \hlopt{+} \hlstd{lag.INC} \hlopt{+} \hlstd{lag.HOVAL,}
+          \hlkwc{data} \hlstd{=  columbus)}
+\hlstd{slm} \hlkwb{<-} \hlkwd{lagsarlm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+                \hlkwc{data} \hlstd{= columbus,}
+                \hlstd{listw,}
+                \hlkwc{method} \hlstd{=} \hlstr{"eigen"}\hlstd{)}
+\hlstd{sdm} \hlkwb{<-} \hlkwd{lagsarlm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+                \hlkwc{data} \hlstd{= columbus,}
+                \hlstd{listw,}
+                \hlkwc{method} \hlstd{=} \hlstr{"eigen"}\hlstd{,}
+                \hlkwc{type} \hlstd{=} \hlstr{"mixed"}\hlstd{)}
+\hlstd{sem} \hlkwb{<-} \hlkwd{errorsarlm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+                \hlkwc{data} \hlstd{= columbus,}
+                \hlstd{listw,}
+                \hlkwc{method} \hlstd{=} \hlstr{"eigen"}\hlstd{)}
+\hlstd{sac} \hlkwb{<-} \hlkwd{sacsarlm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+                \hlkwc{data} \hlstd{= columbus,}
+                \hlstd{listw,}
+                \hlkwc{method} \hlstd{=} \hlstr{"eigen"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Note that the SLX model can also be estimated as follows:
 
-<<slx-spdep, eval = FALSE>>=
-slx2 <- lmSLX(CRIME ~ INC + HOVAL, 
-              data = columbus, 
-              listw)
-summary(slx2)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{slx2} \hlkwb{<-} \hlkwd{lmSLX}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,}
+              \hlkwc{data} \hlstd{= columbus,}
+              \hlstd{listw)}
+\hlkwd{summary}\hlstd{(slx2)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 
@@ -1177,23 +1247,40 @@ The SAC model, presented in column 6, considers both endogenous interactions eff
 \begin{table}[ht]
 \caption{Spatial Models for Crime in Columbus, Ohio Neighborhoods.}\label{tab:columbus-models}
 \centering
-<<echo = FALSE, results = 'asis', warning=FALSE>>=
-table_1 <- mtable("OLS" = ols,
-                  "SLX" = slx,
-                  "SLM" = slm,
-                  "SDM" = sdm,
-                  "SEM" = sem, 
-                  "SAC" = sac, 
-       summary.stats = c("AIC", "N"),
-       coef.style = "default")
-table_1 <- relabel(table_1,
-                   "(Intercept)" = "\\emph{Constant}",
-                   "rho" = "$\\rho$",
-                   "lambda" = "$\\lambda$",
-                   "lag.INC" = "$W.INC$",
-                   "lag.HOVAL" = "$W.HOVAL$") 
-toLatex(table_1, compact = TRUE, useBooktabs =  TRUE)
-@
+\begin{tabular}{lD{.}{.}{3}D{.}{.}{3}D{.}{.}{3}D{.}{.}{3}D{.}{.}{3}D{.}{.}{3}}
+\toprule
+ & 
+\multicolumn{1}{c}{OLS} & 
+\multicolumn{1}{c}{SLX} & 
+\multicolumn{1}{c}{SLM} & 
+\multicolumn{1}{c}{SDM} & 
+\multicolumn{1}{c}{SEM} & 
+\multicolumn{1}{c}{SAC}\\
+\midrule
+\emph{Constant} & 68.619^{***} & 74.029^{***} & 46.851^{***} & 45.593^{***} & 61.054^{***} & 49.051^{***}\\
+                 & (4.735) & (6.722) & (7.315) & (13.129) & (5.315) & (10.055)\\
+INC              & -1.597^{***} & -1.108^{**} & -1.074^{***} & -0.939^{**} & -0.995^{**} & -1.069^{**}\\
+                 & (0.334) & (0.375) & (0.311) & (0.338) & (0.337) & (0.333)\\
+HOVAL            & -0.274^{*} & -0.295^{**} & -0.270^{**} & -0.300^{***} & -0.308^{***} & -0.283^{**}\\
+                 & (0.103) & (0.101) & (0.090) & (0.091) & (0.093) & (0.092)\\
+$W.INC$          &  & -1.383^{*} &  & -0.618 &  & \\
+                 &  & (0.559) &  & (0.577) &  & \\
+$W.HOVAL$        &  & 0.226 &  & 0.267 &  & \\
+                 &  & (0.203) &  & (0.184) &  & \\
+$\rho$          &  &  & 0.404^{***} & 0.383^{*} &  & 0.353\\
+                 &  &  & (0.121) & (0.162) &  & (0.197)\\
+$\lambda$       &  &  &  &  & 0.521^{***} & 0.132\\
+                 &  &  &  &  & (0.141) & (0.299)\\
+\midrule
+AIC              & 382.754 & 380.197 & 376.337 & 378.032 & 378.310 & 378.146\\
+N                &  49     &  49     &  49     &  49     &  49     &  49    \\
+\bottomrule
+\multicolumn{7}{p{.7\linewidth}}{Significance: 
+              $*** \equiv p < 0{.}001$; 
+              $** \equiv p < 0{.}01$; 
+              $* \equiv p < 0{.}05$}\\
+\end{tabular}
+
 \end{table}
 
 %---------------------------------------------------
@@ -1210,57 +1297,87 @@ We begin our analysis with the following question: what would happen to crime in
 % 
 and estimate the predicted values pre- and post- the change in the income variable. In the following lines we use the reduced-form predictor and the observed values of the exogenous variables to obtain the predicted values for \code{CRIME}, $\widehat{\vy}^1$,  using the SLM model previously estimated. 
   
-<<y-hat-pre>>=
-# The predicted values
-rho       <- slm$rho                                # Estimated rho from SLM model
-beta_hat  <- coef(slm)[-1]                          # Estimated parameters
-A         <- invIrW(listw, rho = rho)               # (I - rho*W)^{-1}
-X         <- cbind(1, columbus$INC, columbus$HOVAL) # Matrix of observed variables
-y_hat_pre <- A %*% crossprod(t(X), beta_hat)        # y hat
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# The predicted values}
+\hlstd{rho}       \hlkwb{<-} \hlstd{slm}\hlopt{$}\hlstd{rho}                                \hlcom{# Estimated rho from SLM model}
+\hlstd{beta_hat}  \hlkwb{<-} \hlkwd{coef}\hlstd{(slm)[}\hlopt{-}\hlnum{1}\hlstd{]}                          \hlcom{# Estimated parameters}
+\hlstd{A}         \hlkwb{<-} \hlkwd{invIrW}\hlstd{(listw,} \hlkwc{rho} \hlstd{= rho)}               \hlcom{# (I - rho*W)^\{-1\}}
+\hlstd{X}         \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlnum{1}\hlstd{, columbus}\hlopt{$}\hlstd{INC, columbus}\hlopt{$}\hlstd{HOVAL)} \hlcom{# Matrix of observed variables}
+\hlstd{y_hat_pre} \hlkwb{<-} \hlstd{A} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta_hat)}        \hlcom{# y hat}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Next we increase \code{INC} by 1 in spatial unit 30, and calculate the reduced-form predictions, $\widehat{\vy}^2$.
 
-<<y-hat-post>>=
-# The post-predicted values
-col_new <- columbus # copy the data frame
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# The post-predicted values}
+\hlstd{col_new} \hlkwb{<-} \hlstd{columbus} \hlcom{# copy the data frame}
 
-# Change the income value
-col_new@data[col_new@data$POLYID == 30, "INC"] <- 14.906
+\hlcom{# Change the income value}
+\hlstd{col_new}\hlopt{@}\hlkwc{data}\hlstd{[col_new}\hlopt{@}\hlkwc{data}\hlopt{$}\hlstd{POLYID} \hlopt{==} \hlnum{30}\hlstd{,} \hlstr{"INC"}\hlstd{]} \hlkwb{<-} \hlnum{14.906}
 
-# The predicted values
-X_d        <- cbind(1, col_new$INC, col_new$HOVAL)
-y_hat_post <- A %*% crossprod(t(X_d), beta_hat)
-@
+\hlcom{# The predicted values}
+\hlstd{X_d}        \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlnum{1}\hlstd{, col_new}\hlopt{$}\hlstd{INC, col_new}\hlopt{$}\hlstd{HOVAL)}
+\hlstd{y_hat_post} \hlkwb{<-} \hlstd{A} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X_d), beta_hat)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Finally,  we compute the difference between pre- and post-predictions: $\widehat{\vy}^2 - \widehat{\vy}^1$:
 
-<<diff-predicts>>=
-# The difference
-delta_y         <- y_hat_post - y_hat_pre
-col_new$delta_y <- delta_y
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# The difference}
+\hlstd{delta_y}         \hlkwb{<-} \hlstd{y_hat_post} \hlopt{-} \hlstd{y_hat_pre}
+\hlstd{col_new}\hlopt{$}\hlstd{delta_y} \hlkwb{<-} \hlstd{delta_y}
 
-# Show the effects
-summary(delta_y)
-sum(delta_y)
-@
+\hlcom{# Show the effects}
+\hlkwd{summary}\hlstd{(delta_y)}
+\end{alltt}
+\begin{verbatim}
+##        V1            
+##  Min.   :-1.1141241  
+##  1st Qu.:-0.0074114  
+##  Median :-0.0012172  
+##  Mean   :-0.0336341  
+##  3rd Qu.:-0.0002604  
+##  Max.   :-0.0000081
+\end{verbatim}
+\begin{alltt}
+\hlkwd{sum}\hlstd{(delta_y)}
+\end{alltt}
+\begin{verbatim}
+## [1] -1.648071
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 According to the result from \code{sum(delta\_y)},  the predicted effect of the change would be a decrease of 1.65 in the crime rate, considering both direct and indirect effects. That is, increasing the income in US\$1,000 in region 30th might generate effects that will transmit through the whole system of region resulting in a new equilibrium where the the total crime will reduce in 1.7 crimes per thousand households. 
 
 Sometimes we would like to plot these effects. Suppose we wanted to show those regions that had low and high impact due to the increase in \code{INC}. Let's define ``high impacted regions'' those regions whose crime rate decrease more than 0.05. The following code produces Figure \ref{fig:predicted-effect}. 
 
-<<predicted-effect-evalF, eval = FALSE>>=
-# Breaks
-breaks <- c(min(col_new$delta_y), -0.05, max(col_new$delta_y))
-labels <- c("High-Impacted Regions", "Low-Impacted Regions")
-np     <- findInterval(col_new$delta_y, breaks)
-colors <- c("red", "blue")
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Breaks}
+\hlstd{breaks} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(col_new}\hlopt{$}\hlstd{delta_y),} \hlopt{-}\hlnum{0.05}\hlstd{,} \hlkwd{max}\hlstd{(col_new}\hlopt{$}\hlstd{delta_y))}
+\hlstd{labels} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"High-Impacted Regions"}\hlstd{,} \hlstr{"Low-Impacted Regions"}\hlstd{)}
+\hlstd{np}     \hlkwb{<-} \hlkwd{findInterval}\hlstd{(col_new}\hlopt{$}\hlstd{delta_y, breaks)}
+\hlstd{colors} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"red"}\hlstd{,} \hlstr{"blue"}\hlstd{)}
 
-# Draw Map
-plot(col_new, col = colors[np])
-legend("topleft", legend = labels, fill = colors, bty = "n")
-points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
-@
+\hlcom{# Draw Map}
+\hlkwd{plot}\hlstd{(col_new,} \hlkwc{col} \hlstd{= colors[np])}
+\hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,} \hlkwc{legend} \hlstd{= labels,} \hlkwc{fill} \hlstd{= colors,} \hlkwc{bty} \hlstd{=} \hlstr{"n"}\hlstd{)}
+\hlkwd{points}\hlstd{(}\hlnum{38.29}\hlstd{,} \hlnum{30.35}\hlstd{,} \hlkwc{pch} \hlstd{=} \hlnum{19}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"black"}\hlstd{,} \hlkwc{cex} \hlstd{=} \hlnum{0.5}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 \begin{figure}[ht]
@@ -1268,18 +1385,15 @@ points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
     \label{fig:predicted-effect}
     \centering 
 	\begin{minipage}{.9\linewidth}
-<<predicted-effect, echo = FALSE, message = FALSE, fig.align='center', out.width = '10cm', out.height = '10cm'>>=
-# Breaks
-breaks <- c(min(col_new$delta_y), -0.05, max(col_new$delta_y))
-labels <- c("High-Impacted Regions", "Low-Impacted Regions")
-np     <- findInterval(col_new$delta_y, breaks)
-colors <- c("red", "blue")
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-# Draw Map
-plot(col_new, col = colors[np])
-legend("topleft", legend = labels, fill = colors, bty = "n")
-points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
-@
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows those regions that had low and high impact due to increase in \code{INC} in 30th. Red-colored regions are those regions with a decrease of crime rate larger than 0.05, whereas blue-colored regions are those regions with lower decrease of crime rate. 
 	\end{minipage}	
@@ -1287,27 +1401,33 @@ points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
 
 Now we map the magnitude of the changes caused by altering \texttt{INC} in region 30. The code is the following and the graph is presented in Figure \ref{fig:predicted-effect2}.
 
-<<predicted-effect2-evalF, eval = FALSE>>=
-# Plot the magnitude of the ME
-pal5    <- brewer.pal(6, "Spectral")
-cats5   <- classIntervals(col_new$delta_y, n = 5, style = "jenks")
-colors5 <- findColours(cats5, pal5)
-plot(col_new, col = colors5)
-legend("topleft", legend = round(cats5$brks, 2), fill = pal5, bty = "n")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Plot the magnitude of the ME}
+\hlstd{pal5}    \hlkwb{<-} \hlkwd{brewer.pal}\hlstd{(}\hlnum{6}\hlstd{,} \hlstr{"Spectral"}\hlstd{)}
+\hlstd{cats5}   \hlkwb{<-} \hlkwd{classIntervals}\hlstd{(col_new}\hlopt{$}\hlstd{delta_y,} \hlkwc{n} \hlstd{=} \hlnum{5}\hlstd{,} \hlkwc{style} \hlstd{=} \hlstr{"jenks"}\hlstd{)}
+\hlstd{colors5} \hlkwb{<-} \hlkwd{findColours}\hlstd{(cats5, pal5)}
+\hlkwd{plot}\hlstd{(col_new,} \hlkwc{col} \hlstd{= colors5)}
+\hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,} \hlkwc{legend} \hlstd{=} \hlkwd{round}\hlstd{(cats5}\hlopt{$}\hlstd{brks,} \hlnum{2}\hlstd{),} \hlkwc{fill} \hlstd{= pal5,} \hlkwc{bty} \hlstd{=} \hlstr{"n"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}[ht]
   \caption{Effects of a Change in Region 30: Magnitude}
     \label{fig:predicted-effect2}
         \centering 
 	\begin{minipage}{.9\linewidth}
-<<predicted-effect2, echo = FALSE, message = FALSE, fig.align='center', out.width = '10cm', out.height = '10cm'>>=
-pal5    <- brewer.pal(6, "Spectral")
-cats5   <- classIntervals(col_new$delta_y, n = 5, style = "jenks")
-colors5 <- findColours(cats5, pal5)
-plot(col_new, col = colors5)
-legend("topleft", legend = round(cats5$brks, 4), fill = pal5, bty = "n")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect2-1} 
+
+}
+
+
+\end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of the changes caused by altering \texttt{INC} in region 30.
 	\end{minipage}
@@ -1325,9 +1445,19 @@ In the rest of this Section we use the \code{impacts()} function from \pkg{spati
 
 The exact $\mA(\mW)^{-1}$ is computed when \code{listw} is given. When the traces are created by powering sparse matrices the approximation $\mI_n + \rho\mW + \rho^2\mW^2 +....$ is used. The exact and the trace methods should give very similar results, unless the number of powers used is very small, or the spatial coefficient is close to its bounds. 
 
-<<using-impacts>>=
-impacts(slm, listw = listw)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{impacts}\hlstd{(slm,} \hlkwc{listw} \hlstd{= listw)}
+\end{alltt}
+\begin{verbatim}
+## Impact measures (lag, exact):
+##           Direct   Indirect      Total
+## INC   -1.1225156 -0.6783818 -1.8008973
+## HOVAL -0.2823163 -0.1706152 -0.4529315
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The output says that an increase of US\$1,000 in income leads to a decrease of 1.8 crimes per thousand households. 
 
@@ -1335,21 +1465,38 @@ The direct effect of the income variable in the SLM model amounts to -1.123, whi
 
 Let's corroborate these results by computing the impacts using matrix operations:
 
-<<impacts-by-hand>>=
-## Construct S_r(W) = A(W)^-1 (I * beta_r + W * theta_r)
-Ibeta <- diag(length(listw$neighbours)) *  coef(slm)["INC"] 
-S <- A %*% Ibeta
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## Construct S_r(W) = A(W)^-1 (I * beta_r + W * theta_r)}
+\hlstd{Ibeta} \hlkwb{<-} \hlkwd{diag}\hlstd{(}\hlkwd{length}\hlstd{(listw}\hlopt{$}\hlstd{neighbours))} \hlopt{*}  \hlkwd{coef}\hlstd{(slm)[}\hlstr{"INC"}\hlstd{]}
+\hlstd{S} \hlkwb{<-} \hlstd{A} \hlopt{%*%} \hlstd{Ibeta}
 
-ADI <- sum(diag(S)) / nrow(A)
-ADI
-
-n     <- length(listw$neighbours)
-Total <- crossprod(rep(1, n), S) %*% rep(1, n) / n
-Total
-
-Indirect <- Total - ADI
-Indirect
-@
+\hlstd{ADI} \hlkwb{<-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(S))} \hlopt{/} \hlkwd{nrow}\hlstd{(A)}
+\hlstd{ADI}
+\end{alltt}
+\begin{verbatim}
+## [1] -1.122516
+\end{verbatim}
+\begin{alltt}
+\hlstd{n}     \hlkwb{<-} \hlkwd{length}\hlstd{(listw}\hlopt{$}\hlstd{neighbours)}
+\hlstd{Total} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{, n), S)} \hlopt{%*%} \hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{, n)} \hlopt{/} \hlstd{n}
+\hlstd{Total}
+\end{alltt}
+\begin{verbatim}
+##           [,1]
+## [1,] -1.800897
+\end{verbatim}
+\begin{alltt}
+\hlstd{Indirect} \hlkwb{<-} \hlstd{Total} \hlopt{-} \hlstd{ADI}
+\hlstd{Indirect}
+\end{alltt}
+\begin{verbatim}
+##            [,1]
+## [1,] -0.6783818
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Note that the results are the same as those computed by \code{impact}.
 
@@ -1357,11 +1504,38 @@ We can also obtain the p-values of the impacts by using the argument $R$. This a
 
 Now with p-values:
 
-<<impacts-with-se>>=
-# Compute standard errors of impacts
-im_obj <- impacts(slm, listw = listw, R = 200)
-summary(im_obj, zstats = TRUE, short = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Compute standard errors of impacts}
+\hlstd{im_obj} \hlkwb{<-} \hlkwd{impacts}\hlstd{(slm,} \hlkwc{listw} \hlstd{= listw,} \hlkwc{R} \hlstd{=} \hlnum{200}\hlstd{)}
+\hlkwd{summary}\hlstd{(im_obj,} \hlkwc{zstats} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{short} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## Impact measures (lag, exact):
+##           Direct   Indirect      Total
+## INC   -1.1225156 -0.6783818 -1.8008973
+## HOVAL -0.2823163 -0.1706152 -0.4529315
+## ========================================================
+## Simulation results ( variance matrix):
+## ========================================================
+## Simulated standard errors
+##           Direct  Indirect     Total
+## INC   0.28508990 0.3418742 0.5254074
+## HOVAL 0.09464442 0.1093738 0.1772125
+## 
+## Simulated z-values:
+##          Direct  Indirect     Total
+## INC   -3.857740 -2.090573 -3.453541
+## HOVAL -3.114138 -1.761298 -2.750232
+## 
+## Simulated p-values:
+##       Direct     Indirect Total     
+## INC   0.00011444 0.036566 0.00055328
+## HOVAL 0.00184483 0.078188 0.00595532
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The results shows that the variable that exerts the largest negative direct impact is \code{INC}. That is, \code{INC} exert the largest reduction on own-crime rate. The indirect effects are presented in the second column. These effects help identify which variables produce the largest spatial spillovers. Negative effects could be considered spatial benefits, since these indicate variables that lead to a reduction in crime rate. Positive indirect effects would represent a negative externality, since this indicates that neighboring regions suffer from an increase in crime rate when these variables increase. From the results we observe that \code{INC} has the largest and significant negative indirect effects. 
 
@@ -1371,23 +1545,154 @@ Total effect takes into account both the direct and indirect effects, allowing u
 
 Now we follow the example that converts the spatial weight matrix into ``sparse'' matrix, and power it up using the \code{trW} function.
 
-<<compute-me1>>=
-# Impacts using traces. 
-W <- as(nb2listw(col.gal.nb, style = "W"), "CsparseMatrix")
-trMC <- trW(W, type = "MC")
-im <- impacts(slm, tr = trMC, R = 100)
-summary(im, zstats =  TRUE, short = TRUE)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Impacts using traces. }
+\hlstd{W} \hlkwb{<-} \hlkwd{as}\hlstd{(}\hlkwd{nb2listw}\hlstd{(col.gal.nb,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{),} \hlstr{"CsparseMatrix"}\hlstd{)}
+\hlstd{trMC} \hlkwb{<-} \hlkwd{trW}\hlstd{(W,} \hlkwc{type} \hlstd{=} \hlstr{"MC"}\hlstd{)}
+\hlstd{im} \hlkwb{<-} \hlkwd{impacts}\hlstd{(slm,} \hlkwc{tr} \hlstd{= trMC,} \hlkwc{R} \hlstd{=} \hlnum{100}\hlstd{)}
+\hlkwd{summary}\hlstd{(im,} \hlkwc{zstats} \hlstd{=}  \hlnum{TRUE}\hlstd{,} \hlkwc{short} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## Impact measures (lag, trace):
+##           Direct   Indirect      Total
+## INC   -1.1220237 -0.6788736 -1.8008973
+## HOVAL -0.2821926 -0.1707389 -0.4529315
+## ========================================================
+## Simulation results ( variance matrix):
+## ========================================================
+## Simulated standard errors
+##           Direct  Indirect     Total
+## INC   0.30303387 0.2985437 0.4706174
+## HOVAL 0.09635802 0.1161956 0.1879878
+## 
+## Simulated z-values:
+##          Direct  Indirect     Total
+## INC   -3.821767 -2.198798 -3.855705
+## HOVAL -2.937362 -1.457964 -2.406792
+## 
+## Simulated p-values:
+##       Direct    Indirect Total    
+## INC   0.0001325 0.027892 0.0001154
+## HOVAL 0.0033102 0.144850 0.0160933
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 We can also observe the cumulative impacts using the argument \code{Q}. When \code{Q} and \code{tr} are given in the \code{impacts} function the output will present the impact components for each step in the traces of powers of the weight matrix up to and including the $Q$th power. 
 
-<<compute-cumme1>>=
-# Cumulative impacts
-im2   <- impacts(slm, tr = trMC, R = 100, Q = 5)
-sums2 <- summary(im2, zstats = TRUE, reportQ = TRUE, short =  TRUE)
-sums2
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Cumulative impacts}
+\hlstd{im2}   \hlkwb{<-} \hlkwd{impacts}\hlstd{(slm,} \hlkwc{tr} \hlstd{= trMC,} \hlkwc{R} \hlstd{=} \hlnum{100}\hlstd{,} \hlkwc{Q} \hlstd{=} \hlnum{5}\hlstd{)}
+\hlstd{sums2} \hlkwb{<-} \hlkwd{summary}\hlstd{(im2,} \hlkwc{zstats} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{reportQ} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{short} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlstd{sums2}
+\end{alltt}
+\begin{verbatim}
+## Impact measures (lag, trace):
+##           Direct   Indirect      Total
+## INC   -1.1220237 -0.6788736 -1.8008973
+## HOVAL -0.2821926 -0.1707389 -0.4529315
+## =================================
+## Impact components
+## $direct
+##             INC         HOVAL
+## Q1 -1.073533465 -0.2699971236
+## Q2  0.000000000  0.0000000000
+## Q3 -0.038985415 -0.0098049573
+## Q4 -0.005035472 -0.0012664374
+## Q5 -0.003072085 -0.0007726393
+## 
+## $indirect
+##            INC        HOVAL
+## Q1  0.00000000  0.000000000
+## Q2 -0.43358910 -0.109049054
+## Q3 -0.13613675 -0.034238831
+## Q4 -0.06569456 -0.016522394
+## Q5 -0.02549505 -0.006412086
+## 
+## $total
+##            INC        HOVAL
+## Q1 -1.07353347 -0.269997124
+## Q2 -0.43358910 -0.109049054
+## Q3 -0.17512216 -0.044043788
+## Q4 -0.07073004 -0.017788832
+## Q5 -0.02856713 -0.007184726
+## 
+## ========================================================
+## Simulation results ( variance matrix):
+## ========================================================
+## Simulated standard errors
+##           Direct  Indirect     Total
+## INC   0.34631256 0.4029543 0.6401131
+## HOVAL 0.08921795 0.1241116 0.1807874
+## 
+## Simulated z-values:
+##          Direct  Indirect     Total
+## INC   -3.233305 -1.853701 -2.916189
+## HOVAL -3.239503 -1.585160 -2.686904
+## 
+## Simulated p-values:
+##       Direct    Indirect Total    
+## INC   0.0012237 0.063782 0.0035434
+## HOVAL 0.0011974 0.112930 0.0072118
+## ========================================================
+## Simulated impact components z-values:
+## $Direct
+##          INC      HOVAL
+## Q1 -3.167835 -3.1796183
+## Q2       NaN        NaN
+## Q3 -1.703030 -1.5687862
+## Q4 -1.272087 -1.0947684
+## Q5 -1.002337 -0.8174607
+## 
+## $Indirect
+##          INC      HOVAL
+## Q1       NaN        NaN
+## Q2 -2.465562 -2.4657025
+## Q3 -1.703030 -1.5687862
+## Q4 -1.272087 -1.0947684
+## Q5 -1.002337 -0.8174607
+## 
+## $Total
+##          INC      HOVAL
+## Q1 -3.167835 -3.1796183
+## Q2 -2.465562 -2.4657025
+## Q3 -1.703030 -1.5687862
+## Q4 -1.272087 -1.0947684
+## Q5 -1.002337 -0.8174607
+## 
+## 
+## Simulated impact components p-values:
+## $Direct
+##    INC       HOVAL    
+## Q1 0.0015358 0.0014747
+## Q2 NA        NA       
+## Q3 0.0885624 0.1166978
+## Q4 0.2033424 0.2736181
+## Q5 0.3161810 0.4136652
+## 
+## $Indirect
+##    INC      HOVAL   
+## Q1 NA       NA      
+## Q2 0.013680 0.013674
+## Q3 0.088562 0.116698
+## Q4 0.203342 0.273618
+## Q5 0.316181 0.413665
+## 
+## $Total
+##    INC       HOVAL    
+## Q1 0.0015358 0.0014747
+## Q2 0.0136799 0.0136745
+## Q3 0.0885624 0.1166978
+## Q4 0.2033424 0.2736181
+## Q5 0.3161810 0.4136652
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 %-----------------------------------
 \section{Programing the SLM in R}
@@ -1403,59 +1708,63 @@ To estimate the SLM using a maximum likelihood procedure, we first create a func
 
 The following function returns the log-likelihood function: 
 
-<<log-like-func>>=
-# Create log-likelihood function for SLM ----
-sml_ll <- function(theta, y, X, W, gradient = TRUE, hessian = TRUE){
-  # Global
-  K <- ncol(X)
-  N <- nrow(X)
-  
-  # Extract parameters
-  betas  <- theta[1:K]
-  rho    <- theta[K + 1]
-  sig.sq <- theta[K + 2]
-  
-  # Make residuals
-  A   <- diag(N) -  rho * W
-  Ay  <- A %*% y
-  Xb  <- X %*% betas
-  res <- Ay - Xb
-  
-  # Make log-likelihood
-  detA <- det(A)
-  ll   <- -0.5 * N * log(2 * pi * sig.sq) - 0.5 * crossprod(res) / sig.sq + log(detA)
-  
-  # Gradient
-  if (gradient){
-    C           <-  W %*% solve(A)
-    grad.betas  <- (1 / sig.sq) * t(X) %*% res
-    grad.rho    <- - sum(diag(C)) + (1 / sig.sq) * t(res) %*% W %*% y
-    grad.sig.sq <- (1 / (2 * sig.sq ^2 )) * (t(res) %*% res - N * sig.sq)
-    attr(ll, 'gradient') <- c(grad.betas, grad.rho, grad.sig.sq)
-  }
-  # Hessian
-  if (hessian){
-    H    <- matrix(NA, nrow = (K + 2), ncol = (K + 2))
-    h_bb <- - (1 / sig.sq) * t(X) %*% X
-    h_bs <- - (1 / sig.sq ^ 2) * t(X) %*% res
-    h_br <- - (1 / sig.sq) * t(X) %*% W %*% y 
-    h_ss <- (N / (2 * sig.sq ^ 2)) - (1 / sig.sq ^ 3) * t(res) %*% res
-    h_sr <-  - t(res) %*% W %*% y / sig.sq ^ 2
-    h_rr <- - sum(diag(C %*% C)) - (1 / sig.sq) * (t(y) %*% t(W) %*% W %*% y)
-    H[1:K, 1:K]     <- h_bb
-    H[1:K, K + 1]   <- h_br
-    H[1:K, K + 2]   <- h_bs
-    H[K + 1, 1:K]   <- t(h_br)
-    H[K + 1, K + 1] <- h_rr
-    H[K + 1, K + 2] <- h_sr
-    H[K + 2, 1:K]   <- t(h_bs)
-    H[K + 2, K + 1] <- h_sr
-    H[K + 2, K + 2] <- h_ss
-    attr(ll, 'hessian') <- H
-  }
-  return(ll)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Create log-likelihood function for SLM ----}
+\hlstd{sml_ll} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{theta}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{W}\hlstd{,} \hlkwc{gradient} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{hessian} \hlstd{=} \hlnum{TRUE}\hlstd{)\{}
+  \hlcom{# Global}
+  \hlstd{K} \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{N} \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+
+  \hlcom{# Extract parameters}
+  \hlstd{betas}  \hlkwb{<-} \hlstd{theta[}\hlnum{1}\hlopt{:}\hlstd{K]}
+  \hlstd{rho}    \hlkwb{<-} \hlstd{theta[K} \hlopt{+} \hlnum{1}\hlstd{]}
+  \hlstd{sig.sq} \hlkwb{<-} \hlstd{theta[K} \hlopt{+} \hlnum{2}\hlstd{]}
+
+  \hlcom{# Make residuals}
+  \hlstd{A}   \hlkwb{<-} \hlkwd{diag}\hlstd{(N)} \hlopt{-}  \hlstd{rho} \hlopt{*} \hlstd{W}
+  \hlstd{Ay}  \hlkwb{<-} \hlstd{A} \hlopt{%*%} \hlstd{y}
+  \hlstd{Xb}  \hlkwb{<-} \hlstd{X} \hlopt{%*%} \hlstd{betas}
+  \hlstd{res} \hlkwb{<-} \hlstd{Ay} \hlopt{-} \hlstd{Xb}
+
+  \hlcom{# Make log-likelihood}
+  \hlstd{detA} \hlkwb{<-} \hlkwd{det}\hlstd{(A)}
+  \hlstd{ll}   \hlkwb{<-} \hlopt{-}\hlnum{0.5} \hlopt{*} \hlstd{N} \hlopt{*} \hlkwd{log}\hlstd{(}\hlnum{2} \hlopt{*} \hlstd{pi} \hlopt{*} \hlstd{sig.sq)} \hlopt{-} \hlnum{0.5} \hlopt{*} \hlkwd{crossprod}\hlstd{(res)} \hlopt{/} \hlstd{sig.sq} \hlopt{+} \hlkwd{log}\hlstd{(detA)}
+
+  \hlcom{# Gradient}
+  \hlkwa{if} \hlstd{(gradient)\{}
+    \hlstd{C}           \hlkwb{<-}  \hlstd{W} \hlopt{%*%} \hlkwd{solve}\hlstd{(A)}
+    \hlstd{grad.betas}  \hlkwb{<-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{res}
+    \hlstd{grad.rho}    \hlkwb{<-} \hlopt{-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(C))} \hlopt{+} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlkwd{t}\hlstd{(res)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y}
+    \hlstd{grad.sig.sq} \hlkwb{<-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{(}\hlnum{2} \hlopt{*} \hlstd{sig.sq} \hlopt{^}\hlnum{2} \hlstd{))} \hlopt{*} \hlstd{(}\hlkwd{t}\hlstd{(res)} \hlopt{%*%} \hlstd{res} \hlopt{-} \hlstd{N} \hlopt{*} \hlstd{sig.sq)}
+    \hlkwd{attr}\hlstd{(ll,} \hlstr{'gradient'}\hlstd{)} \hlkwb{<-} \hlkwd{c}\hlstd{(grad.betas, grad.rho, grad.sig.sq)}
+  \hlstd{\}}
+  \hlcom{# Hessian}
+  \hlkwa{if} \hlstd{(hessian)\{}
+    \hlstd{H}    \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwc{nrow} \hlstd{= (K} \hlopt{+} \hlnum{2}\hlstd{),} \hlkwc{ncol} \hlstd{= (K} \hlopt{+} \hlnum{2}\hlstd{))}
+    \hlstd{h_bb} \hlkwb{<-} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{X}
+    \hlstd{h_bs} \hlkwb{<-} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq} \hlopt{^} \hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{res}
+    \hlstd{h_br} \hlkwb{<-} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y}
+    \hlstd{h_ss} \hlkwb{<-} \hlstd{(N} \hlopt{/} \hlstd{(}\hlnum{2} \hlopt{*} \hlstd{sig.sq} \hlopt{^} \hlnum{2}\hlstd{))} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq} \hlopt{^} \hlnum{3}\hlstd{)} \hlopt{*} \hlkwd{t}\hlstd{(res)} \hlopt{%*%} \hlstd{res}
+    \hlstd{h_sr} \hlkwb{<-}  \hlopt{-} \hlkwd{t}\hlstd{(res)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y} \hlopt{/} \hlstd{sig.sq} \hlopt{^} \hlnum{2}
+    \hlstd{h_rr} \hlkwb{<-} \hlopt{-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(C} \hlopt{%*%} \hlstd{C))} \hlopt{-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sig.sq)} \hlopt{*} \hlstd{(}\hlkwd{t}\hlstd{(y)} \hlopt{%*%} \hlkwd{t}\hlstd{(W)} \hlopt{%*%} \hlstd{W} \hlopt{%*%} \hlstd{y)}
+    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K,} \hlnum{1}\hlopt{:}\hlstd{K]}     \hlkwb{<-} \hlstd{h_bb}
+    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{1}\hlstd{]}   \hlkwb{<-} \hlstd{h_bs}
+    \hlstd{H[}\hlnum{1}\hlopt{:}\hlstd{K, K} \hlopt{+} \hlnum{2}\hlstd{]}   \hlkwb{<-} \hlstd{h_br}
+    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_bs)}
+    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{, K} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{h_ss}
+    \hlstd{H[K} \hlopt{+} \hlnum{1}\hlstd{, K} \hlopt{+} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{h_sr}
+    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{,} \hlnum{1}\hlopt{:}\hlstd{K]}   \hlkwb{<-} \hlkwd{t}\hlstd{(h_br)}
+    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{, K} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{h_sr}
+    \hlstd{H[K} \hlopt{+} \hlnum{2}\hlstd{, K} \hlopt{+} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{h_rr}
+    \hlkwd{attr}\hlstd{(ll,} \hlstr{'hessian'}\hlstd{)} \hlkwb{<-} \hlstd{H}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(ll)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function \code{sml\_ll} has the following arguments: \code{theta} is a $K + 2$ vector of parameters where the $K + 1$ and $K + 2$ elements are $\rho$ and $\sigma^2$, respectively; \code{y} is the $n\times 1$ vector of dependent variables; \code{X} is the $n\times k$ matrix of independent variables; \code{W} is the spatial weight matrix in \code{matrix} class; the arguments \code{gradient} and \code{hessian} indicate whether the analytical gradient and Hessian, respectively, should be use in the numerical optimization algorithm.
 
@@ -1463,84 +1772,143 @@ The log-likelihood function is given by object \code{ll} in \code{sml\_ll} funct
 
 The following function estimates the model by ML using a constrained optimization procedure. The optimization is made by \code{maxLik} function:
 
-<<slm-ml-function>>=
-slm_ml <- function(formula, data, listw, 
-                   gradient = TRUE, 
-                   hessian  = TRUE, ...){
-  require("maxLik")
-  require("spdep")
-  # Model Frame: This part is standard in R to obtain
-  #              the variables using formula and data argument.
-  callT <- match.call(expand.dots = TRUE)
-  mf <- callT
-  m  <- match(c("formula", "data"), names(mf), 0L)
-  mf <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf <- eval(mf, parent.frame()) # final model frame
-  nframe     <- length(sys.calls())
-  
-  # Get variables and globals
-  y  <- model.response(mf)        # Get dependent variable from mf
-  X  <- model.matrix(formula, mf) # Get X from mf
-  W  <- listw2mat(listw)          # listw to matrix
-  K  <- ncol(X)
-  
-  # Starting values
-  b_hat <- coef(lm(y ~ X - 1))
-  start <- c(b_hat, 0, 1)
-  names(start) <- c(colnames(X), "rho", "sig.sq")
-    
-  # Restricted optimization: A %*% theta + B >= 0: Constraint rho and sigma2
-  sym          <- all(W == t(W))
-  omega        <- eigen(W, only.values = TRUE, symmetric = sym)
-  lambda_space <- if (is.complex(omega$values)) 1 / range(Re(omega$values)) else 1 / range(omega$values)
-  
-  A <- rbind(c(rep(0, K), 1, 0),
-             c(rep(0, K), -1, 0), 
-             c(rep(0, K), 0, 1))
-  B <- c(-1L * (lambda_space[1] + sqrt(.Machine$double.eps)), 
-                lambda_space[2] - sqrt(.Machine$double.eps), 
-         -1L* sqrt(.Machine$double.eps))
-  callT$constraints <- list(ineqA = A, ineqB = B)
-  
-  # Optimization default controls if not added by user
-  if (is.null(callT$method))  callT$method  <- 'bfgs'
-  if (is.null(callT$iterlim)) callT$iterlim <- 100000
-  opt <- callT
-  m <- match(c('method', 'print.level', 'iterlim',
-               'tol', 'ftol', 'steptol', 'fixed', 'constraints', 
-               'control', 'finalHessian', 'reltol', 'rho', 'outer.iterations', 'outer.eps'),
-             names(opt), 0L)
-  opt <- opt[c(1L, m)]
-  opt$start     <- start
-  opt[[1]]      <- as.name('maxLik')
-  opt$logLik    <- as.name('sml_ll')
-  opt$gradient  <- gradient
-  opt$hessian   <- hessian
-  opt[c('y', 'W', 'X')] <- list(as.name('y'), 
-                                as.name('W'), 
-                                as.name('X'))
-  out <- eval(opt, sys.frame(which = nframe))
-  return(out)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{slm_ml} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{listw}\hlstd{,}
+                   \hlkwc{gradient} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                   \hlkwc{hessian}  \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{...}\hlstd{)\{}
+  \hlkwd{require}\hlstd{(}\hlstr{"maxLik"}\hlstd{)}
+  \hlkwd{require}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+  \hlcom{# Model Frame: This part is standard in R to obtain}
+  \hlcom{#              the variables using formula and data argument.}
+  \hlstd{callT} \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}  \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())} \hlcom{# final model frame}
+  \hlstd{nframe}     \hlkwb{<-} \hlkwd{length}\hlstd{(}\hlkwd{sys.calls}\hlstd{())}
+
+  \hlcom{# Get variables and globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}        \hlcom{# Get dependent variable from mf}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)} \hlcom{# Get X from mf}
+  \hlstd{W}  \hlkwb{<-} \hlkwd{listw2mat}\hlstd{(listw)}          \hlcom{# listw to matrix}
+  \hlstd{K}  \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+
+  \hlcom{# Starting values}
+  \hlstd{b_hat} \hlkwb{<-} \hlkwd{coef}\hlstd{(}\hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{))}
+  \hlstd{start} \hlkwb{<-} \hlkwd{c}\hlstd{(b_hat,} \hlnum{0}\hlstd{,} \hlnum{1}\hlstd{)}
+  \hlkwd{names}\hlstd{(start)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"rho"}\hlstd{,} \hlstr{"sig.sq"}\hlstd{)}
+
+  \hlcom{# Restricted optimization: A %*% theta + B >= 0: Constraint rho and sigma2}
+  \hlstd{sym}          \hlkwb{<-} \hlkwd{all}\hlstd{(W} \hlopt{==} \hlkwd{t}\hlstd{(W))}
+  \hlstd{omega}        \hlkwb{<-} \hlkwd{eigen}\hlstd{(W,} \hlkwc{only.values} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{symmetric} \hlstd{= sym)}
+  \hlstd{lambda_space} \hlkwb{<-} \hlkwa{if} \hlstd{(}\hlkwd{is.complex}\hlstd{(omega}\hlopt{$}\hlstd{values))} \hlnum{1} \hlopt{/} \hlkwd{range}\hlstd{(}\hlkwd{Re}\hlstd{(omega}\hlopt{$}\hlstd{values))} \hlkwa{else} \hlnum{1} \hlopt{/} \hlkwd{range}\hlstd{(omega}\hlopt{$}\hlstd{values)}
+
+  \hlstd{A} \hlkwb{<-} \hlkwd{rbind}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{, K),} \hlnum{1}\hlstd{,} \hlnum{0}\hlstd{),}
+             \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{, K),} \hlopt{-}\hlnum{1}\hlstd{,} \hlnum{0}\hlstd{),}
+             \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{, K),} \hlnum{0}\hlstd{,} \hlnum{1}\hlstd{))}
+  \hlstd{B} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{1L} \hlopt{*} \hlstd{(lambda_space[}\hlnum{1}\hlstd{]} \hlopt{+} \hlkwd{sqrt}\hlstd{(.Machine}\hlopt{$}\hlstd{double.eps)),}
+                \hlstd{lambda_space[}\hlnum{2}\hlstd{]} \hlopt{-} \hlkwd{sqrt}\hlstd{(.Machine}\hlopt{$}\hlstd{double.eps),}
+         \hlopt{-}\hlnum{1L}\hlopt{*} \hlkwd{sqrt}\hlstd{(.Machine}\hlopt{$}\hlstd{double.eps))}
+  \hlstd{callT}\hlopt{$}\hlstd{constraints} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlkwc{ineqA} \hlstd{= A,} \hlkwc{ineqB} \hlstd{= B)}
+
+  \hlcom{# Optimization default controls if not added by user}
+  \hlkwa{if} \hlstd{(}\hlkwd{is.null}\hlstd{(callT}\hlopt{$}\hlstd{method))  callT}\hlopt{$}\hlstd{method}  \hlkwb{<-} \hlstr{'bfgs'}
+  \hlkwa{if} \hlstd{(}\hlkwd{is.null}\hlstd{(callT}\hlopt{$}\hlstd{iterlim)) callT}\hlopt{$}\hlstd{iterlim} \hlkwb{<-} \hlnum{100000}
+  \hlstd{opt} \hlkwb{<-} \hlstd{callT}
+  \hlstd{m} \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{'method'}\hlstd{,} \hlstr{'print.level'}\hlstd{,} \hlstr{'iterlim'}\hlstd{,}
+               \hlstr{'tol'}\hlstd{,} \hlstr{'ftol'}\hlstd{,} \hlstr{'steptol'}\hlstd{,} \hlstr{'fixed'}\hlstd{,} \hlstr{'constraints'}\hlstd{,}
+               \hlstr{'control'}\hlstd{,} \hlstr{'finalHessian'}\hlstd{,} \hlstr{'reltol'}\hlstd{,} \hlstr{'rho'}\hlstd{,} \hlstr{'outer.iterations'}\hlstd{,} \hlstr{'outer.eps'}\hlstd{),}
+             \hlkwd{names}\hlstd{(opt),} \hlnum{0L}\hlstd{)}
+  \hlstd{opt} \hlkwb{<-} \hlstd{opt[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{opt}\hlopt{$}\hlstd{start}     \hlkwb{<-} \hlstd{start}
+  \hlstd{opt[[}\hlnum{1}\hlstd{]]}      \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{'maxLik'}\hlstd{)}
+  \hlstd{opt}\hlopt{$}\hlstd{logLik}    \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{'sml_ll'}\hlstd{)}
+  \hlstd{opt}\hlopt{$}\hlstd{gradient}  \hlkwb{<-} \hlstd{gradient}
+  \hlstd{opt}\hlopt{$}\hlstd{hessian}   \hlkwb{<-} \hlstd{hessian}
+  \hlstd{opt[}\hlkwd{c}\hlstd{(}\hlstr{'y'}\hlstd{,} \hlstr{'W'}\hlstd{,} \hlstr{'X'}\hlstd{)]} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlkwd{as.name}\hlstd{(}\hlstr{'y'}\hlstd{),}
+                                \hlkwd{as.name}\hlstd{(}\hlstr{'W'}\hlstd{),}
+                                \hlkwd{as.name}\hlstd{(}\hlstr{'X'}\hlstd{))}
+  \hlstd{out} \hlkwb{<-} \hlkwd{eval}\hlstd{(opt,} \hlkwd{sys.frame}\hlstd{(}\hlkwc{which} \hlstd{= nframe))}
+  \hlkwd{return}\hlstd{(out)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we use our function:
 
-<<check-func1, message = FALSE>>=
-# Load data 
-data(oldcol, package="spdep")
-listw <- spdep::nb2listw(COL.nb, style = "W")
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Load data }
+\hlkwd{data}\hlstd{(oldcol,} \hlkwc{package}\hlstd{=}\hlstr{"spdep"}\hlstd{)}
+\hlstd{listw} \hlkwb{<-} \hlstd{spdep}\hlopt{::}\hlkwd{nb2listw}\hlstd{(COL.nb,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
 
-# Use our function 
-test1 <- slm_ml(CRIME ~ INC + HOVAL, data = COL.OLD, listw = listw)
-summary(test1)
-
-# Use lagsarlm from spatialreg
-library("spatialreg")
-sreg <- lagsarlm(CRIME ~ INC + HOVAL, data = COL.OLD, listw = listw)
-summary(sreg)
-@
+\hlcom{# Use our function }
+\hlstd{test1} \hlkwb{<-} \hlkwd{slm_ml}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,} \hlkwc{data} \hlstd{= COL.OLD,} \hlkwc{listw} \hlstd{= listw)}
+\hlkwd{summary}\hlstd{(test1)}
+\end{alltt}
+\begin{verbatim}
+## --------------------------------------------
+## Maximum Likelihood estimation
+## BFGS maximization, 124 iterations
+## Return code 0: successful convergence 
+## Log-Likelihood: -182.3918 
+## 5  free parameters
+## Estimates:
+##             Estimate Std. error t value  Pr(> t)    
+## (Intercept) 44.87928    7.83040   5.731 9.96e-09 ***
+## INC         -1.02620    0.32675  -3.141  0.00169 ** 
+## HOVAL       -0.26550    0.08778  -3.025  0.00249 ** 
+## rho          0.43394   19.12486   0.023  0.98190    
+## sig.sq      94.54494    0.12299 768.723  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Warning: constrained likelihood estimation. Inference is probably wrong
+## Constrained optimization based on constrOptim 
+## 1  outer iterations, barrier value -0.008952326 
+## --------------------------------------------
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Use lagsarlm from spatialreg}
+\hlkwd{library}\hlstd{(}\hlstr{"spatialreg"}\hlstd{)}
+\hlstd{sreg} \hlkwb{<-} \hlkwd{lagsarlm}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,} \hlkwc{data} \hlstd{= COL.OLD,} \hlkwc{listw} \hlstd{= listw)}
+\hlkwd{summary}\hlstd{(sreg)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:lagsarlm(formula = CRIME ~ INC + HOVAL, data = COL.OLD, listw = listw)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -37.68585  -5.35636   0.05421   6.02013  23.20555 
+## 
+## Type: lag 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value  Pr(>|z|)
+## (Intercept) 45.079251   7.177347  6.2808 3.369e-10
+## INC         -1.031616   0.305143 -3.3808 0.0007229
+## HOVAL       -0.265926   0.088499 -3.0049 0.0026570
+## 
+## Rho: 0.43102, LR test value: 9.9736, p-value: 0.001588
+## Asymptotic standard error: 0.11768
+##     z-value: 3.6626, p-value: 0.00024962
+## Wald statistic: 13.415, p-value: 0.00024962
+## 
+## Log likelihood: -182.3904 for lag model
+## ML residual variance (sigma squared): 95.494, (sigma: 9.7721)
+## Number of observations: 49 
+## Number of parameters estimated: 5 
+## AIC: 374.78, (AIC for lm: 382.75)
+## LM test for residual autocorrelation
+## test value: 0.31955, p-value: 0.57188
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 %---------------------------
 \subsection{Second approach}\label{sec:code-condentrated-slm}
@@ -1548,103 +1916,128 @@ summary(sreg)
 
 Now, we create a function that estimates the parameters of the SLM using the steps in  Algorithm \eqref{algorithm:SLM}.
 
-<<conc-ml>>=
-logLik_sar <- function(rho, e_0, e_L, omega, n)
-{
-  # This function returns the concentrated log L for maximization
-  
-  #Generate determinant using Ord's approximation
-  det    <- if (is.complex(omega)) Re(prod(1 - rho * omega)) else prod(1 - rho * omega)
-  e_diff <- e_0 - rho * e_L
-  sigma2 <- crossprod(e_diff) / n
-  
-  #Log-Likelihood function
-  l_c    <- - (n / 2) - (n / 2) * log(2 * pi) - (n / 2) * log(sigma2) + log(det)
-  return(l_c)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{logLik_sar} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{rho}\hlstd{,} \hlkwc{e_0}\hlstd{,} \hlkwc{e_L}\hlstd{,} \hlkwc{omega}\hlstd{,} \hlkwc{n}\hlstd{)}
+\hlstd{\{}
+  \hlcom{# This function returns the concentrated log L for maximization}
 
-<<secondfunc>>=
-sarML <- function(formula, data, listw)
-{
-  require("spdep")
-  # Model Frame: This part is standard in R to obtain
-  # the variables using formula and data argument.
-  callT <- match.call(expand.dots = TRUE)
-  mf <- callT
-  m  <- match(c("formula", "data"), names(mf), 0L)
-  mf <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf <- eval(mf, parent.frame()) # final model frame
-  
-  # Get variables and Globals
-  y  <- model.response(mf)        # Get dependent variable from mf
-  X  <- model.matrix(formula, mf) # Get X from mf
-  n  <- nrow(X)                   # Number of spatial units
-  k  <- ncol(X)                   # Number of regressors
-  Wy <- lag.listw(listw, y)       # Spatial lag
-  W  <- listw2mat(listw)          # listw to matrix
-  
-  # Generate auxiliary regressions 
-  # See Algorithm 3.1
-  ols_0 <- lm(y ~ X - 1)
-  ols_L <- lm(Wy ~ X - 1)
-  e_0   <- residuals(ols_0)
-  e_L   <- residuals(ols_L)
-  
-  # Get eigenvalues to constraint the optimization
-  omega <- eigenw(listw)
-  
-  # Maximize concentrated log-likelihood
-  rho_space <- if (is.complex(omega)) 1 / range(Re(eig)) else 1 / range(omega)
-  opt_lc <- optimize(f = logLik_sar,   # This function is below
-                     lower = rho_space[1] + .Machine$double.eps,
-                     upper = rho_space[2] - .Machine$double.eps,
-                     maximum = TRUE, 
-                     e_0 = e_0, e_L = e_L, omega = omega, n = n)
-  # Obtain rho_hat from concentrated log-likelihood
-  rho_hat <- opt_lc$maximum
-  
-  # Generate estimates
-  A          <- (diag(n) - rho_hat * W)
-  Ay         <- crossprod(t(A), y)
-  beta_hat   <- solve(crossprod(X)) %*% crossprod(X, Ay) # See Equation (3.25)
-  error      <- Ay - crossprod(t(X), beta_hat)
-  sigma2_hat <- crossprod(error) / n                     # See Equation (3.26)
-  
-  # Hessian
-  C       <- crossprod(t(W), solve(A)) # C = WA^{-1}
-  alpha   <-  sum(omega ^ 2 / ((1 - rho_hat * omega) ^ 2))
-  if (is.complex(alpha)) alpha <- Re(alpha)
-  b_b     <- drop(1 / sigma2_hat) * crossprod(X) # k * k
-  b_rho   <- drop(1 / sigma2_hat) * (t(X) %*% C %*% X %*% beta_hat) # k * 1
-  sig_sig <- n / (2 * sigma2_hat ^ 2) # 1 * 1
-  sig_rho <- drop(1 / sigma2_hat) * sum(diag(C)) # 1 * 1
-  rho_rho <- sum(diag(crossprod(C))) +  alpha +
-    drop(1 / sigma2_hat) * crossprod(C %*% X %*% beta_hat) # 1*1
-  row_1   <- cbind(b_b, rep(0, k), b_rho)
-  row_2   <- cbind(t(rep(0, k)), sig_sig, sig_rho)
-  row_3   <- cbind(t(b_rho), sig_rho, rho_rho)
-  Hessian <- rbind(row_1, row_2, row_3)
-  std.err <- sqrt(diag(solve(Hessian)))
-  
-  # Table of coefficients
-  all_names          <- c(colnames(X), "sigma2", "rho")
-  all_coef           <- c(beta_hat, sigma2_hat, rho_hat)
-  z                  <- all_coef / std.err
-  p                  <- pnorm(abs(z), lower.tail = FALSE) * 2 
-  sar_table          <- cbind(all_coef, std.err, z, p)
-  cat(paste("\nEstimates from SAR Model \n\n"))
-  colnames(sar_table) <- c("Estimate", "Std. Error", "z-value", "Pr(>|z|)")
-  rownames(sar_table) <- all_names
-  printCoefmat(sar_table)
-}
-@
+  \hlcom{#Generate determinant using Ord's approximation}
+  \hlstd{det}    \hlkwb{<-} \hlkwa{if} \hlstd{(}\hlkwd{is.complex}\hlstd{(omega))} \hlkwd{Re}\hlstd{(}\hlkwd{prod}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{rho} \hlopt{*} \hlstd{omega))} \hlkwa{else} \hlkwd{prod}\hlstd{(}\hlnum{1} \hlopt{-} \hlstd{rho} \hlopt{*} \hlstd{omega)}
+  \hlstd{e_diff} \hlkwb{<-} \hlstd{e_0} \hlopt{-} \hlstd{rho} \hlopt{*} \hlstd{e_L}
+  \hlstd{sigma2} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(e_diff)} \hlopt{/} \hlstd{n}
+
+  \hlcom{#Log-Likelihood function}
+  \hlstd{l_c}    \hlkwb{<-} \hlopt{-} \hlstd{(n} \hlopt{/} \hlnum{2}\hlstd{)} \hlopt{-} \hlstd{(n} \hlopt{/} \hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{log}\hlstd{(}\hlnum{2} \hlopt{*} \hlstd{pi)} \hlopt{-} \hlstd{(n} \hlopt{/} \hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{log}\hlstd{(sigma2)} \hlopt{+} \hlkwd{log}\hlstd{(det)}
+  \hlkwd{return}\hlstd{(l_c)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sarML} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{listw}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{require}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+  \hlcom{# Model Frame: This part is standard in R to obtain}
+  \hlcom{# the variables using formula and data argument.}
+  \hlstd{callT} \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}  \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())} \hlcom{# final model frame}
+
+  \hlcom{# Get variables and Globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}        \hlcom{# Get dependent variable from mf}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)} \hlcom{# Get X from mf}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}                   \hlcom{# Number of spatial units}
+  \hlstd{k}  \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}                   \hlcom{# Number of regressors}
+  \hlstd{Wy} \hlkwb{<-} \hlkwd{lag.listw}\hlstd{(listw, y)}       \hlcom{# Spatial lag}
+  \hlstd{W}  \hlkwb{<-} \hlkwd{listw2mat}\hlstd{(listw)}          \hlcom{# listw to matrix}
+
+  \hlcom{# Generate auxiliary regressions }
+  \hlcom{# See Algorithm 3.1}
+  \hlstd{ols_0} \hlkwb{<-} \hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{ols_L} \hlkwb{<-} \hlkwd{lm}\hlstd{(Wy} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{e_0}   \hlkwb{<-} \hlkwd{residuals}\hlstd{(ols_0)}
+  \hlstd{e_L}   \hlkwb{<-} \hlkwd{residuals}\hlstd{(ols_L)}
+
+  \hlcom{# Get eigenvalues to constraint the optimization}
+  \hlstd{omega} \hlkwb{<-} \hlkwd{eigenw}\hlstd{(listw)}
+
+  \hlcom{# Maximize concentrated log-likelihood}
+  \hlstd{rho_space} \hlkwb{<-} \hlkwa{if} \hlstd{(}\hlkwd{is.complex}\hlstd{(omega))} \hlnum{1} \hlopt{/} \hlkwd{range}\hlstd{(}\hlkwd{Re}\hlstd{(eig))} \hlkwa{else} \hlnum{1} \hlopt{/} \hlkwd{range}\hlstd{(omega)}
+  \hlstd{opt_lc} \hlkwb{<-} \hlkwd{optimize}\hlstd{(}\hlkwc{f} \hlstd{= logLik_sar,}   \hlcom{# This function is below}
+                     \hlkwc{lower} \hlstd{= rho_space[}\hlnum{1}\hlstd{]} \hlopt{+} \hlstd{.Machine}\hlopt{$}\hlstd{double.eps,}
+                     \hlkwc{upper} \hlstd{= rho_space[}\hlnum{2}\hlstd{]} \hlopt{-} \hlstd{.Machine}\hlopt{$}\hlstd{double.eps,}
+                     \hlkwc{maximum} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                     \hlkwc{e_0} \hlstd{= e_0,} \hlkwc{e_L} \hlstd{= e_L,} \hlkwc{omega} \hlstd{= omega,} \hlkwc{n} \hlstd{= n)}
+  \hlcom{# Obtain rho_hat from concentrated log-likelihood}
+  \hlstd{rho_hat} \hlkwb{<-} \hlstd{opt_lc}\hlopt{$}\hlstd{maximum}
+
+  \hlcom{# Generate estimates}
+  \hlstd{A}          \hlkwb{<-} \hlstd{(}\hlkwd{diag}\hlstd{(n)} \hlopt{-} \hlstd{rho_hat} \hlopt{*} \hlstd{W)}
+  \hlstd{Ay}         \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(A), y)}
+  \hlstd{beta_hat}   \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(X))} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(X, Ay)} \hlcom{# See Equation (3.25)}
+  \hlstd{error}      \hlkwb{<-} \hlstd{Ay} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta_hat)}
+  \hlstd{sigma2_hat} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(error)} \hlopt{/} \hlstd{n}                     \hlcom{# See Equation (3.26)}
+
+  \hlcom{# Hessian}
+  \hlstd{C}       \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(W),} \hlkwd{solve}\hlstd{(A))} \hlcom{# C = WA^\{-1\}}
+  \hlstd{alpha}   \hlkwb{<-}  \hlkwd{sum}\hlstd{(omega} \hlopt{^} \hlnum{2} \hlopt{/} \hlstd{((}\hlnum{1} \hlopt{-} \hlstd{rho_hat} \hlopt{*} \hlstd{omega)} \hlopt{^} \hlnum{2}\hlstd{))}
+  \hlkwa{if} \hlstd{(}\hlkwd{is.complex}\hlstd{(alpha)) alpha} \hlkwb{<-} \hlkwd{Re}\hlstd{(alpha)}
+  \hlstd{b_b}     \hlkwb{<-} \hlkwd{drop}\hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2_hat)} \hlopt{*} \hlkwd{crossprod}\hlstd{(X)} \hlcom{# k * k}
+  \hlstd{b_rho}   \hlkwb{<-} \hlkwd{drop}\hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2_hat)} \hlopt{*} \hlstd{(}\hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{C} \hlopt{%*%} \hlstd{X} \hlopt{%*%} \hlstd{beta_hat)} \hlcom{# k * 1}
+  \hlstd{sig_sig} \hlkwb{<-} \hlstd{n} \hlopt{/} \hlstd{(}\hlnum{2} \hlopt{*} \hlstd{sigma2_hat} \hlopt{^} \hlnum{2}\hlstd{)} \hlcom{# 1 * 1}
+  \hlstd{sig_rho} \hlkwb{<-} \hlkwd{drop}\hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2_hat)} \hlopt{*} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(C))} \hlcom{# 1 * 1}
+  \hlstd{rho_rho} \hlkwb{<-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{crossprod}\hlstd{(C)))} \hlopt{+}  \hlstd{alpha} \hlopt{+}
+    \hlkwd{drop}\hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2_hat)} \hlopt{*} \hlkwd{crossprod}\hlstd{(C} \hlopt{%*%} \hlstd{X} \hlopt{%*%} \hlstd{beta_hat)} \hlcom{# 1*1}
+  \hlstd{row_1}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(b_b,} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{, k), b_rho)}
+  \hlstd{row_2}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{t}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{, k)), sig_sig, sig_rho)}
+  \hlstd{row_3}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{t}\hlstd{(b_rho), sig_rho, rho_rho)}
+  \hlstd{Hessian} \hlkwb{<-} \hlkwd{rbind}\hlstd{(row_1, row_2, row_3)}
+  \hlstd{std.err} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{solve}\hlstd{(Hessian)))}
+
+  \hlcom{# Table of coefficients}
+  \hlstd{all_names}          \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"sigma2"}\hlstd{,} \hlstr{"rho"}\hlstd{)}
+  \hlstd{all_coef}           \hlkwb{<-} \hlkwd{c}\hlstd{(beta_hat, sigma2_hat, rho_hat)}
+  \hlstd{z}                  \hlkwb{<-} \hlstd{all_coef} \hlopt{/} \hlstd{std.err}
+  \hlstd{p}                  \hlkwb{<-} \hlkwd{pnorm}\hlstd{(}\hlkwd{abs}\hlstd{(z),} \hlkwc{lower.tail} \hlstd{=} \hlnum{FALSE}\hlstd{)} \hlopt{*} \hlnum{2}
+  \hlstd{sar_table}          \hlkwb{<-} \hlkwd{cbind}\hlstd{(all_coef, std.err, z, p)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlstr{"\textbackslash{}nEstimates from SAR Model \textbackslash{}n\textbackslash{}n"}\hlstd{))}
+  \hlkwd{colnames}\hlstd{(sar_table)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std. Error"}\hlstd{,} \hlstr{"z-value"}\hlstd{,} \hlstr{"Pr(>|z|)"}\hlstd{)}
+  \hlkwd{rownames}\hlstd{(sar_table)} \hlkwb{<-} \hlstd{all_names}
+  \hlkwd{printCoefmat}\hlstd{(sar_table)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
-<<>>=
-test2 <- sarML(CRIME ~ INC + HOVAL, data = COL.OLD, listw = listw)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{test2} \hlkwb{<-} \hlkwd{sarML}\hlstd{(CRIME} \hlopt{~} \hlstd{INC} \hlopt{+} \hlstd{HOVAL,} \hlkwc{data} \hlstd{= COL.OLD,} \hlkwc{listw} \hlstd{= listw)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Estimates from SAR Model 
+## 
+##              Estimate Std. Error z-value  Pr(>|z|)    
+## (Intercept) 45.079025   7.177334  6.2807 3.369e-10 ***
+## INC         -1.031610   0.305143 -3.3807 0.0007229 ***
+## HOVAL       -0.265926   0.088499 -3.0049 0.0026570 ** 
+## sigma2      95.494400  19.487804  4.9002 9.573e-07 ***
+## rho          0.431027   0.117680  3.6627 0.0002496 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 %-----------------------
@@ -1908,16 +2301,6 @@ From \eqref{eq:sigma-mle-consistency}, we can write
 %
 where the last equality comes from Equation \eqref{eq:sigma-star-consistency}. 
 
-It can be shown that 
-\begin{equation}
-    \begin{aligned}
-      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n \pto \vzeros \\
-      \frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n \pto \vzeros. 
-    \end{aligned}
-\end{equation}
-
-This implies that $\frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n  =o_p(1)$ and $\frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n = o_p(1)$.
-
 $B_{n1}$ can be expanded as
 \begin{equation*}
 \begin{aligned}
@@ -2027,9 +2410,12 @@ It follows that
  \section{Expected Value of Hessian for SLM}\label{appendix-EH-sml}
 %-------------------------------------------------------------------------
 
-In this Section we drop the subindex $n$ and use the results from Section \ref{sec:Hessian}. The following definitions and relations for the Spatial Lag Model are very useful:
+In this Section we drop the subindex $n$. The following definitions and relations for the Spatial Lag Model are very useful:
+\begin{equation*}
+	\vepsi  =  \mA_0\vy - \mX\vbeta_0. 
+\end{equation*}
 
-Since $\vepsi  =  \mA_0\vy - \mX\vbeta_0$, it follows that
+If follows that, in terms of expected values:
 \begin{align*}
 	\E\left(\vepsi\right)      & = \vzeros \\
 	\E\left(\vepsi\vepsi^\top\right) &= \sigma^2_0\mI_n, \\
@@ -2081,74 +2467,64 @@ From \eqref{eq:sar_der_rho_rho}:
 \begin{equation}\label{eq:E_der_rho_rho}
   \begin{aligned}
 \E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \rho ^2}\right]  & =  \E\left[- \tr\left[(\mW\mA_0^{-1})^2\right] - \frac{1}{\sigma^2_0}(\vy^{\top}\mW^{\top}\mW\vy)\right] \\
-  & =  - \tr\left[(\mW\mA^{-1}_0)^2\right] - \frac{1}{\sigma^2_0} \E\left[\vy^{\top}\mW^{\top}\mW\vy\right] \\
-  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0} \left(\tr(\mW^{\top}\mW\mSigma_{\vy}) + \mu_{\vy}^\top\mW^{\top}\mW\vmu_{\vy}\right) \\
-  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0}\left(\sigma_0^2\tr(\mW^{\top}\mW\mA_0^{-1}(\mA_0^{-1})^\top) + (\mA_0^{-1}\mX\vbeta_0)^\top\mW^{\top}\mW\mA_0^{-1}\mX\vbeta_0\right) \\
- & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}\left(\vbeta_0^\top\mX^\top\mC_0^\top\mC_0\mX\vbeta_0 + \sigma_0^2\tr(\mC_0^\top\mC_0)\right) \\
- & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0) - \tr(\mC_0^\top\mC_0) \\
+  & =  - \tr(\mW\mA^{-1}_0)^2 - \frac{1}{\sigma^2_0} \E\left[\vy^{\top}\mW^{\top}\mW\vy\right] \\
+  & = - \tr(\mC_0)^2 -\frac{1}{\sigma^2_0} \left(\tr(\mW^{\top}\mW\mSigma_{\vy}) + \mu_{\vy}^\top\mW^{\top}\mW\vmu_{\vy}\right) \\
+  & = - \tr(\mC_0)^2 -\frac{1}{\sigma^2_0}\left(\sigma_0^2\tr(\mW^{\top}\mW\mA_0^{-1}(\mA_0^{-1})^\top) + (\mA_0^{-1}\mX\vbeta_0)^\top\mW^{\top}\mW\mA_0^{-1}\mX\vbeta_0\right) \\
+ & = - \tr(\mC_0)^2 - \frac{1}{\sigma^2_0}\left(\vbeta_0^\top\mX^\top\mC_0^\top\mC_0\mX\vbeta_0 + \sigma_0^2\tr(\mC_0^\top\mC_0)\right) \\
+ & = - \tr(\mC_0)^2 - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0) - \tr(\mC_0^\top\mC_0) \\
  & = - \tr(\mC_0^s\mC_0) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0)
 \end{aligned}
 \end{equation}
 %
-where $\mC_0^s = \mC_0 + \mC_0^\top$. 
+where $\mC_0^s = \mC_0 + \mC_0^\top$. Thus, minus the expected value of the Hessian is:
 
-Let $\mH(\vtheta) = \frac{\partial \ell^2(\vtheta)}{\partial \vtheta \partial \vtheta^\top}$. Thus, minus the expected value of the Hessian evaluated at $\vtheta_0$ is:
-\begin{equation}
-	- \E\left[\mH(\vtheta_0)\right]= 
-\begin{pmatrix}
-	\frac{1}{n\sigma^2_0}(\mX^\top \mX)  & \frac{1}{\sigma^2_0} \mX^\top (\mC\mX\vbeta_0) & \vzeros^\top \\
-	   & \tr(\mC^s_{0}\mC_{0}) + \frac{1}{\sigma^2_0}(\mC_{0}\mX\vbeta_0)^\top(\mC_{0}\mX\vbeta_0) &  \frac{1}{\sigma^2_0} \tr(\mC_{0}) \\
-		 &  & \frac{n}{2\sigma^4_0}
+\begin{equation}\label{eq:expected-hessian-slm}
+	- \E\left[\mH(\vbeta_0, \sigma^2_0, \rho_0) \right]= 
+	\begin{pmatrix}
+	\frac{1}{\sigma^2_0}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2_0} \mX^\top (\mC_0\mX\vbeta_0) \\
+		 &  \frac{n}{2\sigma^4_0} & \frac{1}{\sigma^2} \tr(\mC)\\
+		 &  & \tr(\mC_0^s\mC_0) + \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0)
 	\end{pmatrix} 
 \end{equation}
 
-By multiplying $-\E\left[\mH(\vtheta_0)\right]$ by $(1/n)$, we obtain Equation \eqref{eq:expected-hessian-slm-asy}. 
+The asymptotic variance matrix follows as the inverse of the information matrix:
 
+\begin{equation}\label{eq:asyvar_slm}
+	\var(\vbeta, \sigma^2, \rho)= 
+	\begin{pmatrix}
+	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
+		 &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
+		 &  & \tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+	\end{pmatrix} ^{-1}
+\end{equation}
 
-% The asymptotic variance matrix follows as the inverse of the information matrix:
-% 
-% \begin{equation}\label{eq:asyvar_slm}
-% 	\var(\vbeta, \sigma^2, \rho)= 
-% 	\begin{pmatrix}
-% 	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros^\top & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
-% 		 &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
-% 		 &  & \tr(\mC^s\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
-% 	\end{pmatrix} ^{-1}
-% \end{equation}
-% 
-% An important feature is that the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. This lack of block diagonality in the information matrix for the spatial lag model will lead to some interesting results on the structure of specification test.
-% 
-% However, we can use the eigenvalues approximation. Recall that 
-% 
-% \begin{equation}
-% \left(\frac{\partial }{\partial \rho}\right)\log \left|\mA \right| = -\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i}, 
-% \end{equation}
-% %
-% so that, 
-% 
-% \begin{equation*}
-% 	\var(\vbeta, \sigma^2, \rho)= 
-% 	\begin{pmatrix}
-% 	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros' & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
-% 		. &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
-% 		. &  .& \alpha + \tr(\mC\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
-% 	\end{pmatrix} ^{-1}
-% \end{equation*}
-% %
-% where $\alpha = \sum_{i=1}^n\left(\frac{\omega_i^2}{(1-\rho\omega_i)^2}\right)$. Note that while the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. 
+An important feature is that the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. This lack of block diagonality in the information matrix for the spatial lag model will lead to some interesting results on the structure of specification test.
 
-%-------------------------------------------------------------------------
- \section{Variance of the Score Function}\label{appendix-score}
-%-------------------------------------------------------------------------
+However, we can use the eigenvalues approximation. Recall that 
 
-In this Appendix, we will derive the variance of the score function. That is
 \begin{equation}
-\begin{aligned}
- \var\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\right] = \E\left[\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}\right] & = \mJ_{\theta, n} = \mSigma_{\theta, n} + \mOmega_{\theta, n}
-  \end{aligned}
+\left(\frac{\partial }{\partial \rho}\right)\log \left|\mA \right| = -\sum_{i=1}^n\frac{\omega_i}{1-\rho\omega_i}, 
 \end{equation}
 %
-where $\mSigma_{\theta, n}= - \E\left[(1/n)\mH(\vtheta_0)\right]$ is given in Equation \eqref{eq:expected-hessian-slm-asy}. The following results are important. For i.i.d $\vepsi_n = (\epsilon_1, ..., \epsilon_n)$, it can be shown that
+so that, 
+
+\begin{equation*}
+	\var(\vbeta, \sigma^2, \rho)= 
+	\begin{pmatrix}
+	\frac{1}{\sigma^2}(\mX^\top \mX) & \vzeros' & \frac{1}{\sigma^2} \mX^\top (\mC\mX\vbeta) \\
+		. &  \frac{n}{2\sigma^4} & \frac{1}{\sigma^2} \tr(\mC)\\
+		. &  .& \alpha + \tr(\mC\mC) + \frac{1}{\sigma^2}(\mC\mX\vbeta)^\top(\mC\mX\vbeta)
+	\end{pmatrix} ^{-1}
+\end{equation*}
+%
+where $\alpha = \sum_{i=1}^n\left(\frac{\omega_i^2}{(1-\rho\omega_i)^2}\right)$. Note that while the covariance between $\vbeta$ and the error variance is zero, as in the standard regression model, this is not the case for $\rho$ and the error variance. 
+
+%-------------------------------------------------------------------------
+ \section{Distribution of the score function}\label{appendix-score}
+%-------------------------------------------------------------------------
+
+For i.i.d $\vepsi_n = (\epsilon_1, ..., \epsilon_n)$, it can be shown that
+
 \begin{equation}
 \begin{aligned}
 \E(\epsilon_i\epsilon_j) & = 
@@ -2164,138 +2540,92 @@ where $\mSigma_{\theta, n}= - \E\left[(1/n)\mH(\vtheta_0)\right]$ is given in Eq
 \E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t) & =
 \begin{cases}
   \mu_4 & \mbox{for $i = j = s = t$}, \\
-   \sigma_0^4          &  \mbox{for $i=j \neq s=t$ or $i =s\neq j= t$ or $i = t \neq s = t$}, \\
+   \sigma_0^4          &  \mbox{for $i=j \neq s=t$ or $i =s\neq j= t$ or $i = t \neq s = t$} \\
    0 & \mbox{otherwise}
 \end{cases} \\
 \end{aligned}
 \end{equation}
 
-If $\epsilon_i \sim \rN(0, \sigma_0^2)$, we have $\E(\epsilon_i^3) = \mu_3 = 0$ and $\E(\epsilon_i^4) = \mu_4 = 3\sigma_0^4$. Thus
-\begin{equation}\label{eq:moments-linear-cuadratic}
-\begin{aligned}
-  \E(\vepsi_n^\top\mA_n\vepsi_n) & = \E\left[\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right] = \sum_{i = 1}^na_{ii}\E(\epsilon_i\epsilon_i) = \sigma^2_0\sum_{i = i}a_{ii} = \sigma_0^2\tr(\mA_n), \\
-  \E(\vepsi_n\vepsi_n^\top\mA_n\vepsi_n) & = \sum_{s = 1}^n\sum_{i = 1}^n\sum_{j = 1}^n a_{ij}\E(\epsilon_i\epsilon_j\epsilon_s) = \sum_i a_{ii}\E(\epsilon_i^3), \\
-  & =  \mu_3\tr(\mA_n) \\
-\E(\vepsi_n^\top\mA_n^\top\vepsi_n\vepsi_n^\top\mA^\top\vepsi_n) & = \sum_i\sum_j\sum_s\sum_ta_{ij}a_{st}\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t), \\
-& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA_n^2)\right], \\
-& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n^s\mA_n)\right] 
-\end{aligned}
-\end{equation}
-%
-where $\mA_n^s = (\mA_n + \mA_n^\top)$.
+If $\epsilon_i \sim \rN(0, \sigma_0^2)$, we have $\E(\epsilon_i^3) = \mu_3 = 0$ and $\E(\epsilon_i^4) = \mu_4 = 3\sigma_0^4$
 
-Then, the expectation for the elements of $  \frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}$ are
+Thus
+
 \begin{equation}
 \begin{aligned}
-\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right)^\top\right] & = \frac{1}{\sigma_0^4}\frac{1}{n}\E(\mX_n^\top\vepsi\vepsi^\top\mX_n), \\
-& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n.
+  \E(\vepsi_n^\top\mA_n\vepsi_n) & = \E\left[\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right] = \sum_{i = 1}^na_{ii}\E(\epsilon_i\epsilon_i) = \sigma^2_0\sum_{i = i}a_{ii} = \sigma_0^2\tr(\mA_n) \\
+  \E(\vepsi_n\vepsi_n^\top\mA_n\vepsi_n) & = \sum_{s = 1}^n\sum_{i = 1}^n\sum_{j = 1}^n a_{ij}\E(\epsilon_i\epsilon_j\epsilon_s) = \sum_i a_{ii}\E(\epsilon_i^3) \\
+  & =  \mu_3\tr(\mA_n) \\
+\E(\vepsi_n^\top\mA_n^\top\vepsi_n\vepsi_n^\top\mA^\top\vepsi_n) & = \sum_i\sum_j\sum_s\sum_ta_{ij}a_{st}\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t) \\
+& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA_n^2)\right]
+\end{aligned}
+\end{equation}
+
+It can be shown that:
+
+\begin{equation}
+\begin{aligned}
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right)^\top\right] & = \frac{1}{\sigma_0^4}\frac{1}{n}\E(\mX_n^\top\vepsi\vepsi^\top\mX_n) \\
+& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n
 \end{aligned}
 \end{equation}
 
 \begin{equation}
 \begin{aligned}
 \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right]  = &  \frac{1}{\sigma_0^4}\frac{1}{n}\left[\E(\mX_n^\top\vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)) + \E(\mX_n^\top\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n) - \right. \\
-& \left. \sigma_0^2\E(\mX_n^\top\vepsi_n\tr(\mC_{n0})) \right], \\
-& = \frac{1}{\sigma_0^4}\frac{1}{n}\left[\mX_n^\top\E(\vepsi_n\vepsi_n^\top)(\mC_{n0}\mX_n\vbeta_0) + \mX_n^\top\E(\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n)\right], \\
-& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{\sigma_0^4}\frac{\mu_3}{n}\mX^\top\diag(\mC_{n0}).
+& \left. \sigma_0^2\E(\mX_n^\top\vepsi_n\tr(\mC_{n0})) \right] \\
+& = \frac{1}{\sigma_0^4}\frac{1}{n}\left[\mX_n^\top\E(\vepsi_n\vepsi_n^\top)(\mC_{n0}\mX_n\vbeta_0) + \mX_n^\top\E(\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n)\right] \\
+& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{\sigma_0^4}\frac{\mu_3}{n}\mX^\top\diag(\mC_{n0})
 \end{aligned}
 \end{equation}
 
 \begin{equation}
 \begin{aligned}
-\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{\sigma_0^6}\frac{1}{n}\E\left[\frac{1}{2}\mX_n^\top\vepsi_n\vepsi_n^\top\vepsi_n - \frac{n\sigma_0^2}{2}\mX_n^\top\vepsi_n\right], \\
-& = \frac{\mu_3}{\sigma_0^6}\frac{1}{2n}\mX_n^\top\vones_n.
+  \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & = \frac{1}{\sigma_0^4n}\left[\E((\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0))\right. \\
+  & + \left.2\E((\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n) + \E((\vepsi_n^\top\mC_{n0}\vepsi_n)^2)\right] \\
+  & = \frac{1}{\sigma_0^2}\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) \\
+  & +  \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{n}\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}\mC_{n0}^\top)+\tr(\mC_{n0}^2)\right] \\
+  & + \frac{1}{\sigma_0^4}\frac{2}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mu_3\diag(\mC_{n0})
 \end{aligned}
 \end{equation}
+
+
+
+\begin{align}
+	\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta} & = \frac{1}{\sigma^2_0\sqrt{n}}\mX_n^\top\vepsi_n \\
+	\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2} & = \frac{1}{2\sigma_0^4\sqrt{n}}\left(\vepsi_n'\vepsi_n - n\sigma_0^2\right) \\
+		\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho} & = \frac{1}{\sigma_0^2\sqrt{n}}(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n + \frac{1}{\sigma_0^2\sqrt{n}}(\vepsi_n^\top\mC_{n0}\vepsi_n - \sigma_0^2\tr(\mC_{n0}))\label{eq:asy_der_rho}
+\end{align}	
 
 \begin{equation}
 \begin{aligned}
-\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & =  \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
-\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
-\end{aligned}
+  \frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top} & = 
+  \end{aligned}
 \end{equation}
-
-Note that:
-\begin{align*}
-\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top  = &  (\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0) + (\vepsi_n^\top\mC_{n0}\vepsi)^2 + \sigma_{0}^4\tr^2(\mC_{n0}) \\
-& + 2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n - 2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n  \\
-& - 2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n
-\end{align*}
-Taking the expectation for each element of this gives and given the results in Equation \eqref{eq:moments-linear-cuadratic}
-\begin{align*}
- \E\left[(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)\right] & = \sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) \\
- \E\left[(\vepsi_n^\top\mC_{n0}\vepsi)^2\right] & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \\
-  \E\left[\sigma_{0}^4\tr^2(\mC_{n0})\right] & = \sigma_0^4\tr^2(\mC_{n0}) \\
-  \E\left[2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n\right] & = 2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) \\
-  \E\left[2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\right] & = \vzeros \\
-  \E\left[2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n\right] & = 2\sigma_0^4\tr^2(\mC_{n0})
-\end{align*}
-
-Using these results, we obtain 
-\begin{equation}
-\begin{aligned}
-  \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & = \frac{1}{\sigma_0^4n}\left[\sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) - \sigma_0^4\tr^2(\mC_{n0})\right. \\
-  & + \left. (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \right. \\
-  & + \left.2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0})\right] \\
- & =   \frac{1}{\sigma_0^2}\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) \\
- &  + \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{\sigma_0^4}\frac{2\mu_3}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0})
-\end{aligned}
-\end{equation}
-
-Then, 
-\begin{equation}
-\mJ_{\theta, n} = 
-\begin{pmatrix}
-  \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n & \frac{1}{n\sigma_0^2}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
-  *  & \frac{1}{n\sigma_0^2}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) +  J_{22, n} & \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ J_{23,n} \\
-  * & * & \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
-\end{pmatrix}
-\end{equation}
-%
-where 
-\begin{align*}
-J_{22, n} & = \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{\sigma_0^4}\frac{2\mu_3}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}), \\
-J_{23, n} &= \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right].
-\end{align*}
-
-Thus, we can write $\mJ_{\theta, n} = \mSigma_{\theta, n} + \mOmega_{\theta, n}$ with
-\scriptsize
-\begin{equation}
-\mOmega_{\theta, n} = 
-\begin{pmatrix}
-  \mZeros & \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
-  * & \frac{1}{n\sigma_0^4}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{2\mu_3}{n\sigma_0^4}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) & \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
-  * & * & \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
-\end{pmatrix}.
-\end{equation}
-\normalsize
 
 
 %-------------------------------------------------------------------------
- \section{Proof of Asymptotic Normality}\label{appendix-asymptotic normality}
+ \section{Proof of asymptotic normality}\label{appendix-asymptotic normality}
 %-------------------------------------------------------------------------
 
-From Equation \eqref{eq:sampling-error-ml}, we know 
-
-\begin{equation*}
-  \sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) = - \left[\frac{1}{n}\frac{\partial^2 \ell_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\right]^{-1}\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vtheta}.
-\end{equation*}
-
-The sketch consists in the following steps: 
+We will sketch the proof of asymptotic normality assuming consistency (Theorem \ref{teorem:Consistency_ML}) and normality of the error terms. The sketch consists in the following steps: 
 \begin{enumerate}
   \item First, we need to show that:
-
+  
     \begin{equation*}
-    \mSigma_{\vtheta} = - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \ell_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right],
+    \mSigma_{\vtheta} = - \lim_{n\to\infty} \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right]
     \end{equation*}
     %
     is non-singular. To show this is beyond the scope of this class notes. We will take this as given. 
   \item Now we will show that 
+  
    \begin{equation*}
     \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vtheta \partial \vtheta^\top}\pto \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}
    \end{equation*}
    
+   Recall that the second derivatives are given by Equations (\ref{eq:sar_der_beta_beta})-(\ref{eq:sar_der_rho_rho}).
+   
    By Assumption \ref{assu:ml_6} (No asymptotic multicolinearity), we know that  $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, therefore $\mX_n^\top\mX_n = O(n)$ so that $\mX_n^\top\mX_n/n = O(1)$ (Lemma \ref{lemma:bounde_ON})\footnote{Since $\lim_{n\to\infty}\frac{1}{n}\mX_n^\top\mX_n$ exists, then, each of its elements is o(1) and hence O(1). In other words, $\frac{1}{n}\mX_n^\top\mX_n$ is a bounded matrix.}   and $\widetilde{\sigma}^2_n\pto \sigma_0^2$ from consistency, then from Equation (\ref{eq:sar_der_beta_beta}), we have:
+   
    \begin{equation*}
     \begin{aligned}
     \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \vbeta^\top} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mX_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mX_n)}{n} \\
@@ -2305,7 +2635,17 @@ The sketch consists in the following steps:
     \end{aligned}
    \end{equation*}
    
-   It can also be shown that
+  By Lemma \ref{lemma:limiting-distr-lee}, we obtain the following results:
+   
+   \begin{equation*}
+    \begin{aligned}
+      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n & =o_p(1) \\
+      \frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n & = o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   It follows that:
+   
    \begin{equation*}
     \begin{aligned}
       \frac{1}{n}\mX_n^\top\mW_n^\top\vy_n & = \frac{1}{n}\mX_n^\top\mC_n\mX_n\vbeta_0 + o_p(1) \\
@@ -2315,7 +2655,8 @@ The sketch consists in the following steps:
    \end{equation*}
    
    
-   As $\mX_n^\top\mW_n\vy_n /n = O_p(1)$, it follows from Equation (\ref{eq:sar_der_beta_rho}):
+   As $\mX_n^\top\mW_n\vy_n /n = O_p(1)$ (it convergences to something in distribution), it follows from Equation (\ref{eq:sar_der_beta_rho}):
+   
    \begin{equation*}
     \begin{aligned}
     \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \rho} & = - \frac{1}{\widetilde{\sigma}^2_n}\frac{(\mX^\top_n \mW_n\vy_n)}{n} + \frac{1}{\sigma^2_0}\frac{(\mX^\top_n \mW_n\vy_n)}{n} \\
@@ -2325,6 +2666,7 @@ The sketch consists in the following steps:
    \end{equation*} 
    
    The following identity will be useful:
+   
    \begin{equation}\label{eq:error_slm_lee}
     \begin{aligned}
     \vepsi(\widetilde{\vdelta}_n) & = \vy_n - \mX_n\widetilde{\vbeta}_n - \widetilde{\rho}_n\mW_n\vy_n +(\vepsi(\vdelta_0) -  \vepsi(\vdelta_0)) \\
@@ -2334,26 +2676,28 @@ The sketch consists in the following steps:
    \end{equation}
    
    Then, taking into account Equation (\ref{eq:sar_der_beta_sigma}) and using our result in Equation (\ref{eq:error_slm_lee}) yields:
+   
       \begin{equation*}
     \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \sigma^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \sigma^2}  = & - \frac{1}{\widetilde{\sigma}^4_n} \frac{\mX_n^\top \vepsi(\widetilde{\vdelta}_n)}{n}+  \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n}. \\
-     = & - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\left(\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) \right)+  \\
-    & + \frac{1}{\sigma^4_0} \frac{\mX_n^\top \vepsi_n(\vdelta_0)}{n} \\
-   = & \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top\mW_n\vy_n(\rho_0 - \widetilde{\rho}_n)  \\
-   & - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX_n^\top \vepsi_n(\vdelta_0)  + \frac{1}{\sigma^4_0} \frac{\mX_n^\top \vepsi_n(\vdelta_0)}{n} \\
-   = & \left(\frac{1}{\sigma^4_0} - \frac{1}{\widetilde{\sigma}^4_n}\right)\frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} + \frac{\mX^\top_n\mX_n}{n\widetilde{\sigma}^4_n}(\vbeta_0 - \widetilde{\vbeta}_n)  \\
-   & + \frac{\mW_n^\top\mW_n\vy_n}{n\widetilde{\sigma}^4_n}(\rho_0 - \widetilde{\rho}_n) \\
-   = & o_p(1)O_p(1) + O(1)o_p(1) + O_p(1)o_p(1) \\
-   = & o_p(1)
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \vbeta \partial \sigma^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vbeta \partial \sigma^2} & = - \frac{1}{\widetilde{\sigma}^4_n} \frac{\mX_n^\top \vepsi(\widetilde{\vdelta}_n)}{n}+  \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n}. \\
+    & = - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\left(\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) + (\rho_0 - \widetilde{\rho}_n)\mW_n\vy_n + \vepsi_n(\vdelta_0) \right)+  \\
+    & \quad + \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} \\
+  & = \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\mX_n(\vbeta_0 - \widetilde{\vbeta}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top\mW_n\vy_n(\rho_0 - \widetilde{\rho}_n) - \frac{1}{\widetilde{\sigma}^4_n}\frac{1}{n}\mX^\top \vepsi_n(\vdelta_0) + \\
+   & \quad + \frac{1}{\sigma^4_0} \frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} \\
+  & = \left(\frac{1}{\sigma^4_0} - \frac{1}{\widetilde{\sigma}^4_n}\right)\frac{\mX^\top_n \vepsi_n(\vdelta_0)}{n} + \frac{\mX^\top_n\mX_n}{n\widetilde{\sigma}^4_n}(\vbeta_0 - \widetilde{\vbeta}_n) + \frac{\mW_n^\top\mW_n\vy_n}{n\widetilde{\sigma}^4_n}(\rho_0 - \widetilde{\rho}_n) \\
+  & = o_p(1)O_p(1) + O(1)o_p(1) + O_p(1)o_p(1) \\
+  & = o_p(1)
     \end{aligned}
    \end{equation*}
    
    From Equation (\ref{eq:sar_der_rho_rho}), we know that:
+   
    \begin{equation*}
    \frac{\partial \log L_n(\vtheta) }{\partial \rho ^2} = - \tr\left[(\mC_n(\rho))^2\right] - \frac{1}{\sigma^2}(\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n)\quad \mbox{where}\quad \mC_n(\rho) = \mW_n\mA_n(\rho)^{-1}
    \end{equation*}
    
    From Mean Value Theorem around of  $\tr\left[(\mC_n(\widetilde{\rho}_n))^2\right]$ around $\rho_0$:
+   
    \begin{equation*}
     \begin{aligned}
     \tr\left[(\mC_n(\widetilde{\rho}_n))^2\right] & = \tr\left[(\mC_n(\rho_0))^2\right]+ 2\tr\left[(\mC_n(\bar{\rho}))^3\right](\rho_0 - \widetilde{\rho}_n) \\
@@ -2362,16 +2706,18 @@ The sketch consists in the following steps:
    \end{equation*}
    
    Then:
-\begin{equation*}
-    \begin{aligned}
-    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \rho^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial\rho^2} & = \underbrace{2\frac{1}{n}\tr\left[(\mC_n(\bar{\rho}))^3\right]}_{O(n)} \underbrace{(\rho_0 - \widetilde{\rho}_n)}_{o_p(1)} + \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n}{n}}_{O_p(n)} \\
-    & = o_p(1)
-    \end{aligned}
-\end{equation*}
    
-   Note that $\mC_n(\bar{\rho})$ is uniformly bounded in row and column sums uniformly in a neighborhood of $\rho_0$ by  Assumption \ref{assu:ml_5} and \ref{assu:ml_7}. Note that $\tr\left[(\mC_n(\bar{\rho}))^3\right] = O(n)$.
+   \begin{equation*}
+    \begin{aligned}
+    \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \rho^2} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial\rho^2} & = \underbrace{2\frac{1}{n}\tr\left[(\mC_n(\bar{\rho}))^3\right]}_{O(n/h_n)} \underbrace{(\rho_0 - \widetilde{\rho}_n)}_{o_p(1)} + \underbrace{\left(\frac{1}{\sigma^2_0} - \frac{1}{\widetilde{\sigma}^2_n}\right)}_{o_p(1)}\underbrace{\frac{\vy_n^{\top}\mW^{\top}_n\mW_n\vy_n}{n}}_{O_p(n/h_n)} = o_p(1)
+    \end{aligned}
+   \end{equation*}
+   
+   Note that $\mC_n(\bar{\rho})$ is uniformly bounded in row and column sums uniformly in a neighborhood of $\rho_0$ by  Assumption \ref{assu:ml_5} and \ref{assu:ml_7}. Note that $\tr\left[(\mC_n(\bar{\rho}))^3\right] = O(n/h_n)$ by Lemma 
    
   Considering Equation (\ref{eq:sar_der_sigma_rho}):
+   
+   
     \begin{equation*}
     \begin{aligned}
     \frac{1}{n}\frac{\partial^2 \log L_n(\widetilde{\vtheta}_n)}{\partial \sigma^2 \partial \rho} - \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \sigma^2 \partial \rho}& = -\frac{1}{\widetilde{\sigma}^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\widetilde{\vdelta}_n) + \frac{1}{\sigma^4}\frac{1}{n}\vy_n^\top\mW_n^\top\vepsi_n(\vdelta_n)\\
@@ -2384,6 +2730,7 @@ The sketch consists in the following steps:
    \end{equation*}
    
     Note the following:
+   
    \begin{equation*}
     \begin{aligned}
     \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) & = \left(\widetilde{\vbeta}_n - \vbeta_0\right)^\top\frac{\mX_n^\top\mX_n}{n} + (\widetilde{\rho}_n -\rho_0)^2\frac{\vy_n^\top\mW_n^\top\mW_n\vy_n}{n} + \frac{\vepsi_n^{\top}\vepsi_n}{n} + \\
@@ -2394,6 +2741,7 @@ The sketch consists in the following steps:
    
    
    Finally, considering the second derivative in Equation (\ref{eq:sar_der_sigma_sigma})
+   
    \begin{equation*}
     \begin{aligned}
       \frac{1}{n}\frac{\partial^2 \log L(\widetilde{\vtheta})}{\partial (\sigma^2)^2} -	\frac{1}{n}\frac{\partial^2 \log L(\vtheta_0)}{\partial (\sigma^2)^2}  & = \frac{1}{2(\widetilde{\sigma}^2) ^2} - \frac{1}{(\widetilde{\sigma}^2)^3} \frac{1}{n}\vepsi(\widetilde{\vdelta})^\top \vepsi(\widetilde{\vdelta}) -\frac{1}{2(\sigma^2) ^2} + \frac{1}{(\sigma^2)^3} \frac{1}{n}\vepsi^\top \vepsi \\
@@ -2407,11 +2755,13 @@ The sketch consists in the following steps:
 
    
    \item Now, we need to show that:
+   
    \begin{equation}
      \frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\pto \E\left[\frac{1}{n}\frac{\partial^2 \log L_n(\vtheta_0)}{\partial \vtheta \partial \vtheta^\top}\right]
    \end{equation}
    
    Form Appendix \ref{appendix-EH-sml}, we know that:
+   
    \begin{equation*}
     \begin{aligned}
      \E\left[\frac{1}{n}\left.\frac{\partial^2  \log L(\vtheta_0)}{\partial \vbeta \partial \vbeta^\top} \right|\mW, \mX\right] & = -\frac{1}{\sigma^2_0}\frac{1}{n}(\mX^\top\mX) \\
@@ -2457,6 +2807,20 @@ The sketch consists in the following steps:
 
 
 As explained by \citet[][pag. 1905]{lee2004asymptotic}, these are linear and quadratic functions of $\vepsi_n$. In particular, the asymptotic distribution of $\frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta}$ may be derived from central limit theorem for linear-quadratic forms. The matrix $\mC_n$ is uniformly bounded in row sums. As the elements of $\mX_n$ are bounded, the elements of $\mC_n\mX_n\vbeta_0$ for all $n$ are uniformly bounded by Lemma \ref{lemma:bounded_lemma}. With the existence of high order moments of $\epsilon$ in Assumption \ref{assu:ml_1}, the central limit theorem for quadratic forms of double arrays of \cite{kelejian2001asymptotic} can be applied and the limit distribution of the score vector follows.
+   
+Since $\E\left[(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta\right]  = \vzeros$,  the variance matrix of $(1 / \sqrt{n}) \partial \log L_n /\partial \vtheta$ \textbf{under normality} is given by Equation \eqref{eq:expected-hessian-slm-asy}. Then:
+
+
+\begin{equation}
+ \frac{1}{\sqrt{n}}\frac{\partial \log L_n(\vtheta_0)}{\partial \vtheta} \dto \rN(\vzeros, -\E\left[\mH(\vw_i;\vtheta)\right]), 
+\end{equation}
+%
+and:
+
+\begin{equation*}
+\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)\dto -\E\left[\mH(\vw_i;\vtheta)\right]^{-1}\rN(\vzeros, -\E\left[\mH(\vw_i;\vtheta)\right]) = \rN(\vzeros, \mSigma_{\vtheta}^{-1}).
+\end{equation*}
+
 \end{enumerate}
 
 \end{subappendices}
