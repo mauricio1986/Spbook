@@ -1,100 +1,105 @@
 \begin{theindex}
 
-  \item big O, \hyperpage{68}
+  \item big O, \hyperpage{70}
+  \item BS2SLS, \hyperpage{208}
 
   \indexspace
 
-  \item consistent estimator, \hyperpage{72}
+  \item Cochrane-Orcutt transformation, \hyperpage{122}
+  \item consistent estimator, \hyperpage{74}
   \item Convergence
-    \subitem bounded sequences, \hyperpage{67}
-    \subitem deterministic sequences, \hyperpage{65}
-  \item convergence in probability, \hyperpage{69}
+    \subitem bounded sequences, \hyperpage{69}
+    \subitem deterministic sequences, \hyperpage{67}
+  \item convergence in probability, \hyperpage{71}
 
   \indexspace
 
-  \item eigen values, \hyperpage{37}
+  \item eigen values, \hyperpage{39}
   \item Endogeneity
-    \subitem additional endogenous variables, \hyperpage{187}
-    \subitem error in variables, \hyperpage{187}
+    \subitem additional endogenous variables, \hyperpage{198}
+    \subitem error in variables, \hyperpage{199}
 
   \indexspace
 
-  \item Generalized method of moments, \hyperpage{177}
-    \subitem Moment conditions, \hyperpage{195}
+  \item Generalized method of moments, \hyperpage{187}
+    \subitem Moment conditions, \hyperpage{241}
   \item GS2SLS
-    \subitem gstsls function, \hyperpage{220}
-    \subitem spreg function, \hyperpage{221}
+    \subitem gstsls function, \hyperpage{278}
+    \subitem spreg function, \hyperpage{279}
 
   \indexspace
 
+  \item Hessian
+    \subitem SLM, \hyperpage{117}
   \item Heteroskedasticity
-    \subitem error term, \hyperpage{184}
+    \subitem error term, \hyperpage{195}
 
   \indexspace
 
   \item Instrumental Variables
-    \subitem definition in the spatial context, \hyperpage{183}
-    \subitem optimal instruments, \hyperpage{184}
-    \subitem S2SLS, \hyperpage{182}
+    \subitem instruments, \hyperpage{193}
+    \subitem optimal instruments, \hyperpage{208}
+    \subitem S2SLS, \hyperpage{193}
 
   \indexspace
 
-  \item Leontief expansion, \hyperpage{38}
+  \item Leontief expansion, \hyperpage{40}
 
   \indexspace
 
-  \item Maximum likelihood, \hyperpage{108}
-    \subitem concentrated log-likelihood, \hyperpage{111}
-    \subitem Jacobian, \hyperpage{109}
-  \item Moment conditions, \hyperpage{195}
+  \item Maximum likelihood, \hyperpage{114}
+    \subitem concentrated log-likelihood, \hyperpage{116}
+    \subitem Jacobian, \hyperpage{114}
+    \subitem SLM, \hyperpage{113}
+  \item Moment conditions, \hyperpage{241}
   \item Moran's I test, \hyperpage{24}
-    \subitem Monte carlo, \hyperpage{28}
+    \subitem Monte carlo, \hyperpage{27}
     \subitem Moran scatterplot, \hyperpage{25}
-    \subitem moran.mc function, \hyperpage{32}
-    \subitem moran.plot function, \hyperpage{32}
-    \subitem moran.test function, \hyperpage{30}
-    \subitem Normality, \hyperpage{27}
-    \subitem Randomization, \hyperpage{28}
-  \item Multiplier effect, \hyperpage{39}
+    \subitem moran.mc function, \hyperpage{31}
+    \subitem moran.plot function, \hyperpage{31}
+    \subitem moran.test function, \hyperpage{29}
+    \subitem Normality, \hyperpage{26}
+    \subitem Randomization, \hyperpage{27}
+  \item Multiplier effect, \hyperpage{40}
 
   \indexspace
 
-  \item Parameter space, \hyperpage{38}
+  \item Parameter space, \hyperpage{39}
 
   \indexspace
 
-  \item quadratic moment conditions, \hyperpage{195}
+  \item quadratic moment conditions, \hyperpage{241}
 
   \indexspace
 
   \item Reduced form
-    \subitem Spatial lag model, \hyperpage{36}
+    \subitem Spatial lag model, \hyperpage{38}
 
   \indexspace
 
   \item S2SLS
-    \subitem Asymptotic distribution, \hyperpage{189}
-    \subitem consistency, \hyperpage{188}
-    \subitem example, \hyperpage{190}
-    \subitem stsls function, \hyperpage{190}
+    \subitem Asymptotic distribution, \hyperpage{200}
+    \subitem consistency, \hyperpage{199}
+    \subitem example, \hyperpage{202}
+    \subitem stsls function, \hyperpage{202}
   \item SAC model
-    \subitem FGS2SLS, \hyperpage{205}
+    \subitem FGS2SLS, \hyperpage{266}
+  \item score function
+    \subitem SLM, \hyperpage{117}
   \item Spatial autocorrelation, \hyperpage{4}
-  \item Spatial autoregressive process, \hyperpage{36}
+  \item Spatial autoregressive process, \hyperpage{34}
   \item Spatial dependence, \hyperpage{4}
-  \item Spatial durbin model, \hyperpage{40}
-    \subitem reduced form, \hyperpage{40}
-  \item Spatial error model, \hyperpage{41}
-    \subitem reduced form, \hyperpage{41}
-  \item Spatial lag model, \hyperpage{35}
-  \item Spillover effects, \hyperpage{36}
-    \subitem Direct effects, \hyperpage{47}
-    \subitem example, \hyperpage{53}
-    \subitem for S2SLS, \hyperpage{192}
-    \subitem Global spillovers, \hyperpage{45}
-    \subitem Indirect effects, \hyperpage{47}
-    \subitem Local spillovers, \hyperpage{46}
-    \subitem Marginal effects, \hyperpage{46}
+  \item Spatial durbin model, \hyperpage{34}
+  \item Spatial error model, \hyperpage{35}
+  \item Spatial lag model, \hyperpage{33}
+    \subitem pure, \hyperpage{109}
+  \item Spillover effects
+    \subitem Direct effects, \hyperpage{49}
+    \subitem example, \hyperpage{55}
+    \subitem Global spillovers, \hyperpage{48}
+    \subitem Indirect effects, \hyperpage{49}
+    \subitem Local spillovers, \hyperpage{48}
+    \subitem Marginal effects, \hyperpage{48}
 
   \indexspace
 
@@ -106,13 +111,13 @@
     \subitem Based on distance, \hyperpage{9}
     \subitem Bishop contiguity, \hyperpage{8}
     \subitem Definition, \hyperpage{7}
-    \subitem Higher order, \hyperpage{13}
-    \subitem Invertibility, \hyperpage{37}
+    \subitem Higher order, \hyperpage{12}
+    \subitem Invertibility, \hyperpage{39}
     \subitem knearneigh function, \hyperpage{20}
-    \subitem lag.listw function, \hyperpage{24}
+    \subitem lag.listw function, \hyperpage{22}
     \subitem nb2listw function, \hyperpage{17}
     \subitem poly2nb function, \hyperpage{16}
-    \subitem Queen contiguity, \hyperpage{9}
+    \subitem Queen contiguity, \hyperpage{8}
     \subitem Rook contiguity, \hyperpage{7}
     \subitem Row-standardization, \hyperpage{11}
     \subitem Spatial lag, \hyperpage{12}

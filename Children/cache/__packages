@@ -1,2 +1,16 @@
 knitr
 DescTools
+spData
+sf
+spdep
+Matrix
+spatialreg
+lattice
+MASS
+memisc
+sp
+maptools
+RColorBrewer
+classInt
+miscTools
+maxLik

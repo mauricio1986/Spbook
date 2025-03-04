@@ -28,6 +28,10 @@ Anselin, L. (2007).
 \newblock {\em {Spatial Econometrics}}, pages 310--330.
 \newblock Blackwell Publishing Ltd.
 
+\bibitem[Anselin, 2021]{anselin2021spatial}
+Anselin, L. (2021).
+\newblock Spatial models in econometric research.
+
 \bibitem[Anselin and Bera, 1998]{AnselinBera1998}
 Anselin, L. and Bera, A. (1998).
 \newblock {Spatial Dependence in Linear Regression Models with an Introduction
@@ -77,11 +81,6 @@ Bivand, R., Hauke, J., and Kossowski, T. (2013).
 \newblock {Computing the Jacobian in Gaussian Spatial Autoregressive Models: An
   Illustrated Comparison of Available Methods}.
 \newblock {\em Geographical Analysis}, 45(2):150--179.
-
-\bibitem[Bivand and Lewin-Koh, 2015]{maptoolsP}
-Bivand, R. and Lewin-Koh, N. (2015).
-\newblock {\em {maptools: Tools for Reading and Handling Spatial Objects}}.
-\newblock R package version 0.8-36.
 
 \bibitem[Bivand and Piras, 2015]{spdep}
 Bivand, R. and Piras, G. (2015).
@@ -180,6 +179,17 @@ Gibbons, S., Overman, H.~G., and Patacchini, E. (2015).
 \newblock {Spatial Methods}.
 \newblock {\em Handbook of Regional and Urban Economics SET}, page 115.
 
+\bibitem[Hansen, 1982]{hansen1982large}
+Hansen, L.~P. (1982).
+\newblock Large sample properties of generalized method of moments estimators.
+\newblock {\em Econometrica: Journal of the econometric society}, pages
+  1029--1054.
+
+\bibitem[Henningsen and Toomet, 2011]{henningsen2011maxlik}
+Henningsen, A. and Toomet, O. (2011).
+\newblock maxlik: A package for maximum likelihood estimation in r.
+\newblock {\em Computational Statistics}, 26(3):443--458.
+
 \bibitem[Kelejian and Piras, 2017]{kelejian2017spatial}
 Kelejian, H. and Piras, G. (2017).
 \newblock {\em Spatial econometrics}.
@@ -235,6 +245,12 @@ Kirby, D.~K. and LeSage, J.~P. (2009).
 \newblock {Changes in Commuting to Work Times Over the 1990 to 2000 Period}.
 \newblock {\em Regional Science and Urban Economics}, 39(4):460--471.
 
+\bibitem[Lee, 2001]{lee2001generalized}
+Lee, L.-f. (2001).
+\newblock Generalized method of moments estimation of spatial autoregressive
+  processes.
+\newblock {\em Unpublished manuscript}.
+
 \bibitem[Lee, 2002]{lee2002consistency}
 Lee, L.-F. (2002).
 \newblock {Consistency and Efficiency of Least Squares Estimation for Mixed
@@ -259,15 +275,16 @@ Lee, L.-f. (2007).
   Models}.
 \newblock {\em Journal of Econometrics}, 137(2):489--514.
 
+\bibitem[Lee and Liu, 2010]{lee2010efficient}
+Lee, L.-f. and Liu, X. (2010).
+\newblock Efficient gmm estimation of high order spatial autoregressive models
+  with autoregressive disturbances.
+\newblock {\em Econometric Theory}, 26(1):187--230.
+
 \bibitem[LeSage and Pace, 2010]{lesage2010introduction}
 LeSage, J. and Pace, R.~K. (2010).
 \newblock {\em {Introduction to Spatial Econometrics}}.
 \newblock CRC press.
-
-\bibitem[LeSage, 1997]{lesage1997bayesian}
-LeSage, J.~P. (1997).
-\newblock {Bayesian Estimation of Spatial Autoregressive Models}.
-\newblock {\em International Regional Science Review}, 20(1-2):113--129.
 
 \bibitem[LeSage, 2014]{lesage2014regional}
 LeSage, J.~P. (2014).
@@ -279,11 +296,27 @@ LeSage, J.~P. and Pace, R.~K. (2014).
 \newblock {\em {Interpreting Spatial Econometric Models}}, pages 1535--1552.
 \newblock Springer Berlin Heidelberg, Berlin, Heidelberg.
 
+\bibitem[Lin and Lee, 2010]{lin2010gmm}
+Lin, X. and Lee, L.-f. (2010).
+\newblock Gmm estimation of spatial autoregressive models with unknown
+  heteroskedasticity.
+\newblock {\em Journal of Econometrics}, 157(1):34--52.
+
 \bibitem[Liu et~al., 2022]{liu2022consistency}
 Liu, T., Xu, X., and Lee, L.-f. (2022).
 \newblock Consistency without compactness of the parameter space in spatial
   econometrics.
 \newblock {\em Economics Letters}, 210:110224.
+
+\bibitem[Liu et~al., 2010]{liu2010efficient}
+Liu, X., Lee, L.-f., and Bollinger, C.~R. (2010).
+\newblock An efficient gmm estimator of spatial autoregressive models.
+\newblock {\em Journal of Econometrics}, 159(2):303--319.
+
+\bibitem[Liu and Saraiva, 2015]{liu2015gmm}
+Liu, X. and Saraiva, P. (2015).
+\newblock Gmm estimation of sar models with endogenous regressors.
+\newblock {\em Regional Science and Urban Economics}, 55:68--79.
 
 \bibitem[Mead, 1967]{mead1967mathematical}
 Mead, R. (1967).
@@ -310,10 +343,16 @@ Pace, R.~K. and LeSage, J.~P. (2008).
 Pavlyuk, D. (2011).
 \newblock {Spatial Analysis of Regional Employment Rates in Latvia}.
 
-\bibitem[Piras, 2010]{sphetp}
-Piras, G. (2010).
-\newblock {sphet: Spatial Models with Heteroskedastic Innovations in R}.
-\newblock {\em Journal of Statistical Software}, 35(1):1--21.
+\bibitem[Pebesma, 2018]{pabesmasf}
+Pebesma, E. (2018).
+\newblock {Simple Features for R: Standardized Support for Spatial Vector
+  Data}.
+\newblock {\em {The R Journal}}, 10(1):439--446.
+
+\bibitem[Pebesma and Bivand, 2023]{spatialregcit}
+Pebesma, E. and Bivand, R.~S. (2023).
+\newblock {\em Spatial Data Science With Applications in {R}}.
+\newblock Chapman \& Hall.
 
 \bibitem[Prucha, 2014]{pruchaHB}
 Prucha, I. (2014).

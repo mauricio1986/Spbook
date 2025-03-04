@@ -1,4 +1,4 @@
-\babel@toc {english}{}
+\babel@toc {english}{}\relax 
 \contentsline {part}{I\hspace {1em}Introduction to Spatial Dependence}{1}{part.1}%
 \contentsline {chapter}{\numberline {1}Introduction to Spatial Econometric}{3}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Why do We Need Spatial Econometric?}{3}{section.1.1}%
@@ -8,15 +8,15 @@
 \contentsline {subsection}{\numberline {1.2.1}Weights Based on Boundaries}{7}{subsection.1.2.1}%
 \contentsline {subsubsection}{Rook Contiguity}{7}{section*.4}%
 \contentsline {subsubsection}{Bishop Contiguity}{8}{section*.6}%
-\contentsline {subsubsection}{Queen Contiguity}{9}{section*.8}%
+\contentsline {subsubsection}{Queen Contiguity}{8}{section*.8}%
 \contentsline {subsection}{\numberline {1.2.2}Weights Based on Distance}{9}{subsection.1.2.2}%
 \contentsline {subsubsection}{Inverse Distance}{10}{section*.10}%
 \contentsline {subsubsection}{Negative Exponential Model}{10}{section*.11}%
-\contentsline {subsubsection}{$k$-nearest Neighbors}{11}{section*.12}%
-\contentsline {subsubsection}{Threshold Distance (Distance Band Weights)}{11}{section*.13}%
+\contentsline {subsubsection}{$k$-nearest Neighbors}{10}{section*.12}%
+\contentsline {subsubsection}{Threshold Distance (Distance Band Weights)}{10}{section*.13}%
 \contentsline {subsection}{\numberline {1.2.3}Row-Standardized Weights Matrix}{11}{subsection.1.2.3}%
 \contentsline {subsection}{\numberline {1.2.4}Spatial Lagged Variables}{12}{subsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.2.5}Higher Order Spatial}{13}{subsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.2.5}Higher Order Spatial Weights}{12}{subsection.1.2.5}%
 \contentsline {section}{\numberline {1.3}Examples of Weight Matrices in R}{14}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}Creating Contiguity Neighbors}{15}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}Creating Distance-based Neighbors}{20}{subsection.1.3.2}%
@@ -24,133 +24,151 @@
 \contentsline {section}{\numberline {1.4}Testing for Spatial Autocorrelation}{24}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Global Spatial Autocorrelation: Moran's I}{24}{subsection.1.4.1}%
 \contentsline {subsubsection}{Moments Under Normality Assumption}{26}{section*.20}%
-\contentsline {subsubsection}{Moran's $I$ under Randomization}{28}{section*.21}%
-\contentsline {subsubsection}{Monte Carlo Moran's $I$}{28}{section*.22}%
-\contentsline {section}{\numberline {1.5}Application: Poverty in Santiago, Chile}{29}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Cloropeth Graphs}{29}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Moran's I Test}{30}{subsection.1.5.2}%
-\contentsline {section}{\numberline {1.6}Exercises}{33}{section.1.6}%
-\contentsline {chapter}{\numberline {2}Spatial Models}{35}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Taxonomy of Models}{35}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Spatial Lag Model}{35}{subsection.2.1.1}%
-\contentsline {subsubsection}{Reduced Form and Parameter Space}{36}{section*.26}%
-\contentsline {subsection}{\numberline {2.1.2}Spatial Durbin Model}{40}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Spatial Error Model}{41}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Spatial Autocorrelation Model}{42}{subsection.2.1.4}%
-\contentsline {section}{\numberline {2.2}Motivation of Spatial Models}{43}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}SLM as a Long-run Equilibrium}{43}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}SEM and Omitted Variables Motivation}{44}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}SDM and Omitted Variables Motivation}{45}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Interpreting Spatial Models}{45}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Measuring Spillovers}{45}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Marginal Effects}{46}{subsection.2.3.2}%
-\contentsline {subsubsection}{Summary Measures}{48}{section*.30}%
-\contentsline {subsection}{\numberline {2.3.3}Partitioning Global Effects Estimates Over Space}{52}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Predictors for Spatial Models}{53}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Lesage's Book Example}{53}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Commuting Times and Congestion}{53}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Computing Effects in R}{55}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}Cumulative Effects}{59}{subsection.2.5.3}%
-\contentsline {section}{\numberline {2.6}Exercises}{62}{section.2.6}%
-\contentsline {part}{II\hspace {1em}Estimation Methods}{63}{part.2}%
-\contentsline {chapter}{\numberline {3}Review of Asymptotic Theory}{65}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Convergence of Deterministic Sequences}{65}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Convergence in Probability}{69}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Convergence in Quadratic Mean}{73}{subsection.3.2.1}%
-\contentsline {section}{\numberline {3.3}Law of Large Numbers}{75}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Convergence in Distribution}{82}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Central Limit Theorems}{85}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Orders in Probability}{89}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Triangular Arrays}{92}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Matrix}{95}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Matrix Norm}{95}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Bounded Matrices and Useful Lemmas for Spatial Eonometrics}{95}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Quadratic forms}{98}{section.3.11}%
-\contentsline {section}{\numberline {3.12}CLT for Spatial Models}{100}{section.3.12}%
-\contentsline {section}{\numberline {3.13}Exercises}{101}{section.3.13}%
-\contentsline {section}{Appendix \numberline {3.A}Inqualities}{102}{section.a.3.A}%
-\contentsline {chapter}{\numberline {4}Maximum Likelihood Estimation}{103}{appendix.4}%
-\contentsline {section}{\numberline {4.1}What Are The Consequences of Applying OLS?}{103}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Finite and Asymptotic Properties}{103}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Illustration of Bias}{106}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Maximum Likelihood Estimation of SLM}{108}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Maximum Likelihood Function}{108}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Score Vector and Estimates}{110}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Hessian}{112}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Ord's Jacobian}{114}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Maximum Likelihood Estimation of SEM}{114}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}What Are The Consequences of Applying OLS on a SEM Model?}{114}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Log-likelihood function}{115}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Score Function and ML Estimates}{116}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}Asymptotic Properties of SLM}{117}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Consistency of QMLE}{118}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Asymptotic Normality}{123}{subsection.4.4.2}%
-\contentsline {section}{\numberline {4.5}Computing the Standard Errors For The Marginal Effects}{124}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Spillover Effects on Crime: An Application in R}{125}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Estimation of Spatial Models in R}{125}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Estimation of Marginal Effects in R}{129}{subsection.4.6.2}%
-\contentsline {section}{\numberline {4.7}Programing the SLM in R}{137}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}First approach}{138}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Second approach}{142}{subsection.4.7.2}%
-\contentsline {section}{\numberline {4.8}Exercises}{144}{section.4.8}%
-\contentsline {section}{Appendix \numberline {4.A}Consistency of SLM Model}{146}{section.b.4.A}%
-\contentsline {paragraph}{Uniform convergence}{146}{section*.48}%
-\contentsline {paragraph}{Identification}{149}{section*.49}%
-\contentsline {section}{Appendix \numberline {4.B}Expected Value of Hessian for SLM}{150}{section.b.4.B}%
-\contentsline {section}{Appendix \numberline {4.C}Variance of the Score Function}{152}{section.b.4.C}%
-\contentsline {section}{Appendix \numberline {4.D}Proof of Asymptotic Normality}{154}{section.b.4.D}%
-\contentsline {chapter}{\numberline {5}Hypothesis Testing}{159}{appendix.5}%
-\contentsline {section}{\numberline {5.1}Test for Residual Spatial Autocorrelation Based on the Moran I Statistic}{159}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Cliff and Ord Derivation}{159}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Kelijan and Prucha (2001) Derivation of Moran's $I$}{161}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Example}{161}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Common Factor Hypothesis}{162}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Hausman Test: OLS vs SEM}{163}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Tests Based on ML}{164}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Likelihood Ratio Test}{164}{subsection.5.4.1}%
-\contentsline {subsubsection}{LR for the SLM}{165}{section*.50}%
-\contentsline {subsubsection}{LR for the SEM}{166}{section*.51}%
-\contentsline {subsection}{\numberline {5.4.2}Wald Test}{166}{subsection.5.4.2}%
-\contentsline {subsubsection}{Wald Test for SLM}{167}{section*.52}%
-\contentsline {subsubsection}{Wald Test for SEM}{168}{section*.53}%
-\contentsline {subsection}{\numberline {5.4.3}Lagrange Multiplier Test}{168}{subsection.5.4.3}%
-\contentsline {subsubsection}{Test for SEM}{169}{section*.54}%
-\contentsline {subsubsection}{Test for SLM}{170}{section*.55}%
-\contentsline {subsection}{\numberline {5.4.4}Anselin and Florax Recipe}{171}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Lagrange Multiplier Test Statistics in R}{171}{subsection.5.4.5}%
-\contentsline {section}{\numberline {5.5}Exercises}{172}{section.5.5}%
-\contentsline {section}{Appendix \numberline {5.A}Asymptotic Properties of Moran's I}{173}{section.c.5.A}%
-\contentsline {chapter}{\numberline {6}Instrumental Variables and GMM}{177}{appendix.6}%
-\contentsline {section}{\numberline {6.1}A Review of GMM}{177}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Model Specification}{177}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}One-Step GMM Estimation}{179}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Two-Step GMM Estimation}{180}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Spatial Two Stage Estimation of SLM}{182}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Instruments in the Spatial Context}{183}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Defining the S2SLS Estimator}{184}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}S2SLS Estimator as GMM}{186}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Additional Endogenous Variables}{187}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Consistency of S2SLS Estimator}{188}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Asymptotic Distribution of S2SLS Estimator}{189}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}S2SLS Estimation in R}{190}{subsection.6.2.7}%
-\contentsline {section}{\numberline {6.3}Generalized Moment Estimation of SEM Model}{192}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Spatially Weighted Least Squares}{194}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Moment Conditions}{195}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Feasible Generalized Least Squares Model}{201}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}FGLS in R}{204}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4}Estimation of SAC Model: The Feasible Generalized Two Stage Least Squares estimator Procedure}{205}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Intuition Behind the Procedure}{205}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Moment Conditions Revised}{208}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Assumptions}{211}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}Estimators and Estimation Procedure in a Nutshell}{213}{subsection.6.4.4}%
-\contentsline {subsubsection}{Step 1a: 2SLS estimator}{215}{section*.60}%
-\contentsline {subsubsection}{Step 1b: Initial GMM estimator of $\lambda $ based on 2SLS residuals}{216}{section*.61}%
-\contentsline {subsubsection}{Step 1c: Efficient GMM estimator of $\lambda $ based on 2SLS residuals}{217}{section*.62}%
-\contentsline {subsubsection}{Step 2a: FGS2SLS Estimator}{218}{section*.63}%
-\contentsline {subsubsection}{Step 2b: Efficient GMM estimator of $\lambda $ using FGS2SLS residual}{218}{section*.64}%
-\contentsline {section}{\numberline {6.5}Application in R}{219}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}SAC Model with Homokedasticity (GS2SLS)}{220}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}{221}{subsection.6.5.2}%
-\contentsline {section}{\numberline {6.6}Exercises}{222}{section.6.6}%
-\contentsline {section}{Appendix \numberline {6.A}Proof Theorem 3 in KP 1998}{223}{section.d.6.A}%
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{231}{section*.66}%
+\contentsline {subsubsection}{Moran's $I$ under Randomization}{27}{section*.21}%
+\contentsline {subsubsection}{Monte Carlo Moran's $I$}{27}{section*.22}%
+\contentsline {section}{\numberline {1.5}Application: Poverty in Santiago, Chile}{28}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Cloropeth Graphs}{28}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Moran's I Test}{28}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Exercises}{31}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Spatial Models}{33}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Taxonomy of Models}{33}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Spatial Lag Model}{33}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Spatial Durbin Model}{34}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Spatial Error Model}{35}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Spatial Autocorrelation Model}{36}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Reduced Form and Parameter Space}{38}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Eigenvalues in R}{42}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Generate spatial DGP in R}{45}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Motivation of Spatial Models}{45}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}SLM as a Long-run Equilibrium}{45}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}SEM and Omitted Variables Motivation}{46}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}SDM and Omitted Variables Motivation}{47}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Interpreting Spatial Models}{47}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Measuring Spillovers}{47}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Marginal Effects}{48}{subsection.2.4.2}%
+\contentsline {subsubsection}{Summary Measures}{50}{section*.29}%
+\contentsline {subsection}{\numberline {2.4.3}Partitioning Global Effects Estimates Over Space}{54}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Lesage's Book Example}{55}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Commuting Times and Congestion}{55}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Computing Effects in R}{57}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Cumulative Effects}{61}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Exercises}{64}{section.2.6}%
+\contentsline {part}{II\hspace {1em}Estimation Methods}{65}{part.2}%
+\contentsline {chapter}{\numberline {3}Review of Asymptotic Theory}{67}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Convergence of Deterministic Sequences}{67}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Convergence in Probability}{71}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Convergence in Quadratic Mean}{75}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}Law of Large Numbers}{77}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Convergence in Distribution}{84}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Central Limit Theorems}{87}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Orders in Probability}{91}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Triangular Arrays}{94}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Bounded Matrices and Useful Lemmas for Spatial Eonometrics}{97}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Linear and Quadratic Forms}{99}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Moments}{99}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Law of Large Numbers}{103}{subsection.3.9.2}%
+\contentsline {section}{\numberline {3.10}CLT for Spatial Models}{104}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Exercises}{107}{section.3.11}%
+\contentsline {section}{Appendix \numberline {3.A}Matrix Norm}{107}{section.a.3.A}%
+\contentsline {section}{Appendix \numberline {3.B}Inqualities}{108}{section.a.3.B}%
+\contentsline {chapter}{\numberline {4}Maximum Likelihood Estimation}{109}{appendix.4}%
+\contentsline {section}{\numberline {4.1}What Are The Consequences of Applying OLS?}{109}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Finite and Asymptotic Properties}{109}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Illustration of Bias}{111}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Maximum Likelihood Estimation of SLM}{113}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Maximum Likelihood Function}{114}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Score Vector and Estimates}{115}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Hessian}{117}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Ord's Jacobian}{118}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Maximum Likelihood Estimation of SEM}{119}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}What Are The Consequences of Applying OLS on a SEM Model?}{119}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Log-likelihood function}{120}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Score Function and ML Estimates}{121}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Asymptotic Properties of SLM}{123}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Consistency of QMLE}{123}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Asymptotic Normality}{128}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Computing the Standard Errors For The Marginal Effects}{129}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Spillover Effects on Crime: An Application in R}{130}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Estimation of Spatial Models in R}{130}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Estimation of Marginal Effects in R}{134}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}Programing the SLM in R}{143}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}First approach}{143}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Second approach}{148}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Exercises}{152}{section.4.8}%
+\contentsline {section}{Appendix \numberline {4.A}Consistency of SLM Model}{154}{section.b.4.A}%
+\contentsline {paragraph}{Uniform convergence}{154}{section*.48}%
+\contentsline {paragraph}{Identification}{158}{section*.49}%
+\contentsline {section}{Appendix \numberline {4.B}Expected Value of Hessian for SLM}{159}{section.b.4.B}%
+\contentsline {section}{Appendix \numberline {4.C}Variance of the Score Function}{160}{section.b.4.C}%
+\contentsline {section}{Appendix \numberline {4.D}Proof of Asymptotic Normality}{163}{section.b.4.D}%
+\contentsline {chapter}{\numberline {5}Hypothesis Testing}{169}{appendix.5}%
+\contentsline {section}{\numberline {5.1}Test for Residual Spatial Autocorrelation Based on the Moran I Statistic}{169}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Cliff and Ord Derivation}{169}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Kelijan and Prucha (2001) Derivation of Moran's $I$}{171}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Example}{171}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Common Factor Hypothesis}{172}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Hausman Test: OLS vs SEM}{173}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Tests Based on ML}{174}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Likelihood Ratio Test}{174}{subsection.5.4.1}%
+\contentsline {subsubsection}{LR for the SLM}{175}{section*.50}%
+\contentsline {subsubsection}{LR for the SEM}{176}{section*.51}%
+\contentsline {subsection}{\numberline {5.4.2}Wald Test}{176}{subsection.5.4.2}%
+\contentsline {subsubsection}{Wald Test for SLM}{177}{section*.52}%
+\contentsline {subsubsection}{Wald Test for SEM}{177}{section*.53}%
+\contentsline {subsection}{\numberline {5.4.3}Lagrange Multiplier Test}{178}{subsection.5.4.3}%
+\contentsline {subsubsection}{Test for SEM}{179}{section*.54}%
+\contentsline {subsubsection}{Test for SLM}{180}{section*.55}%
+\contentsline {subsection}{\numberline {5.4.4}Anselin and Florax Recipe}{181}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Lagrange Multiplier Test Statistics in R}{181}{subsection.5.4.5}%
+\contentsline {section}{\numberline {5.5}Exercises}{182}{section.5.5}%
+\contentsline {section}{Appendix \numberline {5.A}Asymptotic Properties of Moran's I}{182}{section.c.5.A}%
+\contentsline {chapter}{\numberline {6}Instrumental Variables and GMM}{187}{appendix.6}%
+\contentsline {section}{\numberline {6.1}A Review of GMM}{187}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Model Specification}{188}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Asymptotic Distribution of One-Step GMM Estimator}{190}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Asypmtotic Distribution of Two-Step GMM Estimator}{191}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Spatial Two Stage Estimation of SLM}{193}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Instruments in the Spatial Context}{193}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Defining the S2SLS Estimator}{194}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Additional Endogenous Variables}{198}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Consistency of S2SLS Estimator}{199}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Asymptotic Distribution of S2SLS Estimator}{200}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Coding S2SLS in R}{202}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {6.2.7}Best S2SLS Estimator}{208}{subsection.6.2.7}%
+\contentsline {subsection}{\numberline {6.2.8}Coding BS2SLS Estimator}{212}{subsection.6.2.8}%
+\contentsline {section}{\numberline {6.3}GMM Estimator of SLM}{215}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}GMM Estimator Under Homoskedasticity}{215}{subsection.6.3.1}%
+\contentsline {subsubsection}{Consistency of GMM estimator}{220}{section*.57}%
+\contentsline {subsubsection}{Asymptotic distribution of GMM estimator}{223}{section*.58}%
+\contentsline {subsection}{\numberline {6.3.2}OGMM Estimator}{225}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Coding GMME and OGMME for SLM}{226}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Best GMM estimator}{236}{subsection.6.3.4}%
+\contentsline {subsubsection}{Selection from $\mathcal {P}_{2n}$}{236}{section*.61}%
+\contentsline {subsubsection}{Assuming Normality}{237}{section*.62}%
+\contentsline {subsection}{\numberline {6.3.5}S2SLS Estimator as GMM Estimator}{238}{subsection.6.3.5}%
+\contentsline {section}{\numberline {6.4}Feasible Generalized Least Squares Estimator for SEM Model}{239}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Generalized Least Squares Estimator}{240}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Moment Conditions}{241}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Feasible Generalized Least Squares Estimator}{246}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Coding the FSGLS estimator in R}{249}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}GMM Estimator for SEM}{254}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}GMM Estimator Under Homoskedasticity}{254}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Coding GMM Estimator for SEM}{256}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Estimation of SAC Model: The Feasible Generalized Two Stage Least Squares estimator Procedure}{266}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Intuition Behind the Procedure}{266}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Moment Conditions Revised}{268}{subsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.6.3}Assumptions}{270}{subsection.6.6.3}%
+\contentsline {subsection}{\numberline {6.6.4}Estimators and Estimation Procedure in a Nutshell}{272}{subsection.6.6.4}%
+\contentsline {subsubsection}{Step 1a: S2SLS estimator}{273}{section*.64}%
+\contentsline {subsubsection}{Step 1b: Initial GMM estimator of $\lambda $ based on S2SLS residuals}{274}{section*.65}%
+\contentsline {subsubsection}{Step 1c: Efficient GMM estimator of $\lambda _0$ based on S2SLS residuals}{275}{section*.66}%
+\contentsline {subsubsection}{Step 2a: FGS2SLS Estimator}{276}{section*.67}%
+\contentsline {subsubsection}{Step 2b: Efficient GMM estimator of $\lambda $ using FGS2SLS residual}{276}{section*.68}%
+\contentsline {section}{\numberline {6.7}GMM Estimator for the SAC model}{277}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Application in R}{277}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}SAC Model with Homokedasticity (GS2SLS)}{278}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}{279}{subsection.6.8.2}%
+\contentsline {section}{\numberline {6.9}Exercises}{280}{section.6.9}%
+\contentsline {section}{Appendix \numberline {6.A}Asymptotic Distribution of GMME for SEM Model}{281}{section.d.6.A}%
+\contentsline {section}{Appendix \numberline {6.B}Proof Theorem 3 in KP 1998}{282}{section.d.6.B}%
+\contentsline {chapter}{\textcolor {ocre}{Index}}{293}{section*.70}%

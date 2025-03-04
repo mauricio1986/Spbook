@@ -2,34 +2,40 @@
 \chapter{Spatial Models}
 %==============================
 
-Previously, we have reviewed some preliminary concepts in spatial econometric, such as spatial dependency and spatial autocorrelation. In this chapter we will analyze the formulation of spatial models. In particular, in Section \ref{sec:taxonomy} we will derive a complete taxonomy of spatial models including the Spatial Lag Model, Spatial Durbin Model, Spatial Error Model and the Spatial Autocorrelation Model. We will give a brief motivation of each of them and some examples.  In Section \ref{sec:interpretation} we show how to understand the `spillover' effects and how to interpret marginal effects in the spatial model framework. 
+In the preceding sections, we reviewed fundamental concepts of spatial econometrics, such as spatial dependency and spatial autocorrelation. This chapter advances our understanding by examining the formulation of spatial models.
+
+In Section \ref{sec:taxonomy}, we establish a comprehensive taxonomy of spatial models, encompassing the Spatial Lag Model, Spatial Durbin Model, Spatial Error Model, and the Spatial Autocorrelation Model. Each model is motivated and illustrated with examples to provide a clear understanding.
+
+Moving forward to Section \ref{sec:interpretation}, we explore the concept of ``spillover'' effects within the spatial model framework. Additionally, we delve into the interpretation of marginal effects, enhancing our ability to extract meaningful insights from spatial econometric analyses.
 
 %*******************************
 \section{Taxonomy of Models}\label{sec:taxonomy}
 %*******************************
 
-As we showed in previous chapter (in particular in Section~\ref{sec:spatial_dependence}), it is no possible to model spatial dependencies using traditional econometrics. The main problem is that we have more parameters than observations. However, using the spatial weight matrix we can solve that problem by reducing the number of parameters to just one parameter using the weighted average of the $\vy$ values in the neighborhood of $i$. 
+As demonstrated in the previous chapter, particularly in Section~\ref{sec:spatial_dependence}, traditional econometric methods are not equipped to handle spatial dependencies. The primary challenge arises from the fact that we often have more parameters than observations. However, by using the spatial weight matrix, we can address this issue by reducing the number of parameters to just one. This is achieved through the weighted average of the dependent variable values, $\vy$, in the neighborhood of unit $i$.
 
+%-----------------------------------------------------------
 \subsection{Spatial Lag Model}\index{Spatial lag model}
+%-----------------------------------------------------------
 
-So, given the problem of insufficient degree of freedom, how to model a situation where the dependent variable depends also of the spatially lagged variable? Instead of using a full system of equation, we can model the spatial dependency as:
-
+Given the problem of insufficient degrees of freedom, a natural question arises: how can we model a situation where the dependent variable is influenced by spatially lagged values? Instead of relying on a full system of equations, we can capture the spatial dependence with a model that includes a spatially lagged dependent variable. Specifically, we model the spatial dependence as follows:
 \begin{equation}\label{eq:slm_model_1}
-y_i = \alpha +\rho \sum_{j = 1}^n w_{ij}y_j + \epsilon_i, \quad i = 1,...,n,
+y_i = \alpha +\rho \sum_{j = 1}^n w_{ij}y_j + \epsilon_i, \quad i = 1,\ldots,n,
 \end{equation}
 %
-where $w_{ij}$ is the $(i,j)$th element of the spatial weight matrix $\mW$ matrix (see Definition \ref{def:W}); $y_i$ is the dependent variable for spatial unit $i$, so that $\sum_{j = 1}^n w_{ij}y_j$ is the weighted average of the dependent variable for the neighbors of $i$ (or spatial lag); $\epsilon_i$ is the error term such that $\E(\epsilon_i)= 0$; and $\rho$ is the spatial autoregressive parameter which measures the intensity of the spatial interdependence: $\rho > 0$ indicates a positive spatial dependence, whereas $\rho < 0$ indicates a negative spatial dependence. It should be clear that if $\rho = 0$, then we have the traditional linear regression model. By including a spatially lagged variable we are making explicit the the existence of spatial spillovers effects due to, for example, geographical proximity. This data generating process is known as a \emph{Spatial Autoregressive Process}\index{Spatial autoregressive process} or also labeled as SAR or \emph{Spatial Lag Model} SLM. Since the model (\ref{eq:slm_model_1}) does not include explanatory variables the model is known as the pure SLM or SAR model. 
+where $w_{ij}$ is the $(i,j)$th element of the spatial weight matrix $\mW$ matrix (refer to Definition \ref{def:W}). The variable $y_i$ denotes the dependent variable for spatial unit $i$, and $\sum_{j = 1}^n w_{ij} y_j$ is the weighted average of the dependent variable for the neighbors of $i$ (referred to as the spatial lag). The error term $\epsilon_i$ satisfies $\E(\epsilon_i) = 0$, and $\rho$ is the spatial autoregressive parameter that quantifies the strength of spatial interdependence. Specifically, a positive value of $\rho$ ($\rho > 0$) indicates positive spatial dependence, while a negative value ($\rho < 0$) suggests negative spatial dependence. If $\rho = 0$, the model reduces to the traditional linear regression model.
+
+By introducing a spatially lagged variable, we explicitly account for spatial spillover effects, such as those arising from geographical proximity. This data-generating process is known as a \emph{Spatial Autoregressive Process}\index{Spatial autoregressive process} (SAR) or, equivalently, the \emph{Spatial Lag Model} (SLM). In the case where the model only includes the spatial lag and no explanatory variables, it is referred to as the pure Spatial Lag Model or SAR model.
 
 \begin{figure}[ht]
-
 	\caption{The SLM for two tegions}\label{figure:slm}
 		\centering
 		\begin{tikzpicture}
 			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (y1) at (-1,0) {$y_1$};
-			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (x1) at (-1,2) {$\vx_1$};
+			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (x1) at (-1,2) {$x_1$};
 			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (e1) at (-1,-2) {$\epsilon_1$};
 			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (y2) at (1, 0) {$y_2$};
-			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (x2) at (1,2) {$\vx_2$};
+			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (x2) at (1,2) {$x_2$};
 			\node[rectangle, text  width = 1cm, fill = red!10, align = center] (e2) at (1,-2) {$\epsilon_2$};
 			
 			\draw[->, solid] (x1) to (y1);
@@ -50,171 +56,34 @@ where $w_{ij}$ is the $(i,j)$th element of the spatial weight matrix $\mW$ matri
 		\end{tikzpicture}
 \end{figure}
 
-Figure \ref{figure:slm}	represents the spatial autoregressive model in \eqref{eq:slm_model_1} for two regions. The variables $(x_1, x_2)$ and unobserved terms $(\epsilon_1, \epsilon_2)$ have a direct effect on $y$ for both regions. Note that the model incorporates spatial spillover effects by the effect of $y_1$ on $y_2$ and vice versa. That is, the model reflects the \emph{`simultaneity'} inherent in spatial autocorrelation\index{Spillover effects}.  
+Figure~\ref{figure:slm} visually illustrates the spatial autoregressive model from Equation~\eqref{eq:slm_model_1}, focusing on two regions. In this representation, the variables $(x_1, x_2)$ and the unobserved terms $(\epsilon_1, \epsilon_2)$ directly influence the dependent variables $y_1$ and $y_2$ in their respective regions. The spatial spillover effects are captured through the influence of $y_1$ on $y_2$ and vice versa. This structure reflects \emph{simultaneity} in the model, highlighting the presence of spatial autocorrelation and spillover effects.
 
-The model can also be  written in vector form as
-
+It is important to have different notation forms for the SLM. In vector form, the model can be expressed as:
 \begin{equation*}
-y_i = \alpha + \rho \underset{(1\times n)}{\vw_i}^\top \underset{(n\times 1)}{\vy} + \epsilon_i, \quad i = 1,...,n,   
+y_i = \alpha + \rho \underset{(1\times n)}{\vw_i}^\top \underset{(n\times 1)}{\vy} + \epsilon_i, \quad i = 1,\ldots,n,
 \end{equation*}
 %
-where $\vw_i$ is the $i$th row of $\mW$. A full SLM specification with covariates in matrix form can be written as:
-
+where $\vw_i$ is the $i$th row of $\mW$. Additionally, a comprehensive Spatial Lag Model (SLM) specification, considering covariates in matrix form, takes the shape:
 \begin{equation}\label{eq:Sar}
 \vy  =  \alpha \vones_n+ \rho \mW\vy + \mX\vbeta + \vepsi,
 \end{equation}
 %
-where $\vy$ is a $n\times 1$ vector of observations on the dependent variable; $\mX$ is an $n\times k$ matrix of observations on the explanatory variables; $\vbeta$ is the $k\times 1$ vector of parameters and $\alpha$ is the constant; and $\vones_n$ is a $n\times 1$ vector of ones.
-
-%-------------------------------------------------------------------------
-\subsubsection{Reduced Form and Parameter Space}\index{Reduced form!Spatial lag model}
-%-------------------------------------------------------------------------
-
-An important concept in the context of spatial models is the difference between structural and reduced form model. Roughly, the reduced form of a model is the one which the endogenous variables are expressed as functions of the exogenous variables. The structural form is the `behavioral model' that relates the variables. For example, Equation (\ref{eq:Sar}) is the structural model for the SLM, which relates the all the (exogenous and endogenous) variables with the dependent variable $\vy$. However, a better way of think about the model is how the dependent variable is generated. This is the so-called data generating process (DGP). If we solve the system (\ref{eq:Sar}) for the endogenous variables, $\vy$, we will obtain the reduced-form model. Thus, the implied 
-DGP or ``reduced form equation'' for the SLM given in Equation (\ref{eq:Sar}) is:
-
-\begin{equation}\label{eq:Sar_dgp}
-\vy  =  \left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n - \rho \mW\right)^{-1}\vepsi,
-\end{equation}
-%
-which no longer contains any spatially lagged dependent variable on the right-hand size. The Equation (\ref{eq:Sar_dgp}) expresses the simultaneous nature of the spatial autoregressive process.
-
-\begin{remark}
-The \textbf{reduced form} of a system of equations is the result of solving the system for the \textbf{endogenous variables}. This gives the latter as functions of the exogenous variables, if any. For example, the general expression of a structural form is $f(\vy, \mX, \vepsi) = \vzeros$, whereas the reduced form of this model is given by $\vy = g(\mX, \vepsi)$, with $g$ as function. 
-\end{remark}
-
-Without restrictions on $(\mI_n-\rho\mW)$---and $\left(\alpha \vones_n + \mX\vbeta\right)$---the coefficients cannot be identified from data. In other words, in order to obtain the reduced form we need $(\mI_n-\rho\mW)$ to be invertible. From standard algebra theory a matrix $\mA$ is invertible if $\det(\mA)\neq 0$. Thus, we require that $\det(\mI_n -\rho\mW)\neq 0$. The question is: which values of $\rho$ lead to non-singular $(\mI_n -\rho\mW)$? For \textbf{symmetric} matrices, the compact open interval for $\rho \in \left( \omega_{min}^{-1}, \omega_{max}^{-1}\right)$ will lead to a symmetric positive definite $(\mI_n -\rho\mW)$, where $\omega_{min}$ and $\omega_{max}$ are the minimum and maximum eigen value of $\mW$, respectively. This gives rise to the following Theorem:
-
-\begin{theorem}[Invertibility]\index{Weight matrix!Invertibility}\index{eigen values}
-Let $\mW$ be a weighting matrix, such that $w_{ii} = 0$ for all $i = 1,...,n$, and assume that all of the roots of $\mW$ are real. Assume also that $\mW$ is not row normalized. Let $\omega_{min}$ and $\omega_{max}$ be the minimum and maximum eigen value of $\mW$. Assume also that $\omega_{max} > 0$ and $\omega_{min} < 0$. Then $\left(\mI_n - \rho\mW\right)$ is nonsingular for all:
-
-\begin{equation*}
-  \omega_{min}^{-1} < \rho < \omega_{max}^{-1}
-\end{equation*}
-\end{theorem}
-
-\begin{remark}
-The roots of a non-symmetric matrix will typically not all be real, e.g., some will be complex
-\end{remark}
-
-Recall that for ease of interpretation, it is common practice to normalize $\mW$ such that the elements of each row sum to unity. Since $\mW$ is nonnegative, this ensures that all weights are between 0 and 1, and has the effect that the weighting operation can be interpreted as an averaging of neighboring values. 
-
-According to our Theorem \ref{teo:eigen_values} (Eigenvalues of row-stochastic Matrix) the eigenvalues of the row-stochastic (i.e., row-normalized) neighborhood matrix $\mW$ are in the range $\left[-1, +1\right]$. In this case $\rho \in (-1, 1)$, however it is misleading to consider $\rho$ as a conventional correlation coefficient vector between $\vy$ and its spatial lag $\mW\vy$. This is only the result of considering the standard row-standardized matrix. Other standardization methods will lead to other potential parameter space of $\rho$. 
-
-
-\begin{theorem}[Invertibility of Row-Normalized $\mW$ matrix]
-If $\mW$ is row-normalized, then  $\left(\mI_n - \rho\mW\right)^{-1}$ exists for all $\left|\rho \right| < 1$
-\end{theorem}
-
-In spite of its popularity, row-normalized weighting has it drawbacks. As we suggested in the remark in Section \ref{sec:spatial_lag_var}, row normalization alters the internal weighting structure of $\mW$ so that comparisons between rows become somewhat problematic. In view of this limitation, it is natural to consider simple scalar normalization which multiply $\mW$ by a single number, say $a \cdot \mW$, which removes any measure-unit effect but preserves relations between all rows of $\mW$. 
-
-In particular, let
-
-\begin{equation*}
-  \begin{aligned}
-    a & = \min \left\lbrace r, c \right\rbrace \\
-    r & = \max_i \sum_j \left|w_{ij}\right|\quad \mbox{maximal row sum of the absolute values} \\
-    c & = \max_j \sum_i \left|w_{ij}\right|\quad \mbox{maximal column sum of the absolute values}.
-  \end{aligned}
-\end{equation*}
-
-Then, assuming that the elements of $\mW$ are nonegative, $(\mI_n - \rho\mW)$ will be nonsingular for all $\left|\rho\right| < 1/a$. Note that this normalization has the advantage of ensuring that the resulting spatial weights, $w_{ij}$, are all between 0 and 1, and hence can still be interpreted as relative influence intensities. This could be taken as the parameter space.\index{Parameter space} 
-
-This is an important result because a model which has a weighting matrix which is not row normalized can always be normalized in such a way that the inverse needed to solve the model will exists in an easily established region. 
-
-
-\begin{remark}
-For further details on normalizing $\mW$ and the parameter space of $\rho$ see \citet[][section 2.4]{elhorst2014spatial} and \citet[][section 2.2]{kelejian2010specification}
-\end{remark}
-
-When $\left|\rho\right|< 1$, $\left(\mI_n - \rho\mW\right)^{-1}$ implies an infinite series also called the Leontief expansion. An approximation for this serie is given in the following Lemma.
-
-\begin{lemma}[Leontief Expansion]\label{lemma:Leontief}\index{Leontief expansion}
-If $\left|\rho\right|  < 1$, then
-	\begin{equation*}
-	(\mI - \rho \mW)^{-1} = \sum_{i = 0} ^{\infty}(\rho \mW)^{i}
-	\end{equation*}
-\end{lemma}
-
-Then, using Lemma \ref{lemma:Leontief} (Leontief Expansion), the reduced model in Equation \eqref{eq:Sar_dgp} can be written as:
-
-\begin{equation}\label{eq:infinite_series_slm}
-  \begin{aligned}
-      \vy  = &\left(\mI_n + \rho\mW + \rho^2\mW^2 + ...\right)\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n + \rho\mW + \rho^2\mW^2 + ...\right)\vepsi, \\
-           = & \alpha\vones_n + \rho\mW\vones_n\alpha + \rho^2\mW^2\vones_n\alpha + ... + \mX\vbeta + \rho\mW\mX\vbeta + \rho^2\mW^2\mX\vbeta + ... \\
-          & + \vepsi + \rho\mW\vepsi + \rho^2\mW^2\vepsi.
-  \end{aligned}
-\end{equation}
-
-Expression (\ref{eq:infinite_series_slm}) can be simplified since the infinite series:
-
-\begin{equation*}
-\alpha\vones_n + \rho\mW\vones_n\alpha + \rho^2\mW^2\vones_\alpha + ... \to \frac{\vones_n\alpha}{\left(1 - \rho\right)},
-\end{equation*}
-%
-since $\alpha$ is a scalar, the parameter $\left|\rho\right|  < 1$, and $\mW$ is row-stochastic. By definition $\mW\vones_n = \vones_n$ and therefore $\mW\mW\vones_n = \mW\vones_n = \vones$. Consequently, $\mW^l\vones_n = \vones_n$ for $l\geq 0$ (recall that $\mW^0 = \mI_n$). This allows us to write:
-
-\begin{equation*}
-\vy = \frac{1}{(1-\rho)}\vones_n\alpha + \mX\vbeta + \rho\mW\mX\vbeta + \rho^2\mW^2\mX\vbeta + ... + \vepsi + \rho\mW\vepsi + \rho^2\mW^2\vepsi + ...
-\end{equation*}
-
-This expression allows defining two effects: a multiplier effect affecting the explanatory variables and a spatial diffusion effect affecting the error terms. With respect to the explanatory variables, this expression means that, on average, the value of $\vy$ at one location $i$ is not only explained by the values of the explanatory variables associated to this location but also by those associated to all other locations (neighbors or not) via the inverse spatial transformation $\left(\mI_n - \rho \mW\right)^{-1}$. This spatial multiplier effect decreases with distance. This can be seen if we consider the powers of $\mW$ in the series expansion of $\left(\mI_n - \rho \mW\right)^{-1}$.\index{Multiplier effect} 
-
-With respect to the error process, this expression means that a random (unobserved) shock in a location $i$ not only affects the value of $y$ in this location but also has an impact on the values of $y$ in all other locations via the same spatial inverse transformation. To see this, recall that $\mW^2$ will reflect second-order contiguous neighbors, those that are neighbors to the first-order neighbors (review Section \ref{sec:HSO}). Since the neighbor of the neighbor (second-order neighbor) to an observation $i$ includes observation $i$ itself, $\mW^2$ has positive elements on the diagonal when each observations has at least one neighbor. That is, higher-order spatial lags can lead to a connectivity relation for an observations $i$ such that $\mW\vepsi$ will extract observations from the vector $\vepsi$ that point back to the observation $i$ itself. This implies that there exists a simultaneous feedback. This diffusion effect also declines with distance. We will explore this mechanism more deeply in Section \ref{sec:interpretation}.
-
-Considering the reduced form Equation (\ref{eq:Sar_dgp}), we might be able to find the mean and variance-covariance matrix of the complete system as function of exogenous variables. The expectation is given by:
-
-\begin{equation}\label{eq:expected_value_slm}
-  \begin{aligned}
-\E(\vy|\mX,\mW) & = \E\left[\left.\left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n - \rho \mW\right)^{-1}\vepsi\right|\mX,\mW\right] \\
-                & = \left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right).
-\end{aligned}
-\end{equation}
-
-From Equation (\ref{eq:Sar_dgp}), we derive the variance-covariance matrix of $\vy$:
-
-\begin{equation}
-  \begin{aligned}
-    \var\left(\left.\vy\right|\mW, \mX\right) & = \E\left(\left.\vy\vy^\top\right|\mW,\mX\right) \\ 
-                               & = \left(\mI_n - \rho\mW\right)^{-1}\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)\left(\mI_n- \rho\mW^\top\right)
-  \end{aligned}
-\end{equation}
-
-This $n\times n$ variance-covariance matrix is full, which implies that each location is correlated with every other location in the system. However, this correlation decreases with distance. Since we have not assumed anything about the error variance, we can say that $\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)$ is a full matrix, say $\mOmega_{\epsilon}$. This covers the possibility of heteroskedasticity, spatial autocorrelation, or both. In absence of either of these complications, the variance matrix simplifies to the usual $\sigma^2\mI_n$.
-
-\begin{example}[County homicide rates in US]
-In the criminology literature there has been a great emphasis of spatial diffusion of crime. The idea is that criminal violence may spread geographically via a diffusion process. For example, some researchers suggests that certain social processes such as illegal drug markets and gang rivalries may be important for explaining the pattern and mechanisms of the spread of homicides \citep{cohen1999diffusion}. 
-
-In particular, empirical literature has focused on homicide rates and their determinants using the following OLS specification:
-
-\begin{equation*}
-y_i = \vx_i^\top\vbeta + \epsilon_i\quad i = 1, ..., n,
-\end{equation*}
-%
-where $y_i$ is the homicide rate in spatial unit $i$ and $\vx_i$ is a $k\times 1$ set of covariates that explain homicide rates across spatial units. However, this model does not allow capturing the idea of spatial diffusion and spatial effects of homicide rates. For example, \cite{baller2001structural}, after rejecting the null hypothesis of spatial randomness on homicide rates, propose (among other spatial models) the following SLM process for modeling homicide rates using a county-level data for the decennial years in the 1960 to 1990 time period:
-
-\begin{equation*}
-\vy  =  \alpha \vones_n + \rho \mW\vy + \mX\vbeta + \epsilon,
-\end{equation*}
-%
-where $\vy$ is the homicide rates for the US counties, $\mX$ includes a deprivation, population density, median age, the unemployment rate, percent divorced, and a Southern dummy variable based on census definitions.  As explained by \cite{baller2001structural}, if homicides rates are determined solely by the structural factors included in the $\mX$ matrix, there should be no spatial patterning of homicide beyond that created by socio-demographic similarities of geographically proximate counties. If this is the case, once all $x_k$ are included in the model, the spatial relationship between $y_i$ and $y_j$ will become nonsignificant. This implies that $\rho = 0$.
-
-This is the model most compatible with common notions of diffusion processes because it implies an influence of neighbors’ homicide rates that is not simply an artifact of measured or unmeasured independent variables. Rather, homicide events in one place actually increase the likelihood of homicides in nearby locales. 
-\end{example}
+where $\vy$ is a $n\times 1$ vector containing observations on the dependent variable, $\mX$ is an $n\times k$ matrix of observations on the explanatory variables; $\vbeta$ is the $k\times 1$ vector of parameters and $\alpha$ is the constant; and $\vones_n$ is a $n\times 1$ vector of ones.
 
 %====================================
 \subsection{Spatial Durbin Model}
 %====================================
 
-The Spatial Durbin Model (SDM) model is shown in Equation (\ref{eq:Sdm}) along with its associated data generating process in Equation (\ref{eq:Sdm_dgp})\index{Spatial durbin model}\index{Spatial durbin model!reduced form}:
+The Spatial Durbin Model model (SDM) is defined as:\index{Spatial durbin model}
+\begin{equation}\label{eq:Sdm}
+\vy  =  \rho \mW\vy + \alpha \vones_n + \mX\vbeta + \mW\mX\vgamma + \vepsi.
+\end{equation}
+%
+where $\vy$ is the dependent variable, $\rho$ is the spatial autoregressive parameter, $\mW$ is the spatial weights matrix, $\vones_n$ is an $n$-dimensional vector of ones to account for the intercept $\alpha$, $\mX$ is the matrix of explanatory variables, $\mW\mX$ represents the spatially lagged explanatory variables, and $\vepsi$ is the error term.
 
-\begin{eqnarray}
-\vy & = & \rho \mW\vy + \alpha \vones_n + \mX\vbeta + \mW\mX\vgamma + \vepsi \label{eq:Sdm} \\
-\vy & = & \left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta + \mW\mX\vgamma + \vepsi\right) \label{eq:Sdm_dgp}
-\end{eqnarray}
+The SDM extends traditional spatial autoregressive models by including not only the spatially lagged dependent variable ($\mW\vy$) and explanatory variables ($\mX$) but also the spatially lagged explanatory variables ($\mW\mX$). This means that $\vy$ depends on the local (own-region) factors from $\mX$ as well as the same factors averaged over neighboring regions, introducing an additional layer of spatial dependence.
 
-
-The SDM results in a spatial autoregressive model of a special form, including not only the spatially lagged dependent variable and the explanatory variables, but also the spatially lagged explanatory variables, $\mW\mX$: $\vy$ depends on own-regional factors from matrix $\mX$, plus the same factors averaged over the $n$ neighboring regions. This idea is shown in Figure \ref{figure:sdm}. Note that Region 1 not only exerts an impact on Region 2 (an vice versa) via $y$, but also via the the independent variable $x$.
+This concept is illustrated in Figure \ref{figure:sdm}. The diagram shows that Region 1 affects Region 2 not only through the spatially lagged dependent variable ($\vy$) but also through the spatially lagged independent and exogenous variables ($\vx$).
 
 \begin{figure}[ht]
 	\centering
@@ -235,10 +104,6 @@ The SDM results in a spatial autoregressive model of a special form, including n
 			\draw[dashed, ->] (y2) to[bend right] (y1);
 			\draw[dashed, ->] (x1) to (y2);
 			\draw[dashed, ->] (x2) to (y1);
-			%\draw[->, solid] (0,-4) to node[right, align = center] {$\sigma_i = 1$} (6,-5.4);
-			%\draw[->, solid] (-6,-6.6) to node[right] {$\sigma_i = \sigma = 1$} (-2.5,-8);
-			%\draw[->, solid] (6,-6.6) to node[right] {$\var(\veta_i)=\vzeros$} (2.5,-8);
-			
 			% Legend
        \node (leyend) at (4, 0){
     \begin{tabular}{l@{: }l}
@@ -250,24 +115,15 @@ The SDM results in a spatial autoregressive model of a special form, including n
 		\end{tikzpicture}
 \end{figure}
 
-As an example, consider that $y$ is some measure of air pollution in each region. Thus, $\mW\vy$ states that air pollution in region  1 might affect pollution in region 2, and vice versa. If $\mX$ contains a measure of population density, the variable $\mW\mX$ would indicate that density and region 1 (2) would affect air pollution in region 2 (1). 
+Consider an example where $\vy$ represents air pollution levels in different regions. The term $\mW\vy$ implies that air pollution in Region 1 affects pollution in Region 2, and vice versa. If $\mX$ includes population density, the spatially lagged variable $\mW\mX$ captures the effect of population density in Region 1 (or Region 2) on air pollution in the neighboring region.
 
-This model has also very good properties in terms of calculation of marginal effects that will explore later. 
-
-% This model have very good properties \citep[see for example][]{lesage2010introduction,elhorst2010applied}. The strengths of this model are the following:
-% 
-% \begin{enumerate}
-% 	\item SDM produces unbiased coefficient estimates also if the true data-generation process is a spatial lag or spatial error model.
-% 	\item It  does not impose prior restrictions on the magnitude of potential spatial spillover effects. 
-% 	\item In contrast to other spatial regression specifications, these spillovers effects can be global or local and be different for different explanatory variables.  
-% \end{enumerate}
+The SDM is particularly advantageous for calculating marginal effects, as it allows for the decomposition of direct, indirect, and total effects, which will be explored in later sections.
 
 %====================================
 \subsection{Spatial Error Model}\label{sec:tax_SEM}
 %====================================
 
-Another form of spatial dependence occurs when the dependence works through the error process, in that the errors from different areas may display spatial autocorrelation. The Spatial Error Model (SEM) is formulated as\index{Spatial error model}:
-
+Another form of spatial dependence occurs when it operates through the error process, meaning that the errors from different regions exhibit spatial autocorrelation. The Spatial Error Model (SEM) is formulated as\index{Spatial error model}:
 \begin{equation}\label{eq:sem_model_comp}
   \begin{aligned}
 \vy &= \alpha \vones + \mX\vbeta + \vu, \\
@@ -275,7 +131,9 @@ Another form of spatial dependence occurs when the dependence works through the 
  \end{aligned}
 \end{equation}
 %
-where $\lambda$ is the autoregressive parameter for the error lag $\mW\vu$ (to distinguish the notation from the spatial autoregressive coefficient $\rho$ in a spatial lag model), and $\vepsi$ is a generally a i.i.d noise. Figure \ref{figure:sem} visualizes the SEM for two regions. Note that the error term of both regions are related, and the only spatial effect goes from $\epsilon_1$ to $\epsilon_2$ and vice versa. 	
+where $\lambda$ is the autoregressive parameter capturing the spatial dependence in the error lag $\mW\vu$, $\vepsi$ is i.i.d. noise, and $\mW$ is the spatial weights matrix. The parameter $\lambda$ distinguishes the spatial error dependence from the spatial autoregressive coefficient $\rho$ in spatial lag models.
+
+Figure \ref{figure:sem} illustrates the SEM for two regions. The diagram highlights that the error terms ($\epsilon_1$ and $\epsilon_2$) of both regions are interconnected, and the spatial effect operates solely through this relationship.	
 
 \begin{figure}[ht]
 	\centering
@@ -305,24 +163,23 @@ where $\lambda$ is the autoregressive parameter for the error lag $\mW\vu$ (to d
 		\end{tikzpicture}
 \end{figure}
 
-As stated by \cite{AnselinBera1998}, spatial error dependence may be interpreted as a nuisance (and the parameter $\lambda$ as a nuisance parameter) in the sense that it reflects spatial autocorrelation in measurement errors or in variables that are otherwise not crucial to the model (i.e., the ``ignored'' variables spillovers across the spatial units of observations). 
+As noted by \cite{AnselinBera1998}, spatial error dependence can be viewed as a nuisance, with $\lambda$ acting as a nuisance parameter. This reflects spatial autocorrelation in measurement errors or in unaccounted variables that may influence the dependent variable. For instance, it may capture spillovers of omitted variables across spatial units.
 
-Unlike previous models, interactions effects among the error terms do not require a theoretical model for a spatial or social interaction process, but instead, are consistent with a situation where determinants of the dependent variable omitted from the model are spatially autocorrelated, or with a situation where unobserved shocks follows a spatial pattern. 
-
-The spatial diffusion of this model can be analyzed if we consider the reduced form equation. If the matrix $(\mI_n - \lambda\mW)$ is not singular, then \eqref{eq:sem_model_comp} can be written under the following reduced form\index{Spatial error model!reduced form}:
-
-\begin{equation}
-  \vy =  \alpha \vones + \mX\vbeta + (\mI_n - \lambda\mW)^{-1}\vepsi.
-\end{equation}
-
-This expression leads to a global spatial diffusion effect, but there is not spatial multiplier effect. The variance-covariance matrix is given by:
-
-\begin{equation}
-  \begin{aligned}
-\E\left(\left.\vy\vy^\top\right|\mW, \mX\right)  & = \E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right) \\
-                 & = \left(\mI_n- \lambda\mW\right)^{-1}\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)\left(\mI_n- \lambda\mW^\top\right)^{-1}
-\end{aligned}
-\end{equation}
+Unlike models focusing on explicit spatial or social interaction processes, the SEM accommodates situations where the determinants of the dependent variable are spatially autocorrelated but not explicitly modeled. It can also represent scenarios where unobserved shocks exhibit a spatial pattern. This flexibility makes the SEM useful in dealing with spatially structured errors that arise from omitted variables or other latent spatial processes.
+% The spatial diffusion of this model can be analyzed if we consider the reduced form equation. If the matrix $(\mI_n - \lambda\mW)$ is not singular, then \eqref{eq:sem_model_comp} can be written under the following reduced form\index{Spatial error model!reduced form}:
+% 
+% \begin{equation}
+%   \vy =  \alpha \vones + \mX\vbeta + (\mI_n - \lambda\mW)^{-1}\vepsi.
+% \end{equation}
+% 
+% This expression leads to a global spatial diffusion effect, but there is not spatial multiplier effect. The variance-covariance matrix is given by:
+% 
+% \begin{equation}
+%   \begin{aligned}
+% \E\left(\left.\vy\vy^\top\right|\mW, \mX\right)  & = \E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right) \\
+%                  & = \left(\mI_n- \lambda\mW\right)^{-1}\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)\left(\mI_n- \lambda\mW^\top\right)^{-1}
+% \end{aligned}
+% \end{equation}
 
 \begin{remark}
 Interaction effects among the unobserved terms may also be interpreted to reflect a mechanism to correct rent-seeking politicians for unanticipated fiscal policy changes. See for example \cite{allers2005tax}.
@@ -332,8 +189,7 @@ Interaction effects among the unobserved terms may also be interpreted to reflec
 \subsection{Spatial Autocorrelation Model}
 %=========================
 
-A more general model is the one that includes the key modeling insights from both spatial lag and spatial error model describe above.  This model is called the Spatial Autocorrelation Model (SAC) and the its structural representation is the following:
-
+The Spatial Autocorrelation Model (SAC) is a more general framework that incorporates key features of both the spatial lag and spatial error models discussed earlier. Its structural representation is given by:
 \begin{equation*}
   \begin{aligned}
     y_i & = \alpha + \rho    \sum_{j = 1}^n w_{ij} y_j + \sum_{k=1}^K x_{ik}\beta_k + u_i \\
@@ -341,25 +197,17 @@ A more general model is the one that includes the key modeling insights from bot
   \end{aligned}
 \end{equation*}
 %
-or more compactly, 
-
-\begin{equation}
+or more compactly in matrix form, 
+\begin{equation*}
   \begin{aligned}
-\vy &= \alpha \vones_n + \rho \mW\vy + \mX\vbeta + \vu \\
-\vu &= \lambda \mM\vu + \vepsi \\
+\vy &= \alpha \vones_n + \rho \mW\vy + \mX\vbeta + \vu, \\
+\vu &= \lambda \mM\vu + \vepsi, \\
   \end{aligned}
-\end{equation}
+\end{equation*}
 %
 where the matrix $\mW$ and $\mM$ are $n\times n$ spatial-weighting matrices.\footnote{This model is also known as SARAR(1, 1) model or Cliff-Ord models because of the impact that \cite{cliff1973spatial}  had on the subsequent literature. Note that SARAR(1, 1) is  a special case of the more general SARAR(p, q) model.} In this model, spatial interactions in the dependent variable and the disturbances are considered. As standard, the spatial weight matrices $\mW$ and $\mM$ are taken to be known and nonsthocastic. These matrices are part of the model definition, and in many applications, $\mM = \mW$. When $\rho = 0$, the model reduces to the SEM. When $\lambda = 0$ the model reduces to the SLM (SAR) specification. Setting $\rho = 0$ and $\lambda = 0$ causes the model to reduce to a linear regression model with exogenous variables. 
 
-The reduced form is given by:
-
-\begin{equation}
-\vy = \left(\mI_n - \rho \mW\right)^{-1}\left(\mX\vbeta + \alpha \vones_n\right) + \left(\mI_n - \rho\mW\right)^{-1}\left(\mI_n - \rho \mM\right)^{-1}\vepsi.
-\end{equation}
-
-Figure \ref{fig:taxonomy} gives a more complete taxonomy for different spatial models. The more complete model is the General Nesting Spatial Model (GNS or Manski's Model), which includes spatial dependence in the dependent variable, exogenous variables and the error term. Different restrictions give rise to different spatial models. 
-
+A broader taxonomy of spatial models is shown in Figure \ref{fig:taxonomy}. The most comprehensive model in this framework is the General Nesting Spatial Model (GNS or Manski's Model), which includes spatial dependence in the dependent variable, the explanatory variables, and the error term. Different restrictions on the GNS model yield various spatial model specifications, as detailed below.
 
 \begin{figure}[h]
 \caption{Taxonomy of spatial models}
@@ -423,19 +271,6 @@ Figure \ref{fig:taxonomy} gives a more complete taxonomy for different spatial m
 			\draw (slm) -- (ols) node [->, solid, midway, above, sloped] {\scriptsize $\rho = 0$};
 			\draw (slx) -- (ols) node [->, solid, midway, above, sloped] {\scriptsize $\gamma = 0$};
 			\draw (sem) -- (ols) node [->, solid, midway, above, sloped] {\scriptsize $\lambda = 0$};
-			%\draw[->, solid] (x2) to (y2);
-			%\draw[->, solid] (e1) to (y1);
-			%\draw[->, solid] (e2) to (y2);
-			%\draw[dashed, <->] (e1) to (e2);
-
-			% Legend
-     %  \node (leyend) at (4, 0){
-    %     \begin{tabular}{l@{: }l}
-    %  \multicolumn{2}{c}{\textbf{Effects}}              \\
-    %  $\rightarrow$                        & non-spatial effects    \\
-    %  $\dashrightarrow$                     & spatial effects  \\
-    %  \end{tabular}
-    %  };
 \end{tikzpicture}
 \end{figure}
 
@@ -456,28 +291,285 @@ Starting with the SDM:
 
 Finally, if $\rho = \lambda = 0$ and $\vtheta = 0$, then we obtain the traditional linear regression model. 
 
+%-------------------------------------------------------------------------
+\section{Reduced Form and Parameter Space}\index{Reduced form!Spatial lag model}
+%-------------------------------------------------------------------------
+
+An important distinction in the context of spatial models is the difference between structural and reduced form model. The reduced form expresses the endogenous variables as functions of the exogenous variables. In contrast, the structural form is the `behavioral model' that defines the relationship between the vaiables in the system.  
+
+For example, Equation \eqref{eq:Sar} represents the structural model for the SLM, where both exogenous and endogenous variables are related to the dependent variable $\vy$. This form reflects the theoretical framework that captures the underlying relationship between the variables. 
+
+However, it is often more insightful to consider how the dependent variable is generated, which is referred to as the \textbf{data generating process} (DGP). The DGP represents the empirical process that gives rise to the observed data. By solving the structural model in Equation \eqref{eq:Sar} for the endogenous variables, $\vy$, yields the reduced-form model. 
+
+The implied DGP or ``reduced form equation'' for the SLM given in Equation \eqref{eq:Sar} is:
+\begin{equation}\label{eq:Sar_dgp}
+\vy  =  \left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n - \rho \mW\right)^{-1}\vepsi,
+\end{equation}
+%
+which shows that any spatially lagged dependent variable is no longer present on the right-hand side. This equation illustrate the simultaneous nature of the spatial autoregressive process.
+
+\begin{remark}
+The \textbf{reduced form} of a system of equations is the result of solving the system for the \textbf{endogenous variables}. This gives the latter as functions of the exogenous variables, if any. For example, the general expression of a structural form is $f(\vy, \mX, \vepsi) = \vzeros$, whereas the reduced form of this model is given by $\vy = g(\mX, \vepsi)$, with $g$ as function. 
+\end{remark}
+
+Without restrictions on $(\mI_n-\rho\mW)$---and $\left(\alpha \vones_n + \mX\vbeta\right)$---the coefficients cannot be identified from data. In other words, to identify the true coefficients from data, we need $(\mI_n-\rho\mW)$ to be invertible. From linear algebra, a matrix $\mA$ is invertible if $\det(\mA)\neq 0$. Thus, for the reduced from to be valid we require that $\det(\mI_n -\rho\mW)\neq 0$. The question then becomes: for which values of $\rho$ lead to a non-singular $(\mI_n -\rho\mW)$? 
+
+%For \textbf{symmetric} matrices, the compact open interval for $\rho \in \left( \omega_{min}^{-1}, \omega_{max}^{-1}\right)$ will lead to a symmetric positive definite $(\mI_n -\rho\mW)$, where $\omega_{min}$ and $\omega_{max}$ are the minimum and maximum eigen value of $\mW$, respectively. This gives rise to the following Theorem:
+
+The following Lemma from \cite{kelejian2010specification} establishes a bound for $\rho$:
+
+%---------------------------
+\begin{lemma}[Bounds for $\rho$ \citep{kelejian2010specification}]\label{lemma:bound-rho-kp}
+Let $\tau$ denote the spectral radius of $\mW$, defined as:
+\begin{equation*}
+\tau = \max\left\lbrace |\omega_1|, \ldots, |\omega_n| \right\rbrace,
+\end{equation*}
+%
+where $\omega_1, \ldots, \omega_n$ denote the eigenvalues of $\mW$. Then $\mI_n - \rho\mW$ is nonsingular for all $\rho$ in the interval $(-1/\tau, 1/\tau)$. 
+\end{lemma}
+%---------------------------
+
+When $\rho$ is restricted to the interval $(-1/\tau, 1/\tau)$, all eigenvalues of $\rho\mW$ are guaranteed to have absolute values less than one. A related result, frequently used in the literature, is presented below:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}[Invertibility]\index{Weight matrix!Invertibility}\index{eigen values}\label{lemma:inveribility}
+Let $\mW$ be a weighting matrix, such that $w_{ii} = 0$ for all $i = 1,\ldots,n$, and assume that all of the roots of $\mW$ are real. Assume also that $\mW$ is not row normalized. Let $\omega_{min}$ and $\omega_{max}$ be the minimum and maximum eigen value of $\mW$. Assume also that $\omega_{max} > 0$ and $\omega_{min} < 0$. Then $\left(\mI_n - \rho\mW\right)$ is nonsingular for all:
+\begin{equation*}
+  \omega_{min}^{-1} < \rho < \omega_{max}^{-1}
+\end{equation*}
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As \cite{kelejian2010specification} explain, Lemma \ref{lemma:inveribility} holds only when all eigenvalues of $\mW$ are real. However, non-symmetric matrices typically have complex eigenvalues, making Lemma \ref{lemma:bound-rho-kp} more general.
+
+To facilitate interpretation, $\mW$ is often normalized so that each row sums to unity. This row-normalization ensures nonnegative weights between 0 and 1, which allows $\mW$ to be interpreted as a row-stochastic matrix that averages neighboring values. According to Theorem \ref{teo:eigen_values} (Eigenvalues of Row-Stochastic Matrix), the eigenvalues of such a row-stochastic matrix $\mW$ have absolute values less than or equal to one. This result, combined with Lemma \ref{lemma:bound-rho-kp}, implies $\rho \in (1/\omega_{\textrm{min}}, 1)$.
+
+However, interpreting $\rho$ as a conventional correlation coefficient between $\vy$ and its spatial lag $\mW\vy$ can be misleading. The parameter space of $\rho$ depends on the normalization of $\mW$. For instance, standardization methods other than row-normalization may yield different bounds for $\rho$. 
+
+%----------------------------
+\begin{lemma}[Invertibility of Row-Normalized $\mW$ matrix]\label{lemma:invert-W-row}
+If $\mW$ is row-normalized, then  $\left(\mI_n - \rho\mW\right)^{-1}$ exists for all $\left|\rho \right| < 1$
+\end{lemma}
+%----------------------------
+
+Despite its popularity, row-normalization has drawbacks. As discussed in Section \ref{sec:spatial_lag_var}, it alters the internal structure of $\mW$, complicating inter-row comparisons. To address this, scalar normalization (multiplying $\mW$ by a constant $a$) can be applied. This approach preserves the relationships between rows and removes unit-of-measure effects. Let:
+\begin{equation*}
+  \begin{aligned}
+    a & = \min \left\lbrace r, c \right\rbrace \\
+    r & = \max_i \sum_j \left|w_{ij}\right|\quad \mbox{maximal row sum of the absolute values} \\
+    c & = \max_j \sum_i \left|w_{ij}\right|\quad \mbox{maximal column sum of the absolute values}.
+  \end{aligned}
+\end{equation*}
+
+Then, assuming that the elements of $\mW$ are nonegative, $(\mI_n - \rho\mW)$ will be nonsingular for all $\left|\rho\right| < 1/a$. Note that this normalization has the advantage of ensuring that the resulting spatial weights, $w_{ij}$, are all between 0 and 1, and hence can still be interpreted as relative influence intensities. This could be taken as the parameter space.\index{Parameter space} 
+
+This is an important result because a model which has a weighting matrix which is not row normalized can always be normalized in such a way that the inverse needed to solve the model will exists in an easily established region. 
+
+
+\begin{remark}
+For further details on normalizing $\mW$ and the parameter space of $\rho$ see \citet[][section 2.4]{elhorst2014spatial} and \citet[][section 2.2]{kelejian2010specification}
+\end{remark}
+
+When $\mI_n - \rho\mW$ is nonsingular, it can be expressed as an infinite series, commonly referred to as the Leontief expansion:
+
+%----------------------
+\begin{lemma}[Leontief Expansion]\label{lemma:Leontief}\index{Leontief expansion}
+If $\mI - \rho \mW$ is nonsingular, then
+	\begin{equation*}
+	(\mI - \rho \mW)^{-1} = \sum_{i = 0} ^{\infty}(\rho \mW)^{i}
+	\end{equation*}
+\end{lemma}
+%----------------------
+
+Using Lemma \ref{lemma:Leontief} (Leontief Expansion), the reduced form for the SLM in Equation \eqref{eq:Sar_dgp} can be written as:
+\begin{equation}\label{eq:infinite_series_slm}
+  \begin{aligned}
+      \vy  = &\left(\mI_n + \rho\mW + \rho^2\mW^2 + \ldots \right)\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n + \rho\mW + \rho^2\mW^2 + \ldots\right)\vepsi, \\
+           = & \alpha\vones_n + \rho\mW\vones_n\alpha + \rho^2\mW^2\vones_n\alpha + \ldots + \mX\vbeta + \rho\mW\mX\vbeta + \rho^2\mW^2\mX\vbeta + \ldots \\
+          & + \vepsi + \rho\mW\vepsi + \rho^2\mW^2\vepsi.
+  \end{aligned}
+\end{equation}
+
+Expression \eqref{eq:infinite_series_slm} can be simplified since the infinite series:
+\begin{equation*}
+\alpha\vones_n + \rho\mW\vones_n\alpha + \rho^2\mW^2\vones_\alpha + \ldots \to \frac{\vones_n\alpha}{\left(1 - \rho\right)},
+\end{equation*}
+%
+since $\alpha$ is a scalar, the parameter $\left|\rho\right|  < 1$, and $\mW$ is row-stochastic. By definition $\mW\vones_n = \vones_n$ and therefore $\mW\mW\vones_n = \mW\vones_n = \vones$. Consequently, $\mW^l\vones_n = \vones_n$ for $l\geq 0$ (recall that $\mW^0 = \mI_n$). This allows us to write:
+\begin{equation*}
+\vy = \frac{1}{(1-\rho)}\vones_n\alpha + \mX\vbeta + \rho\mW\mX\vbeta + \rho^2\mW^2\mX\vbeta + \ldots + \vepsi + \rho\mW\vepsi + \rho^2\mW^2\vepsi + \ldots
+\end{equation*}
+
+This expansion reveals two effects: a multiplier effect affecting the explanatory variables and a spatial diffusion effect affecting the error terms. With respect to the explanatory variables, this expression means that, on average, the value of $\vy$ at one location $i$ is not only explained by the values of the explanatory variables associated to this location but also by those associated to all other locations (neighbors or not) via the inverse spatial transformation $\left(\mI_n - \rho \mW\right)^{-1}$. This spatial multiplier effect decreases with distance. This can be seen if we consider the powers of $\mW$ in the series expansion of $\left(\mI_n - \rho \mW\right)^{-1}$.\index{Multiplier effect} 
+
+With respect to the error process, this expression means that a random (unobserved) shock in a location $i$ not only affects the value of $y$ in this location but also has an impact on the values of $y$ in all other locations via the same spatial inverse transformation. To see this, recall that $\mW^2$ will reflect second-order contiguous neighbors, those that are neighbors to the first-order neighbors (review Section \ref{sec:HSO}). Since the neighbor of the neighbor (second-order neighbor) to an observation $i$ includes observation $i$ itself, $\mW^2$ has positive elements on the diagonal when each observations has at least one neighbor. That is, higher-order spatial lags can lead to a connectivity relation for an observations $i$ such that $\mW\vepsi$ will extract observations from the vector $\vepsi$ that point back to the observation $i$ itself. This implies that there exists a simultaneous feedback. This diffusion effect also declines with distance. We will explore this mechanism more deeply in Section \ref{sec:interpretation}.
+
+Considering the reduced form Equation (\ref{eq:Sar_dgp}), we might be able to find the mean and variance-covariance matrix of the complete system as function of exogenous variables. The expectation is given by:
+\begin{equation}\label{eq:expected_value_slm}
+  \begin{aligned}
+\E(\vy|\mX,\mW) & = \E\left[\left.\left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right) + \left(\mI_n - \rho \mW\right)^{-1}\vepsi\right|\mX,\mW\right] \\
+                & = \left(\mI_n - \rho \mW\right)^{-1}\left(\alpha \vones_n + \mX\vbeta\right).
+\end{aligned}
+\end{equation}
+
+From Equation \eqref{eq:Sar_dgp}, we derive the variance-covariance matrix of $\vy$:
+\begin{equation*}
+  \begin{aligned}
+    \var\left(\left.\vy\right|\mW, \mX\right) & = \E\left(\left.\vy\vy^\top\right|\mW,\mX\right) \\ 
+                               & = \left(\mI_n - \rho\mW\right)^{-1}\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)\left(\mI_n- \rho\mW^\top\right)
+  \end{aligned}
+\end{equation*}
+
+This $n\times n$ variance-covariance matrix is full, which implies that each location is correlated with every other location in the system. However, this correlation decreases with distance. Since we have not assumed anything about the error variance, we can say that $\E\left(\left.\vepsi\vepsi^\top\right|\mW, \mX\right)$ is a full matrix, say $\mOmega_{\epsilon}$. This covers the possibility of heteroskedasticity, spatial autocorrelation, or both. In absence of either of these complications, the variance matrix simplifies to the usual $\sigma^2\mI_n$.
+
+\begin{example}[County homicide rates in US]
+In the criminology literature there has been a great emphasis of spatial diffusion of crime. The idea is that criminal violence may spread geographically via a diffusion process. For example, some researchers suggests that certain social processes such as illegal drug markets and gang rivalries may be important for explaining the pattern and mechanisms of the spread of homicides \citep{cohen1999diffusion}. 
+
+In particular, empirical literature has focused on homicide rates and their determinants using the following OLS specification:
+
+\begin{equation*}
+y_i = \vx_i^\top\vbeta + \epsilon_i\quad i = 1, ..., n,
+\end{equation*}
+%
+where $y_i$ is the homicide rate in spatial unit $i$ and $\vx_i$ is a $k\times 1$ set of covariates that explain homicide rates across spatial units. However, this model does not allow capturing the idea of spatial diffusion and spatial effects of homicide rates. For example, \cite{baller2001structural}, after rejecting the null hypothesis of spatial randomness on homicide rates, propose (among other spatial models) the following SLM process for modeling homicide rates using a county-level data for the decennial years in the 1960 to 1990 time period:
+
+\begin{equation*}
+\vy  =  \alpha \vones_n + \rho \mW\vy + \mX\vbeta + \epsilon,
+\end{equation*}
+%
+where $\vy$ is the homicide rates for the US counties, $\mX$ includes a deprivation, population density, median age, the unemployment rate, percent divorced, and a Southern dummy variable based on census definitions.  As explained by \cite{baller2001structural}, if homicides rates are determined solely by the structural factors included in the $\mX$ matrix, there should be no spatial patterning of homicide beyond that created by socio-demographic similarities of geographically proximate counties. If this is the case, once all $x_k$ are included in the model, the spatial relationship between $y_i$ and $y_j$ will become nonsignificant. This implies that $\rho = 0$.
+
+This is the model most compatible with common notions of diffusion processes because it implies an influence of neighbors' homicide rates that is not simply an artifact of measured or unmeasured independent variables. Rather, homicide events in one place actually increase the likelihood of homicides in nearby locales. 
+\end{example}
+
+%-------------------------------------------------------------------------
+\subsection{Eigenvalues in R}
+%-------------------------------------------------------------------------
+
+Computing eigenvalues is a crucial step in the estimation of spatial models, particularly when using Maximum Likelihood procedures. In this section, we demonstrate how to compute the eigenvalues of a spatial weight matrix $\mW$ in R, along with some of their properties.
+
+First, we create an artificial spatial weight matrix using functions from the \pkg{spdep} package:
+
+<<Wl.queen>>=
+# Create a queen W matrix
+library("spdep")
+Wl.queen <- cell2nb(3, 3, type = "queen")
+summary(Wl.queen)
+@
+
+The function \code{cell2nb} from \pkg{spdep} package generates a list of neighbors for a grid of cells. Here, we define a grid with 3 rows and 3 columns, resulting in a total of 9 regions. Since \code{type = "queen"} is specified, the neighbors include those sharing either an edge or a vertex, consistent with a regular grid spatial structure. The resulting object is of class \code{nb}, representing a list of neighbors.
+
+To proceed with matrix computations, we convert this \code{nb} object into a spatial weight matrix of class \code{matrix}:
+<<W.queen>>=
+# From nb to matrix
+W.queen <- nb2mat(Wl.queen)
+round(W.queen, 3)
+@
+
+The resulting matrix is row-normalized, meaning that the sum of each row equals one. We can verify this as follows:
+<<check-rowsums>>=
+# Compute row-sums
+rowSums(W.queen)
+@
+
+Additionally, note that this matrix is not symmetric. We can confirm this property using:
+<<is.sym>>=
+# Check whether the matrix is symmetric
+is.sym <- all(W.queen == t(W.queen))
+is.sym
+@
+
+The \code{eigen} function in R computes the eigenvalues and eigenvectors of a matrix. It returns a named list with two components: \code{values} (the eigenvalues) and \code{vectors} (the eigenvectors). To illustrate, we compute the eigenvalues of the previously defined spatial weight matrix:
+
+<<eigen-values>>=
+# Obtain eigenvalues
+values <- eigen(W.queen, symmetric = is.sym)$values
+values
+range(values)
+@
+
+The eigenvalues are returned in decreasing order. For the spatial weight matrix \code{W.queen}, all eigenvalues are real. The minimum eigenvalue is approximately -0.45, while the maximum eigenvalue is 1, corroborating the fact that if $\mW$ is row-normalized, then $|\vomega| \leq 1$.
+
+Since $\mW$ is row-normalized, and  according to Lemma \ref{lemma:invert-W-row}, $\mI_n - \rho\mW$ is invertible if $|\rho| < 1$. Note that if $\rho = 1$, then the matrix is nonsingular as shown in the following lines
+<<check.inv>>=
+solve(diag(9) - 1 * W.queen)
+@
+
+
+Next, we compute the eigenvalues for a rook spatial weight matrix:
+<<eigen-rook>>=
+W.rook <- nb2mat(cell2nb(3, 3, type = "rook"))
+is.sym <- all(W.rook == t(W.rook))
+values <- eigen(W.rook, symmetric = is.sym)$values
+range(values)
+@
+
+For the rook spatial weight matrix, the minimum eigenvalue is -1, and the maximum eigenvalue is 1. This highlights a difference in the spectral properties of rook versus queen spatial weight matrices.
+
+Another approach to constructing spatial weight matrices, particularly for Monte Carlo studies, is the $k$-ahead and $k$-behind criterion in a circular world, as proposed by \citet{kelejian1999generalized}. In this framework, each spatial unit is assumed to have $k$ neighbors ahead of it and $k$ neighbors behind it in the sample order. For example, we can create such a matrix with $k = 2$ using the \code{circular} function from the \pkg{sphet} package:
+<<w-circ, message = FALSE>>=
+library("sphet")
+W.cir <- nb2mat(circular(3, 3, 2))
+W.cir
+all(W.cir == t(W.cir))
+values <- eigen(W.cir, symmetric = all(W.cir == t(W.cir)))$values
+values
+range(values)
+@
+
+In this example, each spatial unit has $2k$ neighbors (two ahead and two behind). The eigenvalues for this matrix can provide insights into the connectivity and spatial structure defined by this criterion.
+
+%-------------------------------------------------------------------------
+\subsection{Generate spatial DGP in R}
+%-------------------------------------------------------------------------
+
+To construct a DGP of a spatial model, we first define the reduced form of the model. Consider the SLM with
+\begin{equation*}
+\vy = \left(\mI_n - \rho\mW\right)^{-1}\left(\beta_0\vones_n + \beta_1\vx + \vepsi\right), 
+\end{equation*}
+%
+where $\vones_n$ is an $n\times 1$ vector of ones and the elements of the vector $\vx$ are normally distributed with mean 0 and standard deviation 1. The parameter $\beta_0$ is set to 1, while $\beta_1 = 2$. The error term is normally distributed with mean zero and standard deviation one. The spatial autoregressive parameter is set to $\rho = 0.6$. 
+The following lines create this DGP for a sample size of $n = 49$ using a circular spatial weight matrix:
+<<create-dgp>>=
+# Set the random seed
+set.seed(1)
+
+# True parameters
+b0  <- 1
+b1  <- 2
+rho <- 0.6
+
+# Sample size and W matrix
+n     <- 49
+W.cir <- nb2mat(circular(sqrt(n), sqrt(n), 3))
+                
+# Generate random variables
+x <- rnorm(n, mean = 0, sd = 1)
+epsilon <- rnorm(n, mean = 0, sd = 1)
+
+# Generate dependent variable
+y <- solve(diag(n) -  rho * W.cir) %*% (b0 + b1 * x + epsilon)
+@
+
 %==============================================
 \section{Motivation of Spatial Models}\label{sec:motivation}
 %==============================================
 
 \subsection{SLM as a Long-run Equilibrium}\label{sec:SLM_lre}
 
-It can be shown that a SLM can be considered as a simultaneous dependence system over time that culminate in a new steady state equilibrium, even using a cross-sectional dataset.
+A Spatial Lag Model (SLM) can be interpreted as a system of simultaneous dependencies over time that converges to a new steady-state equilibrium, even when using a cross-sectional dataset \citep{lesage2010introduction}. To demonstrate this, consider the vector of the dependent variable at time $t$, denoted by $\vy_t$. Assume that this variable is determined by a spatial autoregressive process, where the current value depends on the spatially lagged values of the dependent variable from neighboring observations. This introduces a time lag in the average values of the neighboring dependent variables observed during the previous period, $\mW\vy_{t-1}$. We can also include the current period's own-region characteristics $\mX_t$ in the model. If the characteristics of regions remain relatively fixed over time, we can express $\mX_t = \mX$.
 
-To illustrate this, consider $\vy_t$, which represent some dependent variable vector at time $t$. Assume that this variable is determined by a spatial autoregressive scheme that depends on space-time lagged values of the dependent variable from neighboring observations. This would lead to a time lag of the average neighboring values of the dependent variable observed during previous period,  $\mW\vy_{t-1}$. We can also include current period own-region characteristics $\mX_t$ in the model. If the characteristics of regions remain relatively fixed over time, we can write $\mX_t = \mX$ As an illustration, consider a model involving pollution as the dependent variable $\vy_t$, which depend on past period pollution of neighboring regions, $\mW\vy_{t-1}$. Then, the more appropriate process is the following:
-
+For illustration, consider a model where pollution is the dependent variable $\vy_t$, which depends on the past period's pollution values from neighboring regions, $\mW\vy_{t-1}$. The appropriate model in this case would be:
 \begin{equation}\label{eq:slm_with_time}
 \vy_t = \rho \mW\vy_{t-1} + \mX\vbeta + \vepsi_t.
 \end{equation}
 
-Note that we can replace $\vy_{t-1}$ on the right-hand side of (\ref{eq:slm_with_time}) with:
-
+We can substitute $\vy_{t-1}$ from the right-hand side of equation \eqref{eq:slm_with_time} as:
 \begin{equation*}
 \vy_{t-1} = \rho \mW\vy_{t-2} + \mX\vbeta + \vepsi_{t-1},
 \end{equation*}
 %
-producing:
-
+resulting in:
 \begin{equation}\label{eq:recur_2}
 \begin{aligned}
 \vy_t  = & \mX\vbeta +\rho\mW\left(\mX\vbeta + \rho \mW\vy_{t-2} + \vepsi_{t-1}\right) + \vepsi_t\\
@@ -485,43 +577,39 @@ producing:
 \end{aligned}
 \end{equation}
 
-Recursive substitution for past values of the vector $\vy_{t-r}$ on the right-hand side of (\ref{eq:recur_2}) over $q$ periods leads to:
-
+By recursively substituting past values of $\vy_{t-r}$ on the right-hand side of Equation \eqref{eq:recur_2} over $q$ periods, we obtain:
 \begin{equation*}
   \begin{aligned}
-    \vy_t &= \left(\mI_n + \rho\mW + \rho^2\mW^2 + ... + \rho^{q-1}\mW^{q-1}\right)\mX\vbeta + \rho^q\mW^q\vy_{t-q} + \vu,\\
-    \vu  & = \vepsi_{t} + \rho\mW\vepsi_{t-1} + \rho^2\mW^2\vepsi_{t-2} + ... + \rho^{q-1}\mW^{q-1}\vepsi_{t - (q-1)}. 
+    \vy_t &= \left(\mI_n + \rho\mW + \rho^2\mW^2 + \ldots + \rho^{q-1}\mW^{q-1}\right)\mX\vbeta + \rho^q\mW^q\vy_{t-q} + \vu,\\
+    \vu  & = \vepsi_{t} + \rho\mW\vepsi_{t-1} + \rho^2\mW^2\vepsi_{t-2} + \ldots + \rho^{q-1}\mW^{q-1}\vepsi_{t - (q-1)}. 
   \end{aligned}
 \end{equation*}
 
 The expected value of this spatial process is:
-
 \begin{equation}\label{eq:expectation_time}
-  \E\left(\vy_t\right) = \left(\mI_n + \rho\mW + \rho^2\mW^2 + ... + \rho^{q-1}\mW^{q-1}\right)\mX\vbeta + \rho^q\mW^q\vy_{t-q},
+  \E\left(\vy_t\right) = \left(\mI_n + \rho\mW + \rho^2\mW^2 + \ldots + \rho^{q-1}\mW^{q-1}\right)\mX\vbeta + \rho^q\mW^q\vy_{t-q},
 \end{equation}
 %
-where we use the fact that $\E(\vepsi_{t-r}) = 0, r = 0, ..., q-1$, which also implies that $\E(\vu) = \vzeros$. Finally, taking the limit of \eqref{eq:expectation_time}, 
+where we use the fact that $\E(\vepsi_{t-r}) = 0, r = 0, \ldots, q-1$, which also implies that $\E(\vu) = \vzeros$. 
 
+Finally, taking the limit of equation (\ref{eq:expectation_time}) as $q \to \infty$, we obtain:
 \begin{equation}\label{eq:steady_state}
 \lim_{q\to \infty} \E\left(\vy_t\right) = \left(\mI_n - \rho\mW\right)^{-1}\mX\vbeta.
 \end{equation}
-%
-Note that we use the fact that the magnitude of $\rho^q\mW^q\vy_{t-q}$ tends to zero for large $q$, under the assumption that $\lvert \rho \rvert <1$ and assuming that $\mW$ is row-stochastic, so the matrix $\mW$ has a principal eigenvalue of 1. 
 
-Equation (\ref{eq:steady_state}) states that we can interpret the observed cross-sectional relation as the outcome or expectation of a long-run equilibrium or steady state. Note that this provides a dynamic motivation for the data generating process of the cross-sectional SLM that serves as a \textbf{workhorse} of spatial regression modeling. That is, a cross-sectional SLM relation can arise from time-dependence of decisions by economic agents located at various point in space when decisions depend on those neighbors. 
+Note that the magnitude of $\rho^q\mW^q\vy_{t-q}$ tends to zero as $q$ increases, under the assumption that $\lvert \rho \rvert < 1$ and that $\mW$ is row-stochastic (i.e., it has a principal eigenvalue of 1).
 
+Equation \eqref{eq:steady_state} indicates that we can interpret the observed cross-sectional relationship as the outcome or expectation of a long-run equilibrium or steady state. This provides a dynamic motivation for the data generating process (DGP) of the cross-sectional SLM, which is commonly used in spatial regression modeling. In other words, a cross-sectional SLM relationship can emerge from the time-dependent decisions of economic agents located at different points in space, where decisions are influenced by neighboring regions.
 
 
 \subsection{SEM and Omitted Variables Motivation}
 
 Consider the following process:
-
 \begin{equation*}
 \vy = \vx\beta + \vz\theta,
 \end{equation*}
 %
 where $\vx$ and $\vz$ are \textbf{uncorrelated} vectors of dimension $n\times 1$, and the vector $\vz$ follows the following spatial autoregressive process:
-
 \begin{eqnarray*}
   \vz &=& \rho \mW\vz + \vr \\
   \vz &=& \left(\mI_n - \rho\mW\right)^{-1}\vr
@@ -530,8 +618,6 @@ where $\vx$ and $\vz$ are \textbf{uncorrelated} vectors of dimension $n\times 1$
 where $\vr \sim \rN(0, \sigma^2_{\epsilon}\mI_n)$. Examples of $\vz$ are culture, social capital, or neighborhood prestige. 
 
 If $\vz$ is not observed, then:
-
-
 \begin{equation}\label{eq:sem_omited_moti}
   \begin{aligned}
     \vy & = \vx\beta + \vu \\
@@ -544,7 +630,6 @@ where $\vepsi = \theta\vr$. Then, we have the DGP for the SEM.
 \subsection{SDM and Omitted Variables Motivation}
 
 Now suppose that $\mX$ and $\vepsi$ from (\ref{eq:sem_omited_moti}) are correlated, given by the following process:
-
 \begin{equation}\label{eq:cor_x_epsi}
 \begin{aligned}
   \vepsi & = \vx \gamma + \vv \\
@@ -553,7 +638,6 @@ Now suppose that $\mX$ and $\vepsi$ from (\ref{eq:sem_omited_moti}) are correlat
 \end{equation}
 %
 where the scalar parameters $\gamma$ and $\sigma^2$ govern the strength of the relationship between $\mX$ and $\vz = (\mI_n-\rho\mW)^{-1}\vr$. Inserting (\ref{eq:cor_x_epsi}) into (\ref{eq:sem_omited_moti}), we obtain:
-
 \begin{equation}
   \begin{aligned}
     \vy & = \vx\beta + \left(\mI_n - \rho\mW\right)^{-1}\vepsi \\
@@ -573,47 +657,42 @@ This is the Spatial Durbin Model (SDM), which includes a spatial lag of the depe
 
 \subsection{Measuring Spillovers}
 
-A major focus of regional science is measuring spatial spillover. A basic definition of spillovers in a spatial context would be that changes occurring in one region exert impacts on other regions \citep{LeSage2014}. Some examples are:
-
+A central concern in regional science is the measurement of spatial spillovers. In a spatial context, spillovers can be defined as the impacts that changes in one region have on neighboring regions \citep{LeSage2014}. Examples of spatial spillovers include:
 \begin{itemize}
-  \item Changes in tax rate by one spatial unit might exert an impact on tax rate setting decisions of nearby regions, a phenomenon that has been labeled tax mimicking and yardstick competition between local government. 
-  \item Situations where home improvements made by one homeowner exert a beneficial impact on selling prices of neighboring homes.
-  \item Innovation by university researchers diffuses to nearby firms.
-  \item Air or water pollution generated in one region spills over to nearby regions. 
+  \item Changes in the tax rate in one region may influence tax rate decisions in neighboring regions, a phenomenon known as tax mimicking or yardstick competition among local governments. 
+  \item Home improvements made by one homeowner may increase the selling prices of nearby homes.
+  \item Innovations by university researchers may diffuse to nearby firms. 
+  \item Air or water pollution generated in one region may spill over to neighboring regions.  
 \end{itemize}
 
-The models reviewed in the previous section can be use to formally define the concept of a spatial spillover and,  more importantly, to provide estimates of the quantitative magnitude of spillovers and test their statistical significance.  There is however a distinction between global and local spillovers, which is discussed in \cite{anselin2003spatial} and \cite{LeSage2014}. 
+The models discussed in the previous section can be used to formally define spatial spillovers and, more importantly, to estimate their quantitative magnitude and test their statistical significance. However, it is important to distinguish between global and local spillovers, a distinction explored in \cite{anselin2003spatial} and \cite{LeSage2014}.
 
-We start our discussion about spillovers by formally defining global spillovers. 
-
+We begin by formally defining global spillovers:
+%------------------------------------------------------
 \begin{definition}[Global Spillovers]\index{Spillover effects!Global spillovers}
-	 Global spillovers arise when changes in a characteristic of one region impact all regions' outcomes. This applies even to the region itself since impacts can pass to the neighbors and back to the own region (feedback). Specifically, global spillovers impact the neighbors, neighbors to the neighbors, neighbors to the neighbors to the neighbors and so on. 
+	 Global spillovers occur when changes in a characteristic of one region affect the outcomes of all other regions. This includes impacts on the region itself, as changes can propagate through neighboring regions and back to the original region (feedback). Specifically, global spillovers influence not only direct neighbors but also neighbors of neighbors, neighbors of neighbors of neighbors, and so on. 
 \end{definition}
+%-----------------------------------------
 
-The endogenous interactions produced by global spillovers lead to a scenario where changes in one region set in motion a sequence of adjustments in (potentially) all regions in the sample such that a new long-run steady state equilibrium arises \citep{lesage2014regional}.
+The endogenous interactions produced by global spillovers lead to a scenario where changes in one region trigger a sequence of adjustments across potentially all regions in the sample, ultimately resulting in a new long-run steady-state equilibrium \citep{lesage2014regional}. As \cite{lesage2014regional} explains, global spillovers may arise from interactions between local policies. For example: \emph{``It seems plausible that changes in the levels of public assistance (cigarette taxes) in state $A$ would lead neighboring states (e.g., state $B$) to adjust their levels of assistance (taxes), which in turn triggers a feedback response from state $A$, and also responses from states $C$ that are neighbors to state $B$, and so on.''}
 
-As explained by \cite{lesage2014regional}, global spillovers might arise when considering local policies interactions. For example: \emph{``it seems plausible that changes in levels of public assistance (cigarette taxes) in state $A$ would lead to a reaction by neighboring states $B$ to change their levels of assistances (taxes), which in turn produces a game-theoretic (feedback) response of state $A$, and also responses of states $C$ who are neighbors to neighboring states $B$, and so on.''}
+The following definition describes local spillovers:
 
-
-The following definition corresponds to local spillovers.
-
+%------------------------------------------------------
  \begin{definition}[Local Spillovers]\index{Spillover effects!Local spillovers}
- 	Local spillovers represent a situation where the impact fall only on nearby or immediate neighbors, dying out before they impact regions that are neighbors to the neighbors.
+ 	Local spillovers occur when the impact is confined to nearby or immediate neighbors, with the effect diminishing before it reaches regions further removed, such as neighbors of neighbors.
  \end{definition}	
+%------------------------------------------------------
 
-As it can be noted from the previous definitions, the main difference is that feedback or endogenous interaction is only possible for global spillovers. 
+As indicated by these definitions, the key difference between global and local spillovers is that feedback or endogenous interactions are only possible in the case of global spillovers.
 
-%\begin{remark}
-%According to \cite{anselin2003spatial} and \cite{LeSage2014}, different spatial models give rise to different measures of spillovers.
-%\end{remark}
-
-
+%-------------------------------------------------------------------------
 \subsection{Marginal Effects}\index{Spillover effects!Marginal effects}
+%-------------------------------------------------------------------------
 
-Mathematically, the notion of spillover can be thought as the derivative $\partial y_i/ \partial x_j$. This means that changes to explanatory variables in region $i$ impact the dependent variable in region $j\neq i$.
+Mathematically, the notion of spillover can be thought as the derivative $\partial y_i/ \partial x_j$. This represents how changes in an explanatory variable in region $i$ influence the dependent variable in another region $j\neq i$.
 
-As an illustration, consider the SDM model, which can be re-written as:
-
+As an illustration, consider the SDM, which can be re-written as:
 \begin{equation*}
 \begin{aligned}
 (\mI_n - \rho\mW)\vy & = \mX\vbeta + \mW\mX\vtheta + \vepsi, \\
@@ -626,7 +705,6 @@ As an illustration, consider the SDM model, which can be re-written as:
 \end{equation*}
 %
 where $\mS_r = \mA(\mW)^{-1}\left(\mI_n\beta_r + \mW\theta_r\right)$, and
-
 \begin{equation*}
  \vx_r = \begin{pmatrix}
           x_{r1} \\
@@ -636,8 +714,7 @@ where $\mS_r = \mA(\mW)^{-1}\left(\mI_n\beta_r + \mW\theta_r\right)$, and
         \end{pmatrix}.
 \end{equation*}
 
-Assuming that $\E(\epsilon_i) = 0$, then the expansion of the expected value yields:
-
+Assuming that $\E(\epsilon_i) = 0$, then :
 \begin{equation}\label{eq:system_expected}
 \begin{pmatrix}
 \E(y_1) \\ \E(y_2) \\ \vdots \\ \E(y_n)
@@ -655,13 +732,11 @@ x_{1r} \\ x_{2r} \\ \vdots \\ x_{nr}
 \end{equation}
 
 For the dependent variable for spatial unit $i$, Equation (\ref{eq:system_expected}) would be:
-
 \begin{equation}
-\E(y_i) = \sum_{r=1}^k\left[\mS_r(\mW)_{i1}x_{1r} + \mS_r(\mW)_{i2}x_{2r} + ... + \mS_r(\mW)_{in}x_{nr}\right].
+\E(y_i) = \sum_{r=1}^k\left[\mS_r(\mW)_{i1}x_{1r} + \mS_r(\mW)_{i2}x_{2r} + \ldots + \mS_r(\mW)_{in}x_{nr}\right].
 \end{equation}
 
 So, the impact on the expected value of location $i$ given a change in the explanatory variable $x_r$ in location $j$ is\index{Spillover effects!Indirect effects}
-
 \begin{equation}\label{eq:indirect_impact}
 \frac{\partial \E(y_i)}{\partial x_{jr}} = \mS_r(\mW)_{ij}
 \end{equation}
@@ -669,13 +744,11 @@ So, the impact on the expected value of location $i$ given a change in the expla
 where $\mS_r(\mW)_{ij}$ is this equation represents the $i,j$th element of the matrix $\mS_r(\mW)$. This result implies that, unlike the OLS model, a change in some variable in certain region will potentially affect the expected value of the dependent variable in all other regions. Given this characteristic, this type of effect is known as \textbf{indirect effect}.
 
 The impact of the expected value of region $i$, given a change in certain variable for the same region is given by\index{Spillover effects!Direct effects}
-
 \begin{equation}\label{eq:direct_impact}
 \frac{\partial \E(y_i)}{\partial x_{ir}} = \mS_r(\mW)_{ii}.
 \end{equation}
 
 This impact includes the \textbf{effect of feedback loops} where observation $i$ affects observation $j$ and observation $j$ also affects observation $i$: a change in $x_{ir}$ will affect the expected value of dependent variable in $i$, then will pass through the neighbors of $i$ and back to the region itself. To shed more light on this, let us write the all the marginal effects in matrix notation as follows:
-
 \begin{equation}\label{eq:matrix_marginal_effects}
 \begin{aligned}
  \underset{(n \times n)}{\begin{pmatrix}
@@ -699,7 +772,6 @@ This impact includes the \textbf{effect of feedback loops} where observation $i$
 \end{equation}
 
 This expression is somewhat difficult to understand. To provide a better understanding we follow \cite{elhorst2010applied} and consider a model with 3 regions arranged linearly\footnote{Unit 1 is neighbor of unit 2, unit 2 is a neighbor of both units 1 and 3, and unit 3 is a neighbor of unit 2.} with the following matrices:
-
 \begin{equation}\label{eq:w_mat_ex_spill}
   \mW = \begin{pmatrix}
           0      & 1 & 0 \\
@@ -709,7 +781,6 @@ This expression is somewhat difficult to understand. To provide a better underst
 \end{equation}
 %
 and
-
 \begin{equation}\label{eq:w_Imat_ex_spill}
   \mA(\mW)^{-1} = \frac{1}{1 - \rho^2}
   \begin{pmatrix}
@@ -720,7 +791,6 @@ and
 \end{equation}
 %
 where $w_{12} = w_{31}= 1$ since units 1 and 3 have only one neighbor, and $w_{21} + w_{23} = 1$, so we explicitly consider a row-standardized matrix.  Substituting Equations (\ref{eq:w_mat_ex_spill}) and (\ref{eq:w_Imat_ex_spill}) into Equation (\ref{eq:matrix_marginal_effects}) we get:
-
 \begin{equation*}
   \begin{pmatrix}
   \frac{\partial \E(\vy)}{\partial x_{1r}} & \frac{\partial \E(\vy)}{\partial x_{2r}} & \frac{\partial \E(\vy)}{\partial x_{3r}} 
@@ -734,40 +804,44 @@ where $w_{12} = w_{31}= 1$ since units 1 and 3 have only one neighbor, and $w_{2
 
 Every diagonal element of this matrix represents a direct effect. Consequently, indirect effect do not occur if both $\rho = 0$ and $\theta_k = 0$, since all non-diagonal elements will then be zero. Another important insight is that direct and indirect effects are different for different spatial units in the sample. Direct effects are different because the diagonal elements of the matrix $(\mI_n - \rho\mW)^{-1}$ are different for different units, provided that $\rho \neq 0$. Indirect effects are different because both the non-diagonal elements of the matrix $(\mI_n - \rho\mW)^{-1}$ and of the matrix $\mW$ are different for different units, provided that $\rho \neq 0$ and/or $\theta_k\neq 0$. Finally, note that indirect effects that occur if $\theta_k\neq 0$ are \textbf{local effects}, whereas indirect effects that occur if $\rho\neq 0$ are \textbf{global effects}. 
 
-
+%-----------------------------------------------------------------
 \subsubsection{Summary Measures}\label{sec:summary-measures}
+%-----------------------------------------------------------------
 
 In general, the change of each variable in each region implies $n^2$ potential marginal effects.  If we have $K$ variables in our model, this implies $K\times n^2$ potential measures. Even for small values of $n$ and $K$, it may already be rather difficult to report these results compactly. To overcome this problem, \citet[][p. 36-37]{lesage2010introduction} propose the following scalar summary measures: 
 
+%-------------------------------------------------------------
 \begin{definition}[Average Direct Impact]\label{def:ADI}
 Let $\mS_r = \mA(\mW)^{-1}\left(\mI_n\beta_r + \mW\theta_r\right)$ for variable $r$. The impact of changes in the $i$th observation of $x_r$, which is denoted $x_{ir}$, on $y_i$ could be summarized by measuring the average $S_r(\mW)_{ii}$, which equals
-	
-	\begin{equation}
+	\begin{equation*}
 		\mbox{ADI} = \frac{1}{n}\tr\left(\mS_r(\mW)\right)
-	\end{equation}
+	\end{equation*}
 \end{definition}
-
+%-------------------------------------------------------------
 
 Averaging over the direct impact associated with all observations $i$ is similar in spirit to typical regression coefficient interpretations that represent average response of the dependent to independent variables over the sample of observations. 	
 
+%----------------------------------------------------
 \begin{definition}[Average Total Impact to an Observation]\label{def:ATIT}
 	Let $\mS_r = \mA(\mW)^{-1}\left(\mI_n\beta_r + \mW\theta_r\right)$ for variable $r$. The sum across the $i$th row of $\mS_r(\mW)$ would be represent the total impact on individual observation $y_i$ resulting from changing the $r$th explanatory variable by the same amount across all $n$ observations. There are $n$ of these sums given by the column vector $\vc_r = \mS_r(\mW)\vones_n$, so an average of these total impacts is:
-		\begin{equation}
+	\begin{equation}
 		\mbox{ATIT} = \frac{1}{n} \vones_n'\vc_r
 		\end{equation} 
 \end{definition}
+%----------------------------------------------------
 
+%----------------------------------------------------
 \begin{definition}[Average Total Impact from an Observation]\label{def:ATIF}
 	Let $\mS_r = \mA(\mW)^{-1}\left(\mI_n\beta_r + \mW\theta_r\right)$ for variable $r$. The sum down the $j$th column of $\mS_r(\mW)$ would yield the total impact over all $y_i$ from changing the $r$th explanatory variable by an amount in the $j$th observation. There are $n$ of these sums given by the row vector $\vr_r = \vones_n'\mS_{r}(\mW)$, so an average of these total impacts is:
-				\begin{equation}
+\begin{equation}
 				\mbox{ATIF} = \frac{1}{n} \vr_r\vones_n
 				\end{equation} 
 \end{definition}
+%----------------------------------------------------
 
 The definition \ref{def:ATIF} relates how changes in a single observation $j$ influences all observations. In contrast, definition \ref{def:ATIT} considers how changes in all observations influences a single observation $i$. In both cases, averaging over all $n$ observations, leads to the same numerical result. The implication of this interesting result is that the \textbf{average total impact} is the average of all derivatives of $y_i$ with respect to $x_{jr}$ for any $i, j$. 
 
 Therefore:
-
 \begin{eqnarray}
 \bar{M}(r)_{\mbox{direct}} & = & n^{-1}\tr\left(\mS_r(\mW)\right) \\
 \bar{M}(r)_{\mbox{total}} & = & n^{-1}\vones_n'\mS_r(\mW)\vones_n \\
@@ -776,13 +850,11 @@ Therefore:
 
 
 Given our example above, we obtain a direct effect of:
-
 \begin{equation*}
   \frac{(3- \rho^2)}{3(1 - \rho^2)}\beta_k + \frac{2p}{3(1-\rho^2)}\theta_k,
 \end{equation*}
 %
 and an indirect effect of
-
 \begin{equation*}
   \frac{3\rho + \rho^2}{(3(1-\rho^2))}\beta_k + \frac{3 + \rho}{3(1- \rho^2)}\theta_k.
 \end{equation*}
@@ -791,20 +863,35 @@ Unfortunately, since every application will have its own unique number of observ
 
 
 \begin{example}[The effect of number of workers on commuting times]\label{example:commuting-Kirby}
-\cite{kirby2009changes} use an SDM specification to consider changes in the (logged) number of workers in the US census tracts with commuting times exceeding 45 minutes one way, between 1990 and 2000 (See also the example in Section \ref{sec:lesage-example}). The motivation of this investigation is the fact that the percentage of the US workers with these long commute times in 1990 was 12.5\% compared to 15.4\% in 2000, an increase of more than 10\%. When deciding which model to estimate, they note that spillover impacts from an increase in commuters traveling long distances to work would seem \textbf{global} in nature, since the congestion effects of more travelers on one segment of a metropolitan area roadway network impact travel times of other travelers on the entire network. Furthermore, they state that \textbf{feedback} effects seem likely since congestion arising from commuting decisions by workers in one tract will spillover to neighboring tracts, which in turn create congestion feedback to the own tract. These two observations led the authors to specify the following SDM:
+\citet{kirby2009changes} use a Spatial Durbin Model (SDM) specification to examine changes in the (logged) number of workers in U.S. census tracts with commuting times exceeding 45 minutes one way, between 1990 and 2000. (See also the related discussion in Section \ref{sec:lesage-example}.) This investigation is motivated by the observation that the percentage of U.S. workers with these long commute times increased from 12.5\% in 1990 to 15.4\% in 2000, representing a rise of over 10\%. 
 
+When selecting the appropriate model, the authors identify two key dynamics:
+\begin{itemize}
+    \item \textbf{Global spillover impacts}: Congestion effects from increased long-distance commuters in one part of a metropolitan area likely affect travel times across the entire roadway network.
+    \item \textbf{Feedback effects}: Congestion from commuting decisions in one tract spills over into neighboring tracts, creating reciprocal feedback effects that further influence congestion in the originating tract.
+\end{itemize}
+
+These observations led the authors to specify the following SDM:
 \begin{equation*}
-  \vy = \rho\mW\vy + \alpha \vones_n + \mX\vbeta + \mW\mX\vtheta + \vepsi,
+    \vy = \rho \mW \vy + \alpha \vones_n + \mX \vbeta + \mW\mX \vtheta + \vepsi,
 \end{equation*}
-%
-where $\mX$ includes the (logged) number of workers with long commute times $(\vy)$, variables related to location decision of households; age, gender and income distribution of resident population, and geographical characteristics of the tract, and $\mW\mX$ includes these same characteristics of neighboring census tracts. 
+where:
+\begin{itemize}
+    \item \(\vy\): Logged number of workers with long commute times.
+    \item \(\mX\): Variables capturing household location decisions, including age, gender, income distribution, and geographical characteristics of the tract.
+    \item \(\mW \mX\): The corresponding variables for neighboring tracts, incorporating spatial interactions.
+    \item \(\rho\): Spatial autoregressive parameter capturing dependence in the dependent variable.
+    \item \(\mW\): Spatial weight matrix reflecting neighborhood relationships.
+\end{itemize}
+
+Using this model, the authors compare \textbf{direct}, \textbf{indirect}, and \textbf{total effects} estimates for the years 1990 and 2000. Their analysis highlights that demographic factors, particularly age and gender distributions, explain much of the variation in long commute times during this period.
+ 
 Based on a comparison of \textbf{direct, indirect} and \textbf{total effects} estimates form the 1990 and 2000 models, they conclude that the suite of variables reflecting the age and gender distribution of population in the tracts represents the primary explanation for changes in the number of workers with long commute times between 1990 and 2000. The spillover impacts of the number of employed females in the 1990 model was positive suggesting that more employed females in a tract produced an increase in long commute times for neighboring tract commuters. In contrast, for the 2000 model, spillovers associated with employed females were negative, so that more employed females in a tract reduced long commute times for workers located in neighboring tracts. 
 \end{example}
 
 
 \begin{example}[Effect of pollution on housing price]\label{example:pollution-kim}
 \cite{kim2003measuring} use a spatial-lag hedonic model in order to assess the direct and indirect effect of quality air on housing price.  The main model is the following:
-
 \begin{equation*}
 \vp = \rho\mW\vp + \mX_1\vbeta_1 + \mX_2\vbeta_2 + \mX_3\vbeta_3 + \vepsi,
 \end{equation*}
@@ -812,7 +899,6 @@ Based on a comparison of \textbf{direct, indirect} and \textbf{total effects} es
 where $\vp$ is the vector of housing prices, $\rho$ is a spatial autocorrelation parameter, $\mW$ is the $n\times n$ spatial weight matrix, $\mX_1$ is a matrix with observations on structural characteristics, $\mX_2$ is a matrix with observations on neighborhood characteristics, and $\mX_3$ is a matrix with observations on environmental quality (SO$_2$ and NO$_x$). 
 
 The marginal implicit price (marginal benefit) of the hedonic equation is derived as
-
 \begin{equation*}
 \begin{pmatrix}
   \frac{\partial \E(\vp)}{\partial x_{1r}} & \frac{\partial \E(\vp)}{\partial x_{2r}} & \hdots & \frac{\partial \E(\vp)}{\partial x_{nr}} 
@@ -822,24 +908,22 @@ The marginal implicit price (marginal benefit) of the hedonic equation is derive
 Focusing on the first row the interpretation if the following: the housing price of location $i$ is not only affected by a marginal change air quality of location $i$ but also is affected by marginal changes of air quality in other locations. That is, the total impact of a change in air quality on housing price at location $i$ is the sum of the direct impacts $\partial p_1/\partial x_{1k}$ plus induced impacts $\sum_{i = 2}^n \partial p_1 / \partial x_{ik}$ (See our Definition \ref{def:ATIT}). 
 
 An important point evidenced by \cite{kim2003measuring} is that, if  the row-sums of $\mW$ is less than or equal to one and $\rho$ in the proper parameter space, i.e., $\rho < 1$, then the total average effect can be computed as $\beta_r / (1-\rho)$. To see this note that
-
 \begin{equation}\label{eq:total_effect_simple}
   \begin{aligned}
     n^{-1}\vones^\top\mS_r(\mW)\vones & = n^{-1}\vones^\top\left[\mA(\mW)^{-1}\left(\mI\beta_r\right)\right]\vones \\
                                   & = n^{-1}\vones^\top\left[(\mI_n - \rho\mW)^{-1}\right]\left(\mI\beta_r\right)\vones \\
-                                  & =   n^{-1}\vones^\top\left[\mI_n + \rho\mW + \rho^2\mW^2 + ... \right]\left(\mI\beta_r\right)\vones \quad\mbox{using Lemma \ref{lemma:Leontief}} \\
-                                  & = n^{-1} \vones^\top\left[\mI_n\beta_r + \rho\mW\beta_r + \rho^2\mW^2\beta_r + ... \right]\vones \\
+                                  & =   n^{-1}\vones^\top\left[\mI_n + \rho\mW + \rho^2\mW^2 + \ldots \right]\left(\mI\beta_r\right)\vones \quad\mbox{using Lemma \ref{lemma:Leontief}} \\
+                                  & = n^{-1} \vones^\top\left[\mI_n\beta_r + \rho\mW\beta_r + \rho^2\mW^2\beta_r + \ldots \right]\vones \\
                                   & = n^{-1} \vones^\top\left[\mI_n\vones\beta_r + \rho\mW\vones\beta_r + \rho^2\mW(\mW\vones)\beta_r + \rho^3\mW\mW(\mW\vones) \right] \\
-                                  & = n^{-1} \vones^\top\left[\beta_r\vones + \rho\beta_r\vones + \rho^2\beta_r\vones + \rho^3\beta_r\vones + ... \right]\quad \because \mW^l\vones = \vones \\
-                                  & = n^{-1} \vones^\top\left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3\beta_r + ... \right]\vones\\
-                                  & = n^{-1} \left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3 + ... \right] \vones^\top\vones\\
-                                  & = n^{-1} \left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3\beta_r + ... \right] n \\
+                                  & = n^{-1} \vones^\top\left[\beta_r\vones + \rho\beta_r\vones + \rho^2\beta_r\vones + \rho^3\beta_r\vones + \ldots \right]\quad \because \mW^l\vones = \vones \\
+                                  & = n^{-1} \vones^\top\left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3\beta_r + \ldots \right]\vones\\
+                                  & = n^{-1} \left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3 + \ldots \right] \vones^\top\vones\\
+                                  & = n^{-1} \left[\beta_r + \rho\beta_r + \rho^2\beta_r + \rho^3\beta_r + \ldots \right] n \\
                                   & = \frac{\beta_r}{(1 - \rho)}
   \end{aligned}
 \end{equation}
 
 The model is estimated in a semi-log functional form, therefore the estimated coefficients can be interpreted as semi-elasticities. In particular, note that the elasticity for SO$_2$ is given by:
-
 \begin{equation}
   \begin{aligned}
     \epsilon_{SO_2} & = \left(\frac{SO_2}{p}\right)\left(\frac{d p}{d SO_2}\right) \\
@@ -901,26 +985,26 @@ Intuition tell us that impacts arising from a change in the explanatory variable
     
 This expression allow us to observe the impact associated with each power of $\mW$, where these powers corresponds to the observation themselves (zero-order), immediate neighbors (first-order), neighbors of neighbors (second-order), and so on. Using this expansion we could account for both the cumulative effects as marginal and total direct, indirect associated with different order of neighbors.
 
-%==============================================
-\section{Predictors for Spatial Models}
-%==============================================
-
-\cite{kelejian2007relative} consider different information sets and define predictors as conditional means based on these information sets. Consider the SAC (SARAR) model:
-
-\begin{equation}
-  \begin{aligned}
-    \vy & = \rho\mW\vy + \mX\vbeta + \vu, \\
-    \vu & = \lambda\mW\vu + \vepsi. 
-  \end{aligned}
-\end{equation}
-
-Thus, the reduced form equation is:
-
-\begin{equation}
-\vy = \left(\mI_n -\rho \mW\right)^{-1}\mX\vbeta + \left(\mI_n -\rho \mW\right)^{-1}\left(\mI_n -\lambda \mW\right)^{-1}\vepsi. \\
-\end{equation}
-
-Assume that $\vepsi\sim\rN(\vzeros, \sigma^2_{\epsilon}\mI_n)$
+% %==============================================
+% \section{Predictors for Spatial Models}
+% %==============================================
+% 
+% \cite{kelejian2007relative} consider different information sets and define predictors as conditional means based on these information sets. Consider the SAC (SARAR) model:
+% 
+% \begin{equation}
+%   \begin{aligned}
+%     \vy & = \rho\mW\vy + \mX\vbeta + \vu, \\
+%     \vu & = \lambda\mW\vu + \vepsi. 
+%   \end{aligned}
+% \end{equation}
+% 
+% Thus, the reduced form equation is:
+% 
+% \begin{equation}
+% \vy = \left(\mI_n -\rho \mW\right)^{-1}\mX\vbeta + \left(\mI_n -\rho \mW\right)^{-1}\left(\mI_n -\lambda \mW\right)^{-1}\vepsi. \\
+% \end{equation}
+% 
+% Assume that $\vepsi\sim\rN(\vzeros, \sigma^2_{\epsilon}\mI_n)$
 
 
 %==============================================

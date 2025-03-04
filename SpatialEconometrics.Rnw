@@ -3,15 +3,21 @@
 
 %====== Main structure ========= %%
 \input{structure}
-
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhead[R]{}
+\fancyhead[LE,RO]{\chaptername\ \thechapter\ --\ \leftmark}
+\fancyfoot{} % Borra el pie por defecto
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\texttt{Mauricio Sarrias}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-
-
-\frontmatter
-\title{Intermediate Spatial Econometrics with Applications in R}
+\frontmatter 
+\title{Intermediate Spatial Econometrics for Cross-Sectional Data with Applications in R: Lecture Notes and Codes}
 \author{Mauricio Sarrias\\
 Universidad de Talca}
 \date{\today}

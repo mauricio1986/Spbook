@@ -17,13 +17,11 @@ We first start with the Moran's $I$ statistic used to test whether there is some
 Recall from Section \ref{sec:moransI} that the Moran's I test allows us assess whether the observed value of a variable at one location is independent of values of that variable at neighboring locations. One could also in principle apply the same test to the OLS residuals to assess whether some spatial autocorrelation remains. If the true DGP follows a spatial process, and we wrongly ignore it, then Moran's $I$ on the OLS residuals should detect this misspecification.
 
 A Moran $I$ statistic for spatial autocorrelation can be applied to regression residuals in a straightforward way. Formally, this $I$ statistic is:
-
 \begin{equation*}
 I = \left(\frac{n}{S_0}\right)\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
 \end{equation*}
 %
 where $\widehat{\vepsi}$ is a vector of OLS residuals, $\mW$ is a spatial weight matrix, $n$ is the number of observations and $S_0$ is a standardization factor, equal to the sum of all elements in the weight matrix. For a weight matrix that is normalized such that the row elements sum to one, expression (\ref{eq:I_Moran_res_1}) simplifies to:
-
 \begin{equation}\label{eq:I_Moran_res_2}
 I = \frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
 \end{equation}
@@ -33,13 +31,10 @@ The asymptotic distribution for the Moran statistic with regression residuals wa
 
 \begin{theorem}[Moran's $I$]\label{teo:Moran-for-residuals}
 Consider $H_0:$ no spatial autocorrelation, and assume that $\vepsi \sim \rN(\vzeros, \sigma^2\mI_n)$. Let the Moran's I statistic be:
-
 \begin{equation}\label{eq:I_Moran_res_1}
 I = \left(\frac{n}{S_0}\right)\frac{\widehat{\vepsi}^\top \mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}}
 \end{equation}
 where $\widehat{\vepsi} = \vy - \mX\widehat{\vbeta}$ is a vector of OLS residuals, $\widehat{\vbeta} = (\mX^\top\mX)^{-1}\mX^\top\vy$,  $\mW$ is a spatial weight matrix, $n$ is the number of observations and $S_0$ is a standardization factor, equal to the sum of all elements in the weight matrix. Then, the moments under the null are:
-
-
 \begin{equation}
 \begin{aligned}
   \E(I)   & = \frac{n}{S_0}\frac{\tr(\mM\mW)}{n - K} \\
@@ -48,7 +43,6 @@ where $\widehat{\vepsi} = \vy - \mX\widehat{\vbeta}$ is a vector of OLS residual
 \end{equation}
 %
 where $\mM = \mI- \mX\left(\mX^\top\mX\right)^{-1}\mX^\top$. Then:
-
 \begin{equation}
 z_I = \frac{I - \E(I)}{\var(I)^{1/2}}\sim \rN(0, 1)
 \end{equation}
@@ -113,25 +107,21 @@ According to \citet[][p. 102]{anselin1988spatial}, the interpretation of this te
 \subsection{Kelijan and Prucha (2001) Derivation of Moran's $I$}
 
 More recently, \cite{kelejian2001asymptotic} have criticized Moran's $I$  measure, arguing that the normalizing factor used by \cite{cliff1972testing} to derive its expected value and the variance under the null of no spatial correlation is not theoretically justified. In fact, the denominator of  (\ref{eq:I_Moran_res_1}) represents the estimator of the standard deviation of the quadratic form appearing in the numerator and this can be proved to be inconsistent. With this motivation, \cite{kelejian2001asymptotic} proposed a different normalizing factor that removes this inconsistency and achieves the aim of normalizing the variance to unity. The Moran's I they proposed is the following:
-
 \begin{equation}
   \bar{I} = \frac{\widehat{\vepsi}^\top\mW\widehat{\vepsi}}{\widetilde{\sigma}^2},
 \end{equation}
 %
 with $\widetilde{\sigma}^2$ being normalizing factor that depends on the particular model chosen as an alternative hypothesis. In particular, if the alternative hypothesis is constituted by a SEM, the normalizing factor assumes the expression:
-
-\begin{equation}
+\begin{equation*}
   \widetilde{\sigma}^2 = \frac{\widehat{\vepsi}^\top\widehat{\vepsi}\left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}}{n}.
-\end{equation}
+\end{equation*}
 
 As a consequence the test statistic can be defined as:
-
 \begin{equation}\label{eq:I_Moran_KP}
   \bar{I}= \frac{n\widehat{\vepsi}^\top\mW\widehat{\vepsi}}{\widehat{\vepsi}^\top\widehat{\vepsi}\left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}}.
 \end{equation}
 
 The two expressions reported in Equations (\ref{eq:I_Moran_res_1}) and (\ref{eq:I_Moran_KP}) coincide if the weight matrix has dichotomous entries in which case $w_{ij} = w_{ij}^2$ and, therefore, 
-
 \begin{equation*}
   \sum_i\sum_j w_{ij} = \left\lbrace \tr \left[\left(\mW^\top + \mW\right)\mW\right]\right\rbrace^{-1/2}.
 \end{equation*}
@@ -663,141 +653,149 @@ Note that both \code{LMerr} and \code{LMlag} are significant. However, the robus
 \begin{subappendices}
 
 %-----------------------------------------------------------------
-\section{Asymptotic Properties of Moran's I}
+\section{Asymptotic Properties of Moran's I}\ref{Annex:asymptotic-moran-I}
 %-----------------------------------------------------------------
 
 
 Let the model be:
-
 \begin{equation}\label{eq:moran-p1}
 \begin{aligned}
-  \vy_n &= \rho_0\mM_n\vy_n + \mX_n\vbeta_0 + \vu_n  =  \mD_n\vtheta_0 + \vu_n \\
-  \vu_n &= \lambda_0\mM_n\vu_n + \vepsi_n
+  \vy_n &= \rho_0\mM_n\vy_n + \mX_n\vbeta_0 + \vu_n  =  \mD_n\vtheta_0 + \vu_n, \\
+  \vu_n &= \lambda_0\mM_n\vu_n + \vepsi_n.
 \end{aligned}
 \end{equation}
 
-Let $Q_n^* = \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n$. Since we need to let the model as a function of the true error $\vu$, note that:
-
+Let $Q_n^* = \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n$. Since we need to let the model as a function of the true error $\vu_n$, note that:
 \begin{equation}\label{eq:moran-p2}
 \begin{aligned}
-\widehat{\vu}_n & = \vy_n - \mD_n\widehat{\vtheta}_n \\
-& = \mD_n\vtheta_0 + \vu_n -\mD_n\widehat{\vtheta}_n\quad\mbox{using \eqref{eq:moran-p1}} \\
-&= \vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)
+\widehat{\vu}_n & = \vy_n - \mD_n\widehat{\vtheta}_n, \\
+& = \mD_n\vtheta_0 + \vu_n -\mD_n\widehat{\vtheta}_n,\quad\mbox{using \eqref{eq:moran-p1}} \\
+&= \vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0).
 \end{aligned}
 \end{equation}
 
-Then:
-
+Using previous Equation \eqref{eq:moran-p2}, $Q_n^* = \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n$ can be expressed as:
 \begin{equation*}
 \begin{aligned}
-  \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n & = \left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right]^\top\mW_n\left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right] \\
-  & = \vu_n^\top\mW\vu_n - \vu_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)-(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n +(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)\\
-  & = \vu_n^\top\mW\vu_n - \vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)
+  \widehat{\vu}_n^\top\mW_n\widehat{\vu}_n  = & \left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right]^\top\mW_n\left[\vu_n - \mD_n(\widehat{\vtheta}_n - \vtheta_0)\right], \\
+   = &\vu_n^\top\mW\vu_n - \vu_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)-(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n  \\
+  & +(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0), \\
+   = & \vu_n^\top\mW\vu_n - \vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\mD_n(\widehat{\vtheta}_n - \vtheta_0)
 \end{aligned}
 \end{equation*}
 %
-where in the last line we use the fact that $(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n=\vu_n^\top\mW_n^\top\mD_n(\widehat{\vtheta}_n - \vtheta_0)$ and $\mW_n$ is not necessarily symmetric. Multiplying the previous equation by $1/\sqrt{n}$, we obtain:
-
+where in the last line we use the fact that $(\widehat{\vtheta}_n - \vtheta_0)^\top\mD_n^\top\mW_n\vu_n=\vu_n^\top\mW_n^\top\mD_n(\widehat{\vtheta}_n - \vtheta_0)$ and $\mW_n$ is not necessarily symmetric. Multiplying the previous Equation by $1/\sqrt{n}$, we obtain:
 \begin{equation}\label{eq:moran-p3}
-\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n= \frac{1}{\sqrt{n}}\vu_n^\top\mW\vu_n - \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)+(\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)
+\begin{aligned}
+\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n= &  \frac{1}{\sqrt{n}}\vu_n^\top\mW\vu_n - \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) \\
+& +(\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)
+\end{aligned}
 \end{equation}
 
-First, we will show that the last element of (\ref{eq:moran-p3}) converges to 0 as $n\to \infty$. Since $\mD_n = \left[\mM_n\vy_n, \mX_n\right]$ has bounded elements in absolute value, then 
-
+First, we will show that the last element of \eqref{eq:moran-p3} converges to 0 as $n\to \infty$. Since $\mD_n = \left[\mW_n\vy_n, \mX_n\right]$ has bounded elements in absolute value, then 
 \begin{equation*}
 \frac{1}{n}\mD_n^\top\mW_n\mD_n = O_p(1)
 \end{equation*}
 %
 that is, it is sthocastically bounded. Furthermore in Section \ref{sec:step-s2slsestimator}, we show that the 2SLS estimator $\widehat{\vtheta}_n$ is consistent, so that $\left(\widehat{\vtheta}_n - \vtheta_0\right) = o_p(1)$ and has a limiting distribution, that is:
-
 \begin{equation*}
 \sqrt{n}\left(\widehat{\vtheta}_n - \vtheta_0\right) = O_p(1)
 \end{equation*}
 
 Thus using these two results, we can say that:
-
 \begin{equation*}
 (\widehat{\vtheta}_n - \vtheta_0)^\top\left[\frac{1}{n}\mD_n^\top\mW_n\mD_n\right]\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0)= o_p(1)\cdot O_p(1)\cdot O_p(1) = o_p(1)
 \end{equation*}
 
 \begin{remark}
 Let $\mD$ be any $n\times n$ matrix. Then, since $\vupsilon^\top\mD\vupsilon = \vupsilon^\top\mD^\top\vupsilon$, then we can write:
-
-\begin{equation}
+\begin{equation*}
 \vupsilon^\top\mD\vupsilon = \vupsilon^\top\left[\frac{\mD + \mD^\top}{2}\right]\vupsilon
-\end{equation}
+\end{equation*}
 \end{remark}
 
-Using the previous remark, and noting that $\vu_n = \left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n$, we can write the first element of Equation (\ref{eq:moran-p3}) as:
-
-\begin{equation}
-\begin{aligned}
-\vu_n^\top\mW\vu_n &=\vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mW_n + \mW_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n \\
-& = \vepsi_n^\top\mA_n\vepsi_n
-\end{aligned}
-\end{equation}
-%
-where $\mA_n = \left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mW_n + \mW_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}$ which is uniformly bounded ins absolute value. According to Lemma \ref{lemma:second-mom-lee} and assuming normality (which is much simpler) we can say that:
-
-\begin{equation}
-  \begin{aligned}
-    \E\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma_0^2\tr(\mA_n) \\
-    \var\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]
-  \end{aligned}
-\end{equation}
-
-The the second part of (\ref{eq:moran-p3}), note that $\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n =\vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mD_n$ where $\mD_n = \left[\mM_n\vy_n, \mX\vbeta_0\right]$, and $\vy_n = \left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 + \left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n$, so that:
-
+Using the previous remark, and noting that $\vu_n = \left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n$, we can write the first element of Equation \eqref{eq:moran-p3} as:
 \begin{equation*}
 \begin{aligned}
-  \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\vy_n  = & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left[\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 \right. \\
-  & + \left.\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n\right] \\
-= & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\mX_n\vbeta_0 \\
- + & \vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left(\mW_n + \mW_n^\top\right)\mM\left(\mI_n-\rho_0\mM_n^\top\right)^{-1}\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\vepsi_n \\
+\vu_n^\top\mW_n\vu_n &=\vepsi_n^\top\left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mM_n + \mM_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n,  \\
+& = \vepsi_n^\top\mA_n\vepsi_n
+\end{aligned}
+\end{equation*}
+%
+where $\mA_n = \left(\mI_n-\lambda_0\mM_n^\top\right)^{-1}\left[\frac{\mW_n + \mW_n^\top}{2}\right]\left(\mI_n-\lambda_0\mM_n\right)^{-1}$ which is uniformly bounded ins absolute value. According to Lemma \ref{lemma:second-mom-lee} and assuming normality (which is much simpler) we can say that:
+\begin{equation*}
+  \begin{aligned}
+    \E\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma_0^2\tr(\mA_n), \\
+    \var\left(\vepsi_n^\top\mA_n\vepsi_n\right) & = \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right].
+  \end{aligned}
+\end{equation*}
+
+For the second part of \eqref{eq:moran-p3}, let $\mR_0 = (\mI_n - \lambda_0 \mM_n)$ and note that
+\begin{equation*}
+\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n =\vepsi_n^\top\mR_0^{-1\top}\left(\mW_n + \mW_n^\top\right)\mD_n, 
+\end{equation*}
+%
+where $\mD_n = \left[\mM_n\vy_n, \mX\vbeta_0\right]$, and 
+\begin{equation*}
+\vy_n = \left(\mI_n-\rho_0\mM_n\right)^{-1}\mX_n\vbeta_0 + \left(\mI_n-\rho_0\mM_n\right)^{-1}\left(\mI_n-\lambda_0\mM_n\right)^{-1}\vepsi_n, 
+\end{equation*}
+so that:
+\begin{equation*}
+\begin{aligned}
+  \vepsi_n^\top\mR_0^{-1\top}\left(\mW_n + \mW_n^\top\right)\mM_n\vy_n  = & \vepsi_n^\top\mR_0^{-1\top}\left(\mW_n + \mW_n\right)\mM_n\left[\left(\mI_n-\rho_0\mM_n\right)^{-1}\mX_n\vbeta_0 \right. \\
+  & + \left.\left(\mI_n-\rho_0\mM_n\right)^{-1}\mR_0^{-1}\vepsi_n\right] \\
+= & \vepsi_n^\top\mR_0^{-1\top}\left(\mW_n + \mW_n^\top\right)\mM_n\left(\mI_n-\rho_0\mM_n\right)^{-1}\mX_n\vbeta_0 \\
+ + & \vepsi_n^\top\mR_0^{-1\top}\left(\mW_n + \mW_n^\top\right)\mM_n\left(\mI_n-\rho_0\mM_n\right)^{-1}\mR_0^{-1}\vepsi_n \\
  = & \vepsi_n^\top\mB^*_n + \vepsi_n^\top\mC^*_n\vepsi_n
   \end{aligned}
 \end{equation*}
 %
 where $\mB_n^*$ is a nonstochastic vector whose elements are uniformly bounded in absolute value, and where $\mC^*$ is a nonsthocastic matrix whose row and columns sums are uniformly bounded in absolute value. Note that 
-
 \begin{equation}\label{eq:moran-p4}
 \vd_n^\top = \E\left[\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\right] = O(1)
 \end{equation}
 %
 since:
-
 \begin{equation*}
   \begin{aligned}
-    \E\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= 0 \\
-    \var\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= \sigma^2\frac{1}{n^2}\mB^{*\top}_n\mB^{*}_n = o(1) \\
-    \E\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^2\frac{1}{n}\tr(\mC_n^*) = O(1)\\
-     \var\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right] = o(1)
+    \E\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= 0, \\
+    \var\left(\frac{1}{n}\mB^{*\top}_n\vepsi_n\right) &= \sigma^2\frac{1}{n^2}\mB^{*\top}_n\mB^{*}_n = o(1), \\
+    \E\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^2\frac{1}{n}\tr(\mC_n^*) = O(1),\\
+     \var\left(\frac{1}{n}\vepsi_n^\top\mC^*_n\vepsi_n\right) &= \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right] = o(1).
   \end{aligned}
 \end{equation*}
 
 Then:
-
-\begin{equation}
-  \var(\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n) = o(1)
-\end{equation}
-
-and the Claim in Equation (\ref{eq:moran-p4}) follows by Chebychev's inequality. Thus, we can write:
-
-
-\begin{equation}
-\begin{aligned}
-\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) & =  \frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}\left[\frac{1}{\sqrt{n}}\mP_n\mF_n^\top\vepsi_n + o_p(1)\right] \\
-& = \frac{1}{\sqrt{n}} = \vb_n^\top\vepsi_n + o_P(1)
-\end{aligned}
-\end{equation}
+\begin{equation*}
+  \var\left[\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\right] = o(1),
+\end{equation*}
 %
-where $\vb_n^\top = -\vd_n^\top\mP\mF_n^\top$. Finally, we can write Equation (\ref{eq:moran-p3}) as
+and the Claim in Equation (\ref{eq:moran-p4}) follows by Chebychev's inequality. Therefore:
+\begin{equation*}
+\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n - \vd_n^\top = o_p(1),
+\end{equation*}
+%
+and
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) & =  \vd_n^\top\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) + o_p(1), \\
+& = \vd_n^\top\left(\mP_n\left[\frac{1}{\sqrt{n}}\mF_n^\top\vepsi_n\right] + o_p(1)\right) + o_p(1).
+\end{aligned}
+\end{equation*}
 
-\begin{equation}
-\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n =\frac{1}{\sqrt{n}}\left[\vepsi_n^\top\mA_n\vepsi_n + \vb_n^\top\vepsi_n\right] + o_p(1)
-\end{equation}
+Since $\mP_n = \mP + o_p(1)$ and $n^{-1/2}\mF_n^\top\vepsi_n = O_p(1)$:
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n}\vu_n^\top\left(\mW_n + \mW_n^\top\right)\mD_n\sqrt{n}(\widehat{\vtheta}_n - \vtheta_0) &= \frac{1}{\sqrt{n}}\vd_n^\top\mP\mF_n^\top\vepsi_n + o_p(1) = \frac{1}{\sqrt{n}}\vb_n^\top\vepsi_n + o_p(1), 
+\end{aligned}
+\end{equation*}
+%
+where $\vb_n^\top = -\vd_n^\top\mP\mF_n^\top$. Note that $\mP$ is the probability limit of $\mP_n$ and thus $\vb_n$ is nonstochastic. Finally, we can write Equation \eqref{eq:moran-p3} as
+\begin{equation*}
+\frac{1}{\sqrt{n}}\widehat{\vu}_n^\top\mW_n\widehat{\vu}_n =\frac{1}{\sqrt{n}}\left[\vepsi_n^\top\mA_n\vepsi_n + \vb_n^\top\vepsi_n\right] + o_p(1).
+\end{equation*}
 
-Thus, the asymptotic distribution of the Moran's I statistic is based on estimated disturbances involves the large sample distributioon of a linear-quadratic form in innovations. 
+Thus, the asymptotic distribution of the Moran's I statistic is based on estimated disturbances involves the large sample distribution of a linear-quadratic form in innovations. 
 
 
 \end{subappendices}

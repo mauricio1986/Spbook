@@ -1571,25 +1571,26 @@ legend("topright",
 	\end{minipage}
 \end{figure}
 
-%----------------------------------
+%-----------------------------------------------------
 \section{Triangular Arrays}\label{sec:triangular-array}
-%----------------------------------
+%------------------------------------------------------
 
-An important question is the context of asymptotic theory is the following: \emph{What is the meaning of $n\to \infty$ in a spatial context?} Will increase the geographical area or will increase the number of spatial unit in a given geographical area? 
+An important question in the context of asymptotic theory is the following: \emph{What does $n \to \infty$ mean in a spatial context?} Does it imply an increase in the geographical area, or does it refer to an increase in the number of spatial units within a given geographical area?
 
-For spatial data, two distinct asymptotic frameworks have been studied: \textbf{increasing domain} and \textbf{infill asymptotic}. Increasing domain consists of a sampling structure where new observations (spatial units) are added at the edges (boundary points), similar to the underlying asymptotic in time series analysis. That is, increasing domain asymptotic refers to more and more observations being sampled over an increasing domain. The problem here is what the boundary is. When referring to increasing domain asymptotic, it is assumed that the spatial locations of the observations do not become dense. Infill asymptotic are appropriate when the spatial domain is bounded, and new observations (points) are added in between existing ones, generating denser surface. In most applications of spatial econometric, the implied structure is that of an increasing domain. 
+For spatial data, two distinct asymptotic frameworks have been studied: \textbf{increasing domain} and \textbf{infill asymptotic}. Increasing domain refers to a sampling structure where new observations (spatial units) are added at the edges (boundary points), similar to the underlying asymptotics in time series analysis. In other words, increasing domain asymptotics involve more and more observations being sampled over an expanding domain. The key issue here is defining what constitutes the boundary.
 
-The increasing domain framework requires the knowledge of \textbf{triangular arrays}.  The following definition give us a simply definition of Triangular Arrays. 
+In contrast, infill asymptotics are appropriate when the spatial domain is bounded, and new observations (points) are added between existing ones, resulting in a denser surface. In most applications of spatial econometrics, the underlying structure aligns more with the increasing domain framework.
 
+The increasing domain framework necessitates an understanding of \textbf{triangular arrays}. The following section provides a straightforward definition of triangular arrays.
+
+%--------------------------------------------------------------------------------------
 \begin{definition}[Triangular Array of Random Variables]\label{def:triangular-array} 
 The ordered collection of random variables 
-
 \begin{equation*}
-\left\lbrace X_{11}, X_{21}, X_{22}, X_{31}, X_{32}, X_{33}, ... , X_{nn}, ...\right\rbrace,
+\left\lbrace X_{11}, X_{21}, X_{22}, X_{31}, X_{32}, X_{33}, \ldots , X_{nn}, \ldots \right\rbrace,
 \end{equation*}
 %
 or
-
 \begin{equation*}
 \begin{pmatrix}
 X_{11} &        &        &        &        &        & \\
@@ -1600,14 +1601,19 @@ X_{n1} & X_{n2} & X_{n3} & X_{n4} & \hdots & X_{nn} & \\
 \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots
 \end{pmatrix}
 \end{equation*}
-
+%
 is called a triangular array of random variables, and will be denoted by $\left\lbrace X_{nn}\right\rbrace$.
 \end{definition}
+%-------------------------------------------------------------------------
 
-Central limit theorems that are applied to triangular arrays of random variables are concerned with limiting distributions of appropriately defined function of the row average $S_n = n^{-1}\sum_{i = 1}^nX_{ni}$. For example, for $n = 3$ (third row) we have $S_3 = (1/3)(X_{31} + X_{32} + X_{33})$.  Note that the traditional CLTs deal with functions of average of the type $n^{-1}\sum_{i = 1}^n X_i$, the $X_i$'s being elements of the sequence $\left\lbrace X_n\right\rbrace$. However, the triangular array $\left\lbrace X_{nn}\right\rbrace$ is more general than a sequence $\left\lbrace X_n\right\rbrace$ in the sense that the random variables in a row of the array need not be the same as random variables in other rows. Thus, the triangular nature of a random variable leads to certain statistical problems, especially with respect to the relevant CLT that should be applied. In other words, we will need a CLT applicable to triangular array. Both the LLN and CLT require slightly stronger conditions than the LLN and CLT for i.i.d sequence of random variables. 
 
-What are the conditions on the random variables so that a properly $S_n$ converges to a normal distribution as $n\to \infty$. In a nutshell, assume: 
+Central limit theorems (CLTs) applied to triangular arrays of random variables focus on the limiting distributions of appropriately defined functions of row averages. Consider the row average $S_n = n^{-1}\sum_{i=1}^n X_{ni}$ for the $n$-th row of the triangular array. For instance, when $n=3$ (the third row), we have $S_3 = \frac{1}{3}(X_{31} + X_{32} + X_{33})$.
 
+Traditional CLTs address averages of the form $n^{-1}\sum_{i=1}^n X_i$, where $X_i$ are elements of a sequence $\left\lbrace X_n \right\rbrace$. However, triangular arrays, denoted by $\left\lbrace X_{ni} \right\rbrace$, are more general structures. The random variables in a row need not be identical to those in other rows, making triangular arrays more flexible for modeling.
+
+This flexibility introduces certain statistical challenges, particularly regarding the appropriate CLT to apply. In triangular arrays, the random variables across rows may exhibit different distributions or dependencies, which complicates the derivation of limiting distributions. As a result, both the Law of Large Numbers (LLN) and the CLT for triangular arrays require slightly stronger conditions than those for independent and identically distributed (i.i.d.) sequences of random variables.
+
+In order for $S_n$ to converge to a normal distribution as $n \to \infty$, the following conditions must be met:
 \begin{itemize}
   \item Independence: assume all random variables in the array are independent.
   \item Centering: assume $\E(X_{j,i}) = 0$ for all $j, i$.
@@ -1617,20 +1623,21 @@ What are the conditions on the random variables so that a properly $S_n$ converg
 
 Then $S_n \dto N(0, \sigma^2)$ as $n\to\infty$.
 
-Probably you're asking yourself, why triangular arrays are important in the spatial context? Note that if we adopt the increasing domain approach, it is clear that as $n$ increases,  $\mW$ itself changes as observations are added. To see this,  let $\vtheta_0 = (\vbeta_0^\top, \rho_0, \sigma_0^2)^\top$ be the true parameter vector. We further assume that variables and estimates depend on the sample size $n$. This will allow us to study their behavior as $n\to \infty$.  Therefore, denote $\mA_n(\rho) = \mI_n - \rho \mW_n$ for any value of $\rho$. The ``equilibrium'' vector is
+You may be wondering: Why are triangular arrays important in the spatial context? When adopting the increasing domain approach, it becomes evident that as $n$ increases, the spatial weight matrix  $\mW$ changes as observations are added. To illustrate, consider the true parameter vector  $\vtheta_0 = (\vbeta_0^\top, \rho_0, \sigma_0^2)^\top$, where variables and estimates depend on the sample size $n$. This dependency allows us to study their behavior as $n \to \infty$.
 
+Let $\mA_n(\rho) = \mI_n - \rho \mW_n$ for any value of $\rho$. The ``equilibrium'' vector is given by
 \begin{equation}\label{eq:equilibrium_slm}
-\vy_n = \mA_n^{-1}(\mX_n\vbeta_0 + \vepsi_n)
+\vy_n = \mA_n^{-1}(\mX_n\vbeta_0 + \vepsi_n), 
 \end{equation}
 %
-where $\mA_n = \mA_n(\rho_0)$ is nonsingular. Let $\vepsi_n(\vdelta) = \vy_n - \mX_n\vbeta - \rho \mW_n\vy_n$, where $\vdelta = (\vbeta^\top, \rho)^\top$. Thus, $\vepsi_n = \vepsi_n(\vdelta_0)$. Since the matrices $(\mI_n - \rho\mW)^{-1}$ generally depend upon the sample size $n$, the vectors $\vy$ and $\vepsi$ will also depend upon $n$, and they will form a \textbf{triangular arrays}. This is due to the fact that for the ``boundary'' elements the sample weights matrix changes as new spatial units --- or new data points --- are added. That is, new spatial units change the structure for the existing spatial units \citep[see for example][]{kelejian1999generalized, kelejian2001asymptotic, anselinSpatialEcon}. For example, the outcome for the first spatial unit, $y_{1,n}$, will be different if we consider a total  $n = 10$ or $n = 15$ observations because of the changing nature of $\mW$ as $n$ changes and given the DGP in Equation (\ref{eq:equilibrium_slm}). This implies that these elements and the vector $\vy$ should be indexed by $n$:
+where $\mA_n = \mA_n(\rho_0)$ is nonsingular. Let $\vepsi_n(\vdelta) = \vy_n - \mX_n\vbeta - \rho \mW_n\vy_n$, where $\vdelta = (\vbeta^\top, \rho)^\top$. Thus, $\vepsi_n = \vepsi_n(\vdelta_0)$. Since the matrices $(\mI_n - \rho\mW_n)^{-1}$ generally depend on the sample size $n$, the vectors $\vy_n$ and $\vepsi_n$ will also depend upon $n$, forming a \textbf{triangular arrays}. This arises because new spatial units---or data points---alter the structure of the existing spatial units within the weight matrix $\mW_n$ \citep[see for example][]{kelejian1999generalized, kelejian2001asymptotic, anselinSpatialEcon}. For example, the outcome for the first spatial unit, $y_{1,n}$, will differ depending on whether the total number of observations is $n=10$ or $n=15$, due to the evolving structure of $\mathbf{W}_n$ as $n$ changes.
 
+This dependence implies that the elements of $\vy$ should be indexed by $n$:
 \begin{equation*}
-  \vy_n = (y_{11}, y_{21}, y_{22},..., y_{nn})
+  \vy_n = (y_{11}, y_{21}, y_{22}, \ldots, y_{nn}). 
 \end{equation*}
 
-For example, for $n = 1, 2, 3$, then (by row):
-
+For example, for $n = 1, 2, 3$, we have:
 \begin{equation*}
 \begin{aligned}
   n = 1 & \implies y_{11} \;         \\
@@ -1641,135 +1648,96 @@ For example, for $n = 1, 2, 3$, then (by row):
 \end{aligned}
 \end{equation*}
 %
-where $y_{11} \neq y_{12} \neq y_{13}$ and $y_{22}\neq y_{23}$. Note that the dependent variable in the same row are mutually independent (spatial units are independent) and have the same distribution. But the distribution of  the random variable $y$ (and $\epsilon$) in different rows are allowed to be different. 
+where $y_{11} \neq y_{12} \neq y_{13}$ and $y_{22}\neq y_{23}$. Note that the dependent variables within the same row are mutually independent (spatial units are independent) and have the same distribution. However, the distribution of the dependent variables across different rows can vary. 
 
-The triangular array structure of $y$ is partly a consequence of allowing a triangular array structure for the disturbances in the model. But there is a more fundamental reason for it, and for treating the $\mX$ observations as a triangular array also. In allowing for the elements of $\mX_n$ to depend on $n$ we allow explicitly for some of the regressors to be spatial lags.
+The triangular array structure of $\vy_n$ partially arises from allowing the disturbances in the model to have a triangular array structure. More fundamentally, this structure also applies to the regressors in  $\mX$.  By allowing the elements of $\mX_n$ to depend on $n$, we explicitly account for spatial lags among some of the regressors.
 
-We can identify each of the indices $i = 1,...,n$ with a location in space. In regularly-observed time series settings, these indices correspond to equidistant points on the real line, and it is evident what we usually mean by letting $n$ increase. However there is ambiguity when these points are in space. For example, consider $n$ points on a 2 dimensional regularly-spaced lattice, where both the number ($n_1$) of rows and the number $(n_2)$ of columns increases with $n=n_1\cdot n_2$. If we choose to list these points in lexicographic order (say first left to right, then second row, etc) then as $n$ increases there would have to be some re-labeling, as the triangular array permits. Another consequence of this listing is that dependence between locations $i$ and $j$ is not always naturally expressed as a function of the difference $i-j$. For example, this is so if the dependence is isotropic. 
+In regularly observed time series settings, indices correspond to equidistant points on the real line, making the notion of increasing $n$ straightforward. In contrast, spatial settings involve ambiguity. For example, consider $n$ points on a two-dimensional regularly spaced lattice, where both the number of rows ($n_1$) and columns ($n_2$) increase with $n=n_1\cdot n_2$. Listing these points in lexicographic order (e.g., left to right, top to bottom) requires re-labeling as $n$ increases, which the triangular array structure accommodates \citep{anselin2021spatial}.
 
-%----------------------------------
-\section{Matrix}
-%----------------------------------
-
-Let $\mC = \mA\mB$, then the $(i,j)$ element of $\mC$ is
-
-\begin{equation}
-c_{ij} = \sum_{k = 1}^na_{ik}b_{kj}
-\end{equation}
-
-
-
-
-%----------------------------------
-\section{Matrix Norm}
-%----------------------------------
-
-\begin{definition}[Matrix Norm]
-Given a square complex or real matrix $\mA$, a matrix norm $\lVert \mA \rVert$ is a nonnegative number associated with $\mA$ having the properties
-
-\begin{enumerate}
-  \item $\lVert \mA \rVert> 0$ when $\mA\neq 0$ and $\lVert \mA \rVert = 0$ if and only if $\mA = 0$, 
-  \item $\lVert k \mA \rVert = \left|k\right|\lVert \mA \rVert$ for any scalar $k$, 
-  \item $\lVert \mA  + \mB \rVert \leq \lVert \mA \rVert + \lVert \mB \rVert$, 
-  \item $\lVert \mA\mB \rVert \leq \lVert \mA \rVert \lVert \mB \rVert$
-\end{enumerate}
-\end{definition}
-
-The maximum absolute column sum norm $\lVert \mA \rVert_1$ is defined as
-
-\begin{equation}
-\lVert \mA \rVert_1 = \max_j\sum_{i = 1}^n\left|a_{ij}\right|
-\end{equation}
-
-The spectral norm $\lVert \mA \rVert_2$ is defined as
-
-\begin{equation}
-\lVert \mA \rVert_2 = \sigma_{\max}(\mA) = \sqrt{\lambda_{\max}\left(\mA^\top \mA\right)}
-\end{equation}
-
-The maximum absolute row sum norm is defined by
-
-\begin{equation}
-\lVert \mA \rVert_{\infty} = \max_i\sum_{j = 1}^n\left|a_{ij}\right|
-\end{equation}
-
-
-$\lVert \mA \rVert_1$, $\lVert \mA \rVert_2$ and $\lVert \mA \rVert_{\infty}$ satisfy the inequality $\lVert \mA \rVert_2^2 \leq \lVert \mA \rVert_1\lVert \mA \rVert_{\infty}$.
+Another consequence of this listing is that dependence between spatial locations $i$ and $j$ is not necessarily a function of the difference $i-j$, particularly when the dependence is isotropic.
 
 %----------------------------------
 \section{Bounded Matrices and Useful Lemmas for Spatial Eonometrics}\label{sec:bounded-matrices}
 %----------------------------------
 
+In asymptotic it is important to establish whether the matrices are bounded as $n \to \infty$. As explained before, this implies that the impact of spatial interactions does not grow unbounded as the sample size increases. For example, if $\mW_n$ is not bounded, the effect of spatial dependence could explode, making the process unstable. Similalry, for asymptotic results such as the LLN and CLTs to hold in spatial context, regularity conditions on the spatial weight matrix.
+
+In theoretical literature, we often encounter the following definition of bounded matrices. 
+
+%-------------------------------------------------------------------
 \begin{definition}[Bounded Matrices]\label{def:Bounded_Matrices}
 Let $\left\lbrace \mA_n \right\rbrace$ be a sequence of $n$-dimensional square matrices, where $\mA_n = \left[a_{n,ij}\right]$,
   \begin{enumerate}
     \item The column sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
-    
     \begin{equation*}
       \left\|\mA_n\right\|_{1} = \max_{1 \leq j\leq n}\sum_{i = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
      \item The row sums of $\left\lbrace \mA_n \right\rbrace$ are uniformly bounded (in absolute value) if there exists a finite constant $c_a$ that does not depend on $n$ such that 
-    
     \begin{equation*}
       \left\|\mA_n\right\|_{\infty} = \max_{1 \leq i\leq n}\sum_{j = 1}^n\left|a_{n, ij}\right| \leq c_a
     \end{equation*}
   \end{enumerate}
 \end{definition}
+%-------------------------------------------------------------------
 
 Then $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in row sums if $\left\lbrace\left\|\mA_n\right\|_{\infty}\right\rbrace$ is a bounded sequence. Similarly, $\left\lbrace \mA_n \right\rbrace$ is said to be \textbf{uniformly bounded} in column sums if $\left\lbrace\left\|\mA_n\right\|_{1}\right\rbrace$ is a bounded sequence. 
 
+Note that for the typical row-standardized $\mW$, row-boundedness is guaranteed by construction since the row sum is 1. The column boundedness is in most cases also guaranteed as long as the number of neighbors is constrained. We also need $(\mI_n - \rho\mW_n)^{-1}$ to be uniformly bounded in row and column sum and consider also the parameter space of $\rho$. 
 
+An important characteristic of uniformly bounded matrices is that this property is preserved under matrix multiplication. 
 
-The following lemmas will be very useful:
-
+%---------------------------------------------
 \begin{lemma}\label{lemma:bounded_lemma}
 If $\left\lbrace \mA_n \right\rbrace$ an $\left\lbrace \mB_n \right\rbrace$ are uniformly bounded in row sums (column sums), then $\left\lbrace \mA_n \mB_n\right\rbrace$ is also uniformly bounded in row sums (column sums).
 \end{lemma}
+%------------------------------------------------
 
+%---------------------------------------------------
 \begin{proof}
- Suppressing the index $n$, let $\mD = \mA\mB$, then
- \begin{equation}
-  d_{ij} = \sum_{r = 1}^n a_{ir}b_{rj}
- \end{equation}
+ Suppressing the index $n$, suppose that $\sum_{i = 1}^n|a_{ij}|\leq c_a$, $\sum_{j = 1}^n|a_{ij}|\leq c_a$, $\sum_{i = 1}^n|b_{ij}|\leq c_b$, and $\sum_{j = 1}^n|b_{ij}|\leq c_b$. Let $\mD = \mA\mB$, then
+ \begin{equation*}
+  d_{ij} = \sum_{r = 1}^n a_{ir}b_{rj}.
+ \end{equation*}
  Let $r_i$ be the $i$th row sum, then
- 
- \begin{equation}
+ \begin{equation*}
  \begin{aligned}
-  r_i   = & \sum_{j = 1}^n \left|d_{ij}\right| \\
-        = & \sum_{j = 1}^n \left|\sum_{r = 1}^n a_{ir}b_{rj}\right| \\
-     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality \ref{def:triangle-inequality}} \\
-      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by multiplicativity \ref{def:abs-multiplicativity}} \\
-      = & \sum_{r = 1}^n \sum_{j = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of summation} \\
-      = & \sum_{r = 1}^n \left|a_{ir}\right| \sum_{j = 1}^n \left|b_{rj}\right| \\
-        & \leq c_{a} c_{b},\; \mbox{for all $i = 1,..., n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}
+  r_i   = & \sum_{j = 1}^n \left|d_{ij}\right|, \\
+        = & \sum_{j = 1}^n \left|\sum_{r = 1}^n a_{ir}b_{rj}\right|, \\
+     \leq & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}b_{rj}\right|\;\mbox{by triangle inequality \ref{def:triangle-inequality}}, \\
+      = & \sum_{j = 1}^n \sum_{r = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by multiplicativity \ref{def:abs-multiplicativity}}, \\
+      = & \sum_{r = 1}^n \sum_{j = 1}^n \left|a_{ir}\right|\left|b_{rj}\right|\;\mbox{by property of summation}, \\
+      = & \sum_{r = 1}^n \left|a_{ir}\right| \sum_{j = 1}^n \left|b_{rj}\right| ,\\
+        & \leq c_{a} c_{b},\; \mbox{for all $i = 1,\ldots, n$ and $n\geq 1$ by Def. \ref{def:Bounded_Matrices}}.
  \end{aligned}
- \end{equation}
+ \end{equation*}
  
  Similarly, we can show that 
- 
- \begin{equation}
- \sum_{i = 1}^n \left|d_{ij}\right|\leq c_{a} c_{b},\; \mbox{for all $j = 1,..., n$ and $n\geq 1$.}
- \end{equation}
+ \begin{equation*}
+ \sum_{i = 1}^n \left|d_{ij}\right|\leq c_{a} c_{b},\; \mbox{for all $j = 1,\ldots, n$ and $n\geq 1$.}
+ \end{equation*}
 \end{proof}
+%---------------------------------------------------
 
+%---------------------------------------------------
 \begin{lemma}\label{lemma:bounde_ON}
-If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$
+If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded in either row or column sums), and $\mZ_n$ has bounded elements, then the elements of $\mZ_n^\top \mA_n\mZ_n = O(n)$.
 \end{lemma}
+%---------------------------------------------------
 
+%---------------------------------------------------
 \begin{proof}
   Suppressing the index $n$, let $Z_{ij}$ be the $(i,j)th$ element of $\mZ$, and let $\left|Z_{ij}\right|\leq c_z$ for all $i,j$ and $n\geq 1$. Let $\delta_{ij}$ be the $(i,j)$th element of $\mZ^\top \mA\mZ$, then
-  
-  \begin{equation}
+  \begin{equation*}
     \begin{aligned}
-      \delta_{ij} & = \sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj} \\
-      \left|\delta_{ij}\right| & = \left|\sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj}\right| \\
-      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by \ref{def:triangle-inequality}} \\
+      \delta_{ij} & = \sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj},  \\
+      \left|\delta_{ij}\right| & = \left|\sum_{r = 1}^n\sum_{s = 1}^n Z_{si}a_{sr}Z_{rj}\right|, \\
+      \left|\delta_{ij}\right| & \leq \sum_{r = 1}^n\sum_{s = 1}^n \left|Z_{si}\right| \left|a_{sr}\right|\left|Z_{rj}\right| \; \mbox{by \ref{def:triangle-inequality}}, \\
        & \leq c_z^2\sum_{r = 1}^n\sum_{s = 1}^n  \left|a_{sr}\right| \\
         & \leq c_z^2\sum_{r = 1}^n c_a \\
         & \leq c_z^2c_an \\
         & = O(n)
     \end{aligned}
-  \end{equation}
+  \end{equation*}
 \end{proof}
 
 %------------------------------------------------
@@ -1785,7 +1753,7 @@ If $\left\lbrace \mA_n \right\rbrace$ is absolutely summable (uniformly bounded 
 
 \begin{proof}
 Proof of (c). Suppressing the index $n$
-\begin{equation}
+\begin{equation*}
   \begin{aligned}
     \tr(\mA_n\mA_n^\top)               & = \sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2 \\
     \left|\tr(\mA_n\mA_n^\top)\right|  & = \left|\sum_{i = 1}^n\sum_{j=1}^n a_{ij}^2\right| \\
@@ -1793,35 +1761,43 @@ Proof of (c). Suppressing the index $n$
      & \leq \sum_{i = 1}^n\left(\sum_{j=1}^n\left|a_{ij}\right|\right) ^2 \\
      & \leq  n c_1^2\quad \mbox{if $\mA_n$ is uniformly bounded in row sums}
   \end{aligned}
-\end{equation}
+\end{equation*}
 
 
-\begin{equation}
+\begin{equation*}
   \begin{aligned}
     \left|\tr(\mA_n\mA_n^\top)\right|  & \leq \sum_{j = 1}^n\left(\sum_{i=1}^n\left|a_{ij}\right|\right) ^2 \\
      & \leq  n c_2^2\quad \mbox{if $\mA_n$ is uniformly bounded in column sums}
   \end{aligned}
-\end{equation}
+\end{equation*}
 \end{proof}
 
-%---------------------------------
-\section{Quadratic forms}
-%---------------------------------
+%----------------------------------------------------------------------
+\section{Linear and Quadratic Forms}
+%----------------------------------------------------------------------
 
+%-----------------------
+\subsection{Moments}
+%-----------------------
+
+Linear and quadratic forms of the error terms will often appear in the analysis of spatial models. Thus, it is important to review and analyze some of its characteristics.
+
+First, we define a quadratic form:
+%----------------------------------------------------------
 \begin{definition}[Quadratic form]\label{def:quad-form}
-For a $n\times n$ symmetric matrix $\mA_n=\left[a_{ij}\right]$ the quadratic function of $n$ variables $\vepsi$ defined by:
-
-\begin{equation}
+For a $n\times n$ symmetric matrix $\mA_n=\left[a_{n, ij}\right]$ the quadratic function of $n$ variables $\vepsi$ defined by:
+\begin{equation*}
 \vepsi^\top \mA_n \vepsi = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j
-\end{equation}
+\end{equation*}
 %
-is called the quadratic form with matrix $\mA_n$.  If $\mA_n$ is not symmetric, we can replace $\mA_n$ by $\left(\mA_n + \mA_n^\top\right)/2$.
+is called the quadratic form with matrix $\mA_n$.  If $\mA_n$ is not symmetric, we can replace $\mA_n$ by $\mA^s = \left(\mA_n + \mA_n^\top\right)/2$.
 \end{definition}
+
+The following Lemma is based on \citep{lee2004asymptotic}.
 
 %--------------------------------------------------------------
 \begin{lemma}[First and Second Moments]\label{lemma:second-mom-lee}
 Let $\mA_n=\left[a_{ij}\right]$ be an $n$-dimensional square matrix. Then, it can be shown that:
-
 \begin{equation*}
 \E\left[\vepsi^\top_n\mA_n\vepsi_n\right]=\tr\left(\mA_n\mSigma\right)+\vmu^\top\mA_n\vmu
 \end{equation*}
@@ -1829,107 +1805,174 @@ Let $\mA_n=\left[a_{ij}\right]$ be an $n$-dimensional square matrix. Then, it ca
 where $\vmu$ and $\mSigma$ are the expected value and variance-covariance matrix of $\vepsi_n$, respectively. This result only depends on the existence of $\vmu$ and $\mSigma$; it does not require normality of $\vepsi$. 
 
 Assume that $\mu = \vzeros$ and $\mSigma = \sigma_0^2\mI$, then
-
 \begin{enumerate}
   \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma^2_0\tr(\mA_n)$,
   \item $\E(\vepsi_n^\top\mA_n\vepsi_n)^2 = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]$, and
   \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]$.
 \end{enumerate}
 
-For the moment assume that $\mA$ is symmetric and $\vepsi$ is normally distributed, then:
-
+For the moment assume that $\mA_n$ is symmetric and $\vepsi$ is normally distributed, then:
 \begin{equation*}
 \var\left(\vepsi^\top\mA\vepsi\right)= 2\tr\left(\mA\mSigma\mA\mSigma\right) + 4\vmu^\top\mA\mSigma\mA\vmu,
 \end{equation*}
 %
 and the covariance:
-
 \begin{equation*}
 \cov\left(\vepsi^\top\mA_1\vepsi, \vepsi^\top\mA_2\vepsi\right)= 2\tr\left(\mA_1\mSigma\mA_2\mSigma\right) + 4\vmu^\top\mA_1\mSigma\mA_2\vmu
 \end{equation*}
 
-If $\mA$ is not symmetric, then:
-
+If $\mA_n$ is not symmetric, then:
 \begin{equation}\label{eq:var-quadratic-form}
 \cov\left(\vepsi^\top\mA_1\vepsi, \vepsi^\top\mA_2\vepsi\right)= 2\tr\left[\frac{1}{2}\left(\mA_1 + \mA_1^\top\right)\mSigma\frac{1}{2}\left(\mA_2 + \mA_2^\top\right)\mSigma\right] + 4\vmu^\top\frac{1}{2}\left(\mA_1 + \mA_1^\top\right)\mSigma\frac{1}{2}\left(\mA_2 + \mA_2^\top\right)\vmu
 \end{equation}
 
 In particular, if $\vepsi$'s are normally distributed with mean 0 and variance $\sigma_0^2$, then 
-
 \begin{itemize}
-  \item $\E(\vepsi_n^\top\mA_n\vepsi_n)^2 = \sigma^4_0\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]$, and
-  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = \sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]$
+  \item $\E(\vepsi_n^\top\mA_n\vepsi_n)^2 = \sigma^4_0\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right] = \sigma^4_0\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^{s})\right]$, and
+  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = \sigma^4_0\tr(\mA_n\mA_n^{s}) = \frac{\sigma^4}{2}\tr(\mA_n^{s2}) = \frac{\sigma^4}{2}\diag(\mA_n^s)'\diag(\mA_n^s)$.
 \end{itemize}
 \end{lemma}
 %--------------------------------------------------------------
 
-% \begin{proof}
-% We can write:
-% \begin{equation*}
-% \begin{aligned}
-% \vepsi^\top\mA\vepsi & = \left(\vepsi - \vmu\right)^\top\mA\vepsi + \vmu^\top\mA\vepsi \\
-% & = \left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right) + \vmu^\top\mA\vepsi + \left(\vepsi - \vmu\right)^\top\mA\vmu
-% \end{aligned}
-% \end{equation*}
-% If we take expectations, then the last term vanishes and we obtain
-% 
-% \begin{equation}
-% \E\left(\vepsi^\top\mA\vepsi\right) = \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] + \vmu^\top\mA\vmu
-% \end{equation}
-% 
-% Let $\upsilon_i = \epsilon_i - \mu_i$, so that $\vupsilon = \vepsi - \vmu$ and hence
-% 
-% \begin{equation*}
-% \begin{aligned}
-% \E\left[\left(\vepsi - \vmu\right)^\top\mA\left(\vepsi - \vmu\right)\right] & = \E\left(\vupsilon^\top\mA\vupsilon\right) \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^n\E(\upsilon_i a_{ij}\upsilon_j) \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\upsilon_i\upsilon_j) \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vupsilon)\right]_{ij} \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi - \vmu)\right]_{ij} \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\left[\var(\vepsi)\right]_{ij} \\
-% & = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\mSigma_{ij} \\
-% & = \sum_{i = 1}^n\sum_{i = 1}^na_{ij}\mSigma_{ij} \\
-% & = \sum_{i = 1}^n \left[\mA\mSigma\right]_{ii} \\
-% & = \tr\left(\mA\mSigma\right)
-% \end{aligned}
-% \end{equation*}
-% \end{proof}
+%--------------------------------------------------------
+\begin{proof}
+For (a), and using the Definition of quadratic form \ref{def:quad-form} We can write:
+\begin{equation*}
+\begin{aligned}
+\E\left(\vepsi^\top\mA\vepsi\right) &= \sum_{i = 1}^n\sum_{j = 1}^n\E(\epsilon_i a_{ij}\epsilon_j) \\
+& = \sum_{i = 1}^n\sum_{j = 1}^na_{ij}\E(\epsilon_i\epsilon_j) \\
+& = \sum_{i = 1}^n\sum_{j = i}^na_{ij}\sigma^2\;\mbox{since $\E(\epsilon_i\epsilon_j) = 0$ for $i\neq j$} \\
+& = \sigma^2\sum_{i = 1}^n a_{ii}\\
+& = \sigma^2\tr(\mA).
+\end{aligned}
+\end{equation*}
 
+We provide the proof for (b). Using the Definition of quadratic form \ref{def:quad-form} We can write:
+\begin{equation*}
+\begin{aligned}
+\E\left(\vepsi^\top\mA_n\vepsi\right)^2 & = \E\left(\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right)^2,\\
+& = \E\left(\sum_{i = 1}^n\sum_{j= 1}^n\sum_{k = 1}^n\sum_{l = 1}^n a_{ij}a_{kl}\epsilon_{i}\epsilon_j\epsilon_k\epsilon_l\right), \\
+&  = \sum_{i = 1}^n\sum_{j= 1}^n\sum_{k = 1}^n\sum_{l = 1}^n a_{ij}a_{kl}\E(\epsilon_{i}\epsilon_j\epsilon_k\epsilon_l).
+\end{aligned}
+\end{equation*}
+
+Because the error terms are i.i.d with zero mean, $\E(\epsilon_{i}\epsilon_j\epsilon_k\epsilon_l) \neq 0$ only when $i = j = k = l$, $(i = j)\neq(k = l)$, $(i = k)\neq (j\neq l)$, and $(i\neq l)\neq (j =k)$. Thus
+\begin{equation*}
+\begin{aligned}
+\E\left(\vepsi^\top\mA_n\vepsi\right)^2 & = \underset{i = j = k = l}{\sum_{i = 1}^n a_{ii}^2\E(\epsilon_i^4)} + \underset{(i = j)\neq(k = l)}{\sum_{i = 1}^n\sum_{j\neq i}^na_{ii}a_{jj}\E(\epsilon_i^2\epsilon_j^2)} \\
+& + \underset{(i = k)\neq (j\neq l)}{\sum_{i = 1}^n\sum_{j\neq i}^n a_{ij}^2\E(\epsilon_i^2\epsilon_j^2)} + \underset{(i\neq l)\neq (j =k)}{\sum_{i = 1}^n\sum_{j \neq i}^na_{ij}a_{ji}\E(\epsilon_i^2\epsilon_j^2)},\\
+& = \mu_4\sum_{i = 1}^na_{ii}^2 + \sigma^4\sum_{i = 1}^n\sum_{j\neq i}^na_{ii}a_{jj} + \sigma^4\sum_{i = 1}^n\sum_{j\neq i}^n a_{ij}^2 + \sigma^4\sum_{i = 1}^n\sum_{j \neq i}^na_{ij}a_{ji}, \\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \sigma^4\left[\sum_{i = 1}^n\sum_{j = 1}^n a_{ii}a_{jj} + \sum_{i = 1}^n\sum_{j=1}^na^2_{ij} + \sum_{i = 1}^n\sum_{j = 1}^na_{ij}a_{ji}\right], \\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA) + \tr(\mA\mA^\top) + \tr(\mA^2)\right], \\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA) + \tr(\mA\mA^s)\right].
+\end{aligned}
+\end{equation*}
+
+For (c), note that
+\begin{equation*}
+\begin{aligned}
+\var(\vepsi^\top\mA\vepsi) & = \E\left(\vepsi^\top\mA_n\vepsi\right)^2 - \left[\E\left(\vepsi^\top\mA\vepsi\right)\right]^2, \\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA) + \tr(\mA\mA^s)\right] - \left[\sigma^2\tr(\mA)\right]^2,\\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \sigma^4\tr(\mA\mA^s), \\
+& = (\mu_4 - 3\sigma^4)\sum_{i=1}^na_{ii}^2 + \frac{\sigma^2}{2}\tr(\mA^s).
+\end{aligned}
+\end{equation*}
+
+When $\vepsi$'s are normally distributed, $\mu_4 = 3\sigma^2$. 
+\end{proof}
+%--------------------------------------------------------
+
+The following Lemma provides the moments for the product of moment conditions.
 
 %--------------------------------------------------
-\begin{lemma}\label{lemma:O-lemma-lee}
-Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums. Then:
-
+\begin{lemma}\label{lemma:O-lemma-lee-quadratic}
+For any $n$-dimensional (column) vector $\vq_n$ and $n\times n$ square matrices $\mA_n = [a_{n, ij}]$ and $\mB_n = [b_{n, ij}]$. Suppose that $\epsilon_{ni}$'s in $\vepsi_n$ are i.i.d $(0, \sigma^2)$ and have finite third and fourth moments $\mu_3$ and $\mu_4$. Then
 \begin{enumerate}
-  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$,
-  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$
-  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n)$
+\item $\E(\vq_n^\top\vepsi_n \cdot \vepsi_n^\top\mA_n\vepsi_n) = \vq_n^\top\diag(\mA_n)\mu_3$, 
+\item $\E(\vepsi^\top\mA_n\vepsi \cdot \vepsi_n^\top\mB_n\vepsi_n) = (\mu_4 - 3\sigma^4)\diag(\mA_n)^\top\diag(\mB_n) + \sigma^4\left[\tr(\mA_n)\tr(\mB_n) + \tr(\mA_n\mB_n^s)\right]$, 
+\item and 
+\begin{equation*}
+\begin{aligned}
+\cov(\vepsi^\top\mA_n\vepsi \cdot \vepsi_n^\top\mB_n\vepsi_n) & = (\mu_4 - 3\sigma^4)\diag(\mA_n)^\top\diag(\mB_n) + \sigma^4\tr(\mA_n\mB^s_n) \\
+&= (\mu_4 - 3\sigma^4)\diag(\mA_n)^\top\diag(\mB_n) + \frac{\sigma^4}{2}\tr(\mA_n^s\mB_n^2).
+\end{aligned}
+\end{equation*}
 \end{enumerate}
 \end{lemma}
 %--------------------------------------------------
 
 \begin{proof}
-Proof of (a). By Lemma \ref{lemma:second-mom-lee}, $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2\tr(\mA_n)$. By Lemma \ref{lemma:bounde_trace}, $\tr(\mA) = O(n)$. Then $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2 O(n) = O(n)$ since $\sigma_{0}^2$ is a constant. 
-
-% For (1): 
-% \begin{equation}
-%  \begin{aligned}
-%   \E\left|\eta\right|  & =  \E\left(\left|\vepsi^\top\mA\vepsi\right|\right) \\
-%                          & =  \E\left(\left|\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right|\right) \\
-%                          & \leq  \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\epsilon_i\epsilon_j\right|\right) \\
-%                          & = \E\left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\left|\epsilon_i\right|\left|\epsilon_j\right|\right) \\
-%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\E\left|\epsilon_i\right|\E\left|\epsilon_j\right|\right) \\
-%                          & \leq \left(\sum_{i = 1}^n\sum_{j = 1}^n\left|a_{ij}\right|\sigma_i\sigma_j\right)
-%  \end{aligned}  
-% \end{equation}
-
-Proof of (b). From Lemma \ref{lemma:second-mom-lee}
-
-\begin{equation}
+As previously noted, $\E(\vepsi \epsilon_{i}\epsilon_j) = \vzeros$ whenever $i\neq j$, and $\E(\vepsi\epsilon_i^2) = \mu_3\ve_i$ where $\ve_i$ is the $n$th unit vector with 1 at its $i$th place and zero elsewhere, we have:
+\begin{equation*}
 \begin{aligned}
-  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right]
+ \E(\vq^\top\vepsi \cdot \vepsi^\top\mA\vepsi) & = \vq^\top\sum_{i = 1}^n\sum_{j = 1}^n a_{ij}\E(\vepsi\epsilon_i\epsilon_j), \\
+ & = \mu_3\vq^\top\begin{pmatrix}
+                   a_{11} \\
+                   a_{22} \\
+                   \vdots \\
+                   a_{nn}
+                   \end{pmatrix}, \\
+  & =   \mu_3\vq^\top\diag(\mA).               
 \end{aligned}
-\end{equation}
+\end{equation*}
+
+Since:
+\begin{equation*}
+  \vepsi^\top\mA_n\vepsi \cdot \vepsi_n^\top\mB_n\vepsi_n = \sum_{i=1}^n\sum_{j = 1}^n\sum_{k = 1}^n\sum_{l = 1}^n a_{ij}b_{kl}\epsilon_{i}\epsilon_j\epsilon_k\epsilon_l,
+\end{equation*}
+%
+the mutual independence implies that $\E(\epsilon_{i}\epsilon_j\epsilon_k\epsilon_l)\neq 0$ only if $i = j = k = l$, $(i = j)\neq(k = l)$, $(i = k)\neq (j\neq l)$, and $(i\neq l)\neq (j =k)$. It follows that
+\begin{equation*}
+\begin{aligned}
+\E(\vepsi^\top\mA_n\vepsi \cdot \vepsi_n^\top\mB_n\vepsi_n) & = \sum_{i = 1}^na_{ii}b_{ii}\E(\epsilon_i^4) + \sum_{i = 1}^n\sum_{j \neq i}^n(a_{ii}b_{jj} + a_{ij}b_{ij} + a_{ij}b_{ji})\E(\epsilon_i^2\epsilon_j^2),\\
+& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}b_{ii} + \sigma^4\sum_{i = 1}^n\sum_{j = 1}^n (a_{ii}b_{jj} + a_{ij}b_{ij} + a_{ij}b_{ji})\E(\epsilon_i^2\epsilon_j^2) \\
+& = (\mu_4 - 3\sigma^4)\diag(\mA)'\diag(\mB) + \sigma^4\left[\tr(\mA)\tr(\mB) + \tr(\mA\mB^\top) + \tr(\mA\mB)\right].
+\end{aligned}
+\end{equation*}
+\end{proof}
+
+%-------------------------------------
+\subsection{Law of Large Numbers}
+%-------------------------------------
+
+The following Lemma provides the asymptotic behavior for quadratic forms under homoskedasticity \citep[see for example Lemma 2 in][]{kelejian1999generalized}.
+%--------------------------------------------------
+\begin{lemma}[Consistency of quadratic forms in spatial models]\label{lemma:O-lemma-lee}
+Suppose that  $\left\lbrace \mA_n\right\rbrace$ is uniformly bounded in either row and column sums, and $\vepsi_n$ is i.i.d with $\E(\epsilon_i) = 0$ and $\var(\epsilon_i) = \sigma_0^2$ for all $i = 1, \ldots, n$. Then:
+\begin{enumerate}
+  \item $\E(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$,
+  \item $\var(\vepsi_n^\top\mA_n\vepsi_n) = O(n)$,
+  \item $\vepsi_n^\top\mA_n\vepsi_n = O_p(n)$,
+  \item $\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top\mA_n\vepsi_n) = o_p(1)$.
+\end{enumerate}
+\end{lemma}
+%--------------------------------------------------
+
+This Lemma states that both $\E(\vepsi_n^\top\mA_n\vepsi_n)$ and $\var(\vepsi_n^\top\mA_n\vepsi_n)$ are both well behaved sequence of nonrandom variables. It further states that $\vepsi_n^\top\mA_n\vepsi_n$ is a well behaved (bounded) random sequence such that
+\begin{equation*}
+\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top\mA_n\vepsi_n)\pto 0.
+\end{equation*}
+
+Thus, if the limit of $\tr(\mA_n)/n$ exists, then:
+\begin{equation*}
+\lim_{n\to\infty}\frac{\tr(\mA_n)}{n} = \mA^*
+\end{equation*}
+%
+and
+\begin{equation*}
+  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \sigma^2_0\mA^*.
+\end{equation*}
+
+%------------------------------------------
+\begin{proof}
+\textbf{Proof of (a)}. By Lemma \ref{lemma:second-mom-lee}, $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2\tr(\mA_n)$. By Lemma \ref{lemma:bounde_trace}, $\tr(\mA) = O(n)$. Then $\E(\vepsi_n^\top\mA_n\vepsi_n) = \sigma_{0}^2 O(n) = O(n)$ since $\sigma_{0}^2$ is a constant. 
+
+\textbf{Proof of (b)}. From Lemma \ref{lemma:second-mom-lee}
+\begin{equation*}
+\begin{aligned}
+  \var(\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^na_{ii}^2+\sigma^4_0\left[\tr(\mA_n\mA_n^\top)+\tr(\mA^2_n)\right].
+\end{aligned}
+\end{equation*}
 
 From Lemma \ref{lemma:bounde_trace} $\tr(\mA_n\mA_n^\top) = O(n)$ and $\tr(\mA_n^2) = O(n)$. Since 
 \begin{equation*}
@@ -1937,79 +1980,108 @@ From Lemma \ref{lemma:bounde_trace} $\tr(\mA_n\mA_n^\top) = O(n)$ and $\tr(\mA_n
 \end{equation*}
 %
 then 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
-  \var(n^{-1}\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)O(n)+\sigma^4_0\left[O(n)+ O(n)\right] \\
+  \var(\vepsi_n^\top\mA_n\vepsi_n) & = (\mu_4 - 3\sigma^4_0)O(n)+\sigma^4_0\left[O(n)+ O(n)\right] \\
   & = O(n)
 \end{aligned}
-\end{equation}
-
-Proof of (c). Since $\E((\vepsi_n^\top\mA_n\vepsi_n)^2)= \var(\vepsi_n^\top\mA_n\vepsi) +  \left(\E(\vepsi_n^\top\mA_n\vepsi_n)\right)^2 = O(n) + O(n)O(n)= O(n^2)$ by Property \ref{prop:blO-nest}. The Chebyshev inequality \ref{definition:chebyshev_ineq} implies that
-
-\begin{equation*}
-\Pr\left(\frac{1}{n}\left|\vepsi_n^\top\mA_n\vepsi_n\right| \geq \delta\right) \leq \frac{1}{\delta^2n^2}\E\left[(\vepsi_n^\top\mA_n\vepsi_n)^2\right] = \frac{1}{\delta^2}O(1)
 \end{equation*}
 
-Then $\frac{1}{n}\vepsi^\top_n\mA_n\vepsi_n = O_p(1)$. Thus, $n^{-1}\vepsi_n^\top\mA_n\vepsi_n$ is bounded. 
-\end{proof}
-
-%-----------------------------------------------------------------------------------------------
-\begin{theorem}[Consistency of quadratic forms in spatial models]\label{teo:quadratic-forms-ley}
-Let $\mA_n$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}_n=(\epsilon_{n1}, ..., \epsilon_{nn})$ where $\epsilon_{ni}$ are iid $(0, \sigma^2_0)$ and $\E(\epsilon_{ni}^4)<\infty$. Then
-
-\begin{equation*}
-  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \E\left(\vepsi_n^\top \mA_n \vepsi_n\right) = \sigma^2_0\frac{\tr(\mA_n)}{n}
-\end{equation*}
-
-If the limit of $\tr(\mA_n)/n$ exits, then:
-
-\begin{equation*}
-\lim_{n\to\infty}\frac{\tr(\mA_n)}{n} = \mA^*
-\end{equation*}
-%
-and
-
-\begin{equation*}
-  \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \sigma^2_0\mA^*.
-\end{equation*}
-\end{theorem}
-%-----------------------------------------------------------------------------------------------
-\begin{proof}
- This result follows from Theorem \ref{teo:chebyshev}. By Chebyshev inequality \ref{definition:chebyshev_ineq}
- 
+\textbf{Proof of (d) and (c)}. By Chebyshev inequality \ref{definition:chebyshev_ineq}
  \begin{equation*}
  \begin{aligned}
-  \Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2 \delta^2} \\
-    \Pr\left[\left|\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n - \sigma^2_{0}\frac{\tr(\mA_n)}{n}\right|\geq \delta \right] \leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2\delta^2}  \\
-    \leq \frac{1}{\delta^2}n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n)
+  \Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right| \geq \delta \right] &\leq \frac{\var(\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n)}{\delta^2}, \\
+    \Pr\left[\left|\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n - \sigma^2_{0}\frac{\tr(\mA_n)}{n}\right|  \geq \delta \right] &\leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2\delta^2},  \\
+    & \leq \frac{1}{\delta^2}\frac{1}{n^2}\var(\vepsi_n^\top \mA_n \vepsi_n).
  \end{aligned}
  \end{equation*}
- 
- By Lemma \ref{lemma:bounde_trace}, $\tr(\mA_n) = O(n)$. Hence $\lim_{n\to\infty} \frac{1}{n}\E(\vepsi_n^\top \mA_n \vepsi_n) = \sigma_{0}^2\mA^* = O(1)$ and the expectation exists. 
- 
- By Lemma \ref{lemma:O-lemma-lee} $\var(\vepsi_n\mA_n\vepsi_n) = O(n)$. Therefore, $n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n) = \var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n) = O(n^{1}) = o(1)$. Thus $\var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n)\to 0$ as $n\to \infty$ and $\Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right]\to 0$, so 
+
+Therefore, $n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n) = n^{-2} O(n) = O(1/n) =o(1)$.\footnote{$O(n^{-1})$ implies $o(1)$. If $a_n =O(n^{-1})$ means that there exists a constant $c> 0$ such that for all sufficiently large $n$, $|a_n|\leq c/n$. $a_n =o(1)$ means that $\lim_{n\to\infty}a_n = 0$. Since $a_n =O(n^{-1})$ implies that $|a_n|\leq c/n$ for large $n$, it follows that $\lim_{n\to\infty}|a_n|\leq \lim_{n\to\infty}c/n = 0$. Thus, $a_n\to 0$ as $n\to\infty$, which is exactly the definition of $o(1)$.} Thus $\var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n)\to 0$ as $n\to \infty$ and $\Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right]\to 0$, so 
 \begin{equation*}
-\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top \mA_n\vepsi_n) = o_p(1)
-\end{equation*}
-%
-which can also be written as
-\begin{equation*}
-  \frac{\vepsi_n^\top \mA_n \vepsi}{n}\pto \sigma^2_0\mA^*.
+\frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top \mA_n\vepsi_n) = o_p(1).
 \end{equation*}
 
+Since $\E\left[(\vepsi_n^\top\mA_n\vepsi_n)^2\right]= \var(\vepsi_n^\top\mA_n\vepsi) +  \left(\E(\vepsi_n^\top\mA_n\vepsi_n)\right)^2 = O(n) + O(n)O(n)= O(n^2)$ by Property \ref{prop:blO-nest}. The Chebyshev inequality \ref{definition:chebyshev_ineq} implies that
+\begin{equation*}
+\Pr\left(\frac{1}{n}\left|\vepsi_n^\top\mA_n\vepsi_n\right| \geq \delta\right) \leq \frac{1}{\delta^2n^2}\E\left[(\vepsi_n^\top\mA_n\vepsi_n)^2\right] = \frac{1}{\delta^2}O(1).
+\end{equation*}
+
+Then $\frac{1}{n}\vepsi^\top_n\mA_n\vepsi_n = O_p(1)$, and $n^{-1}\vepsi_n^\top\mA_n\vepsi_n$ is bounded. Furthermore, $\vepsi^\top_n\mA_n\vepsi_n = O_p(n)$.
 \end{proof}
+%--------------------------------------------------------------------
+
+%----------------------------------
+\begin{lemma} Suppose that 
+Suppose that  $\left\lbrace \mA_n\right\rbrace$ consists of nonstochastic $n\times n$ matrices uniformly bounded in spectral matrix norm. Let $\vc_n$ be a column vector of constants. If, $\frac{1}{n}\vc_n^\top\vc_n$, then $\frac{1}{\sqrt{n}}\vc_n^\top\mA_n\vepsi_n = o_p(1)$. On the other hand, if $\frac{1}{n}\vc_n^\top\vc_n = O(1)$, then $\frac{1}{\sqrt{n}}\vc_n^\top\mA_n\vepsi_n=O_p(1)$.
+\end{lemma}
+%----------------------------------
+
+% \begin{proof}
+% Note that:
+% \begin{equation*}
+% \begin{aligned}
+%   \var\left(\frac{1}{\sqrt{n}}\vc_n^\top\mA_n\vepsi_n\right) & = \frac{1}{n}\sigma^2\vc_n^\top\mA_n\mA_n^\top\vc_n.
+% \end{aligned}
+% \end{equation*}
+% 
+% By Chebyshev's inequality if $\var\left(\frac{1}{\sqrt{n}}\vc_n^\top\mA_n\vepsi_n\right)\to 0$, then $\frac{1}{\sqrt{n}}\vc_n^\top\mA_n\vepsi_n = o_p(1)$
+% \end{proof}
+
+% %-----------------------------------------------------------------------------------------------
+% \begin{theorem}[Consistency of quadratic forms in spatial models]\label{teo:quadratic-forms-ley}
+% Let $\mA_n$ be an $n\times n$ nonstochastic matrix whose row and columns sums are uniformly bounded in absolute value. Let $\vepsi^{\top}_n=(\epsilon_{n1}, ..., \epsilon_{nn})$ where $\epsilon_{ni}$ are iid $(0, \sigma^2_0)$ and $\E(\epsilon_{ni}^4)<\infty$. Then
+% \begin{equation*}
+%   \frac{\vepsi_n^\top \mA_n \vepsi_n}{n}\pto \E\left(\vepsi_n^\top \mA_n \vepsi_n\right) = \sigma^2_0\frac{\tr(\mA_n)}{n}
+% \end{equation*}
+% \end{theorem}
+% %-----------------------------------------------------------------------------------------------
+% 
+% 
+% \begin{proof}
+%  This result follows from Theorem \ref{teo:chebyshev}. By Chebyshev inequality \ref{definition:chebyshev_ineq}
+%  \begin{equation*}
+%  \begin{aligned}
+%   \Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right| \geq \delta \right] &\leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2 \delta^2} \\
+%     \Pr\left[\left|\frac{1}{n}\vepsi_n^\top \mA_n \vepsi_n - \sigma^2_{0}\frac{\tr(\mA_n)}{n}\right|  \geq \delta \right] &\leq \frac{\var(\vepsi_n^\top \mA_n \vepsi_n)}{n^2\delta^2}  \\
+%     & \leq \frac{1}{\delta^2}n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n)
+%  \end{aligned}
+%  \end{equation*}
+%  
+%  By Lemma \ref{lemma:bounde_trace}, $\tr(\mA_n) = O(n)$. Hence $\lim_{n\to\infty} \frac{1}{n}\E(\vepsi_n^\top \mA_n \vepsi_n) = \sigma_{0}^2\mA^* = O(1)$ and the expectation exists. 
+%  
+%  By Lemma \ref{lemma:O-lemma-lee} $\var(\vepsi_n\mA_n\vepsi_n) = O(n)$. Therefore, $n^{-2}\var(\vepsi_n^\top \mA_n \vepsi_n) = \var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n) = O(n^{1}) = o(1)$. Thus $\var(n^{-1}\vepsi_n^\top \mA_n \vepsi_n)\to 0$ as $n\to \infty$ and $\Pr\left[\frac{1}{n}\left|\vepsi_n^\top \mA_n \vepsi_n - \E(\vepsi_n^\top \mA_n \vepsi_n)\right|\geq \delta \right]\to 0$, so 
+% \begin{equation*}
+% \frac{1}{n}\vepsi_n^\top\mA_n\vepsi_n - \frac{1}{n}\E(\vepsi_n^\top \mA_n\vepsi_n) = o_p(1)
+% \end{equation*}
+% %
+% which can also be written as
+% \begin{equation*}
+%   \frac{\vepsi_n^\top \mA_n \vepsi}{n}\pto \sigma^2_0\mA^*.
+% \end{equation*}
+% \end{proof}
 
 
 %---------------------------------
 \section{CLT for Spatial Models}
 %---------------------------------
 
+\begin{theorem}[Liapounov's CLT theorem for double arrays]
+Let $\left\lbrace X_{ni}: i = 1, \ldots, n\right\rbrace$ be an array of independent random variables. Let $\E(X_{ni}) = \mu_n$ and $\E(X_{ni} - \mu_{ni})^2 = \sigma_{ni}^2\neq 0$. If
+\begin{equation*}
+\frac{\sum_{k = 1}^n\E\left|X_{nk}- \mu_{nk}\right|^2}{(\sum_{i= 1}^n \sigma^2_{ni})^{1 + \delta/2}}\to 0,
+\end{equation*}
+%
+for a positive $\delta >0$, then
+\begin{equation*}
+\sqrt{n}\frac{\sum_{i = 1}^n(X_{ni}-\mu_{ni})}{(\sum_{i = 1}^n \sigma^2_{ni})^{1/2}}\dto \rN(0,1).
+\end{equation*}
+\end{theorem}
 
-The following theorem states the limiting distribution for triangular arrays with homokedastic errors in linear forms:
+The following theorem states the limiting distribution for triangular arrays with homoskedastic errors in linear forms:
 
-\begin{theorem}[CLT for triangular arrays with homokedastic errors, \citep{kelejian1998generalized}]\label{teo:CLT_tri_arr}
-Let $\left\lbrace v_{i,n}, 1 \leq i \leq n, n\geq 1\right\rbrace $ be a triangular array of identically distributed random variables. Assume that the random variables $\left\lbrace v_{i,n}, 1 \leq i \leq n\right\rbrace$ are jointly independently distributed for each $n$ with $\E(v_{i,n})= 0$ and $\E(v_{i,n}^2) = \sigma^2 < \infty$. Let $\left\lbrace a_{ij,n}, 1 \leq i \leq n, n\geq 1\right\rbrace, j = 1,...,k$ be triangular arrays of real numbers that are bounded in absolute value. Further let
-
+%--------------------------------------------------------------------
+\begin{theorem}[CLT for triangular arrays with homoskedastic errors, \citep{kelejian1998generalized}]\label{teo:CLT_tri_arr}
+Let $\left\lbrace v_{i,n}, 1 \leq i \leq n, n\geq 1\right\rbrace $ be a triangular array of identically distributed random variables. Assume that the random variables $\left\lbrace v_{i,n}, 1 \leq i \leq n\right\rbrace$ are jointly independently distributed for each $n$ with $\E(v_{i,n})= 0$ and $\E(v_{i,n}^2) = \sigma^2 < \infty$. Let $\left\lbrace a_{ij,n}, 1 \leq i \leq n, n\geq 1\right\rbrace, j = 1,\ldots,k$ be triangular arrays of real numbers that are bounded in absolute value. Further let
 \begin{equation*}
   \vv_n = \begin{pmatrix}
             v_{1, n} \\
@@ -2024,34 +2096,33 @@ Let $\left\lbrace v_{i,n}, 1 \leq i \leq n, n\geq 1\right\rbrace $ be a triangul
 \end{equation*}
 
 Then:
-
 \begin{equation*}
 \frac{1}{\sqrt{n}}\mA_n^\top\vv_n = O_p(1)
 \end{equation*}
 
 Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is finite and nonsingular matrix. Then
-
 \begin{equation*}
 \frac{1}{\sqrt{n}}\mA_n^\top\vv_n \dto \rN(\vzeros, \sigma^2 \mQ_{AA})
 \end{equation*}
 \end{theorem}
+%--------------------------------------------------------------------
 
+\cite{kelejian2001asymptotic} introduced a CLT for a single quadratic form under the assumptions useful for spatial models. The generalization to vectors of linear quadratic forms is given in \cite{kelejian2010specification}.
 
+%------------------------------------------------------
 \begin{theorem}[CLT for Vectors of Linear Quadratic Forms with Heterokedastic Innovations]\label{teo:clt_quadratic}
 		Assume the following:
 		\begin{enumerate}
-			\item For $r = 1,...,m$ let $\mA_{r,n}$ with elements $(a_{ijr})_{i,j = 1,...,n}$ be an $n\times n$ non-stochastic symmetric real matrix with $\sup_{1\leq j \leq n, n\geq 1}\sum_{i = 1}^n|a_{ijr}| < \infty$,
-			\item and let $\va_r = (a_{ir},...,a_{nr})^\top$ be a $n \times 1$ non-stochastic real vector with $\sup_{n}\frac{\sum_{i=1}^n \left|a_{ir}\right|^{\delta_1}}{n}<\infty$ for some $\delta_1 > 2$.
-			\item Let $\vepsi = (\epsilon_1,...,\epsilon_n)^\top$ be an $n \times 1$ random vector with the $\epsilon_i$ distributed totally independent with $\E\left[\epsilon_i\right] = 0, \E\left[\epsilon_i^2\right]$, and  $\sup_{1 \leq i \leq n, n \geq 1}\E\left|\epsilon_{i}\right|^{\delta_2}<\infty$ for some $\delta_2 >4$. 
+			\item For $r = 1,\ldots, m$ let $\mA_{r,n}$ with elements $(a_{ijr})_{i,j = 1, \ldots,n}$ be an $n\times n$ non-stochastic symmetric real matrix with $\sup_{1\leq j \leq n, n\geq 1}\sum_{i = 1}^n|a_{ijr}| < \infty$,
+			\item and let $\va_r = (a_{ir},\ldots ,a_{nr})^\top$ be a $n \times 1$ non-stochastic real vector with $\sup_{n}\frac{\sum_{i=1}^n \left|a_{ir}\right|^{\delta_1}}{n}<\infty$ for some $\delta_1 > 2$.
+			\item Let $\vepsi = (\epsilon_1,\ldots ,\epsilon_n)^\top$ be an $n \times 1$ random vector with the $\epsilon_i$ distributed totally independent with $\E\left[\epsilon_i\right] = 0, \E\left[\epsilon_i^2\right]$, and  $\sup_{1 \leq i \leq n, n \geq 1}\E\left|\epsilon_{i}\right|^{\delta_2}<\infty$ for some $\delta_2 >4$. 
 		\end{enumerate}
-		Consider the $m \times 1$ vector of linear quadratic forms $\vv_n = \left[Q_{1n},..., Q_{mn}\right]'$ with:
-		
-		\begin{equation}
+		Consider the $m \times 1$ vector of linear quadratic forms $\vv_n = \left[Q_{1n},\ldots, Q_{mn}\right]'$ with:
+		\begin{equation*}
 			Q_{rn}= \vepsi'\mA_r\vepsi + \va_r'\vepsi = \sum_{i=1}^n\sum_{j=1}^na_{ijr}\epsilon_i\epsilon_j + \sum_{i=1}^na_{ir}\epsilon_i.
-		\end{equation}
+		\end{equation*}
 		
-		Let $\mu_{\vv} = \mE\left[\vv_n\right] = \left[\mu_{Q_1},...,\mu_{Q_2}\right]^\top$ and $\mSigma_{\vv_n} =\left[\sigma_{Q_{rs}}\right]_{r,s =1,...,m}$ denote the mean and VC matrix of $\vv_n$, respectively, then:
-		
+		Let $\mu_{\vv} = \E\left[\vv_n\right] = \left[\mu_{Q_1},\ldots,\mu_{Q_2}\right]^\top$ and $\mSigma_{\vv_n} =\left[\sigma_{Q_{rs}}\right]_{r,s =1,\ldots,m}$ denote the mean and VC matrix of $\vv_n$, respectively, then:
 		\begin{equation*}
 			\begin{aligned}
 			\mu_{Q_r} & = \sum_{i = 1}^na_{iir}\sigma_i^2 \\
@@ -2059,21 +2130,64 @@ Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is 
 			 	            & + \sum_{i = 1}^na_{iir}a_{iis}\left[\mu_i^{(4)} - 3\mu_i^{4}\right] + \sum_{i =1}^n(a_{ir}a_{iis} + a_{is}a_{iir})\mu_i^{(3)}
 			\end{aligned}
 		\end{equation*}
-		
-		with $\mu_i^{(3)} = \mE(\epsilon_i^3)$ and $\mu_i^{(4)} = \mE(\epsilon_i^4)$. Furthermore, given that $n^{-1}\lambda_{min}(\mSigma_{\vv_n})\geq c$ for some $c > 0$, then
-		
+		%
+		with $\mu_i^{(3)} = \E(\epsilon_i^3)$ and $\mu_i^{(4)} = \E(\epsilon_i^4)$. Furthermore, given that $n^{-1}\lambda_{min}(\mSigma_{\vv_n})\geq c$ for some $c > 0$, then
 		\begin{equation*}
-		\mSigma_{\vv_n} ^{-1/2}(\vv_n - \mu_{\vv_n})\dto \rN(\vzeros, \mI_m)
+		\mSigma_{\vv_n} ^{-1/2}(\vv_n - \mu_{\vv_n})\dto \rN(\vzeros, \mI_m),
 		\end{equation*}
-		
+		%
 		and thus:
-		
 		\begin{equation*}
 			n^{-1/2}(\vv_n - \mu_{\vv_n}) \adistr \rN(\vzeros, n^{-1}\mSigma_{\vv_n})
 		\end{equation*}
 \end{theorem}	
+%--------------------------------------------------
 
-\cite{kelejian2001asymptotic} introduced a CLT for a single quadratic form under the assumptions useful for spatial models. The generalization to vectors of linear quadratic forms is given in \cite{kelejian2010specification}.
+In case that $\mA_{r,n}$ is not symmetric, it can be replaced by $(\mA_{r, n}+ \mA_{r, n}^\top)/2$. See our Definition \ref{def:quad-form}. Also note that the matrix $\mA_{r,n}$ is allows to have non-zero diagonal elements. However, for most spatial models this is not needed, since, by convention, the diagonals of $\mW$ and $\mM$ are zero. If the diagonal elements of $\mA_{r,n}$ are zero, then the mean $\mu_{Q_r}  = \sum_{i = 1}^na_{iir}\sigma_i^2 = 0$. Similarly, if the $\epsilon_i$ are homoskedastic, then $\tr(\mA_r) = \sum_{i = 1}^n a_{ii,r} = 0$ and, as a result, $\mu_{Q_r} = 0$. 
+
+In addition, the covariance $\sigma_{Q_{rs}}$ between $Q_{rn}$ and $Q_{sn}$ can be written more compactly as
+\begin{equation*}
+2\tr\left(\mA_r\mSigma\mA_s\mSigma\right) + \va_r^\top\mSigma\va_s,
+\end{equation*}
+%
+with $\mSigma = \Diag(\sigma_i^2)$. Finally, note that if $a_{iir} = a_{iis} = 0$, then the last two terms drop out from the expression for covariance. Under normality, $\mu_i^{(3)} = 0$ and $\mu_{i}^{(4)} = 3$ the last two terms are always equal to zero. 
+
+This Theorem would be useful in, for example, Chapter \ref{chapter:gmm}. For an univariate application see Annex \ref{Annex:asymptotic-moran-I}. Consider the following quadratic moment:
+\begin{equation*}
+\begin{aligned}
+g_n(\rho_0, \widetilde{\vdelta}_n) & = \widetilde{\vu}_n^\top\left(\mI_n - \rho_0\mM_n\right)^\top\mA_n\left(\mI_n - \rho_0\mM_n\right)\widetilde{\vu}_n, \\
+                                  & = \widetilde{\vu}_n^\top\mC_0\widetilde{\vu}_n, 
+\end{aligned}
+\end{equation*}
+%
+where $\mC_0 = (1 / 2)\left(\mI_n - \rho_0\mM_n\right)^\top\left(\mA_n + \mA_n^\top\right)\left(\mI_n - \rho_0\mM_n\right)$. A Taylor expansion of $g_n(\rho_0, \widetilde{\vdelta}_n)$ around $\vdelta_0$, gives:
+\begin{equation*}
+  \frac{1}{n}g_n(\rho_0, \widetilde{\vdelta}_n) = \frac{1}{n}g_n(\rho_0, \vdelta_0) + \frac{1}{n}\frac{\partial g_n(\rho_0, \vdelta_0)}{\partial \vdelta}(\widetilde{\vdelta}_n - \vdelta_0).
+\end{equation*}
+
+If $\vu_n = \vy - \mZ_n\vdelta_0$, with $\mZ_n = \left[\mW_n\vy_n, \mX_n\right]$, then
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n}\frac{\partial g_n(\rho_0, \vdelta_0)}{\partial \vdelta} & = 2\frac{1}{n}\E\left(\vu_n^\top\mC_0\frac{\partial \vu_n}{\partial \vdelta_0}\right), \\
+& = - 2n^{-1}\E\left(\vu_n^\top\mC_0\mZ_n\right).
+\end{aligned}
+\end{equation*}
+
+If we assume that $(\widetilde{\vdelta}_n - \vdelta_0) = \mT_{n}^\top\vepsi_n + o_p(1)$, and $\vu_n = (\mI_n - \rho_0\mM_n)^{-1}\vepsi_n$, then
+\begin{equation*}
+\begin{aligned}
+  \frac{1}{n}g_n(\rho_0, \widetilde{\vdelta}_n)  & = \frac{1}{2}n^{-1}\vepsi_n^\top\left(\mA_n + \mA_n^\top\right)\vepsi_n - 2n^{-1}\E\left(\vu_n^\top\mC_0\mZ_n\right)\mT_{n}^\top\vepsi_n + o_p(1) \\
+  & = \frac{1}{2}n^{-1}\vepsi_n^\top\left(\mA_n + \mA_n^\top\right)\vepsi_n + \va_n^\top\vepsi_n + o_p(1),
+  \end{aligned}
+\end{equation*}
+%
+where
+\begin{equation*}
+\va_n = -2n^{-1}\mT_n\E\left(\mZ_n^\top\mC_0\vu_n\right) = -n^{-1}\mT_n\E\left[\mZ_n^\top(\mI_n - \rho_0\mM_n^\top)(\mA_n + \mA_n^\top)(\mI_n - \rho_0\mM_n)\vu_n\right]. 
+\end{equation*}
+
+Since $\mZ_n$ is stochastic, $\va_n \neq \vzeros$. 
+
 
 
 %-----------------------
@@ -2090,6 +2204,38 @@ Furthermore, assume that $\lim_{n\to\infty}n^{-1}\mA^\top_n\mA_n = \mQ_{AA}$ is 
 
 \section*{Appendix}
 \begin{subappendices}
+
+%----------------------------------
+\section{Matrix Norm}
+%----------------------------------
+
+\begin{definition}[Matrix Norm]
+Given a square complex or real matrix $\mA$, a matrix norm $\lVert \mA \rVert$ is a nonnegative number associated with $\mA$ having the propertie
+\begin{enumerate}
+  \item $\lVert \mA \rVert> 0$ when $\mA\neq 0$ and $\lVert \mA \rVert = 0$ if and only if $\mA = 0$, 
+  \item $\lVert k \mA \rVert = \left|k\right|\lVert \mA \rVert$ for any scalar $k$, 
+  \item $\lVert \mA  + \mB \rVert \leq \lVert \mA \rVert + \lVert \mB \rVert$, 
+  \item $\lVert \mA\mB \rVert \leq \lVert \mA \rVert \lVert \mB \rVert$
+\end{enumerate}
+\end{definition}
+
+The maximum absolute column sum norm $\lVert \mA \rVert_1$ is defined as
+\begin{equation*}
+\lVert \mA \rVert_1 = \max_j\sum_{i = 1}^n\left|a_{ij}\right|
+\end{equation*}
+
+The spectral norm $\lVert \mA \rVert_2$ is defined as
+\begin{equation*}
+\lVert \mA \rVert_2 = \sigma_{\max}(\mA) = \sqrt{\lambda_{\max}\left(\mA^\top \mA\right)}
+\end{equation*}
+
+The maximum absolute row sum norm is defined by
+\begin{equation*}
+\lVert \mA \rVert_{\infty} = \max_i\sum_{j = 1}^n\left|a_{ij}\right|
+\end{equation*}
+
+$\lVert \mA \rVert_1$, $\lVert \mA \rVert_2$ and $\lVert \mA \rVert_{\infty}$ satisfy the inequality $\lVert \mA \rVert_2^2 \leq \lVert \mA \rVert_1\lVert \mA \rVert_{\infty}$.
+
 
 %-------------------------------------------------------------------------
  \section{Inqualities}\label{appendix-inequalities}

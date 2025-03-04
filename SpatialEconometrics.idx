@@ -5,65 +5,67 @@
 \indexentry{Weight matrix!Definition|hyperpage}{7}
 \indexentry{Weight matrix!Rook contiguity|hyperpage}{7}
 \indexentry{Weight matrix!Bishop contiguity|hyperpage}{8}
-\indexentry{Weight matrix!Queen contiguity|hyperpage}{9}
+\indexentry{Weight matrix!Queen contiguity|hyperpage}{8}
 \indexentry{Weight matrix!Based on distance|hyperpage}{9}
 \indexentry{Weight matrix!Row-standardization|hyperpage}{11}
 \indexentry{Weight matrix!Spatial lag|hyperpage}{12}
-\indexentry{Weight matrix!Higher order|hyperpage}{13}
+\indexentry{Weight matrix!Higher order|hyperpage}{12}
 \indexentry{Weight matrix!poly2nb function|hyperpage}{16}
 \indexentry{Weight matrix!nb2listw function|hyperpage}{17}
 \indexentry{Weight matrix!knearneigh function|hyperpage}{20}
-\indexentry{Weight matrix!lag.listw function|hyperpage}{24}
+\indexentry{Weight matrix!lag.listw function|hyperpage}{22}
 \indexentry{Moran's I test|hyperpage}{24}
 \indexentry{Moran's I test!Moran scatterplot|hyperpage}{25}
-\indexentry{Moran's I test!Normality|hyperpage}{27}
-\indexentry{Moran's I test!Randomization|hyperpage}{28}
-\indexentry{Moran's I test!Monte carlo|hyperpage}{28}
-\indexentry{Moran's I test!moran.test function|hyperpage}{30}
-\indexentry{Moran's I test!moran.mc function|hyperpage}{32}
-\indexentry{Moran's I test!moran.plot function|hyperpage}{32}
-\indexentry{Spatial lag model|hyperpage}{35}
-\indexentry{Spatial autoregressive process|hyperpage}{36}
-\indexentry{Spillover effects|hyperpage}{36}
-\indexentry{Reduced form!Spatial lag model|hyperpage}{36}
-\indexentry{Weight matrix!Invertibility|hyperpage}{37}
-\indexentry{eigen values|hyperpage}{37}
-\indexentry{Parameter space|hyperpage}{38}
-\indexentry{Leontief expansion|hyperpage}{38}
-\indexentry{Multiplier effect|hyperpage}{39}
-\indexentry{Spatial durbin model|hyperpage}{40}
-\indexentry{Spatial durbin model!reduced form|hyperpage}{40}
-\indexentry{Spatial error model|hyperpage}{41}
-\indexentry{Spatial error model!reduced form|hyperpage}{41}
-\indexentry{Spillover effects!Global spillovers|hyperpage}{45}
-\indexentry{Spillover effects!Local spillovers|hyperpage}{46}
-\indexentry{Spillover effects!Marginal effects|hyperpage}{46}
-\indexentry{Spillover effects!Indirect effects|hyperpage}{47}
-\indexentry{Spillover effects!Direct effects|hyperpage}{47}
-\indexentry{Spillover effects!example|hyperpage}{53}
-\indexentry{Convergence!deterministic sequences|hyperpage}{65}
-\indexentry{Convergence!bounded sequences|hyperpage}{67}
-\indexentry{big O|hyperpage}{68}
-\indexentry{convergence in probability|hyperpage}{69}
-\indexentry{consistent estimator|hyperpage}{72}
-\indexentry{Maximum likelihood|hyperpage}{108}
-\indexentry{Maximum likelihood!Jacobian|hyperpage}{109}
-\indexentry{Maximum likelihood!concentrated log-likelihood|hyperpage}{111}
-\indexentry{Generalized method of moments|hyperpage}{177}
-\indexentry{Instrumental Variables!S2SLS|hyperpage}{182}
-\indexentry{Instrumental Variables!definition in the spatial context|hyperpage}{183}
-\indexentry{Instrumental Variables!optimal instruments|hyperpage}{184}
-\indexentry{Heteroskedasticity!error term|hyperpage}{184}
-\indexentry{Endogeneity!additional endogenous variables|hyperpage}{187}
-\indexentry{Endogeneity!error in variables|hyperpage}{187}
-\indexentry{S2SLS!consistency|hyperpage}{188}
-\indexentry{S2SLS!Asymptotic distribution|hyperpage}{189}
-\indexentry{S2SLS!stsls function|hyperpage}{190}
-\indexentry{S2SLS!example|hyperpage}{190}
-\indexentry{Spillover effects!for S2SLS|hyperpage}{192}
-\indexentry{Moment conditions|hyperpage}{195}
-\indexentry{Generalized method of moments!Moment conditions|hyperpage}{195}
-\indexentry{quadratic moment conditions|hyperpage}{195}
-\indexentry{SAC model!FGS2SLS|hyperpage}{205}
-\indexentry{GS2SLS!gstsls function|hyperpage}{220}
-\indexentry{GS2SLS!spreg function|hyperpage}{221}
+\indexentry{Moran's I test!Normality|hyperpage}{26}
+\indexentry{Moran's I test!Randomization|hyperpage}{27}
+\indexentry{Moran's I test!Monte carlo|hyperpage}{27}
+\indexentry{Moran's I test!moran.test function|hyperpage}{29}
+\indexentry{Moran's I test!moran.mc function|hyperpage}{31}
+\indexentry{Moran's I test!moran.plot function|hyperpage}{31}
+\indexentry{Spatial lag model|hyperpage}{33}
+\indexentry{Spatial autoregressive process|hyperpage}{34}
+\indexentry{Spatial durbin model|hyperpage}{34}
+\indexentry{Spatial error model|hyperpage}{35}
+\indexentry{Reduced form!Spatial lag model|hyperpage}{38}
+\indexentry{Weight matrix!Invertibility|hyperpage}{39}
+\indexentry{eigen values|hyperpage}{39}
+\indexentry{Parameter space|hyperpage}{39}
+\indexentry{Leontief expansion|hyperpage}{40}
+\indexentry{Multiplier effect|hyperpage}{40}
+\indexentry{Spillover effects!Global spillovers|hyperpage}{48}
+\indexentry{Spillover effects!Local spillovers|hyperpage}{48}
+\indexentry{Spillover effects!Marginal effects|hyperpage}{48}
+\indexentry{Spillover effects!Indirect effects|hyperpage}{49}
+\indexentry{Spillover effects!Direct effects|hyperpage}{49}
+\indexentry{Spillover effects!example|hyperpage}{55}
+\indexentry{Convergence!deterministic sequences|hyperpage}{67}
+\indexentry{Convergence!bounded sequences|hyperpage}{69}
+\indexentry{big O|hyperpage}{70}
+\indexentry{convergence in probability|hyperpage}{71}
+\indexentry{consistent estimator|hyperpage}{74}
+\indexentry{Spatial lag model!pure|hyperpage}{109}
+\indexentry{Maximum likelihood!SLM|hyperpage}{113}
+\indexentry{Maximum likelihood|hyperpage}{114}
+\indexentry{Maximum likelihood!Jacobian|hyperpage}{114}
+\indexentry{Maximum likelihood!concentrated log-likelihood|hyperpage}{116}
+\indexentry{score function!SLM|hyperpage}{117}
+\indexentry{Hessian!SLM|hyperpage}{117}
+\indexentry{Cochrane-Orcutt transformation|hyperpage}{122}
+\indexentry{Generalized method of moments|hyperpage}{187}
+\indexentry{Instrumental Variables!S2SLS|hyperpage}{193}
+\indexentry{Instrumental Variables!instruments|hyperpage}{193}
+\indexentry{Heteroskedasticity!error term|hyperpage}{195}
+\indexentry{Endogeneity!additional endogenous variables|hyperpage}{198}
+\indexentry{Endogeneity!error in variables|hyperpage}{199}
+\indexentry{S2SLS!consistency|hyperpage}{199}
+\indexentry{S2SLS!Asymptotic distribution|hyperpage}{200}
+\indexentry{S2SLS!stsls function|hyperpage}{202}
+\indexentry{S2SLS!example|hyperpage}{202}
+\indexentry{BS2SLS|hyperpage}{208}
+\indexentry{Instrumental Variables!optimal instruments|hyperpage}{208}
+\indexentry{Moment conditions|hyperpage}{241}
+\indexentry{Generalized method of moments!Moment conditions|hyperpage}{241}
+\indexentry{quadratic moment conditions|hyperpage}{241}
+\indexentry{SAC model!FGS2SLS|hyperpage}{266}
+\indexentry{GS2SLS!gstsls function|hyperpage}{278}
+\indexentry{GS2SLS!spreg function|hyperpage}{279}

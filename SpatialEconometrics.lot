@@ -1,10 +1,11 @@
-\babel@toc {english}{}
+\babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Spatial Models for Crime in Columbus, Ohio Neighborhoods.\relax }}{129}{table.caption.44}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Spatial Models for Crime in Columbus, Ohio Neighborhoods.\relax }}{135}{table.caption.43}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Comparing coefficients for SLM.\relax }}{152}{table.caption.46}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Spatial Models for Crime in Columbus: ML vs S2SLS\relax }}{193}{table.caption.57}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Spatial Models for Crime in Columbus: ML vs GM\relax }}{206}{table.caption.58}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Comparing coefficients for SLM.\relax }}{235}{table.caption.59}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Comparing SE for SLM.\relax }}{236}{table.caption.60}%

@@ -9,3 +9,10 @@ Matrix
 spatialreg
 expm
 DescTools
+lattice
+MASS
+memisc
+classInt
+miscTools
+maxLik
+sphet
