@@ -653,7 +653,7 @@ Note that both \code{LMerr} and \code{LMlag} are significant. However, the robus
 \begin{subappendices}
 
 %-----------------------------------------------------------------
-\section{Asymptotic Properties of Moran's I}\ref{Annex:asymptotic-moran-I}
+\section{Asymptotic Properties of Moran's I}\label{Annex:asymptotic-moran-I}
 %-----------------------------------------------------------------
 
 

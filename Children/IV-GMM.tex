@@ -728,223 +728,341 @@ In this section, we demonstrate how to implement a custom function to estimate t
 
 
 We start by defining a function to create the instrument matrix $\mH$, which includes spatial lags of the exogenous variables up to a user-specified order.
-<<make.H>>=
-# Function that creates WXs
-make.H <- function(W, X, l = 3){
-  # This function creates the instruments (WX, ...,W^lX)
-  # Drop constant (if any)
-  names.x <- colnames(X)
-  if (names.x[1] == "(Intercept)") X <- matrix(X[ ,-1], 
-                                               dim(X)[1], 
-                                               dim(X)[2] - 1) #Drop first column
-  names.x <- names.x[which(names.x != "(Intercept)")]
-  # Create lagged X variables
-  sq1 <- seq(1, ncol(X) * l, ncol(X))
-  sq2 <- seq(ncol(X), ncol(X) * l, ncol(X))
-  Hmat <- matrix(NA, nrow = nrow(X), ncol = ncol(X) * l)
-  names.ins <- c()
-  for (i in 1:l) {
-    Hmat[, sq1[i]:sq2[i]] <- as.matrix(W %*% X)
-    X <- Hmat[, sq1[i]:sq2[i]]
-    names.ins <- c(names.ins, 
-                   paste(paste(replicate(i, "W"), collapse = ""), 
-                         names.x, sep = "*"))
-  }
-  colnames(Hmat) <- names.ins
-  return(Hmat)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Function that creates WXs}
+\hlstd{make.H} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{W}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{l} \hlstd{=} \hlnum{3}\hlstd{)\{}
+  \hlcom{# This function creates the instruments (WX, ...,W^lX)}
+  \hlcom{# Drop constant (if any)}
+  \hlstd{names.x} \hlkwb{<-} \hlkwd{colnames}\hlstd{(X)}
+  \hlkwa{if} \hlstd{(names.x[}\hlnum{1}\hlstd{]} \hlopt{==} \hlstr{"(Intercept)"}\hlstd{) X} \hlkwb{<-} \hlkwd{matrix}\hlstd{(X[ ,}\hlopt{-}\hlnum{1}\hlstd{],}
+                                               \hlkwd{dim}\hlstd{(X)[}\hlnum{1}\hlstd{],}
+                                               \hlkwd{dim}\hlstd{(X)[}\hlnum{2}\hlstd{]} \hlopt{-} \hlnum{1}\hlstd{)} \hlcom{#Drop first column}
+  \hlstd{names.x} \hlkwb{<-} \hlstd{names.x[}\hlkwd{which}\hlstd{(names.x} \hlopt{!=} \hlstr{"(Intercept)"}\hlstd{)]}
+  \hlcom{# Create lagged X variables}
+  \hlstd{sq1} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwd{ncol}\hlstd{(X)} \hlopt{*} \hlstd{l,} \hlkwd{ncol}\hlstd{(X))}
+  \hlstd{sq2} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlkwd{ncol}\hlstd{(X),} \hlkwd{ncol}\hlstd{(X)} \hlopt{*} \hlstd{l,} \hlkwd{ncol}\hlstd{(X))}
+  \hlstd{Hmat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlkwd{nrow}\hlstd{(X),} \hlkwc{ncol} \hlstd{=} \hlkwd{ncol}\hlstd{(X)} \hlopt{*} \hlstd{l)}
+  \hlstd{names.ins} \hlkwb{<-} \hlkwd{c}\hlstd{()}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{l) \{}
+    \hlstd{Hmat[, sq1[i]}\hlopt{:}\hlstd{sq2[i]]} \hlkwb{<-} \hlkwd{as.matrix}\hlstd{(W} \hlopt{%*%} \hlstd{X)}
+    \hlstd{X} \hlkwb{<-} \hlstd{Hmat[, sq1[i]}\hlopt{:}\hlstd{sq2[i]]}
+    \hlstd{names.ins} \hlkwb{<-} \hlkwd{c}\hlstd{(names.ins,}
+                   \hlkwd{paste}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{replicate}\hlstd{(i,} \hlstr{"W"}\hlstd{),} \hlkwc{collapse} \hlstd{=} \hlstr{""}\hlstd{),}
+                         \hlstd{names.x,} \hlkwc{sep} \hlstd{=} \hlstr{"*"}\hlstd{))}
+  \hlstd{\}}
+  \hlkwd{colnames}\hlstd{(Hmat)} \hlkwb{<-} \hlstd{names.ins}
+  \hlkwd{return}\hlstd{(Hmat)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 This function takes as arguments the spatial weight matrix \texttt{W}, which is assumed to be of class \texttt{matrix}, the $n\times K$ matrix of exogenous variables, \texttt{X}, and order of spatial lags \texttt{l}. Then, it provides the matrix of instruments, $\mW\mX, \mW^2\mX^2, \ldots, \mW^l\mX^l$, recursively. Note that the spatial lag of the constant is not included (why?). 
 
 We create an artificial DGP similar to \cite{lee2007gmm} for testing the S2SLS implementation:
-<<generate-DGP-2sls>>=
-# Generate DGP
-library("spatialreg")
-library("spdep")
-set.seed(1986)
-n      <- 529
-rho    <- 0.6
-W.nb2  <- cell2nb(sqrt(n), sqrt(n))
-W      <- nb2mat(W.nb2)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Generate DGP}
+\hlkwd{library}\hlstd{(}\hlstr{"spatialreg"}\hlstd{)}
+\end{alltt}
 
-# Exogenous variables
-x1     <- rnorm(n)
-x2     <- rnorm(n)
-x3     <- rnorm(n)
 
-# DGP parameters
-b0 <- 0 ; b1 <- -1; b2 <- 0; b3 <- 1
-sigma2 <- 2
-epsilon <- rnorm(n, mean = 0, sd = sqrt(sigma2))
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: spData}}
 
-# Simulate the dependent variable
-y <- solve(diag(n) -  rho * W) %*% (b0 + b1*x1 + b2*x2 + b3*x3 + epsilon)
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# To access larger datasets in this package, install the spDataLarge\\\#\# package with: `install.packages('spDataLarge',\\\#\# repos='https://nowosad.github.io/drat/', type='source')`}}
 
-# Data as data.frame
-data <- as.data.frame(cbind(y, x1, x2, x3))
-names(data) <- c("y", "x1", "x2", "x3")
-@
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: sf}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf\_use\_s2() is TRUE}}\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'spdep'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:spatialreg':\\\#\# \\\#\# \ \ \ \ get.ClusterOption, get.coresOption, get.mcOption,\\\#\# \ \ \ \ get.VerboseOption, get.ZeroPolicyOption, set.ClusterOption,\\\#\# \ \ \ \ set.coresOption, set.mcOption, set.VerboseOption,\\\#\# \ \ \ \ set.ZeroPolicyOption}}\begin{alltt}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1986}\hlstd{)}
+\hlstd{n}      \hlkwb{<-} \hlnum{529}
+\hlstd{rho}    \hlkwb{<-} \hlnum{0.6}
+\hlstd{W.nb2}  \hlkwb{<-} \hlkwd{cell2nb}\hlstd{(}\hlkwd{sqrt}\hlstd{(n),} \hlkwd{sqrt}\hlstd{(n))}
+\hlstd{W}      \hlkwb{<-} \hlkwd{nb2mat}\hlstd{(W.nb2)}
+
+\hlcom{# Exogenous variables}
+\hlstd{x1}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
+\hlstd{x2}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
+\hlstd{x3}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
+
+\hlcom{# DGP parameters}
+\hlstd{b0} \hlkwb{<-} \hlnum{0} \hlstd{; b1} \hlkwb{<-} \hlopt{-}\hlnum{1}\hlstd{; b2} \hlkwb{<-} \hlnum{0}\hlstd{; b3} \hlkwb{<-} \hlnum{1}
+\hlstd{sigma2} \hlkwb{<-} \hlnum{2}
+\hlstd{epsilon} \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n,} \hlkwc{mean} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{sd} \hlstd{=} \hlkwd{sqrt}\hlstd{(sigma2))}
+
+\hlcom{# Simulate the dependent variable}
+\hlstd{y} \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{diag}\hlstd{(n)} \hlopt{-}  \hlstd{rho} \hlopt{*} \hlstd{W)} \hlopt{%*%} \hlstd{(b0} \hlopt{+} \hlstd{b1}\hlopt{*}\hlstd{x1} \hlopt{+} \hlstd{b2}\hlopt{*}\hlstd{x2} \hlopt{+} \hlstd{b3}\hlopt{*}\hlstd{x3} \hlopt{+} \hlstd{epsilon)}
+
+\hlcom{# Data as data.frame}
+\hlstd{data} \hlkwb{<-} \hlkwd{as.data.frame}\hlstd{(}\hlkwd{cbind}\hlstd{(y, x1, x2, x3))}
+\hlkwd{names}\hlstd{(data)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"y"}\hlstd{,} \hlstr{"x1"}\hlstd{,} \hlstr{"x2"}\hlstd{,} \hlstr{"x3"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 In the following lines, we show how the function \texttt{make.H} works using $l = 3$. 
-<<test.make.H>>=
-X <- cbind(1, x1, x2, x3)
-colnames(X) <- c("(Intercept)", "x1", "x2", "x3")
-H <- make.H(W = W, X = X, l = 3) 
-head(H)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{X} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlnum{1}\hlstd{, x1, x2, x3)}
+\hlkwd{colnames}\hlstd{(X)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"(Intercept)"}\hlstd{,} \hlstr{"x1"}\hlstd{,} \hlstr{"x2"}\hlstd{,} \hlstr{"x3"}\hlstd{)}
+\hlstd{H} \hlkwb{<-} \hlkwd{make.H}\hlstd{(}\hlkwc{W} \hlstd{= W,} \hlkwc{X} \hlstd{= X,} \hlkwc{l} \hlstd{=} \hlnum{3}\hlstd{)}
+\hlkwd{head}\hlstd{(H)}
+\end{alltt}
+\begin{verbatim}
+##            W*x1       W*x2        W*x3       WW*x1       WW*x2       WW*x3
+## [1,] -0.1838084  1.4871684  1.06237375 -0.19093708 -0.66721937  0.11419352
+## [2,] -0.1734224 -0.4801317  0.00889001 -0.18346010  1.16724914  0.84907535
+## [3,] -0.1376933  0.7858546  0.65742663 -0.07600407 -0.06559888 -0.33095264
+## [4,]  0.2516524  0.5410386 -0.66094372 -0.17572619  0.04624316  0.12822625
+## [5,] -0.2524966 -0.7357899 -0.27611007  0.53392070  0.46568956 -0.40883400
+## [6,]  0.7127103  0.4896574 -0.25597660 -0.08935028 -0.65274040 -0.05759884
+##          WWW*x1     WWW*x2      WWW*x3
+## [1,] -0.2364339  1.1506372  0.80406622
+## [2,] -0.1724420 -0.4360736 -0.07942842
+## [3,] -0.1916439  0.6032002  0.46356720
+## [4,]  0.2365006  0.1309099 -0.37543431
+## [5,] -0.1367966 -0.4243089 -0.02981086
+## [6,]  0.4918535  0.2858139 -0.35198454
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Thus, the matrix \texttt{H} contains the spatial lag of the exogenous variables up to the third order. 
 
 The main function for estimating the S2SLS model is defined as follows:
-<<slm.2sls>>=
-# Main function to estimate S2SLS estimator
-slm.2sls <- function(formula, data, W, instruments = 2){
-  # Model Frame
-  callT    <- match.call(expand.dots = TRUE)
-  mf       <- callT
-  m        <- match(c("formula", "data"), names(mf), 0L)
-  mf       <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf       <- eval(mf, parent.frame())
-  
-  # Get variables and globals
-  y  <- model.response(mf)
-  X  <- model.matrix(formula, mf)
-  n  <- nrow(X)
-  Wy <- W %*% y
-  sn <- nrow(W)
-  if (n != sn) stop("number of spatial units in W is different to the number of data")
-  
-  # Generate matrix of instruments H = [X, WX, ... ]
-  # and select LI vars
-  H <- cbind(X, make.H(W = W, X = X, l = instruments))
-  H <- H[, qr(H)$pivot[seq_len(qr(H)$rank)]]
-  
-  # Get S2SLS estimates
-  Z           <- cbind(X, Wy)
-  colnames(Z) <- c(colnames(X), "Wy")
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Main function to estimate S2SLS estimator}
+\hlstd{slm.2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{W}\hlstd{,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{)\{}
+  \hlcom{# Model Frame}
+  \hlstd{callT}    \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}        \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())}
 
-  # Create projection matrix
-  HH    <- crossprod(H)
-  PH    <- H %*% solve(HH) %*% t(H)
-  
-  # Compute S2SLS coefficients
-  Z_hat  <- PH %*% Z
-  b_2sls <- solve(crossprod(Z_hat)) %*% crossprod(Z_hat, y)
-  y_hat  <- Z %*% b_2sls
-  e_hat  <- y - y_hat
-  
-  # Save results
-  results <- structure(
-    list(
-      coefficients = b_2sls, 
-      call         = callT, 
-      X            = X, 
-      H            = H, 
-      Z            = Z, 
-      y            = y, 
-      PH           = PH, 
-      e_hat        = e_hat
-    ), 
-    class = 'mys2sls'
-  )
-}
-@
+  \hlcom{# Get variables and globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{Wy} \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlstd{y}
+  \hlstd{sn} \hlkwb{<-} \hlkwd{nrow}\hlstd{(W)}
+  \hlkwa{if} \hlstd{(n} \hlopt{!=} \hlstd{sn)} \hlkwd{stop}\hlstd{(}\hlstr{"number of spatial units in W is different to the number of data"}\hlstd{)}
+
+  \hlcom{# Generate matrix of instruments H = [X, WX, ... ]}
+  \hlcom{# and select LI vars}
+  \hlstd{H} \hlkwb{<-} \hlkwd{cbind}\hlstd{(X,} \hlkwd{make.H}\hlstd{(}\hlkwc{W} \hlstd{= W,} \hlkwc{X} \hlstd{= X,} \hlkwc{l} \hlstd{= instruments))}
+  \hlstd{H} \hlkwb{<-} \hlstd{H[,} \hlkwd{qr}\hlstd{(H)}\hlopt{$}\hlstd{pivot[}\hlkwd{seq_len}\hlstd{(}\hlkwd{qr}\hlstd{(H)}\hlopt{$}\hlstd{rank)]]}
+
+  \hlcom{# Get S2SLS estimates}
+  \hlstd{Z}           \hlkwb{<-} \hlkwd{cbind}\hlstd{(X, Wy)}
+  \hlkwd{colnames}\hlstd{(Z)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"Wy"}\hlstd{)}
+
+  \hlcom{# Create projection matrix}
+  \hlstd{HH}    \hlkwb{<-} \hlkwd{crossprod}\hlstd{(H)}
+  \hlstd{PH}    \hlkwb{<-} \hlstd{H} \hlopt{%*%} \hlkwd{solve}\hlstd{(HH)} \hlopt{%*%} \hlkwd{t}\hlstd{(H)}
+
+  \hlcom{# Compute S2SLS coefficients}
+  \hlstd{Z_hat}  \hlkwb{<-} \hlstd{PH} \hlopt{%*%} \hlstd{Z}
+  \hlstd{b_2sls} \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(Z_hat))} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(Z_hat, y)}
+  \hlstd{y_hat}  \hlkwb{<-} \hlstd{Z} \hlopt{%*%} \hlstd{b_2sls}
+  \hlstd{e_hat}  \hlkwb{<-} \hlstd{y} \hlopt{-} \hlstd{y_hat}
+
+  \hlcom{# Save results}
+  \hlstd{results} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{coefficients} \hlstd{= b_2sls,}
+      \hlkwc{call}         \hlstd{= callT,}
+      \hlkwc{X}            \hlstd{= X,}
+      \hlkwc{H}            \hlstd{= H,}
+      \hlkwc{Z}            \hlstd{= Z,}
+      \hlkwc{y}            \hlstd{= y,}
+      \hlkwc{PH}           \hlstd{= PH,}
+      \hlkwc{e_hat}        \hlstd{= e_hat}
+    \hlstd{),}
+    \hlkwc{class} \hlstd{=} \hlstr{'mys2sls'}
+  \hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function \texttt{slm.2sls} provides the S2SLS estimates using the matrix of instruments $\mH$ suggested by \cite{kelejian1998generalized}. The 2SLS estimates are obtained using Equation \eqref{eq:2sls_estimator}. It then returns an object of class \texttt{mys2sls} along with some elements as a list such as the estimated coefficients, the call of the model, and different matrix that can be used in other functions. 
 
 In the next lines, we create the S3 method \texttt{vcov} for an object with class \texttt{mys2sls}:
-<<vcov.mys2sls >>=
-# S3 Method vcov
-vcov.mys2sls <- function(object, tse = c("homo", "rob"), ...){
-    tse    <- match.arg(tse)
-    n      <- nrow(object$Z)
-    df     <- n - ncol(object$Z)
-    Q.HZ   <- (t(object$H) %*% object$Z) / n
-    Q.HH.i <- solve(crossprod(object$H) / n)
-    if (tse == "homo"){
-      s2  <- crossprod(object$e_hat) / df
-      var <- drop(s2) * solve(t(Q.HZ) %*% Q.HH.i %*% Q.HZ) / n
-    } else {
-      Delta.hat <- 0
-      for (i in 1:nrow(object$Z)){
-        Delta.hat <- Delta.hat + drop(object$e_hat[i] ^2) * tcrossprod(object$H[i, ])
-      }
-      bread  <- solve(t(Q.HZ) %*% Q.HH.i %*% Q.HZ)
-      cheese <- t(Q.HZ) %*% Q.HH.i %*% (Delta.hat / n)  %*% Q.HH.i %*% Q.HZ
-      var    <- (bread %*% cheese %*% bread) / n
-    }
-    return(var)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# S3 Method vcov}
+\hlstd{vcov.mys2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,} \hlkwc{tse} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"homo"}\hlstd{,} \hlstr{"rob"}\hlstd{),} \hlkwc{...}\hlstd{)\{}
+    \hlstd{tse}    \hlkwb{<-} \hlkwd{match.arg}\hlstd{(tse)}
+    \hlstd{n}      \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+    \hlstd{df}     \hlkwb{<-} \hlstd{n} \hlopt{-} \hlkwd{ncol}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+    \hlstd{Q.HZ}   \hlkwb{<-} \hlstd{(}\hlkwd{t}\hlstd{(object}\hlopt{$}\hlstd{H)} \hlopt{%*%} \hlstd{object}\hlopt{$}\hlstd{Z)} \hlopt{/} \hlstd{n}
+    \hlstd{Q.HH.i} \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(object}\hlopt{$}\hlstd{H)} \hlopt{/} \hlstd{n)}
+    \hlkwa{if} \hlstd{(tse} \hlopt{==} \hlstr{"homo"}\hlstd{)\{}
+      \hlstd{s2}  \hlkwb{<-} \hlkwd{crossprod}\hlstd{(object}\hlopt{$}\hlstd{e_hat)} \hlopt{/} \hlstd{df}
+      \hlstd{var} \hlkwb{<-} \hlkwd{drop}\hlstd{(s2)} \hlopt{*} \hlkwd{solve}\hlstd{(}\hlkwd{t}\hlstd{(Q.HZ)} \hlopt{%*%} \hlstd{Q.HH.i} \hlopt{%*%} \hlstd{Q.HZ)} \hlopt{/} \hlstd{n}
+    \hlstd{\}} \hlkwa{else} \hlstd{\{}
+      \hlstd{Delta.hat} \hlkwb{<-} \hlnum{0}
+      \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{Z))\{}
+        \hlstd{Delta.hat} \hlkwb{<-} \hlstd{Delta.hat} \hlopt{+} \hlkwd{drop}\hlstd{(object}\hlopt{$}\hlstd{e_hat[i]} \hlopt{^}\hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{tcrossprod}\hlstd{(object}\hlopt{$}\hlstd{H[i, ])}
+      \hlstd{\}}
+      \hlstd{bread}  \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{t}\hlstd{(Q.HZ)} \hlopt{%*%} \hlstd{Q.HH.i} \hlopt{%*%} \hlstd{Q.HZ)}
+      \hlstd{cheese} \hlkwb{<-} \hlkwd{t}\hlstd{(Q.HZ)} \hlopt{%*%} \hlstd{Q.HH.i} \hlopt{%*%} \hlstd{(Delta.hat} \hlopt{/} \hlstd{n)}  \hlopt{%*%} \hlstd{Q.HH.i} \hlopt{%*%} \hlstd{Q.HZ}
+      \hlstd{var}    \hlkwb{<-} \hlstd{(bread} \hlopt{%*%} \hlstd{cheese} \hlopt{%*%} \hlstd{bread)} \hlopt{/} \hlstd{n}
+    \hlstd{\}}
+    \hlkwd{return}\hlstd{(var)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 This function computes the estimated variance-covariance (VC) matrix for the S2SLS estimators. If \texttt{tse = "homo"}, it returns the VC matrix under homoskedastic error, following Equation \eqref{eq:v-s2sls-homo}. In this case, $\widehat{\sigma}^2_n$ is estimated using Equation \eqref{eq:2sls-sigma-hat}, applying a small-sample by dividing by $n-k$ instead of $n$. If \texttt{tse = "rob"}, the function returns the robust VC matrix, estimated using Equation \eqref{eq:v-s2sls-hetero}, where $\widehat{\mDelta}$ is computed according to  Equation \eqref{eq:2sls-delta-hat}. In both cases, the VC matrices are divided by $n$ for finite sample approximation.
 
 In the following lines, we code the S3 functions \texttt{summary} and \texttt{print.summary} for the class of our model.
-<<summary.mys2sls>>=
-# S3 method summary
-summary.mys2sls <- function(object, 
-                              tse = c("homo", "rob"),
-                              table = TRUE, 
-                              digits = max(3, .Options$digits - 3), 
-                              ...){
-    tse       <- match.arg(tse)
-    n         <- nrow(object$Z)
-    df        <- n - ncol(object$Z)
-    b         <- object$coefficients
-    std.err   <- sqrt(diag(vcov(object, tse = tse)))
-    z         <- b / std.err
-    p         <- 2 * pt(-abs(z), df = df)
-    CoefTable <- cbind(b, std.err, z, p)
-    colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-    result <- structure(
-      list(
-        CoefTable = CoefTable, 
-        digits    = digits, 
-        call      = object$call),
-      class = 'summary.mys2sls'
-    )
-    return(result)
-}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# S3 method summary}
+\hlstd{summary.mys2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,}
+                              \hlkwc{tse} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"homo"}\hlstd{,} \hlstr{"rob"}\hlstd{),}
+                              \hlkwc{table} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                              \hlkwc{digits} \hlstd{=} \hlkwd{max}\hlstd{(}\hlnum{3}\hlstd{, .Options}\hlopt{$}\hlstd{digits} \hlopt{-} \hlnum{3}\hlstd{),}
+                              \hlkwc{...}\hlstd{)\{}
+    \hlstd{tse}       \hlkwb{<-} \hlkwd{match.arg}\hlstd{(tse)}
+    \hlstd{n}         \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+    \hlstd{df}        \hlkwb{<-} \hlstd{n} \hlopt{-} \hlkwd{ncol}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+    \hlstd{b}         \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+    \hlstd{std.err}   \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(object,} \hlkwc{tse} \hlstd{= tse)))}
+    \hlstd{z}         \hlkwb{<-} \hlstd{b} \hlopt{/} \hlstd{std.err}
+    \hlstd{p}         \hlkwb{<-} \hlnum{2} \hlopt{*} \hlkwd{pt}\hlstd{(}\hlopt{-}\hlkwd{abs}\hlstd{(z),} \hlkwc{df} \hlstd{= df)}
+    \hlstd{CoefTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(b, std.err, z, p)}
+    \hlkwd{colnames}\hlstd{(CoefTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std.Error"}\hlstd{,} \hlstr{"t-value"}\hlstd{,} \hlstr{"Pr(>|t|)"}\hlstd{)}
+    \hlstd{result} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+      \hlkwd{list}\hlstd{(}
+        \hlkwc{CoefTable} \hlstd{= CoefTable,}
+        \hlkwc{digits}    \hlstd{= digits,}
+        \hlkwc{call}      \hlstd{= object}\hlopt{$}\hlstd{call),}
+      \hlkwc{class} \hlstd{=} \hlstr{'summary.mys2sls'}
+    \hlstd{)}
+    \hlkwd{return}\hlstd{(result)}
+\hlstd{\}}
 
-# S3 method print.summary 
-print.summary.mys2sls <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-      
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
+\hlcom{# S3 method print.summary }
+\hlstd{print.summary.mys2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}
+                                   \hlkwc{digits} \hlstd{= x}\hlopt{$}\hlstd{digits,}
+                                   \hlkwc{na.print} \hlstd{=} \hlstr{""}\hlstd{,}
+                                   \hlkwc{symbolic.cor} \hlstd{= p} \hlopt{>} \hlnum{4}\hlstd{,}
+                                   \hlkwc{signif.stars} \hlstd{=} \hlkwd{getOption}\hlstd{(}\hlstr{"show.signif.stars"}\hlstd{),}
+                                   \hlkwc{...}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCall:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{deparse}\hlstd{(x}\hlopt{$}\hlstd{call),} \hlkwc{sep} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{,} \hlkwc{collapse} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{),} \hlstr{"\textbackslash{}n\textbackslash{}n"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCoefficients:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{printCoefmat}\hlstd{(x}\hlopt{$}\hlstd{CoefTable,} \hlkwc{digit} \hlstd{= digits,} \hlkwc{P.value} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{has.Pvalue} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{invisible}\hlstd{(}\hlkwa{NULL}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we can apply our function to estimate the S2SLS model using homoskedastic and robust standard errors. By default, the \texttt{summary} method reports results with homoskedastic standard errors. To obtain robust standard errors, we specify \texttt{tse = "rob"} in the \texttt{summary} function.
 
-<<estimate-2sls-code>>=
-# Estimate S2SLS model
-s2sls.e <- slm.2sls(y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
-summary(s2sls.e)
-summary(s2sls.e, tse = "rob")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Estimate S2SLS model}
+\hlstd{s2sls.e} \hlkwb{<-} \hlkwd{slm.2sls}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{W} \hlstd{= W,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{)}
+\hlkwd{summary}\hlstd{(s2sls.e)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.06983   0.06656  -1.049    0.295    
+## x1          -1.00574   0.06347 -15.846   <2e-16 ***
+## x2          -0.04353   0.06276  -0.694    0.488    
+## x3           1.01485   0.06720  15.102   <2e-16 ***
+## Wy           0.64731   0.06222  10.404   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(s2sls.e,} \hlkwc{tse} \hlstd{=} \hlstr{"rob"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.06983   0.06682  -1.045    0.296    
+## x1          -1.00574   0.06587 -15.269   <2e-16 ***
+## x2          -0.04353   0.06290  -0.692    0.489    
+## x3           1.01485   0.06669  15.217   <2e-16 ***
+## Wy           0.64731   0.05892  10.986   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Now we check our results using \texttt{stsls} function:
-<<check-2sls-spatialreg>>=
-spreg1 <- stsls(y ~ x1 + x2 + x3, data = data, listw = mat2listw(W, style = "W"))
-spreg2 <- stsls(y ~ x1 + x2 + x3, data = data, listw = mat2listw(W, style = "W"),
-                robust = TRUE, HC = "HC0")
-cbind(as.numeric(coef(spreg1)[c(2, 3, 4, 5, 1)]), as.numeric(s2sls.e$coefficients))
-cbind(sqrt(diag(spreg1$var)[c(2, 3, 4, 5, 1)]),
-      sqrt(diag(vcov(s2sls.e))),
-      sqrt(diag(spreg2$var)[c(2, 3, 4, 5, 1)]),
-      sqrt(diag(vcov(s2sls.e, tse = "rob"))))
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{spreg1} \hlkwb{<-} \hlkwd{stsls}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{listw} \hlstd{=} \hlkwd{mat2listw}\hlstd{(W,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{))}
+\hlstd{spreg2} \hlkwb{<-} \hlkwd{stsls}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{listw} \hlstd{=} \hlkwd{mat2listw}\hlstd{(W,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{),}
+                \hlkwc{robust} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{HC} \hlstd{=} \hlstr{"HC0"}\hlstd{)}
+\hlkwd{cbind}\hlstd{(}\hlkwd{as.numeric}\hlstd{(}\hlkwd{coef}\hlstd{(spreg1)[}\hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{1}\hlstd{)]),} \hlkwd{as.numeric}\hlstd{(s2sls.e}\hlopt{$}\hlstd{coefficients))}
+\end{alltt}
+\begin{verbatim}
+##             [,1]        [,2]
+## [1,] -0.06983166 -0.06983166
+## [2,] -1.00573883 -1.00573883
+## [3,] -0.04352912 -0.04352912
+## [4,]  1.01485440  1.01485440
+## [5,]  0.64730746  0.64730746
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cbind}\hlstd{(}\hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(spreg1}\hlopt{$}\hlstd{var)[}\hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{1}\hlstd{)]),}
+      \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(s2sls.e))),}
+      \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(spreg2}\hlopt{$}\hlstd{var)[}\hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{1}\hlstd{)]),}
+      \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(s2sls.e,} \hlkwc{tse} \hlstd{=} \hlstr{"rob"}\hlstd{))))}
+\end{alltt}
+\begin{verbatim}
+##                   [,1]       [,2]       [,3]       [,4]
+## (Intercept) 0.06655890 0.06655890 0.06681918 0.06681918
+## x1          0.06346892 0.06346892 0.06586903 0.06586903
+## x2          0.06276194 0.06276194 0.06290024 0.06290024
+## x3          0.06720175 0.06720175 0.06669244 0.06669244
+## Rho         0.06221908 0.06221908 0.05892332 0.05892332
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 %--------------------------------------------------------------
 \subsection{Best S2SLS Estimator}\index{BS2SLS}\label{sec:BS2SLS}
@@ -1183,142 +1301,192 @@ Since $\lim_{n\to\infty}n^{-1}\mH_n^{*\top}\mH_n^{*}$ exists and it is invertibl
 %--------------------------------------------------------------
 
 To compute the BS2SLS estimator, we modify our previous function, \texttt{slm.2sls}, and create a new function called \texttt{slm.b2sls}. 
-<<slm.b2sls>>=
-# Main function to estimate S2SLS estimator
-slm.b2sls <- function(formula, data, W, instruments = 2){
-  # Model frame setup
-  callT    <- match.call(expand.dots = TRUE)
-  mf       <- callT
-  m        <- match(c("formula", "data"), names(mf), 0L)
-  mf       <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf       <- eval(mf, parent.frame())
-  
-  # Get variables and check dimensions
-  y  <- model.response(mf)
-  X  <- model.matrix(formula, mf)
-  n  <- nrow(X)
-  Wy <- W %*% y
-  sn <- nrow(W)
-  if (n != sn) stop("number of spatial units in W is different to the number of data")
-  
-  # Obtain first (and consistent)  estimates
-  H <- cbind(X, make.H(W = W, X = X, l = instruments))
-  
-  # Compute S2SLSE
-  Z           <- cbind(X, Wy)
-  colnames(Z) <- c(colnames(X), "Wy")
-  HH          <- crossprod(H, H)
-  PH          <- H %*% solve(HH) %*% t(H)
-  Z_hat       <- PH %*% Z
-  b_2sls      <- solve(crossprod(Z_hat)) %*% crossprod(Z_hat, y)
-  
-  # Second step: BS2SLS estimation
-  beta.hat <- b_2sls[1:ncol(X)]
-  rho.hat  <- drop(tail(b_2sls, n = 1L))
-  H.lee    <- W %*% solve(diag(n) - rho.hat * W) %*% X %*% beta.hat
-  H.star   <- cbind(X, H.lee)
-  b_2sls   <- solve(crossprod(H.star, Z)) %*% crossprod(H.star, y)
-  
-  # Compute residuals
-  y_hat  <- Z %*% b_2sls
-  e_hat  <- y - y_hat
-  
-  # Save results
-  results <- structure(
-    list(
-      coefficients = b_2sls, 
-      call         = callT, 
-      X            = X, 
-      H            = H.star, 
-      Z            = Z, 
-      y            = y, 
-      PH           = PH, 
-      e_hat        = e_hat,
-      W            = W
-    ), 
-    class = 'mybs2sls'
-  )
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Main function to estimate S2SLS estimator}
+\hlstd{slm.b2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{W}\hlstd{,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{)\{}
+  \hlcom{# Model frame setup}
+  \hlstd{callT}    \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}        \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())}
+
+  \hlcom{# Get variables and check dimensions}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{Wy} \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlstd{y}
+  \hlstd{sn} \hlkwb{<-} \hlkwd{nrow}\hlstd{(W)}
+  \hlkwa{if} \hlstd{(n} \hlopt{!=} \hlstd{sn)} \hlkwd{stop}\hlstd{(}\hlstr{"number of spatial units in W is different to the number of data"}\hlstd{)}
+
+  \hlcom{# Obtain first (and consistent)  estimates}
+  \hlstd{H} \hlkwb{<-} \hlkwd{cbind}\hlstd{(X,} \hlkwd{make.H}\hlstd{(}\hlkwc{W} \hlstd{= W,} \hlkwc{X} \hlstd{= X,} \hlkwc{l} \hlstd{= instruments))}
+
+  \hlcom{# Compute S2SLSE}
+  \hlstd{Z}           \hlkwb{<-} \hlkwd{cbind}\hlstd{(X, Wy)}
+  \hlkwd{colnames}\hlstd{(Z)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"Wy"}\hlstd{)}
+  \hlstd{HH}          \hlkwb{<-} \hlkwd{crossprod}\hlstd{(H, H)}
+  \hlstd{PH}          \hlkwb{<-} \hlstd{H} \hlopt{%*%} \hlkwd{solve}\hlstd{(HH)} \hlopt{%*%} \hlkwd{t}\hlstd{(H)}
+  \hlstd{Z_hat}       \hlkwb{<-} \hlstd{PH} \hlopt{%*%} \hlstd{Z}
+  \hlstd{b_2sls}      \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(Z_hat))} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(Z_hat, y)}
+
+  \hlcom{# Second step: BS2SLS estimation}
+  \hlstd{beta.hat} \hlkwb{<-} \hlstd{b_2sls[}\hlnum{1}\hlopt{:}\hlkwd{ncol}\hlstd{(X)]}
+  \hlstd{rho.hat}  \hlkwb{<-} \hlkwd{drop}\hlstd{(}\hlkwd{tail}\hlstd{(b_2sls,} \hlkwc{n} \hlstd{=} \hlnum{1L}\hlstd{))}
+  \hlstd{H.lee}    \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlkwd{solve}\hlstd{(}\hlkwd{diag}\hlstd{(n)} \hlopt{-} \hlstd{rho.hat} \hlopt{*} \hlstd{W)} \hlopt{%*%} \hlstd{X} \hlopt{%*%} \hlstd{beta.hat}
+  \hlstd{H.star}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(X, H.lee)}
+  \hlstd{b_2sls}   \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(H.star, Z))} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(H.star, y)}
+
+  \hlcom{# Compute residuals}
+  \hlstd{y_hat}  \hlkwb{<-} \hlstd{Z} \hlopt{%*%} \hlstd{b_2sls}
+  \hlstd{e_hat}  \hlkwb{<-} \hlstd{y} \hlopt{-} \hlstd{y_hat}
+
+  \hlcom{# Save results}
+  \hlstd{results} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{coefficients} \hlstd{= b_2sls,}
+      \hlkwc{call}         \hlstd{= callT,}
+      \hlkwc{X}            \hlstd{= X,}
+      \hlkwc{H}            \hlstd{= H.star,}
+      \hlkwc{Z}            \hlstd{= Z,}
+      \hlkwc{y}            \hlstd{= y,}
+      \hlkwc{PH}           \hlstd{= PH,}
+      \hlkwc{e_hat}        \hlstd{= e_hat,}
+      \hlkwc{W}            \hlstd{= W}
+    \hlstd{),}
+    \hlkwc{class} \hlstd{=} \hlstr{'mybs2sls'}
+  \hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The \texttt{slm.b2sls} function first obtains the S2SLS estimates using the instruments proposed by \cite{kelejian1998generalized} instruments. It then, uses these consistent estimates to construct the optimal instrument $\widetilde{\mH}_n^*$. The BS2SLSE is then obtained using Equation \eqref{eq:bs2sls-estimator}.
 
 The S3 method \texttt{vcov} is constructed using Equation \eqref{eq:limiting-var-b2sls} and can be applied to either the initial or final round estimates. 
-<<vcov.mybs2sls>>=
-# S3 Method vcov
-vcov.mybs2sls <- function(object, estimate = c("initial", "final"), ...){
-  estimate <- match.arg(estimate)
-  X        <- object$X
-  n        <- nrow(X)
-  k        <- ncol(X)
-  df       <- n - (k + 1)
-  s2       <- crossprod(object$e_hat) / df
-  if (estimate == "final"){
-    b       <- object$coefficients
-    b.hat   <- b[1:k]
-    rho.hat <- drop(tail(b, n = 1L))
-    W       <- object$W
-    H.lee   <- W %*% solve(diag(n) - rho.hat * W) %*% X %*% b.hat
-    H.star  <- cbind(X, H.lee)
-  } else {
-    H.star  <- object$H
-  }
-  var    <- drop(s2) * solve(crossprod(H.star) / n) / n
-  return(var)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# S3 Method vcov}
+\hlstd{vcov.mybs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,} \hlkwc{estimate} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"initial"}\hlstd{,} \hlstr{"final"}\hlstd{),} \hlkwc{...}\hlstd{)\{}
+  \hlstd{estimate} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(estimate)}
+  \hlstd{X}        \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{X}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{df}       \hlkwb{<-} \hlstd{n} \hlopt{-} \hlstd{(k} \hlopt{+} \hlnum{1}\hlstd{)}
+  \hlstd{s2}       \hlkwb{<-} \hlkwd{crossprod}\hlstd{(object}\hlopt{$}\hlstd{e_hat)} \hlopt{/} \hlstd{df}
+  \hlkwa{if} \hlstd{(estimate} \hlopt{==} \hlstr{"final"}\hlstd{)\{}
+    \hlstd{b}       \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+    \hlstd{b.hat}   \hlkwb{<-} \hlstd{b[}\hlnum{1}\hlopt{:}\hlstd{k]}
+    \hlstd{rho.hat} \hlkwb{<-} \hlkwd{drop}\hlstd{(}\hlkwd{tail}\hlstd{(b,} \hlkwc{n} \hlstd{=} \hlnum{1L}\hlstd{))}
+    \hlstd{W}       \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{W}
+    \hlstd{H.lee}   \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlkwd{solve}\hlstd{(}\hlkwd{diag}\hlstd{(n)} \hlopt{-} \hlstd{rho.hat} \hlopt{*} \hlstd{W)} \hlopt{%*%} \hlstd{X} \hlopt{%*%} \hlstd{b.hat}
+    \hlstd{H.star}  \hlkwb{<-} \hlkwd{cbind}\hlstd{(X, H.lee)}
+  \hlstd{\}} \hlkwa{else} \hlstd{\{}
+    \hlstd{H.star}  \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{H}
+  \hlstd{\}}
+  \hlstd{var}    \hlkwb{<-} \hlkwd{drop}\hlstd{(s2)} \hlopt{*} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(H.star)} \hlopt{/} \hlstd{n)} \hlopt{/} \hlstd{n}
+  \hlkwd{return}\hlstd{(var)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The S3 methods for \texttt{summary} are the following:
-<<summary.mybs2sls>>=
-# S3 methods for summary
-summary.mybs2sls <- function(object,
-                             estimate = c("initial", "final"), 
-                             table = TRUE, 
-                             digits = max(3, .Options$digits - 3), 
-                             ...){
-  estimate  <- match.arg(estimate)
-  n         <- nrow(object$Z)
-  df        <- n - ncol(object$Z)
-  b         <- object$coefficients
-  std.err   <- sqrt(diag(vcov(object, estimate = estimate)))
-  z         <- b / std.err
-  p         <- 2 * pt(-abs(z), df = df)
-  CoefTable <- cbind(b, std.err, z, p)
-  colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-  result <- structure(
-    list(
-      CoefTable = CoefTable, 
-      digits    = digits, 
-      call      = object$call),
-    class = 'summary.mybs2sls'
-  )
-  return(result)
-}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# S3 methods for summary}
+\hlstd{summary.mybs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,}
+                             \hlkwc{estimate} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"initial"}\hlstd{,} \hlstr{"final"}\hlstd{),}
+                             \hlkwc{table} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                             \hlkwc{digits} \hlstd{=} \hlkwd{max}\hlstd{(}\hlnum{3}\hlstd{, .Options}\hlopt{$}\hlstd{digits} \hlopt{-} \hlnum{3}\hlstd{),}
+                             \hlkwc{...}\hlstd{)\{}
+  \hlstd{estimate}  \hlkwb{<-} \hlkwd{match.arg}\hlstd{(estimate)}
+  \hlstd{n}         \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+  \hlstd{df}        \hlkwb{<-} \hlstd{n} \hlopt{-} \hlkwd{ncol}\hlstd{(object}\hlopt{$}\hlstd{Z)}
+  \hlstd{b}         \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+  \hlstd{std.err}   \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(object,} \hlkwc{estimate} \hlstd{= estimate)))}
+  \hlstd{z}         \hlkwb{<-} \hlstd{b} \hlopt{/} \hlstd{std.err}
+  \hlstd{p}         \hlkwb{<-} \hlnum{2} \hlopt{*} \hlkwd{pt}\hlstd{(}\hlopt{-}\hlkwd{abs}\hlstd{(z),} \hlkwc{df} \hlstd{= df)}
+  \hlstd{CoefTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(b, std.err, z, p)}
+  \hlkwd{colnames}\hlstd{(CoefTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std.Error"}\hlstd{,} \hlstr{"t-value"}\hlstd{,} \hlstr{"Pr(>|t|)"}\hlstd{)}
+  \hlstd{result} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{CoefTable} \hlstd{= CoefTable,}
+      \hlkwc{digits}    \hlstd{= digits,}
+      \hlkwc{call}      \hlstd{= object}\hlopt{$}\hlstd{call),}
+    \hlkwc{class} \hlstd{=} \hlstr{'summary.mybs2sls'}
+  \hlstd{)}
+  \hlkwd{return}\hlstd{(result)}
+\hlstd{\}}
 
-print.summary.mybs2sls <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-  
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
+\hlstd{print.summary.mybs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}
+                                   \hlkwc{digits} \hlstd{= x}\hlopt{$}\hlstd{digits,}
+                                   \hlkwc{na.print} \hlstd{=} \hlstr{""}\hlstd{,}
+                                   \hlkwc{symbolic.cor} \hlstd{= p} \hlopt{>} \hlnum{4}\hlstd{,}
+                                   \hlkwc{signif.stars} \hlstd{=} \hlkwd{getOption}\hlstd{(}\hlstr{"show.signif.stars"}\hlstd{),}
+                                   \hlkwc{...}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCall:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{deparse}\hlstd{(x}\hlopt{$}\hlstd{call),} \hlkwc{sep} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{,} \hlkwc{collapse} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{),} \hlstr{"\textbackslash{}n\textbackslash{}n"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCoefficients:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{printCoefmat}\hlstd{(x}\hlopt{$}\hlstd{CoefTable,} \hlkwc{digit} \hlstd{= digits,} \hlkwc{P.value} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{has.Pvalue} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{invisible}\hlstd{(}\hlkwa{NULL}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Using the same DGP as for the S2SLS, we obtain the BS2SLS estimates:
-<<b2sls-test1>>=
-# Using the BS2SLS estimator
-b2sls <- slm.b2sls(y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
-summary(b2sls, estimate = "initial")
-summary(b2sls, estimate = "final")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Using the BS2SLS estimator}
+\hlstd{b2sls} \hlkwb{<-} \hlkwd{slm.b2sls}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{W} \hlstd{= W,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{)}
+\hlkwd{summary}\hlstd{(b2sls,} \hlkwc{estimate} \hlstd{=} \hlstr{"initial"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.b2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.08156   0.06604  -1.235    0.217    
+## x1          -1.01266   0.06417 -15.781   <2e-16 ***
+## x2          -0.04195   0.06291  -0.667    0.505    
+## x3           1.02569   0.06655  15.413   <2e-16 ***
+## Wy           0.61460   0.05803  10.591   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(b2sls,} \hlkwc{estimate} \hlstd{=} \hlstr{"final"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.b2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.08156   0.06631  -1.230    0.219    
+## x1          -1.01266   0.06405 -15.811   <2e-16 ***
+## x2          -0.04195   0.06290  -0.667    0.505    
+## x3           1.02569   0.06638  15.452   <2e-16 ***
+## Wy           0.61460   0.06032  10.189   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 
@@ -2068,361 +2236,521 @@ Furthermore:
 
 First, we create a function that returns the moment conditions presented in  Equation \eqref{eq:moments-lee-2007}, and Jacobian matrix in Equation \eqref{eq:Jacobian-gmm-slm} (both divided by $n$). This function is next used to construct the objective function to be minimized. 
 
-<<moments.lee2007>>=
-# Trace function
-tr <- function(A) return(sum(diag(A)))
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Trace function}
+\hlstd{tr} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)} \hlkwd{return}\hlstd{(}\hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(A)))}
 
-# Create moments as in Lee 2007
-moments.lee2007 <- function(theta, y, X, H, W){
-  # y: vector of dependent variables
-  # X: matrix of exogenous variables
-  # H: matrix of linear instrument
-  # W: Spatial weight matrix
-  k        <- ncol(X)
-  n        <- nrow(X)
-  rho      <- theta[1L]
-  beta     <- theta[(2L:(k + 1))]
-  I        <- diag(n)
-  S        <- I -  rho * W
-  epsi     <- crossprod(t(S), y) - crossprod(t(X), beta)
-  P1       <- W
-  #W2       <- crossprod(t(W), W)
-  W2       <- tcrossprod(W, W)
-  P2       <- W2 - (tr(W2) / n) * I
-  g.lin    <- crossprod(H, epsi)            # k_x * 1
-  g.q1     <- crossprod(epsi, P1) %*% epsi  # 1*1
-  g.q2     <- crossprod(epsi, P2) %*% epsi  # 1*1
-  g        <- rbind(g.q1, g.q2, g.lin)
-  
-  # Gradient 
-  P1s <- P1 + t(P1)
-  P2s <- P2 + t(P2)
-  # (2 * k_k)* (k + 1)
-  D   <-  -1 * rbind(crossprod(epsi, P1s), 
-                     crossprod(epsi, P2s), 
-                     t(H)) %*% cbind(W %*% y, X)
-  
-  # Return results (note that they are divided by n)
-  out <- list(g = g /n , D = D / n)
-  return(out)
-}
-@
+\hlcom{# Create moments as in Lee 2007}
+\hlstd{moments.lee2007} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{theta}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{H}\hlstd{,} \hlkwc{W}\hlstd{)\{}
+  \hlcom{# y: vector of dependent variables}
+  \hlcom{# X: matrix of exogenous variables}
+  \hlcom{# H: matrix of linear instrument}
+  \hlcom{# W: Spatial weight matrix}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{rho}      \hlkwb{<-} \hlstd{theta[}\hlnum{1L}\hlstd{]}
+  \hlstd{beta}     \hlkwb{<-} \hlstd{theta[(}\hlnum{2L}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{1}\hlstd{))]}
+  \hlstd{I}        \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{S}        \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{rho} \hlopt{*} \hlstd{W}
+  \hlstd{epsi}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(S), y)} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{P1}       \hlkwb{<-} \hlstd{W}
+  \hlcom{#W2       <- crossprod(t(W), W)}
+  \hlstd{W2}       \hlkwb{<-} \hlkwd{tcrossprod}\hlstd{(W, W)}
+  \hlstd{P2}       \hlkwb{<-} \hlstd{W2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(W2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlstd{I}
+  \hlstd{g.lin}    \hlkwb{<-} \hlkwd{crossprod}\hlstd{(H, epsi)}            \hlcom{# k_x * 1}
+  \hlstd{g.q1}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(epsi, P1)} \hlopt{%*%} \hlstd{epsi}  \hlcom{# 1*1}
+  \hlstd{g.q2}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(epsi, P2)} \hlopt{%*%} \hlstd{epsi}  \hlcom{# 1*1}
+  \hlstd{g}        \hlkwb{<-} \hlkwd{rbind}\hlstd{(g.q1, g.q2, g.lin)}
+
+  \hlcom{# Gradient }
+  \hlstd{P1s} \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s} \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+  \hlcom{# (2 * k_k)* (k + 1)}
+  \hlstd{D}   \hlkwb{<-}  \hlopt{-}\hlnum{1} \hlopt{*} \hlkwd{rbind}\hlstd{(}\hlkwd{crossprod}\hlstd{(epsi, P1s),}
+                     \hlkwd{crossprod}\hlstd{(epsi, P2s),}
+                     \hlkwd{t}\hlstd{(H))} \hlopt{%*%} \hlkwd{cbind}\hlstd{(W} \hlopt{%*%} \hlstd{y, X)}
+
+  \hlcom{# Return results (note that they are divided by n)}
+  \hlstd{out} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlkwc{g} \hlstd{= g} \hlopt{/}\hlstd{n ,} \hlkwc{D} \hlstd{= D} \hlopt{/} \hlstd{n)}
+  \hlkwd{return}\hlstd{(out)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Next, we define the function to be optimized: $Q_n(\vtheta) = \vg_n^\top\mUpsilon_n\vg_n(\vtheta)$. The function \texttt{Qmin} returns the negative of  $Q_n(\vtheta)$ along with its gradient to speed up the optimization process. The function's negative is returned because the optimization algorithm used latter maximizes rather than minimizes. 
 
-<<Jmin>>=
-# Objective function to minimize
-Qmin <- function(start, y, X, H, W, Psi, gradient){
-  # Thus function returns the negative of:
-  #  - objective function g'Psi g
-  #  - gradient of g'Upsi g
-  g.hat <- moments.lee2007(theta = start, y = y, X = X, H = H, W = W)
-  Q     <- -1 * crossprod(g.hat$g, Psi) %*% g.hat$g
-  if (gradient){
-    D  <- g.hat$D # D.hat is (2 * k_k)* (k + 1)
-    Gr <- -2 * crossprod(D, Psi) %*% g.hat$g
-    attr(Q, 'gradient') <- as.vector(Gr)
-  }
-  return(Q)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Objective function to minimize}
+\hlstd{Qmin} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{start}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{H}\hlstd{,} \hlkwc{W}\hlstd{,} \hlkwc{Psi}\hlstd{,} \hlkwc{gradient}\hlstd{)\{}
+  \hlcom{# Thus function returns the negative of:}
+  \hlcom{#  - objective function g'Psi g}
+  \hlcom{#  - gradient of g'Upsi g}
+  \hlstd{g.hat} \hlkwb{<-} \hlkwd{moments.lee2007}\hlstd{(}\hlkwc{theta} \hlstd{= start,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)}
+  \hlstd{Q}     \hlkwb{<-} \hlopt{-}\hlnum{1} \hlopt{*} \hlkwd{crossprod}\hlstd{(g.hat}\hlopt{$}\hlstd{g, Psi)} \hlopt{%*%} \hlstd{g.hat}\hlopt{$}\hlstd{g}
+  \hlkwa{if} \hlstd{(gradient)\{}
+    \hlstd{D}  \hlkwb{<-} \hlstd{g.hat}\hlopt{$}\hlstd{D} \hlcom{# D.hat is (2 * k_k)* (k + 1)}
+    \hlstd{Gr} \hlkwb{<-} \hlopt{-}\hlnum{2} \hlopt{*} \hlkwd{crossprod}\hlstd{(D, Psi)} \hlopt{%*%} \hlstd{g.hat}\hlopt{$}\hlstd{g}
+    \hlkwd{attr}\hlstd{(Q,} \hlstr{'gradient'}\hlstd{)} \hlkwb{<-} \hlkwd{as.vector}\hlstd{(Gr)}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(Q)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The following function returns the variance-covariance matrix of the moments given in Equation \eqref{eq:omega-slm-hat} (divided by $n$):
-<<make.vmom>>=
-# Create var-cov of moments: Omega
-make.vmom <- function(b.hat, y, X, H, W){
-  k        <- ncol(X)
-  n        <- nrow(X)
-  k_x      <- ncol(H)
-  rho      <- b.hat[1L]
-  beta     <- b.hat[(2L:(k + 1))]
-  I        <- diag(n)
-  S        <- I -  rho * W
-  epsi     <- crossprod(t(S), y) - crossprod(t(X), beta)
-  sigma2   <- as.numeric(crossprod(epsi) / n)
-  P1       <- W
-  #W2       <- crossprod(t(W), W)
-  W2       <- tcrossprod(t(W), W)
-  P2       <- W2 - (tr(W2) / n) * I
-  P1s      <- P1 + t(P1)
-  P2s      <- P2 + t(P2)
-  
-  # Construct V: (2 + k.x) * (2 + k.x)
-  V22 <- (1 / sigma2) * crossprod(H)         # k_x + k_x
-  Delta <- matrix(0, nrow = 2, ncol = 2)
-  Delta[1, 1] <- tr(P1 %*% P1s)
-  Delta[1, 2] <- tr(P1 %*% P2s)
-  Delta[2, 1] <- tr(P2 %*% P1s)
-  Delta[2, 2] <- tr(P2 %*% P2s)
-  V <- matrix(0, nrow = (k_x + 2), ncol = (k_x + 2))
-  V[1:2, 1:2] <- Delta
-  V[3:(k_x + 2), 3:(k_x + 2)] <- V22
-  V <- sigma2^2 * V
-  # Construct first part of Omega
-  omega   <- cbind(diag(P1), diag(P2)) # n * 2
-  mu4.hat <- sum(epsi^4) / n
-  mu3.hat <- sum(epsi^3) / n
-  Vp1 <- matrix(0, nrow = (k_x + 2), ncol = (k_x + 2))
-  Vp1[1:2, 1:2]         <- (mu4.hat - 3 * sigma2^2) * crossprod(omega)   # 2 * 2 
-  Vp1[1:2, 3:(k_x + 2)] <- mu3.hat * crossprod(omega, H)
-  Vp1[3:(k_x + 2), 1:2] <- mu3.hat * crossprod(H, omega)
-  Omega                 <- Vp1 + V
-  Omega                 <- Omega / n
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Create var-cov of moments: Omega}
+\hlstd{make.vmom} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{b.hat}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{H}\hlstd{,} \hlkwc{W}\hlstd{)\{}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{k_x}      \hlkwb{<-} \hlkwd{ncol}\hlstd{(H)}
+  \hlstd{rho}      \hlkwb{<-} \hlstd{b.hat[}\hlnum{1L}\hlstd{]}
+  \hlstd{beta}     \hlkwb{<-} \hlstd{b.hat[(}\hlnum{2L}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{1}\hlstd{))]}
+  \hlstd{I}        \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{S}        \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{rho} \hlopt{*} \hlstd{W}
+  \hlstd{epsi}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(S), y)} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{sigma2}   \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{crossprod}\hlstd{(epsi)} \hlopt{/} \hlstd{n)}
+  \hlstd{P1}       \hlkwb{<-} \hlstd{W}
+  \hlcom{#W2       <- crossprod(t(W), W)}
+  \hlstd{W2}       \hlkwb{<-} \hlkwd{tcrossprod}\hlstd{(}\hlkwd{t}\hlstd{(W), W)}
+  \hlstd{P2}       \hlkwb{<-} \hlstd{W2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(W2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlstd{I}
+  \hlstd{P1s}      \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s}      \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+
+  \hlcom{# Construct V: (2 + k.x) * (2 + k.x)}
+  \hlstd{V22} \hlkwb{<-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2)} \hlopt{*} \hlkwd{crossprod}\hlstd{(H)}         \hlcom{# k_x + k_x}
+  \hlstd{Delta} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{ncol} \hlstd{=} \hlnum{2}\hlstd{)}
+  \hlstd{Delta[}\hlnum{1}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P1} \hlopt{%*%} \hlstd{P1s)}
+  \hlstd{Delta[}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P1} \hlopt{%*%} \hlstd{P2s)}
+  \hlstd{Delta[}\hlnum{2}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P2} \hlopt{%*%} \hlstd{P1s)}
+  \hlstd{Delta[}\hlnum{2}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P2} \hlopt{%*%} \hlstd{P2s)}
+  \hlstd{V} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlkwc{ncol} \hlstd{= (k_x} \hlopt{+} \hlnum{2}\hlstd{))}
+  \hlstd{V[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{Delta}
+  \hlstd{V[}\hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{)]} \hlkwb{<-} \hlstd{V22}
+  \hlstd{V} \hlkwb{<-} \hlstd{sigma2}\hlopt{^}\hlnum{2} \hlopt{*} \hlstd{V}
+  \hlcom{# Construct first part of Omega}
+  \hlstd{omega}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{diag}\hlstd{(P1),} \hlkwd{diag}\hlstd{(P2))} \hlcom{# n * 2}
+  \hlstd{mu4.hat} \hlkwb{<-} \hlkwd{sum}\hlstd{(epsi}\hlopt{^}\hlnum{4}\hlstd{)} \hlopt{/} \hlstd{n}
+  \hlstd{mu3.hat} \hlkwb{<-} \hlkwd{sum}\hlstd{(epsi}\hlopt{^}\hlnum{3}\hlstd{)} \hlopt{/} \hlstd{n}
+  \hlstd{Vp1} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlkwc{ncol} \hlstd{= (k_x} \hlopt{+} \hlnum{2}\hlstd{))}
+  \hlstd{Vp1[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]}         \hlkwb{<-} \hlstd{(mu4.hat} \hlopt{-} \hlnum{3} \hlopt{*} \hlstd{sigma2}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{crossprod}\hlstd{(omega)}   \hlcom{# 2 * 2 }
+  \hlstd{Vp1[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,} \hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{)]} \hlkwb{<-} \hlstd{mu3.hat} \hlopt{*} \hlkwd{crossprod}\hlstd{(omega, H)}
+  \hlstd{Vp1[}\hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{mu3.hat} \hlopt{*} \hlkwd{crossprod}\hlstd{(H, omega)}
+  \hlstd{Omega}                 \hlkwb{<-} \hlstd{Vp1} \hlopt{+} \hlstd{V}
+  \hlstd{Omega}                 \hlkwb{<-} \hlstd{Omega} \hlopt{/} \hlstd{n}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 With all the previous function, we now crate the main function to estimate either the GMM or OGMM estimator. If \texttt{estimator = "gmm"}, the function uses an identity matrix as weighting matrix, $\mUpsilon_n = \mI_{2 + k_x}$, for the optimization procedure of $Q_n(\vtheta)$. If \texttt{estimator = "ogmm"}, the GMM estimates are used in a second step to construct $\widehat{\mOmega}_n$ and optimize $Q_n(\vtheta) = \vg_n(\vtheta)^\top\widehat{\mOmega}^{-1}_n\vg_n(\vtheta)$.
 
-<<slm.gmm>>=
-# Function to estimate the SLM using GMME or OGMME
-slm.gmm <- function(formula, data, W, instruments = 2, 
-                    estimator = c("gmm", "ogmm"), 
-                    gradient = TRUE){
-  # Model Frame
-  callT    <- match.call(expand.dots = TRUE)
-  mf       <- callT
-  m        <- match(c("formula", "data"), names(mf), 0L)
-  mf       <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf       <- eval(mf, parent.frame())
-  
-  # Estimator
-  estimator <- match.arg(estimator)
-  
-  # Get variables and globals
-  y  <- model.response(mf)
-  X  <- model.matrix(formula, mf)
-  n  <- nrow(X)
-  Wy <- W %*% y
-  sn <- nrow(W)
-  if (n != sn) stop("number of spatial units in W is different to the number of data")
-  
-  # Linear instruments
-  H <- cbind(X, make.H(W = W, X = X, l = instruments))
-  
-  # Starting values for optimization
-  start <- c(cor(Wy, y), coef(lm(y ~ X - 1)))
-  names(start) <- c("Wy", colnames(X))
-  
-  # GMM estimator with weighting matrix using a identity matrix  
-  k_x <- ncol(H)
-  Psi <- diag(2 + k_x)
-  require("maxLik")
-  opt <- maxLik(logLik = Qmin, 
-                start = start, 
-                method = "bfgs", 
-                y = y, 
-                X = X, 
-                H = H, 
-                W = W, 
-                Psi = Psi, 
-                gradient = gradient,
-                print.level = 3, 
-                finalHessian = FALSE)
-  
-  # OGMM: GMM estimator with weighting matrix using the inverse of the var-cov of moment functions
-  if (estimator == "ogmm"){
-    # Compute Omega.hat/n
-    Omega.hat <- make.vmom(coef(opt), y = y, X = X, H = H, W = W)
-    Psi  <- solve(Omega.hat)
-    opt <- maxLik(logLik = Qmin, 
-                  start = coef(opt), 
-                  method = "bfgs", 
-                  y = y, 
-                  X = X, 
-                  H = H, 
-                  W = W, 
-                  Psi = Psi, 
-                  gradient = gradient,
-                  print.level = 3, 
-                  finalHessian = FALSE)
-  }
-  
-  
-  results <- structure(
-    list(
-      coefficients = coef(opt),
-      call = callT, 
-      X = X, 
-      H = H, 
-      y = y, 
-      Psi = Psi, 
-      W = W, 
-      estimator = estimator
-    ),
-    class = "gmm.slm"
-  )
-  return(results)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Function to estimate the SLM using GMME or OGMME}
+\hlstd{slm.gmm} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{W}\hlstd{,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{,}
+                    \hlkwc{estimator} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"gmm"}\hlstd{,} \hlstr{"ogmm"}\hlstd{),}
+                    \hlkwc{gradient} \hlstd{=} \hlnum{TRUE}\hlstd{)\{}
+  \hlcom{# Model Frame}
+  \hlstd{callT}    \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}        \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())}
+
+  \hlcom{# Estimator}
+  \hlstd{estimator} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(estimator)}
+
+  \hlcom{# Get variables and globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{Wy} \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlstd{y}
+  \hlstd{sn} \hlkwb{<-} \hlkwd{nrow}\hlstd{(W)}
+  \hlkwa{if} \hlstd{(n} \hlopt{!=} \hlstd{sn)} \hlkwd{stop}\hlstd{(}\hlstr{"number of spatial units in W is different to the number of data"}\hlstd{)}
+
+  \hlcom{# Linear instruments}
+  \hlstd{H} \hlkwb{<-} \hlkwd{cbind}\hlstd{(X,} \hlkwd{make.H}\hlstd{(}\hlkwc{W} \hlstd{= W,} \hlkwc{X} \hlstd{= X,} \hlkwc{l} \hlstd{= instruments))}
+
+  \hlcom{# Starting values for optimization}
+  \hlstd{start} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{cor}\hlstd{(Wy, y),} \hlkwd{coef}\hlstd{(}\hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{)))}
+  \hlkwd{names}\hlstd{(start)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Wy"}\hlstd{,} \hlkwd{colnames}\hlstd{(X))}
+
+  \hlcom{# GMM estimator with weighting matrix using a identity matrix  }
+  \hlstd{k_x} \hlkwb{<-} \hlkwd{ncol}\hlstd{(H)}
+  \hlstd{Psi} \hlkwb{<-} \hlkwd{diag}\hlstd{(}\hlnum{2} \hlopt{+} \hlstd{k_x)}
+  \hlkwd{require}\hlstd{(}\hlstr{"maxLik"}\hlstd{)}
+  \hlstd{opt} \hlkwb{<-} \hlkwd{maxLik}\hlstd{(}\hlkwc{logLik} \hlstd{= Qmin,}
+                \hlkwc{start} \hlstd{= start,}
+                \hlkwc{method} \hlstd{=} \hlstr{"bfgs"}\hlstd{,}
+                \hlkwc{y} \hlstd{= y,}
+                \hlkwc{X} \hlstd{= X,}
+                \hlkwc{H} \hlstd{= H,}
+                \hlkwc{W} \hlstd{= W,}
+                \hlkwc{Psi} \hlstd{= Psi,}
+                \hlkwc{gradient} \hlstd{= gradient,}
+                \hlkwc{print.level} \hlstd{=} \hlnum{3}\hlstd{,}
+                \hlkwc{finalHessian} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+
+  \hlcom{# OGMM: GMM estimator with weighting matrix using the inverse of the var-cov of moment functions}
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"ogmm"}\hlstd{)\{}
+    \hlcom{# Compute Omega.hat/n}
+    \hlstd{Omega.hat} \hlkwb{<-} \hlkwd{make.vmom}\hlstd{(}\hlkwd{coef}\hlstd{(opt),} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)}
+    \hlstd{Psi}  \hlkwb{<-} \hlkwd{solve}\hlstd{(Omega.hat)}
+    \hlstd{opt} \hlkwb{<-} \hlkwd{maxLik}\hlstd{(}\hlkwc{logLik} \hlstd{= Qmin,}
+                  \hlkwc{start} \hlstd{=} \hlkwd{coef}\hlstd{(opt),}
+                  \hlkwc{method} \hlstd{=} \hlstr{"bfgs"}\hlstd{,}
+                  \hlkwc{y} \hlstd{= y,}
+                  \hlkwc{X} \hlstd{= X,}
+                  \hlkwc{H} \hlstd{= H,}
+                  \hlkwc{W} \hlstd{= W,}
+                  \hlkwc{Psi} \hlstd{= Psi,}
+                  \hlkwc{gradient} \hlstd{= gradient,}
+                  \hlkwc{print.level} \hlstd{=} \hlnum{3}\hlstd{,}
+                  \hlkwc{finalHessian} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+  \hlstd{\}}
+
+
+  \hlstd{results} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{coefficients} \hlstd{=} \hlkwd{coef}\hlstd{(opt),}
+      \hlkwc{call} \hlstd{= callT,}
+      \hlkwc{X} \hlstd{= X,}
+      \hlkwc{H} \hlstd{= H,}
+      \hlkwc{y} \hlstd{= y,}
+      \hlkwc{Psi} \hlstd{= Psi,}
+      \hlkwc{W} \hlstd{= W,}
+      \hlkwc{estimator} \hlstd{= estimator}
+    \hlstd{),}
+    \hlkwc{class} \hlstd{=} \hlstr{"gmm.slm"}
+  \hlstd{)}
+  \hlkwd{return}\hlstd{(results)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The following function returns the matrix $\mD_n$ evaluated at $\widehat{\vtheta}_n$, given in Equation \eqref{eq:D-gmm-slm}
-<<make.D>>=
-# Create D matrix for asymptotic distribution
-make.D <- function(rho, beta, y, X, H, W){
-  n      <- nrow(X)
-  k      <- ncol(X)
-  k_x    <- ncol(H)
-  I      <- diag(n)
-  S      <- I -  rho * W
-  epsi   <- crossprod(t(S), y) - crossprod(t(X), beta)
-  sigma2 <- as.numeric(crossprod(epsi) / n)
-  P1     <- W
-  #W2     <- crossprod(t(W), W)
-  W2     <- tcrossprod(W, W)
-  P2     <- W2 - (tr(W2) / n) * diag(n)
-  P1s    <- P1 + t(P1)
-  P2s    <- P2 + t(P2)
-  G      <- W %*% solve(S)
-  
-  # Gen D
-  D <- matrix(0, nrow = (k_x + 2) , ncol = k + 1)
-  rownames(D) <- c("q1", "q2", colnames(H))
-  colnames(D) <- c("Wy", colnames(X))
-  D[1, 1] <- sigma2 * tr(P1s %*% G)
-  D[2, 1] <- sigma2 * tr(P2s %*% G)
-  D[3:(k_x + 2), 1] <- t(H) %*% (G %*% X %*% beta) 
-  D[3:(k_x + 2), 2:(k + 1)]  <- t(H) %*% X
-  return(D)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Create D matrix for asymptotic distribution}
+\hlstd{make.D} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{rho}\hlstd{,} \hlkwc{beta}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{H}\hlstd{,} \hlkwc{W}\hlstd{)\{}
+  \hlstd{n}      \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{k}      \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{k_x}    \hlkwb{<-} \hlkwd{ncol}\hlstd{(H)}
+  \hlstd{I}      \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{S}      \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{rho} \hlopt{*} \hlstd{W}
+  \hlstd{epsi}   \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(S), y)} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{sigma2} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{crossprod}\hlstd{(epsi)} \hlopt{/} \hlstd{n)}
+  \hlstd{P1}     \hlkwb{<-} \hlstd{W}
+  \hlcom{#W2     <- crossprod(t(W), W)}
+  \hlstd{W2}     \hlkwb{<-} \hlkwd{tcrossprod}\hlstd{(W, W)}
+  \hlstd{P2}     \hlkwb{<-} \hlstd{W2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(W2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{P1s}    \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s}    \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+  \hlstd{G}      \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlkwd{solve}\hlstd{(S)}
+
+  \hlcom{# Gen D}
+  \hlstd{D} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k_x} \hlopt{+} \hlnum{2}\hlstd{) ,} \hlkwc{ncol} \hlstd{= k} \hlopt{+} \hlnum{1}\hlstd{)}
+  \hlkwd{rownames}\hlstd{(D)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"q1"}\hlstd{,} \hlstr{"q2"}\hlstd{,} \hlkwd{colnames}\hlstd{(H))}
+  \hlkwd{colnames}\hlstd{(D)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Wy"}\hlstd{,} \hlkwd{colnames}\hlstd{(X))}
+  \hlstd{D[}\hlnum{1}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{sigma2} \hlopt{*} \hlkwd{tr}\hlstd{(P1s} \hlopt{%*%} \hlstd{G)}
+  \hlstd{D[}\hlnum{2}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{sigma2} \hlopt{*} \hlkwd{tr}\hlstd{(P2s} \hlopt{%*%} \hlstd{G)}
+  \hlstd{D[}\hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlkwd{t}\hlstd{(H)} \hlopt{%*%} \hlstd{(G} \hlopt{%*%} \hlstd{X} \hlopt{%*%} \hlstd{beta)}
+  \hlstd{D[}\hlnum{3}\hlopt{:}\hlstd{(k_x} \hlopt{+} \hlnum{2}\hlstd{),} \hlnum{2}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{1}\hlstd{)]}  \hlkwb{<-} \hlkwd{t}\hlstd{(H)} \hlopt{%*%} \hlstd{X}
+  \hlkwd{return}\hlstd{(D)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The following functions provides the S3 methods \texttt{vcov}, \texttt{summary}, and \texttt{print.summary}. The \texttt{vcov} function for \texttt{gmm.slm} class allows to compute the VC matrix using either the asymptotic matrix $\mD_n$ evaluated at $\widehat{\vtheta}$ or the gradient evaluated at $\widehat{\vtheta}$.
 
-<<vcov.gmm.slm>>=
-# Variance-covariance matrix
-vcov.gmm.slm <- function(object, D = c("population", "gradient"), ...){
-  estimator <- object$estimator
-  D.type <- match.arg(D)
-  X      <- object$X
-  H      <- object$H
-  y      <- object$y
-  W      <- object$W
-  k      <- ncol(X)
-  n      <- nrow(X)
-  b.hat  <- object$coefficients
-  rho    <- b.hat[1L]
-  beta   <- b.hat[(2L:(k + 1))]
-  # Matrix D is (k_x + 2) * (k + 1)
-  if (estimator == "gmm"){
-    if (D.type == "population"){
-      D     <- make.D(rho = rho, beta = beta, y = y, X = X, H = H, W = W) / n
-    }
-    if (D.type == "gradient"){
-      D     <- moments.lee2007(b.hat, y = y, X = X, H = H, W = W)$D 
-    }
-    Omega <- make.vmom(b.hat = b.hat, y = y, X = X, H = H, W = W)
-    var   <- solve(crossprod(D)) %*% t(D) %*% Omega %*% D %*% solve(crossprod(D)) / n
-  }
-  if (estimator == "ogmm"){
-    if (D.type == "population"){
-      D     <- make.D(rho = rho, beta = beta, y = y, X = X, H = H, W = W) /n
-    }
-    if (D.type == "gradient"){
-      D     <- moments.lee2007(b.hat, y = y, X = X, H = H, W = W)$D
-    }
-    Psi <- object$Psi
-    var <- solve(t(D) %*% Psi %*% D) / n
-  }
-  return(var)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Variance-covariance matrix}
+\hlstd{vcov.gmm.slm} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,} \hlkwc{D} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"population"}\hlstd{,} \hlstr{"gradient"}\hlstd{),} \hlkwc{...}\hlstd{)\{}
+  \hlstd{estimator} \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{estimator}
+  \hlstd{D.type} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(D)}
+  \hlstd{X}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{X}
+  \hlstd{H}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{H}
+  \hlstd{y}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{y}
+  \hlstd{W}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{W}
+  \hlstd{k}      \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}      \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{b.hat}  \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+  \hlstd{rho}    \hlkwb{<-} \hlstd{b.hat[}\hlnum{1L}\hlstd{]}
+  \hlstd{beta}   \hlkwb{<-} \hlstd{b.hat[(}\hlnum{2L}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{1}\hlstd{))]}
+  \hlcom{# Matrix D is (k_x + 2) * (k + 1)}
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"gmm"}\hlstd{)\{}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"population"}\hlstd{)\{}
+      \hlstd{D}     \hlkwb{<-} \hlkwd{make.D}\hlstd{(}\hlkwc{rho} \hlstd{= rho,} \hlkwc{beta} \hlstd{= beta,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)} \hlopt{/} \hlstd{n}
+    \hlstd{\}}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"gradient"}\hlstd{)\{}
+      \hlstd{D}     \hlkwb{<-} \hlkwd{moments.lee2007}\hlstd{(b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)}\hlopt{$}\hlstd{D}
+    \hlstd{\}}
+    \hlstd{Omega} \hlkwb{<-} \hlkwd{make.vmom}\hlstd{(}\hlkwc{b.hat} \hlstd{= b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)}
+    \hlstd{var}   \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(D))} \hlopt{%*%} \hlkwd{t}\hlstd{(D)} \hlopt{%*%} \hlstd{Omega} \hlopt{%*%} \hlstd{D} \hlopt{%*%} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(D))} \hlopt{/} \hlstd{n}
+  \hlstd{\}}
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"ogmm"}\hlstd{)\{}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"population"}\hlstd{)\{}
+      \hlstd{D}     \hlkwb{<-} \hlkwd{make.D}\hlstd{(}\hlkwc{rho} \hlstd{= rho,} \hlkwc{beta} \hlstd{= beta,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)} \hlopt{/}\hlstd{n}
+    \hlstd{\}}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"gradient"}\hlstd{)\{}
+      \hlstd{D}     \hlkwb{<-} \hlkwd{moments.lee2007}\hlstd{(b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{H} \hlstd{= H,} \hlkwc{W} \hlstd{= W)}\hlopt{$}\hlstd{D}
+    \hlstd{\}}
+    \hlstd{Psi} \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{Psi}
+    \hlstd{var} \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{t}\hlstd{(D)} \hlopt{%*%} \hlstd{Psi} \hlopt{%*%} \hlstd{D)} \hlopt{/} \hlstd{n}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(var)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
-<<summary.gmm.slm>>=
-summary.gmm.slm <- function(object, 
-                            D = c("population", "gradient"), 
-                             table = TRUE, 
-                             digits = max(3, .Options$digits - 3),
-                             ...){
-  D.type <- match.arg(D)
-  n       <- nrow(object$X)
-  df      <- n - length(object$coefficients)
-  b       <- object$coefficients
-  std.err <- sqrt(diag(vcov(object, D = D.type)))
-  z       <- b / std.err
-  p       <- 2 * pt(-abs(z), df = df)
-  CoefTable <- cbind(b, std.err, z, p)
-  colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-  result <- structure(
-    list(
-      CoefTable = CoefTable, 
-      digits    = digits, 
-      call      = object$call),
-    class = 'summary.gmm.slm'
-  )
-  return(result)
-}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{summary.gmm.slm} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,}
+                            \hlkwc{D} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"population"}\hlstd{,} \hlstr{"gradient"}\hlstd{),}
+                             \hlkwc{table} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                             \hlkwc{digits} \hlstd{=} \hlkwd{max}\hlstd{(}\hlnum{3}\hlstd{, .Options}\hlopt{$}\hlstd{digits} \hlopt{-} \hlnum{3}\hlstd{),}
+                             \hlkwc{...}\hlstd{)\{}
+  \hlstd{D.type} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(D)}
+  \hlstd{n}       \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{X)}
+  \hlstd{df}      \hlkwb{<-} \hlstd{n} \hlopt{-} \hlkwd{length}\hlstd{(object}\hlopt{$}\hlstd{coefficients)}
+  \hlstd{b}       \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+  \hlstd{std.err} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(object,} \hlkwc{D} \hlstd{= D.type)))}
+  \hlstd{z}       \hlkwb{<-} \hlstd{b} \hlopt{/} \hlstd{std.err}
+  \hlstd{p}       \hlkwb{<-} \hlnum{2} \hlopt{*} \hlkwd{pt}\hlstd{(}\hlopt{-}\hlkwd{abs}\hlstd{(z),} \hlkwc{df} \hlstd{= df)}
+  \hlstd{CoefTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(b, std.err, z, p)}
+  \hlkwd{colnames}\hlstd{(CoefTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std.Error"}\hlstd{,} \hlstr{"t-value"}\hlstd{,} \hlstr{"Pr(>|t|)"}\hlstd{)}
+  \hlstd{result} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{CoefTable} \hlstd{= CoefTable,}
+      \hlkwc{digits}    \hlstd{= digits,}
+      \hlkwc{call}      \hlstd{= object}\hlopt{$}\hlstd{call),}
+    \hlkwc{class} \hlstd{=} \hlstr{'summary.gmm.slm'}
+  \hlstd{)}
+  \hlkwd{return}\hlstd{(result)}
+\hlstd{\}}
 
-print.summary.gmm.slm <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-  
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
+\hlstd{print.summary.gmm.slm} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}
+                                   \hlkwc{digits} \hlstd{= x}\hlopt{$}\hlstd{digits,}
+                                   \hlkwc{na.print} \hlstd{=} \hlstr{""}\hlstd{,}
+                                   \hlkwc{symbolic.cor} \hlstd{= p} \hlopt{>} \hlnum{4}\hlstd{,}
+                                   \hlkwc{signif.stars} \hlstd{=} \hlkwd{getOption}\hlstd{(}\hlstr{"show.signif.stars"}\hlstd{),}
+                                   \hlkwc{...}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCall:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{deparse}\hlstd{(x}\hlopt{$}\hlstd{call),} \hlkwc{sep} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{,} \hlkwc{collapse} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{),} \hlstr{"\textbackslash{}n\textbackslash{}n"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCoefficients:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{printCoefmat}\hlstd{(x}\hlopt{$}\hlstd{CoefTable,} \hlkwc{digit} \hlstd{= digits,} \hlkwc{P.value} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{has.Pvalue} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{invisible}\hlstd{(}\hlkwa{NULL}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we test the function \code{slm.gmm} estimating the GMM and OGMM procedure, along with standard errors estimated using the matrix $\mD_n$ evaluated at $\widehat{\vtheta}$, \code{D = "population"}, and the gradient evaluated at $\widehat{\vtheta}$, \code{D = "gradient"}. 
-<<test-gmm-slm, cache = TRUE>>=
-# Test 
-gmm <- slm.gmm(y ~ x1 + x2 + x3, data = data, instruments = 2, W = W)
-
-summary(gmm, D = "population")
-summary(gmm, D = "gradient")
-
-ogmm <- slm.gmm(y ~ x1 + x2 + x3, data = data, instruments = 2, W = W, 
-                estimator = "ogmm")
-summary(ogmm, D = "population")
-summary(ogmm, D = "gradient")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Test }
+\hlstd{gmm} \hlkwb{<-} \hlkwd{slm.gmm}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{W} \hlstd{= W)}
+\end{alltt}
+\begin{verbatim}
+## Initial function value: -0.1048576 
+## Initial gradient value:
+##          Wy (Intercept)          x1          x2          x3 
+## -0.36908069  0.39381179  0.27513366 -0.07774734 -0.31510188 
+## initial  value 0.104858 
+## iter   2 value 0.035790
+## iter   3 value 0.012847
+## iter   4 value 0.012371
+## iter   5 value 0.012121
+## iter   6 value 0.012097
+## iter   7 value 0.012084
+## iter   8 value 0.012083
+## iter   9 value 0.012083
+## iter  10 value 0.012083
+## iter  11 value 0.012083
+## iter  11 value 0.012083
+## iter  11 value 0.012083
+## final  value 0.012083 
+## converged
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(gmm,} \hlkwc{D} \hlstd{=} \hlstr{"population"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.gmm(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## Wy           0.53258   0.04350  12.242   <2e-16 ***
+## (Intercept) -0.10708   0.06530  -1.640    0.102    
+## x1          -1.02807   0.06365 -16.152   <2e-16 ***
+## x2          -0.04150   0.06355  -0.653    0.514    
+## x3           1.05343   0.06585  15.997   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(gmm,} \hlkwc{D} \hlstd{=} \hlstr{"gradient"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.gmm(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2)
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## Wy           0.53258   0.04988  10.676   <2e-16 ***
+## (Intercept) -0.10708   0.06621  -1.617    0.106    
+## x1          -1.02807   0.06401 -16.061   <2e-16 ***
+## x2          -0.04150   0.06360  -0.652    0.514    
+## x3           1.05343   0.06914  15.237   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlstd{ogmm} \hlkwb{<-} \hlkwd{slm.gmm}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{instruments} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{W} \hlstd{= W,}
+                \hlkwc{estimator} \hlstd{=} \hlstr{"ogmm"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## Initial function value: -0.1048576 
+## Initial gradient value:
+##          Wy (Intercept)          x1          x2          x3 
+## -0.36908069  0.39381179  0.27513366 -0.07774734 -0.31510188 
+## initial  value 0.104858 
+## iter   2 value 0.035790
+## iter   3 value 0.012847
+## iter   4 value 0.012371
+## iter   5 value 0.012121
+## iter   6 value 0.012097
+## iter   7 value 0.012084
+## iter   8 value 0.012083
+## iter   9 value 0.012083
+## iter  10 value 0.012083
+## iter  11 value 0.012083
+## iter  11 value 0.012083
+## iter  11 value 0.012083
+## final  value 0.012083 
+## converged
+## Initial function value: -0.02203645 
+## Initial gradient value:
+##           Wy  (Intercept)           x1           x2           x3 
+##  0.056818912 -0.002763490 -0.010072487  0.008073935 -0.009049050 
+## initial  value 0.022036 
+## iter   2 value 0.021897
+## iter   3 value 0.021041
+## iter   4 value 0.021027
+## iter   5 value 0.021025
+## iter   6 value 0.021025
+## iter   7 value 0.021025
+## iter   7 value 0.021025
+## iter   7 value 0.021025
+## final  value 0.021025 
+## converged
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(ogmm,} \hlkwc{D} \hlstd{=} \hlstr{"population"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.gmm(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2, 
+##     estimator = "ogmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## Wy           0.56420   0.03736  15.101   <2e-16 ***
+## (Intercept) -0.09892   0.06470  -1.529    0.127    
+## x1          -1.03113   0.06328 -16.295   <2e-16 ***
+## x2          -0.03512   0.06335  -0.554    0.580    
+## x3           1.03201   0.06530  15.804   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(ogmm,} \hlkwc{D} \hlstd{=} \hlstr{"gradient"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## slm.gmm(formula = y ~ x1 + x2 + x3, data = data, W = W, instruments = 2, 
+##     estimator = "ogmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## Wy           0.56420   0.04327  13.039   <2e-16 ***
+## (Intercept) -0.09892   0.06529  -1.515    0.130    
+## x1          -1.03113   0.06325 -16.302   <2e-16 ***
+## x2          -0.03512   0.06325  -0.555    0.579    
+## x3           1.03201   0.06710  15.379   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Table \ref{tab:gmm-slms-b} compares different estimates for the SLM using all previous estimators: MLE, S2SLSE, BS2SLSE, GMME and OGMME. Similarly, Table \ref{tab:gmm-slms-se} compares the SEs. 
 
 \begin{table}[ht]
 \caption{Comparing coefficients for SLM.}\label{tab:gmm-slms-b}
 \centering
-<<echo = FALSE, results = 'asis', warning=FALSE>>=
-mle <- sar.mle.con(y ~ x1 + x2 + x3, data = data, W = W)
-coefs <- cbind(c(mle$beta_hat, mle$rho_hat),
-               s2sls.e$coefficients, 
-               b2sls$coefficients,
-               gmm$coefficients[c(2, 3, 4, 5, 1)], 
-               ogmm$coefficients[c(2, 3, 4, 5, 1)]
-           )
-Tab <- cbind(coefs)
-rownames(Tab) <- c("b0", "b1", "b2", "b3", "rho")
-colnames(Tab) <- c("mle", "s2sls", "bs2sls", "gmm", "ogmm")
-toLatex(Tab, compact = TRUE, useBooktabs =  TRUE, digits = 4)
-@
+\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in sar.mle.con(y \textasciitilde{} x1 + x2 + x3, data = data, W = W): could not find function "{}sar.mle.con"{}}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in cbind(c(mle\$beta\_hat, mle\$rho\_hat), s2sls.e\$coefficients, b2sls\$coefficients, : object 'mle' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in cbind(coefs): object 'coefs' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in rownames(Tab) <- c("{}b0"{}, "{}b1"{}, "{}b2"{}, "{}b3"{}, "{}rho"{}): object 'Tab' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in colnames(Tab) <- c("{}mle"{}, "{}s2sls"{}, "{}bs2sls"{}, "{}gmm"{}, "{}ogmm"{}): object 'Tab' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in toLatex(Tab, compact = TRUE, useBooktabs = TRUE, digits = 4): object 'Tab' not found}}\end{kframe}
 \end{table}
 
 
 \begin{table}[ht]
 \caption{Comparing SE for SLM.}\label{tab:gmm-slms-se}
 \centering
-<<echo = FALSE, results = 'asis', warning=FALSE>>=
-ses <- cbind(sqrt(diag(vcov(mle)))[c(1, 2, 3, 4, 6)],
-             sqrt(diag(vcov(s2sls.e))), 
-             sqrt(diag(vcov(s2sls.e, tse = "rob"))),
-             sqrt(diag(vcov(b2sls, estimate = "initial"))), 
-             sqrt(diag(vcov(b2sls, estimate = "final"))), 
-             sqrt(diag(vcov(gmm)))[c(2, 3, 4, 5, 1)], 
-             sqrt(diag(vcov(gmm, D = "gradient")))[c(2, 3, 4, 5, 1)], 
-              sqrt(diag(vcov(ogmm)))[c(2, 3, 4, 5, 1)], 
-             sqrt(diag(vcov(ogmm, D = "gradient")))[c(2, 3, 4, 5, 1)]
-             )
-Tab <- cbind(ses)
-rownames(Tab) <- c("b0", "b1", "b2", "b3", "rho")
-colnames(Tab) <- c("mle", "s2sls-ho", "s2sls-he", "bs2sls-i", "bs2sls-f", "gmm-p", "gmm-g", "ogmm-p", "ogmm-g")
-toLatex(Tab, compact = TRUE, useBooktabs =  TRUE, digits = 4)
-@
+\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'diag': object 'mle' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in cbind(ses): object 'ses' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in rownames(Tab) <- c("{}b0"{}, "{}b1"{}, "{}b2"{}, "{}b3"{}, "{}rho"{}): object 'Tab' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in colnames(Tab) <- c("{}mle"{}, "{}s2sls-ho"{}, "{}s2sls-he"{}, "{}bs2sls-i"{}, : object 'Tab' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in toLatex(Tab, compact = TRUE, useBooktabs = TRUE, digits = 4): object 'Tab' not found}}\end{kframe}
 \end{table}
 
 %*************************************************
@@ -3312,200 +3640,266 @@ The steps are the following:
 
 In this Section, we show how to create a function for the FSGLS estimator of the SEM outlined in Algorithm \ref{algorithm:FGSL}. First, we generate a function that create the matrix $\mG_n$ and the moments vector $\vg_n$ given in Equation \eqref{eq:matrix-G-sem} and \eqref{eq:matrix-g-sem}, respectively. 
 
-<<mom.sem>>=
-# Function that generates g and G
-mom.sem <- function(u, M){
-  # This function generates the moment conditions
-  # inputs: Consistent residuals and W matrix
-  n       <- length(u)
-  u_l     <- W %*% u
-  u_ll    <- W %*% u_l
-  trMM    <- sum(diag(crossprod(M)))
-  uu      <- crossprod(u)
-  uul     <- crossprod(u, u_l)
-  uull    <- crossprod(u, u_ll)
-  ullul   <- crossprod(u_ll, u_l)
-  ullull  <- crossprod(u_ll, u_ll)
-  ulul    <- crossprod(u_l, u_l)
-  ulull   <- crossprod(u_l, u_ll)
-  G       <- matrix(0, 3, 3)
-  G[1, 1] <- 2 * uul
-  G[2, 1] <- 2 * ullul
-  G[3, 1] <- uull + ulul
-  G[1, 2] <- -ulul 
-  G[2, 2] <- -ullull
-  G[3, 2] <- -ulull 
-  G[1, 3] <- 1 * n
-  G[2, 3] <- trMM 
-  G <- G / n
-  g <- c(uu, ulul, uul) / n
-  list(G = G, g = g)
-}  
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Function that generates g and G}
+\hlstd{mom.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{u}\hlstd{,} \hlkwc{M}\hlstd{)\{}
+  \hlcom{# This function generates the moment conditions}
+  \hlcom{# inputs: Consistent residuals and W matrix}
+  \hlstd{n}       \hlkwb{<-} \hlkwd{length}\hlstd{(u)}
+  \hlstd{u_l}     \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlstd{u}
+  \hlstd{u_ll}    \hlkwb{<-} \hlstd{W} \hlopt{%*%} \hlstd{u_l}
+  \hlstd{trMM}    \hlkwb{<-} \hlkwd{sum}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{crossprod}\hlstd{(M)))}
+  \hlstd{uu}      \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u)}
+  \hlstd{uul}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u, u_l)}
+  \hlstd{uull}    \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u, u_ll)}
+  \hlstd{ullul}   \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u_ll, u_l)}
+  \hlstd{ullull}  \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u_ll, u_ll)}
+  \hlstd{ulul}    \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u_l, u_l)}
+  \hlstd{ulull}   \hlkwb{<-} \hlkwd{crossprod}\hlstd{(u_l, u_ll)}
+  \hlstd{G}       \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{3}\hlstd{)}
+  \hlstd{G[}\hlnum{1}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlnum{2} \hlopt{*} \hlstd{uul}
+  \hlstd{G[}\hlnum{2}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlnum{2} \hlopt{*} \hlstd{ullul}
+  \hlstd{G[}\hlnum{3}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{uull} \hlopt{+} \hlstd{ulul}
+  \hlstd{G[}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlopt{-}\hlstd{ulul}
+  \hlstd{G[}\hlnum{2}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlopt{-}\hlstd{ullull}
+  \hlstd{G[}\hlnum{3}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlopt{-}\hlstd{ulull}
+  \hlstd{G[}\hlnum{1}\hlstd{,} \hlnum{3}\hlstd{]} \hlkwb{<-} \hlnum{1} \hlopt{*} \hlstd{n}
+  \hlstd{G[}\hlnum{2}\hlstd{,} \hlnum{3}\hlstd{]} \hlkwb{<-} \hlstd{trMM}
+  \hlstd{G} \hlkwb{<-} \hlstd{G} \hlopt{/} \hlstd{n}
+  \hlstd{g} \hlkwb{<-} \hlkwd{c}\hlstd{(uu, ulul, uul)} \hlopt{/} \hlstd{n}
+  \hlkwd{list}\hlstd{(}\hlkwc{G} \hlstd{= G,} \hlkwc{g} \hlstd{= g)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 In the following lines, we provide a function that returns the $Q_n = \vupsilon_n^\top\vupsilon_n$ defined in Equation \eqref{eq:Qn-sem-mom}.
 
-<<Qn>>=
-# Function to be optimized
-Qn <- function(par, mom, verbose = verbose){
-    # par has lambda and sigma
-    upsilon <- mom$g - mom$G %*% c(par[1], par[1]^2, par[2])
-    upup <- crossprod(upsilon)
-    if (verbose) 
-      cat("function:", upup, "lambda:", par[1], "sig2:", 
-          par[2], "\n")
-   return(upup)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Function to be optimized}
+\hlstd{Qn} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{par}\hlstd{,} \hlkwc{mom}\hlstd{,} \hlkwc{verbose} \hlstd{= verbose)\{}
+    \hlcom{# par has lambda and sigma}
+    \hlstd{upsilon} \hlkwb{<-} \hlstd{mom}\hlopt{$}\hlstd{g} \hlopt{-} \hlstd{mom}\hlopt{$}\hlstd{G} \hlopt{%*%} \hlkwd{c}\hlstd{(par[}\hlnum{1}\hlstd{], par[}\hlnum{1}\hlstd{]}\hlopt{^}\hlnum{2}\hlstd{, par[}\hlnum{2}\hlstd{])}
+    \hlstd{upup} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(upsilon)}
+    \hlkwa{if} \hlstd{(verbose)}
+      \hlkwd{cat}\hlstd{(}\hlstr{"function:"}\hlstd{, upup,} \hlstr{"lambda:"}\hlstd{, par[}\hlnum{1}\hlstd{],} \hlstr{"sig2:"}\hlstd{,}
+          \hlstd{par[}\hlnum{2}\hlstd{],} \hlstr{"\textbackslash{}n"}\hlstd{)}
+   \hlkwd{return}\hlstd{(upup)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 Next, we create the main function that generates the FSGLS estimator of the SEM model:
-<<sem.sfgls>>=
-# Main function for the FSGLSE
-sem.sfgls <- function(formula, data, M, verbose = TRUE){
-  # Model Frame
-  callT    <- match.call(expand.dots = TRUE)
-  mf       <- callT
-  m        <- match(c("formula", "data"), names(mf), 0L)
-  mf       <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf <- eval(mf, parent.frame())
-  
-  # Get variables and globals
-  y  <- model.response(mf)
-  X  <- model.matrix(formula, mf)
-  n  <- nrow(X)
-  k  <- ncol(X)
-  sn <- nrow(M)
-  if (n != sn) stop("number of spatial units in W is different to the number of data") 
-  
-  # First Step: Obtain consistent residuals from OLS
-  ols   <- lm(y ~ X - 1)
-  u.hat <- residuals(ols)
-  
-  # Generate Moments
-  mom.hat <- mom.sem(u = u.hat, M = M)
-  
-  # Initial values for lambda and sigma
-  scorr <- crossprod(W %*% u.hat, u.hat) / crossprod(u.hat)
-  par  <- c(scorr, var(u.hat))
-  
-  #Optimization
-  opt <- nlminb(start =  par, Qn, mom = mom.hat, verbose = verbose)
-  
-  # B FSGLS
-  lambda.hat <- opt$par[1L]
-  ys      <- y - drop(lambda.hat) * W %*% y
-  Xs      <- X - drop(lambda.hat) * W %*% X
-  b.hat   <- solve(crossprod(Xs)) %*% crossprod(Xs, ys)
-  
-  # Residuals
-  e.hat <- ys - Xs %*% b.hat
-  
-  # Save results
-  results <- structure(
-    list(
-      coefficients = c(b.hat, lambda.hat), 
-      call         = callT, 
-      X            = X, 
-      y            = y, 
-      Xs           = Xs, 
-      e.hat        = e.hat
-    ), 
-    class = 'myfs2sls'
-  )
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Main function for the FSGLSE}
+\hlstd{sem.sfgls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{M}\hlstd{,} \hlkwc{verbose} \hlstd{=} \hlnum{TRUE}\hlstd{)\{}
+  \hlcom{# Model Frame}
+  \hlstd{callT}    \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}        \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf} \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())}
+
+  \hlcom{# Get variables and globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{k}  \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{sn} \hlkwb{<-} \hlkwd{nrow}\hlstd{(M)}
+  \hlkwa{if} \hlstd{(n} \hlopt{!=} \hlstd{sn)} \hlkwd{stop}\hlstd{(}\hlstr{"number of spatial units in W is different to the number of data"}\hlstd{)}
+
+  \hlcom{# First Step: Obtain consistent residuals from OLS}
+  \hlstd{ols}   \hlkwb{<-} \hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{u.hat} \hlkwb{<-} \hlkwd{residuals}\hlstd{(ols)}
+
+  \hlcom{# Generate Moments}
+  \hlstd{mom.hat} \hlkwb{<-} \hlkwd{mom.sem}\hlstd{(}\hlkwc{u} \hlstd{= u.hat,} \hlkwc{M} \hlstd{= M)}
+
+  \hlcom{# Initial values for lambda and sigma}
+  \hlstd{scorr} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(W} \hlopt{%*%} \hlstd{u.hat, u.hat)} \hlopt{/} \hlkwd{crossprod}\hlstd{(u.hat)}
+  \hlstd{par}  \hlkwb{<-} \hlkwd{c}\hlstd{(scorr,} \hlkwd{var}\hlstd{(u.hat))}
+
+  \hlcom{#Optimization}
+  \hlstd{opt} \hlkwb{<-} \hlkwd{nlminb}\hlstd{(}\hlkwc{start} \hlstd{=  par, Qn,} \hlkwc{mom} \hlstd{= mom.hat,} \hlkwc{verbose} \hlstd{= verbose)}
+
+  \hlcom{# B FSGLS}
+  \hlstd{lambda.hat} \hlkwb{<-} \hlstd{opt}\hlopt{$}\hlstd{par[}\hlnum{1L}\hlstd{]}
+  \hlstd{ys}      \hlkwb{<-} \hlstd{y} \hlopt{-} \hlkwd{drop}\hlstd{(lambda.hat)} \hlopt{*} \hlstd{W} \hlopt{%*%} \hlstd{y}
+  \hlstd{Xs}      \hlkwb{<-} \hlstd{X} \hlopt{-} \hlkwd{drop}\hlstd{(lambda.hat)} \hlopt{*} \hlstd{W} \hlopt{%*%} \hlstd{X}
+  \hlstd{b.hat}   \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(Xs))} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(Xs, ys)}
+
+  \hlcom{# Residuals}
+  \hlstd{e.hat} \hlkwb{<-} \hlstd{ys} \hlopt{-} \hlstd{Xs} \hlopt{%*%} \hlstd{b.hat}
+
+  \hlcom{# Save results}
+  \hlstd{results} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{coefficients} \hlstd{=} \hlkwd{c}\hlstd{(b.hat, lambda.hat),}
+      \hlkwc{call}         \hlstd{= callT,}
+      \hlkwc{X}            \hlstd{= X,}
+      \hlkwc{y}            \hlstd{= y,}
+      \hlkwc{Xs}           \hlstd{= Xs,}
+      \hlkwc{e.hat}        \hlstd{= e.hat}
+    \hlstd{),}
+    \hlkwc{class} \hlstd{=} \hlstr{'myfs2sls'}
+  \hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 We generate the following DGP to test our function:
-<<generate-DGP-sem1>>=
-# Generate DGP
-library("spatialreg")
-library("spdep")
-set.seed(1)
-n      <- 529
-lambda <- 0.6
-M.nb2  <- cell2nb(sqrt(n), sqrt(n))
-M      <- nb2mat(M.nb2)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Generate DGP}
+\hlkwd{library}\hlstd{(}\hlstr{"spatialreg"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlstd{n}      \hlkwb{<-} \hlnum{529}
+\hlstd{lambda} \hlkwb{<-} \hlnum{0.6}
+\hlstd{M.nb2}  \hlkwb{<-} \hlkwd{cell2nb}\hlstd{(}\hlkwd{sqrt}\hlstd{(n),} \hlkwd{sqrt}\hlstd{(n))}
+\hlstd{M}      \hlkwb{<-} \hlkwd{nb2mat}\hlstd{(M.nb2)}
 
-# Exogenous variables
-x1     <- rnorm(n)
-x2     <- rnorm(n)
-x3     <- rnorm(n)
+\hlcom{# Exogenous variables}
+\hlstd{x1}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
+\hlstd{x2}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
+\hlstd{x3}     \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n)}
 
-# DGP parameters
-b0 <- 0 ; b1 <- -1; b2 <- 0; b3 <- 1
-sigma2 <- 2
-epsilon <- rnorm(n, mean = 0, sd = sqrt(sigma2))
+\hlcom{# DGP parameters}
+\hlstd{b0} \hlkwb{<-} \hlnum{0} \hlstd{; b1} \hlkwb{<-} \hlopt{-}\hlnum{1}\hlstd{; b2} \hlkwb{<-} \hlnum{0}\hlstd{; b3} \hlkwb{<-} \hlnum{1}
+\hlstd{sigma2} \hlkwb{<-} \hlnum{2}
+\hlstd{epsilon} \hlkwb{<-} \hlkwd{rnorm}\hlstd{(n,} \hlkwc{mean} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{sd} \hlstd{=} \hlkwd{sqrt}\hlstd{(sigma2))}
 
-# Simulate the dependent variable
-y <- b0 + b1*x1 + b2*x2 + b3*x3 + solve(diag(n) -  lambda * M) %*% epsilon
+\hlcom{# Simulate the dependent variable}
+\hlstd{y} \hlkwb{<-} \hlstd{b0} \hlopt{+} \hlstd{b1}\hlopt{*}\hlstd{x1} \hlopt{+} \hlstd{b2}\hlopt{*}\hlstd{x2} \hlopt{+} \hlstd{b3}\hlopt{*}\hlstd{x3} \hlopt{+} \hlkwd{solve}\hlstd{(}\hlkwd{diag}\hlstd{(n)} \hlopt{-}  \hlstd{lambda} \hlopt{*} \hlstd{M)} \hlopt{%*%} \hlstd{epsilon}
 
-data <- as.data.frame(cbind(y, x1, x2, x3))
-names(data) <- c("y", "x1", "x2", "x3")
-@
+\hlstd{data} \hlkwb{<-} \hlkwd{as.data.frame}\hlstd{(}\hlkwd{cbind}\hlstd{(y, x1, x2, x3))}
+\hlkwd{names}\hlstd{(data)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"y"}\hlstd{,} \hlstr{"x1"}\hlstd{,} \hlstr{"x2"}\hlstd{,} \hlstr{"x3"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Generate S3 methods:
-<<>>=
-vcov.myfs2sls <- function(object, ...){
-  sigma2 <- crossprod(object$e.hat) / n
-  var    <- drop(sigma2) * solve(crossprod(object$Xs))
-  return(var)
-}
-summary.myfs2sls <- function(object, 
-                              table = TRUE, 
-                              digits = max(3, .Options$digits - 3), 
-                              ...){
-    n       <- nrow(object$X)
-    K       <- ncol(object$X)
-    df      <- n - K
-    b       <- object$coefficients[1:K]
-    std.err <- sqrt(diag(vcov(object)))
-    z       <- b / std.err
-    p       <- 2 * pt(-abs(z), df = df)
-    CoefTable <- cbind(b, std.err, z, p)
-    colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-    result <- structure(
-      list(
-        CoefTable = CoefTable, 
-        digits    = digits, 
-        call      = object$call),
-      class = 'summary.myfs2sls'
-    )
-    return(result)
-}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{vcov.myfs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,} \hlkwc{...}\hlstd{)\{}
+  \hlstd{sigma2} \hlkwb{<-} \hlkwd{crossprod}\hlstd{(object}\hlopt{$}\hlstd{e.hat)} \hlopt{/} \hlstd{n}
+  \hlstd{var}    \hlkwb{<-} \hlkwd{drop}\hlstd{(sigma2)} \hlopt{*} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(object}\hlopt{$}\hlstd{Xs))}
+  \hlkwd{return}\hlstd{(var)}
+\hlstd{\}}
+\hlstd{summary.myfs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,}
+                              \hlkwc{table} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                              \hlkwc{digits} \hlstd{=} \hlkwd{max}\hlstd{(}\hlnum{3}\hlstd{, .Options}\hlopt{$}\hlstd{digits} \hlopt{-} \hlnum{3}\hlstd{),}
+                              \hlkwc{...}\hlstd{)\{}
+    \hlstd{n}       \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{X)}
+    \hlstd{K}       \hlkwb{<-} \hlkwd{ncol}\hlstd{(object}\hlopt{$}\hlstd{X)}
+    \hlstd{df}      \hlkwb{<-} \hlstd{n} \hlopt{-} \hlstd{K}
+    \hlstd{b}       \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients[}\hlnum{1}\hlopt{:}\hlstd{K]}
+    \hlstd{std.err} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(object)))}
+    \hlstd{z}       \hlkwb{<-} \hlstd{b} \hlopt{/} \hlstd{std.err}
+    \hlstd{p}       \hlkwb{<-} \hlnum{2} \hlopt{*} \hlkwd{pt}\hlstd{(}\hlopt{-}\hlkwd{abs}\hlstd{(z),} \hlkwc{df} \hlstd{= df)}
+    \hlstd{CoefTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(b, std.err, z, p)}
+    \hlkwd{colnames}\hlstd{(CoefTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std.Error"}\hlstd{,} \hlstr{"t-value"}\hlstd{,} \hlstr{"Pr(>|t|)"}\hlstd{)}
+    \hlstd{result} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+      \hlkwd{list}\hlstd{(}
+        \hlkwc{CoefTable} \hlstd{= CoefTable,}
+        \hlkwc{digits}    \hlstd{= digits,}
+        \hlkwc{call}      \hlstd{= object}\hlopt{$}\hlstd{call),}
+      \hlkwc{class} \hlstd{=} \hlstr{'summary.myfs2sls'}
+    \hlstd{)}
+    \hlkwd{return}\hlstd{(result)}
+\hlstd{\}}
 
-print.summary.myfs2sls <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-      
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
+\hlstd{print.summary.myfs2sls} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}
+                                   \hlkwc{digits} \hlstd{= x}\hlopt{$}\hlstd{digits,}
+                                   \hlkwc{na.print} \hlstd{=} \hlstr{""}\hlstd{,}
+                                   \hlkwc{symbolic.cor} \hlstd{= p} \hlopt{>} \hlnum{4}\hlstd{,}
+                                   \hlkwc{signif.stars} \hlstd{=} \hlkwd{getOption}\hlstd{(}\hlstr{"show.signif.stars"}\hlstd{),}
+                                   \hlkwc{...}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCall:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{deparse}\hlstd{(x}\hlopt{$}\hlstd{call),} \hlkwc{sep} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{,} \hlkwc{collapse} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{),} \hlstr{"\textbackslash{}n\textbackslash{}n"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCoefficients:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{printCoefmat}\hlstd{(x}\hlopt{$}\hlstd{CoefTable,} \hlkwc{digit} \hlstd{= digits,} \hlkwc{P.value} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{has.Pvalue} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{invisible}\hlstd{(}\hlkwa{NULL}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 We test our function and compare it with \code{GMerrorsar}
-<<b.fs2sls>>=
-b.fs2sls <- sem.sfgls(y ~ x1 + x2 + x3, data = data, M = M, verbose = FALSE)
-summary(b.fs2sls)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{b.fs2sls} \hlkwb{<-} \hlkwd{sem.sfgls}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,} \hlkwc{M} \hlstd{= M,} \hlkwc{verbose} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\hlkwd{summary}\hlstd{(b.fs2sls)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## sem.sfgls(formula = y ~ x1 + x2 + x3, data = data, M = M, verbose = FALSE)
+## 
+## 
+## Coefficients:
+##              Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.192429  0.149854  -1.284    0.200    
+## x1          -1.079338  0.063535 -16.988   <2e-16 ***
+## x2           0.006391  0.060054   0.106    0.915    
+## x3           0.975246  0.064009  15.236   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Check
-<<>>=
-sem_mm    <- GMerrorsar(y ~ x1 + x2 + x3, 
-                        data = data,
-                        listw = mat2listw(M, style = "W"),
-                        verbose = FALSE,
-                        legacy =  TRUE)
-summary(sem_mm)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sem_mm}    \hlkwb{<-} \hlkwd{GMerrorsar}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,}
+                        \hlkwc{data} \hlstd{= data,}
+                        \hlkwc{listw} \hlstd{=} \hlkwd{mat2listw}\hlstd{(M,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{),}
+                        \hlkwc{verbose} \hlstd{=} \hlnum{FALSE}\hlstd{,}
+                        \hlkwc{legacy} \hlstd{=}  \hlnum{TRUE}\hlstd{)}
+\hlkwd{summary}\hlstd{(sem_mm)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:GMerrorsar(formula = y ~ x1 + x2 + x3, data = data, listw = mat2listw(M, 
+##     style = "W"), verbose = FALSE, legacy = TRUE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -3.748647 -0.946972 -0.050107  1.076211  4.413975 
+## 
+## Type: GM SAR estimator
+## Coefficients: (GM standard errors) 
+##              Estimate Std. Error  z value Pr(>|z|)
+## (Intercept) -0.192429   0.149854  -1.2841   0.1991
+## x1          -1.079338   0.063535 -16.9880   <2e-16
+## x2           0.006391   0.060054   0.1064   0.9152
+## x3           0.975246   0.064009  15.2362   <2e-16
+## 
+## Lambda: 0.55602 (standard error): 0.10098 (z-value): 5.5061
+## Residual variance (sigma squared): 2.3414, (sigma: 1.5302)
+## GM argmin sigma squared: 2.3535
+## Number of observations: 529 
+## Number of parameters estimated: 6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 % %===================================
@@ -3698,309 +4092,521 @@ where $\mQ_0 = \mM_n\mR_0^{-1}$.
 
 First, we create the function \code{moments.lee2010} which creates the empirical moments
 
-<<moments.lee2010>>=
-moments.lee2010 <- function(theta, y, X, M){
-  # Theta: beta and lambda
-  k        <- ncol(X)
-  n        <- nrow(X)
-  beta     <- theta[1:k]
-  lambda   <- tail(theta, n = 1L)
-  I        <- diag(n)
-  R        <- I -  lambda * M
-  u.n      <- y - crossprod(t(X), beta)
-  epsi     <- R %*% u.n
-  P1       <- M
-  M2       <- crossprod(t(M), M)
-  P2       <- M2 - (tr(M2) / n) * diag(n)
-  g.lin    <- crossprod(X, epsi)            # k * 1
-  g.q1     <- crossprod(epsi, P1) %*% epsi  # 1*1
-  g.q2     <- crossprod(epsi, P2) %*% epsi  # 1*1
-  g        <- rbind(g.lin, g.q1, g.q2)
-  
-  # Gradient 
-  P1s <- P1 + t(P1)
-  P2s <- P2 + t(P2)
-  D   <-  -1 * rbind(t(X), 
-                     crossprod(epsi, P1s), 
-                     crossprod(epsi, P2s) 
-                     ) %*% cbind(R %*% X, M %*% u.n)
-  
-  # Return results (note that they are divided by n)
-  out <- list(g = g /n , D = D / n)
-  return(out)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{moments.lee2010} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{theta}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{M}\hlstd{)\{}
+  \hlcom{# Theta: beta and lambda}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{beta}     \hlkwb{<-} \hlstd{theta[}\hlnum{1}\hlopt{:}\hlstd{k]}
+  \hlstd{lambda}   \hlkwb{<-} \hlkwd{tail}\hlstd{(theta,} \hlkwc{n} \hlstd{=} \hlnum{1L}\hlstd{)}
+  \hlstd{I}        \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{R}        \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{lambda} \hlopt{*} \hlstd{M}
+  \hlstd{u.n}      \hlkwb{<-} \hlstd{y} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{epsi}     \hlkwb{<-} \hlstd{R} \hlopt{%*%} \hlstd{u.n}
+  \hlstd{P1}       \hlkwb{<-} \hlstd{M}
+  \hlstd{M2}       \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(M), M)}
+  \hlstd{P2}       \hlkwb{<-} \hlstd{M2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(M2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{g.lin}    \hlkwb{<-} \hlkwd{crossprod}\hlstd{(X, epsi)}            \hlcom{# k * 1}
+  \hlstd{g.q1}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(epsi, P1)} \hlopt{%*%} \hlstd{epsi}  \hlcom{# 1*1}
+  \hlstd{g.q2}     \hlkwb{<-} \hlkwd{crossprod}\hlstd{(epsi, P2)} \hlopt{%*%} \hlstd{epsi}  \hlcom{# 1*1}
+  \hlstd{g}        \hlkwb{<-} \hlkwd{rbind}\hlstd{(g.lin, g.q1, g.q2)}
+
+  \hlcom{# Gradient }
+  \hlstd{P1s} \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s} \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+  \hlstd{D}   \hlkwb{<-}  \hlopt{-}\hlnum{1} \hlopt{*} \hlkwd{rbind}\hlstd{(}\hlkwd{t}\hlstd{(X),}
+                     \hlkwd{crossprod}\hlstd{(epsi, P1s),}
+                     \hlkwd{crossprod}\hlstd{(epsi, P2s)}
+                     \hlstd{)} \hlopt{%*%} \hlkwd{cbind}\hlstd{(R} \hlopt{%*%} \hlstd{X, M} \hlopt{%*%} \hlstd{u.n)}
+
+  \hlcom{# Return results (note that they are divided by n)}
+  \hlstd{out} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlkwc{g} \hlstd{= g} \hlopt{/}\hlstd{n ,} \hlkwc{D} \hlstd{= D} \hlopt{/} \hlstd{n)}
+  \hlkwd{return}\hlstd{(out)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The objective function to be minimized is the following:
-<<Q.sem>>=
-Q.sem <- function(start, y, X, M, Psi, gradient){
-  g.hat <- moments.lee2010(theta = start, y = y, X = X, M = M)
-  Q <- -1 * crossprod(g.hat$g, Psi) %*% g.hat$g
-  if (gradient){
-    D <- g.hat$D
-    Gr <- -2 * crossprod(D, Psi) %*% g.hat$g
-    attr(Q, "gradient") <- as.vector(Gr)
-  }
-  return(Q)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Q.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{start}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{M}\hlstd{,} \hlkwc{Psi}\hlstd{,} \hlkwc{gradient}\hlstd{)\{}
+  \hlstd{g.hat} \hlkwb{<-} \hlkwd{moments.lee2010}\hlstd{(}\hlkwc{theta} \hlstd{= start,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}
+  \hlstd{Q} \hlkwb{<-} \hlopt{-}\hlnum{1} \hlopt{*} \hlkwd{crossprod}\hlstd{(g.hat}\hlopt{$}\hlstd{g, Psi)} \hlopt{%*%} \hlstd{g.hat}\hlopt{$}\hlstd{g}
+  \hlkwa{if} \hlstd{(gradient)\{}
+    \hlstd{D} \hlkwb{<-} \hlstd{g.hat}\hlopt{$}\hlstd{D}
+    \hlstd{Gr} \hlkwb{<-} \hlopt{-}\hlnum{2} \hlopt{*} \hlkwd{crossprod}\hlstd{(D, Psi)} \hlopt{%*%} \hlstd{g.hat}\hlopt{$}\hlstd{g}
+    \hlkwd{attr}\hlstd{(Q,} \hlstr{"gradient"}\hlstd{)} \hlkwb{<-} \hlkwd{as.vector}\hlstd{(Gr)}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(Q)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function that generates the variance-covariance of the moments is the following
-<<make.vmom.sem>>=
-make.vmom.sem <- function(b.hat, y, X, M){
-  k        <- ncol(X)
-  n        <- nrow(X)
-  beta     <- b.hat[1:k]
-  lambda   <- tail(b.hat, n = 1L)
-  I        <- diag(n)
-  R        <- I -  lambda * M
-  u.n      <- y - crossprod(t(X), beta)
-  epsi     <- R %*% u.n
-  sigma2   <- as.numeric(crossprod(epsi) / n)
-  P1       <- M
-  M2       <- crossprod(t(M), M)
-  P2       <- M2 - (tr(M2) / n) * diag(n)
-  P1s      <- P1 + t(P1)
-  P2s      <- P2 + t(P2)
-  
-  # Construct V: (2 + k) * (2 + k)
-  V11 <- (1 / sigma2) * crossprod(X)         # k + k
-  Delta <- matrix(0, nrow = 2, ncol = 2)
-  Delta[1, 1] <- tr(P1s %*% P1)
-  Delta[1, 2] <- tr(P1s %*% P2)
-  Delta[2, 1] <- tr(P2s %*% P1)
-  Delta[2, 2] <- tr(P2s %*% P2)
-  V <- matrix(0, nrow = (k + 2), ncol = (k + 2))
-  V[1:k, 1:k] <- V11
-  V[(k + 1):(k + 2), (k + 1):(k + 2)] <- Delta
-  V <- sigma2^2 * V
-  # Construct first part of Omega
-  omega   <- cbind(diag(P1), diag(P2)) # n * 2
-  mu4.hat <- sum(epsi^4) / n
-  mu3.hat <- sum(epsi^3) / n
-  Vp1 <- matrix(0, nrow = (k + 2), ncol = (k + 2))
-  Vp1[(k + 1):(k + 2), (k + 1):(k + 2)] <- (mu4.hat - 3 * sigma2^2) * crossprod(omega)   # 2 * 2 
-  Vp1[(k + 1):(k + 2), 1:k] <- mu3.hat * crossprod(omega, X)
-  Vp1[1:k, (k + 1):(k + 2)] <- mu3.hat * crossprod(X, omega)
-  Omega                 <- Vp1 + V
-  Omega                 <- Omega / n
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{make.vmom.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{b.hat}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{M}\hlstd{)\{}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{beta}     \hlkwb{<-} \hlstd{b.hat[}\hlnum{1}\hlopt{:}\hlstd{k]}
+  \hlstd{lambda}   \hlkwb{<-} \hlkwd{tail}\hlstd{(b.hat,} \hlkwc{n} \hlstd{=} \hlnum{1L}\hlstd{)}
+  \hlstd{I}        \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{R}        \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{lambda} \hlopt{*} \hlstd{M}
+  \hlstd{u.n}      \hlkwb{<-} \hlstd{y} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{epsi}     \hlkwb{<-} \hlstd{R} \hlopt{%*%} \hlstd{u.n}
+  \hlstd{sigma2}   \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{crossprod}\hlstd{(epsi)} \hlopt{/} \hlstd{n)}
+  \hlstd{P1}       \hlkwb{<-} \hlstd{M}
+  \hlstd{M2}       \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(M), M)}
+  \hlstd{P2}       \hlkwb{<-} \hlstd{M2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(M2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{P1s}      \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s}      \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+
+  \hlcom{# Construct V: (2 + k) * (2 + k)}
+  \hlstd{V11} \hlkwb{<-} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{sigma2)} \hlopt{*} \hlkwd{crossprod}\hlstd{(X)}         \hlcom{# k + k}
+  \hlstd{Delta} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{ncol} \hlstd{=} \hlnum{2}\hlstd{)}
+  \hlstd{Delta[}\hlnum{1}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P1s} \hlopt{%*%} \hlstd{P1)}
+  \hlstd{Delta[}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P1s} \hlopt{%*%} \hlstd{P2)}
+  \hlstd{Delta[}\hlnum{2}\hlstd{,} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P2s} \hlopt{%*%} \hlstd{P1)}
+  \hlstd{Delta[}\hlnum{2}\hlstd{,} \hlnum{2}\hlstd{]} \hlkwb{<-} \hlkwd{tr}\hlstd{(P2s} \hlopt{%*%} \hlstd{P2)}
+  \hlstd{V} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k} \hlopt{+} \hlnum{2}\hlstd{),} \hlkwc{ncol} \hlstd{= (k} \hlopt{+} \hlnum{2}\hlstd{))}
+  \hlstd{V[}\hlnum{1}\hlopt{:}\hlstd{k,} \hlnum{1}\hlopt{:}\hlstd{k]} \hlkwb{<-} \hlstd{V11}
+  \hlstd{V[(k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{), (k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{)]} \hlkwb{<-} \hlstd{Delta}
+  \hlstd{V} \hlkwb{<-} \hlstd{sigma2}\hlopt{^}\hlnum{2} \hlopt{*} \hlstd{V}
+  \hlcom{# Construct first part of Omega}
+  \hlstd{omega}   \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{diag}\hlstd{(P1),} \hlkwd{diag}\hlstd{(P2))} \hlcom{# n * 2}
+  \hlstd{mu4.hat} \hlkwb{<-} \hlkwd{sum}\hlstd{(epsi}\hlopt{^}\hlnum{4}\hlstd{)} \hlopt{/} \hlstd{n}
+  \hlstd{mu3.hat} \hlkwb{<-} \hlkwd{sum}\hlstd{(epsi}\hlopt{^}\hlnum{3}\hlstd{)} \hlopt{/} \hlstd{n}
+  \hlstd{Vp1} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k} \hlopt{+} \hlnum{2}\hlstd{),} \hlkwc{ncol} \hlstd{= (k} \hlopt{+} \hlnum{2}\hlstd{))}
+  \hlstd{Vp1[(k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{), (k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{)]} \hlkwb{<-} \hlstd{(mu4.hat} \hlopt{-} \hlnum{3} \hlopt{*} \hlstd{sigma2}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{*} \hlkwd{crossprod}\hlstd{(omega)}   \hlcom{# 2 * 2 }
+  \hlstd{Vp1[(k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{),} \hlnum{1}\hlopt{:}\hlstd{k]} \hlkwb{<-} \hlstd{mu3.hat} \hlopt{*} \hlkwd{crossprod}\hlstd{(omega, X)}
+  \hlstd{Vp1[}\hlnum{1}\hlopt{:}\hlstd{k, (k} \hlopt{+} \hlnum{1}\hlstd{)}\hlopt{:}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{)]} \hlkwb{<-} \hlstd{mu3.hat} \hlopt{*} \hlkwd{crossprod}\hlstd{(X, omega)}
+  \hlstd{Omega}                 \hlkwb{<-} \hlstd{Vp1} \hlopt{+} \hlstd{V}
+  \hlstd{Omega}                 \hlkwb{<-} \hlstd{Omega} \hlopt{/} \hlstd{n}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 The main function is the following
-<<sem.gmm>>=
-sem.gmm <- function(formula, data, M, 
-                    estimator = c("gmm", "ogmm"), 
-                    gradient = TRUE){
-  # Model Frame
-  callT    <- match.call(expand.dots = TRUE)
-  mf       <- callT
-  m        <- match(c("formula", "data"), names(mf), 0L)
-  mf       <- mf[c(1L, m)]
-  mf[[1L]] <- as.name("model.frame")
-  mf       <- eval(mf, parent.frame())
-  
-  # Estimator
-  estimator <- match.arg(estimator)
-  
-  # Get variables and globals
-  y  <- model.response(mf)
-  X  <- model.matrix(formula, mf)
-  n  <- nrow(X)
-  sn <- nrow(M)
-  if (n != sn) stop("number of spatial units in W is different to the number of data")
-  
-  # Starting values for optimization
-  ols.e <- lm(y ~ X - 1)
-  ols.r <- residuals(ols.e)
-  start <- c(coef(ols.e), cor(M %*% ols.r, ols.r))
-  names(start) <- c(colnames(X), "Mu")
-  
-  # GMM estimator with weighting matrix using a identity matrix  
-  k   <- ncol(X)
-  Psi <- diag(k + 2)
-  require("maxLik")
-  opt <- maxLik(logLik = Q.sem, 
-                start  = start, 
-                method = "bfgs", 
-                y      = y, 
-                X      = X, 
-                M      = M, 
-                Psi    = Psi, 
-                gradient = gradient,
-                print.level = 3, 
-                finalHessian = FALSE)
-  
-  # OGMM: GMM estimator with weighting matrix using the inverse of the var-cov of moment functions
-  if (estimator == "ogmm"){
-    Omega.hat <- make.vmom.sem(coef(opt), y = y, X = X, M = M)
-    Psi       <- solve(Omega.hat)
-    opt       <- maxLik(logLik = Q.sem, 
-                        start = coef(opt), 
-                        method = "bfgs", 
-                        y = y, 
-                        X = X, 
-                        M = M, 
-                        Psi = Psi, 
-                        gradient = gradient,
-                        print.level = 3, 
-                        finalHessian = FALSE)
-  }
-  
-  results <- structure(
-    list(
-      coefficients = coef(opt),
-      call         = callT, 
-      X            = X, 
-      y            = y, 
-      Psi          = Psi, 
-      M            = M, 
-      estimator    = estimator
-    ),
-    class = "gmm.sem"
-  )
-  return(results)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sem.gmm} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{formula}\hlstd{,} \hlkwc{data}\hlstd{,} \hlkwc{M}\hlstd{,}
+                    \hlkwc{estimator} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"gmm"}\hlstd{,} \hlstr{"ogmm"}\hlstd{),}
+                    \hlkwc{gradient} \hlstd{=} \hlnum{TRUE}\hlstd{)\{}
+  \hlcom{# Model Frame}
+  \hlstd{callT}    \hlkwb{<-} \hlkwd{match.call}\hlstd{(}\hlkwc{expand.dots} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{callT}
+  \hlstd{m}        \hlkwb{<-} \hlkwd{match}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"formula"}\hlstd{,} \hlstr{"data"}\hlstd{),} \hlkwd{names}\hlstd{(mf),} \hlnum{0L}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlstd{mf[}\hlkwd{c}\hlstd{(}\hlnum{1L}\hlstd{, m)]}
+  \hlstd{mf[[}\hlnum{1L}\hlstd{]]} \hlkwb{<-} \hlkwd{as.name}\hlstd{(}\hlstr{"model.frame"}\hlstd{)}
+  \hlstd{mf}       \hlkwb{<-} \hlkwd{eval}\hlstd{(mf,} \hlkwd{parent.frame}\hlstd{())}
+
+  \hlcom{# Estimator}
+  \hlstd{estimator} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(estimator)}
+
+  \hlcom{# Get variables and globals}
+  \hlstd{y}  \hlkwb{<-} \hlkwd{model.response}\hlstd{(mf)}
+  \hlstd{X}  \hlkwb{<-} \hlkwd{model.matrix}\hlstd{(formula, mf)}
+  \hlstd{n}  \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{sn} \hlkwb{<-} \hlkwd{nrow}\hlstd{(M)}
+  \hlkwa{if} \hlstd{(n} \hlopt{!=} \hlstd{sn)} \hlkwd{stop}\hlstd{(}\hlstr{"number of spatial units in W is different to the number of data"}\hlstd{)}
+
+  \hlcom{# Starting values for optimization}
+  \hlstd{ols.e} \hlkwb{<-} \hlkwd{lm}\hlstd{(y} \hlopt{~} \hlstd{X} \hlopt{-} \hlnum{1}\hlstd{)}
+  \hlstd{ols.r} \hlkwb{<-} \hlkwd{residuals}\hlstd{(ols.e)}
+  \hlstd{start} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{coef}\hlstd{(ols.e),} \hlkwd{cor}\hlstd{(M} \hlopt{%*%} \hlstd{ols.r, ols.r))}
+  \hlkwd{names}\hlstd{(start)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"Mu"}\hlstd{)}
+
+  \hlcom{# GMM estimator with weighting matrix using a identity matrix  }
+  \hlstd{k}   \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{Psi} \hlkwb{<-} \hlkwd{diag}\hlstd{(k} \hlopt{+} \hlnum{2}\hlstd{)}
+  \hlkwd{require}\hlstd{(}\hlstr{"maxLik"}\hlstd{)}
+  \hlstd{opt} \hlkwb{<-} \hlkwd{maxLik}\hlstd{(}\hlkwc{logLik} \hlstd{= Q.sem,}
+                \hlkwc{start}  \hlstd{= start,}
+                \hlkwc{method} \hlstd{=} \hlstr{"bfgs"}\hlstd{,}
+                \hlkwc{y}      \hlstd{= y,}
+                \hlkwc{X}      \hlstd{= X,}
+                \hlkwc{M}      \hlstd{= M,}
+                \hlkwc{Psi}    \hlstd{= Psi,}
+                \hlkwc{gradient} \hlstd{= gradient,}
+                \hlkwc{print.level} \hlstd{=} \hlnum{3}\hlstd{,}
+                \hlkwc{finalHessian} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+
+  \hlcom{# OGMM: GMM estimator with weighting matrix using the inverse of the var-cov of moment functions}
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"ogmm"}\hlstd{)\{}
+    \hlstd{Omega.hat} \hlkwb{<-} \hlkwd{make.vmom.sem}\hlstd{(}\hlkwd{coef}\hlstd{(opt),} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}
+    \hlstd{Psi}       \hlkwb{<-} \hlkwd{solve}\hlstd{(Omega.hat)}
+    \hlstd{opt}       \hlkwb{<-} \hlkwd{maxLik}\hlstd{(}\hlkwc{logLik} \hlstd{= Q.sem,}
+                        \hlkwc{start} \hlstd{=} \hlkwd{coef}\hlstd{(opt),}
+                        \hlkwc{method} \hlstd{=} \hlstr{"bfgs"}\hlstd{,}
+                        \hlkwc{y} \hlstd{= y,}
+                        \hlkwc{X} \hlstd{= X,}
+                        \hlkwc{M} \hlstd{= M,}
+                        \hlkwc{Psi} \hlstd{= Psi,}
+                        \hlkwc{gradient} \hlstd{= gradient,}
+                        \hlkwc{print.level} \hlstd{=} \hlnum{3}\hlstd{,}
+                        \hlkwc{finalHessian} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+  \hlstd{\}}
+
+  \hlstd{results} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{coefficients} \hlstd{=} \hlkwd{coef}\hlstd{(opt),}
+      \hlkwc{call}         \hlstd{= callT,}
+      \hlkwc{X}            \hlstd{= X,}
+      \hlkwc{y}            \hlstd{= y,}
+      \hlkwc{Psi}          \hlstd{= Psi,}
+      \hlkwc{M}            \hlstd{= M,}
+      \hlkwc{estimator}    \hlstd{= estimator}
+    \hlstd{),}
+    \hlkwc{class} \hlstd{=} \hlstr{"gmm.sem"}
+  \hlstd{)}
+  \hlkwd{return}\hlstd{(results)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The function that creates $\mD$ is the following
-<<make.D.sem>>=
-make.D.sem <- function(b.hat, y, X, M){
-  k        <- ncol(X)
-  n        <- nrow(X)
-  beta     <- b.hat[1:k]
-  lambda   <- tail(b.hat, n = 1L)
-  I        <- diag(n)
-  R        <- I -  lambda * M
-  u.n      <- y - crossprod(t(X), beta)
-  epsi     <- R %*% u.n
-  sigma2   <- as.numeric(crossprod(epsi) / n)
-  P1       <- M
-  M2       <- crossprod(t(M), M)
-  P2       <- M2 - (tr(M2) / n) * diag(n)
-  P1s      <- P1 + t(P1)
-  P2s      <- P2 + t(P2)
-  Q        <- M %*% solve(R)
-  
-  # Generate D
-  D <- matrix(0, nrow = (k + 2) , ncol = k + 1)
-  rownames(D) <- c(colnames(X), "q1", "q2")
-  colnames(D) <- c(colnames(X), "Mu")
-  D[k + 1, k + 1] <- sigma2 * tr(P1s %*% Q)
-  D[k + 2, k + 1] <- sigma2 * tr(P2s %*% Q)
-  D[1:k, 1:k]     <- t(X) %*% R %*% X
-  return(D)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{make.D.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{b.hat}\hlstd{,} \hlkwc{y}\hlstd{,} \hlkwc{X}\hlstd{,} \hlkwc{M}\hlstd{)\{}
+  \hlstd{k}        \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}        \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{beta}     \hlkwb{<-} \hlstd{b.hat[}\hlnum{1}\hlopt{:}\hlstd{k]}
+  \hlstd{lambda}   \hlkwb{<-} \hlkwd{tail}\hlstd{(b.hat,} \hlkwc{n} \hlstd{=} \hlnum{1L}\hlstd{)}
+  \hlstd{I}        \hlkwb{<-} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{R}        \hlkwb{<-} \hlstd{I} \hlopt{-}  \hlstd{lambda} \hlopt{*} \hlstd{M}
+  \hlstd{u.n}      \hlkwb{<-} \hlstd{y} \hlopt{-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X), beta)}
+  \hlstd{epsi}     \hlkwb{<-} \hlstd{R} \hlopt{%*%} \hlstd{u.n}
+  \hlstd{sigma2}   \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{crossprod}\hlstd{(epsi)} \hlopt{/} \hlstd{n)}
+  \hlstd{P1}       \hlkwb{<-} \hlstd{M}
+  \hlstd{M2}       \hlkwb{<-} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(M), M)}
+  \hlstd{P2}       \hlkwb{<-} \hlstd{M2} \hlopt{-} \hlstd{(}\hlkwd{tr}\hlstd{(M2)} \hlopt{/} \hlstd{n)} \hlopt{*} \hlkwd{diag}\hlstd{(n)}
+  \hlstd{P1s}      \hlkwb{<-} \hlstd{P1} \hlopt{+} \hlkwd{t}\hlstd{(P1)}
+  \hlstd{P2s}      \hlkwb{<-} \hlstd{P2} \hlopt{+} \hlkwd{t}\hlstd{(P2)}
+  \hlstd{Q}        \hlkwb{<-} \hlstd{M} \hlopt{%*%} \hlkwd{solve}\hlstd{(R)}
+
+  \hlcom{# Generate D}
+  \hlstd{D} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwc{nrow} \hlstd{= (k} \hlopt{+} \hlnum{2}\hlstd{) ,} \hlkwc{ncol} \hlstd{= k} \hlopt{+} \hlnum{1}\hlstd{)}
+  \hlkwd{rownames}\hlstd{(D)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"q1"}\hlstd{,} \hlstr{"q2"}\hlstd{)}
+  \hlkwd{colnames}\hlstd{(D)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{colnames}\hlstd{(X),} \hlstr{"Mu"}\hlstd{)}
+  \hlstd{D[k} \hlopt{+} \hlnum{1}\hlstd{, k} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{sigma2} \hlopt{*} \hlkwd{tr}\hlstd{(P1s} \hlopt{%*%} \hlstd{Q)}
+  \hlstd{D[k} \hlopt{+} \hlnum{2}\hlstd{, k} \hlopt{+} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlstd{sigma2} \hlopt{*} \hlkwd{tr}\hlstd{(P2s} \hlopt{%*%} \hlstd{Q)}
+  \hlstd{D[}\hlnum{1}\hlopt{:}\hlstd{k,} \hlnum{1}\hlopt{:}\hlstd{k]}     \hlkwb{<-} \hlkwd{t}\hlstd{(X)} \hlopt{%*%} \hlstd{R} \hlopt{%*%} \hlstd{X}
+  \hlkwd{return}\hlstd{(D)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 The function to construct the variance-covariance matrix is given by
-<<vcov.gmm.sem>>=
-vcov.gmm.sem <- function(object, D = c("population", "gradient"), ...){
-  estimator <- object$estimator
-  D.type <- match.arg(D)
-  X      <- object$X
-  y      <- object$y
-  M      <- object$M
-  k      <- ncol(X)
-  n      <- nrow(X)
-  b.hat  <- object$coefficients
-  
-  if (estimator == "gmm"){
-    if (D.type == "population"){
-      D <- make.D.sem(b.hat = b.hat, y = y, X = X, M = M)
-      D <- D / n
-    }
-    if (D.type == "gradient"){
-      D <- moments.lee2010(b.hat, y = y, X = X, M = M)$D 
-    }
-    Omega <- make.vmom.sem(b.hat = b.hat, y = y, X = X, M = M)
-    var   <- solve(crossprod(D)) %*% t(D) %*% Omega %*% D %*% solve(crossprod(D)) / n
-  }
-  if (estimator == "ogmm"){
-    if (D.type == "population"){
-      D <- make.D.sem(b.hat = b.hat, y = y, X = X, M = M)
-      D <- D / n
-    }
-    if (D.type == "gradient"){
-      D <- moments.lee2010(b.hat, y = y, X = X, M = M)$D 
-    }
-    Psi <- object$Psi
-    var <- solve(t(D) %*% Psi %*% D) / n
-  }
-  return(var)
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{vcov.gmm.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,} \hlkwc{D} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"population"}\hlstd{,} \hlstr{"gradient"}\hlstd{),} \hlkwc{...}\hlstd{)\{}
+  \hlstd{estimator} \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{estimator}
+  \hlstd{D.type} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(D)}
+  \hlstd{X}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{X}
+  \hlstd{y}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{y}
+  \hlstd{M}      \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{M}
+  \hlstd{k}      \hlkwb{<-} \hlkwd{ncol}\hlstd{(X)}
+  \hlstd{n}      \hlkwb{<-} \hlkwd{nrow}\hlstd{(X)}
+  \hlstd{b.hat}  \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"gmm"}\hlstd{)\{}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"population"}\hlstd{)\{}
+      \hlstd{D} \hlkwb{<-} \hlkwd{make.D.sem}\hlstd{(}\hlkwc{b.hat} \hlstd{= b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}
+      \hlstd{D} \hlkwb{<-} \hlstd{D} \hlopt{/} \hlstd{n}
+    \hlstd{\}}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"gradient"}\hlstd{)\{}
+      \hlstd{D} \hlkwb{<-} \hlkwd{moments.lee2010}\hlstd{(b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}\hlopt{$}\hlstd{D}
+    \hlstd{\}}
+    \hlstd{Omega} \hlkwb{<-} \hlkwd{make.vmom.sem}\hlstd{(}\hlkwc{b.hat} \hlstd{= b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}
+    \hlstd{var}   \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(D))} \hlopt{%*%} \hlkwd{t}\hlstd{(D)} \hlopt{%*%} \hlstd{Omega} \hlopt{%*%} \hlstd{D} \hlopt{%*%} \hlkwd{solve}\hlstd{(}\hlkwd{crossprod}\hlstd{(D))} \hlopt{/} \hlstd{n}
+  \hlstd{\}}
+  \hlkwa{if} \hlstd{(estimator} \hlopt{==} \hlstr{"ogmm"}\hlstd{)\{}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"population"}\hlstd{)\{}
+      \hlstd{D} \hlkwb{<-} \hlkwd{make.D.sem}\hlstd{(}\hlkwc{b.hat} \hlstd{= b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}
+      \hlstd{D} \hlkwb{<-} \hlstd{D} \hlopt{/} \hlstd{n}
+    \hlstd{\}}
+    \hlkwa{if} \hlstd{(D.type} \hlopt{==} \hlstr{"gradient"}\hlstd{)\{}
+      \hlstd{D} \hlkwb{<-} \hlkwd{moments.lee2010}\hlstd{(b.hat,} \hlkwc{y} \hlstd{= y,} \hlkwc{X} \hlstd{= X,} \hlkwc{M} \hlstd{= M)}\hlopt{$}\hlstd{D}
+    \hlstd{\}}
+    \hlstd{Psi} \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{Psi}
+    \hlstd{var} \hlkwb{<-} \hlkwd{solve}\hlstd{(}\hlkwd{t}\hlstd{(D)} \hlopt{%*%} \hlstd{Psi} \hlopt{%*%} \hlstd{D)} \hlopt{/} \hlstd{n}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(var)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Summary S3 functions
-<<summary.gmm.sem>>=
-summary.gmm.sem <- function(object,
-                            D = c("population", "gradient"),
-                             table = TRUE, 
-                             digits = max(3, .Options$digits - 3),
-                             ...){
-  D.type <- match.arg(D)
-  n       <- nrow(object$X)
-  df      <- n - length(object$coefficients)
-  b       <- object$coefficients
-  std.err <- sqrt(diag(vcov(object, D = D.type)))
-  z       <- b / std.err
-  p       <- 2 * pt(-abs(z), df = df)
-  CoefTable <- cbind(b, std.err, z, p)
-  colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-  result <- structure(
-    list(
-      CoefTable = CoefTable, 
-      digits    = digits, 
-      call      = object$call),
-    class = 'summary.gmm.sem'
-  )
-  return(result)
-}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{summary.gmm.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{object}\hlstd{,}
+                            \hlkwc{D} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"population"}\hlstd{,} \hlstr{"gradient"}\hlstd{),}
+                             \hlkwc{table} \hlstd{=} \hlnum{TRUE}\hlstd{,}
+                             \hlkwc{digits} \hlstd{=} \hlkwd{max}\hlstd{(}\hlnum{3}\hlstd{, .Options}\hlopt{$}\hlstd{digits} \hlopt{-} \hlnum{3}\hlstd{),}
+                             \hlkwc{...}\hlstd{)\{}
+  \hlstd{D.type} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(D)}
+  \hlstd{n}       \hlkwb{<-} \hlkwd{nrow}\hlstd{(object}\hlopt{$}\hlstd{X)}
+  \hlstd{df}      \hlkwb{<-} \hlstd{n} \hlopt{-} \hlkwd{length}\hlstd{(object}\hlopt{$}\hlstd{coefficients)}
+  \hlstd{b}       \hlkwb{<-} \hlstd{object}\hlopt{$}\hlstd{coefficients}
+  \hlstd{std.err} \hlkwb{<-} \hlkwd{sqrt}\hlstd{(}\hlkwd{diag}\hlstd{(}\hlkwd{vcov}\hlstd{(object,} \hlkwc{D} \hlstd{= D.type)))}
+  \hlstd{z}       \hlkwb{<-} \hlstd{b} \hlopt{/} \hlstd{std.err}
+  \hlstd{p}       \hlkwb{<-} \hlnum{2} \hlopt{*} \hlkwd{pt}\hlstd{(}\hlopt{-}\hlkwd{abs}\hlstd{(z),} \hlkwc{df} \hlstd{= df)}
+  \hlstd{CoefTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(b, std.err, z, p)}
+  \hlkwd{colnames}\hlstd{(CoefTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Estimate"}\hlstd{,} \hlstr{"Std.Error"}\hlstd{,} \hlstr{"t-value"}\hlstd{,} \hlstr{"Pr(>|t|)"}\hlstd{)}
+  \hlstd{result} \hlkwb{<-} \hlkwd{structure}\hlstd{(}
+    \hlkwd{list}\hlstd{(}
+      \hlkwc{CoefTable} \hlstd{= CoefTable,}
+      \hlkwc{digits}    \hlstd{= digits,}
+      \hlkwc{call}      \hlstd{= object}\hlopt{$}\hlstd{call),}
+    \hlkwc{class} \hlstd{=} \hlstr{'summary.gmm.sem'}
+  \hlstd{)}
+  \hlkwd{return}\hlstd{(result)}
+\hlstd{\}}
 
-print.summary.gmm.sem <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-  
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
+\hlstd{print.summary.gmm.sem} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}
+                                   \hlkwc{digits} \hlstd{= x}\hlopt{$}\hlstd{digits,}
+                                   \hlkwc{na.print} \hlstd{=} \hlstr{""}\hlstd{,}
+                                   \hlkwc{symbolic.cor} \hlstd{= p} \hlopt{>} \hlnum{4}\hlstd{,}
+                                   \hlkwc{signif.stars} \hlstd{=} \hlkwd{getOption}\hlstd{(}\hlstr{"show.signif.stars"}\hlstd{),}
+                                   \hlkwc{...}\hlstd{)}
+\hlstd{\{}
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCall:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlkwd{paste}\hlstd{(}\hlkwd{deparse}\hlstd{(x}\hlopt{$}\hlstd{call),} \hlkwc{sep} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{,} \hlkwc{collapse} \hlstd{=} \hlstr{"\textbackslash{}n"}\hlstd{),} \hlstr{"\textbackslash{}n\textbackslash{}n"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+
+  \hlkwd{cat}\hlstd{(}\hlstr{"\textbackslash{}nCoefficients:\textbackslash{}n"}\hlstd{)}
+  \hlkwd{printCoefmat}\hlstd{(x}\hlopt{$}\hlstd{CoefTable,} \hlkwc{digit} \hlstd{= digits,} \hlkwc{P.value} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{has.Pvalue} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+  \hlkwd{invisible}\hlstd{(}\hlkwa{NULL}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we check our function
-<<testsemgmm, cache = TRUE>>=
-semgmm <- sem.gmm(y ~ x1 + x2 + x3, data = data, 
-                  M = M, estimator = "gmm")
-summary(semgmm, D = "population")
-summary(semgmm, D = "gradient")
-
-semOgmm <- sem.gmm(y ~ x1 + x2 + x3, data = data, 
-                  M = M, estimator = "ogmm")
-summary(semOgmm, D = "population")
-summary(semOgmm, D = "gradient")
-
-sem_mm    <- GMerrorsar(y ~ x1 + x2 + x3, 
-                        data = data,
-                        listw = mat2listw(M, style = "W"),
-                        verbose = FALSE,
-                        se.lambda = TRUE)
-summary(sem_mm)
-
-library("sphet")
-sem.spreg    <- spreg(y ~ x1 + x2 + x3, 
-                        data = data,
-                        listw = mat2listw(M, style = "W"),
-                        model = "error")
-summary(sem.spreg)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{semgmm} \hlkwb{<-} \hlkwd{sem.gmm}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,}
+                  \hlkwc{M} \hlstd{= M,} \hlkwc{estimator} \hlstd{=} \hlstr{"gmm"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## Initial function value: -0.002361787 
+## Initial gradient value:
+##   (Intercept)            x1            x2            x3            Mu 
+##  0.0003839962 -0.0511733218 -0.0289716000 -0.0427860038  0.0226625302 
+## initial  value 0.002362 
+## iter   2 value 0.001449
+## iter   3 value 0.001204
+## iter   4 value 0.001070
+## iter   5 value 0.001006
+## iter   6 value 0.000970
+## iter   7 value 0.000964
+## iter   8 value 0.000963
+## iter   9 value 0.000963
+## iter  10 value 0.000963
+## iter  11 value 0.000963
+## iter  12 value 0.000963
+## iter  12 value 0.000963
+## final  value 0.000963 
+## converged
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(semgmm,} \hlkwc{D} \hlstd{=} \hlstr{"population"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, estimator = "gmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.19250   0.15049  -1.279    0.201    
+## x1          -1.06289   0.06607 -16.087   <2e-16 ***
+## x2           0.01368   0.06197   0.221    0.825    
+## x3           0.98552   0.06651  14.818   <2e-16 ***
+## Mu           0.55800   0.04690  11.898   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(semgmm,} \hlkwc{D} \hlstd{=} \hlstr{"gradient"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, estimator = "gmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.19250   0.15049  -1.279    0.201    
+## x1          -1.06289   0.06622 -16.051   <2e-16 ***
+## x2           0.01368   0.06186   0.221    0.825    
+## x3           0.98552   0.06657  14.804   <2e-16 ***
+## Mu           0.55800   0.04923  11.334   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlstd{semOgmm} \hlkwb{<-} \hlkwd{sem.gmm}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,} \hlkwc{data} \hlstd{= data,}
+                  \hlkwc{M} \hlstd{= M,} \hlkwc{estimator} \hlstd{=} \hlstr{"ogmm"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## Initial function value: -0.002361787 
+## Initial gradient value:
+##   (Intercept)            x1            x2            x3            Mu 
+##  0.0003839962 -0.0511733218 -0.0289716000 -0.0427860038  0.0226625302 
+## initial  value 0.002362 
+## iter   2 value 0.001449
+## iter   3 value 0.001204
+## iter   4 value 0.001070
+## iter   5 value 0.001006
+## iter   6 value 0.000970
+## iter   7 value 0.000964
+## iter   8 value 0.000963
+## iter   9 value 0.000963
+## iter  10 value 0.000963
+## iter  11 value 0.000963
+## iter  12 value 0.000963
+## iter  12 value 0.000963
+## final  value 0.000963 
+## converged
+## Initial function value: -0.001029206 
+## Initial gradient value:
+##   (Intercept)            x1            x2            x3            Mu 
+## -6.818661e-07 -1.071751e-04 -2.275764e-03  5.728118e-04  6.167284e-03 
+## initial  value 0.001029 
+## iter   2 value 0.001019
+## iter   3 value 0.001014
+## iter   4 value 0.001014
+## iter   5 value 0.001014
+## iter   6 value 0.001014
+## iter   7 value 0.001014
+## iter   7 value 0.001014
+## iter   7 value 0.001014
+## final  value 0.001014 
+## converged
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(semOgmm,} \hlkwc{D} \hlstd{=} \hlstr{"population"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, estimator = "ogmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.19255   0.15183  -1.268    0.205    
+## x1          -1.06348   0.06607 -16.096   <2e-16 ***
+## x2           0.01109   0.06196   0.179    0.858    
+## x3           0.98598   0.06652  14.823   <2e-16 ***
+## Mu           0.56190   0.04561  12.319   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(semOgmm,} \hlkwc{D} \hlstd{=} \hlstr{"gradient"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, estimator = "ogmm")
+## 
+## 
+## Coefficients:
+##             Estimate Std.Error t-value Pr(>|t|)    
+## (Intercept) -0.19255   0.15183  -1.268    0.205    
+## x1          -1.06348   0.06621 -16.061   <2e-16 ***
+## x2           0.01109   0.06175   0.180    0.857    
+## x3           0.98598   0.06658  14.810   <2e-16 ***
+## Mu           0.56190   0.04909  11.445   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\begin{alltt}
+\hlstd{sem_mm}    \hlkwb{<-} \hlkwd{GMerrorsar}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,}
+                        \hlkwc{data} \hlstd{= data,}
+                        \hlkwc{listw} \hlstd{=} \hlkwd{mat2listw}\hlstd{(M,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{),}
+                        \hlkwc{verbose} \hlstd{=} \hlnum{FALSE}\hlstd{,}
+                        \hlkwc{se.lambda} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlkwd{summary}\hlstd{(sem_mm)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:GMerrorsar(formula = y ~ x1 + x2 + x3, data = data, listw = mat2listw(M, 
+##     style = "W"), verbose = FALSE, se.lambda = TRUE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -4.461416 -1.275682 -0.023397  1.244488  4.935045 
+## 
+## Type: GM SAR estimator
+## Coefficients: (GM standard errors) 
+##              Estimate Std. Error  z value Pr(>|z|)
+## (Intercept) -0.192429   0.149968  -1.2831   0.1994
+## x1          -1.079338   0.063584 -16.9751   <2e-16
+## x2           0.006391   0.060099   0.1063   0.9153
+## x3           0.975246   0.064057  15.2246   <2e-16
+## 
+## Lambda: 0.55602 (standard error): 0.10114 (z-value): 5.4977
+## Residual variance (sigma squared): 2.345, (sigma: 1.5313)
+## GM argmin sigma squared: 2.3535
+## Number of observations: 529 
+## Number of parameters estimated: 6
+\end{verbatim}
+\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{"sphet"}\hlstd{)}
+\hlstd{sem.spreg}    \hlkwb{<-} \hlkwd{spreg}\hlstd{(y} \hlopt{~} \hlstd{x1} \hlopt{+} \hlstd{x2} \hlopt{+} \hlstd{x3,}
+                        \hlkwc{data} \hlstd{= data,}
+                        \hlkwc{listw} \hlstd{=} \hlkwd{mat2listw}\hlstd{(M,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{),}
+                        \hlkwc{model} \hlstd{=} \hlstr{"error"}\hlstd{)}
+\hlkwd{summary}\hlstd{(sem.spreg)}
+\end{alltt}
+\begin{verbatim}
+## ======================================================
+## ======================================================
+##                GMM Spatial Error Model
+## ======================================================
+## ======================================================
+## 
+## Call:
+## spreg(formula = y ~ x1 + x2 + x3, data = data, listw = mat2listw(M, 
+##     style = "W"), model = "error")
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -4.4353 -1.2726 -0.0170 -0.0007  1.2293  4.8994 
+## 
+## Coefficients:
+##              Estimate Std. Error  t-value Pr(>|t|)    
+## (Intercept) -0.192284   0.151838  -1.2664   0.2054    
+## x1          -1.062591   0.066023 -16.0942   <2e-16 ***
+## x2           0.015213   0.061911   0.2457   0.8059    
+## x3           0.985071   0.066467  14.8204   <2e-16 ***
+## rho          0.562252   0.048895  11.4991   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 %*************************************************
@@ -4259,7 +4865,7 @@ The $\widetilde{\mG}_n$ matrix is given by:
 \end{eqnarray*}
 
 A more compact notation is:
-\begin{equation}\label{eq:G-g-moments}
+\begin{equation*}
 \begin{aligned}
 \widetilde{\mG}_n & = \frac{1}{n}
                     \begin{pmatrix}
@@ -4273,7 +4879,7 @@ A more compact notation is:
                                 \widetilde{\vu}^\top_n\mA_{qn}\widetilde{\vu}_n
                                 \end{pmatrix},
 \end{aligned}
-\end{equation}
+\end{equation*}
 %
 for $q = 1, 2$.
 
@@ -4583,18 +5189,18 @@ Although $\widetilde{\vdelta}_{S2SLS, n}$ is consistent, it does not utilize inf
 Using the consistent estimate $\vu_n$ in the previous step, now we create the sample moments for $q= 1, 2$ based on the estimated residuals. Define:
 \begin{equation*}
 \begin{aligned}
-\widetilde{\vu}_{n, \textrm{S2SLS}} & = \vy_n - \mZ_n\widetilde{\vdelta}_{n, \textrm{S2SLS}}, \\
-\widetilde{\vu}_{s, n}        & = \mM_n\widetilde{\vu}_{n, \textrm{S2SLS}},
+\widetilde{\vu}_{S2SLS, n} & = \vy_n - \mZ_n\widetilde{\vdelta}_{n, S2SLS}, \\
+\widetilde{\vu}_{s}        & = \mM_n\widetilde{\vu}_{n, S2SLS},
 \end{aligned}
 \end{equation*}
 %
 and the sample moments are:
 \begin{equation}\label{eq:momdent_conditions_step}
 	\begin{aligned}
-		\vm_n(\lambda_n,\widetilde{\vdelta}_{n, \textrm{S2SLS}}) & = \frac{1}{n}
+		\vm_n(\lambda_n,\widetilde{\vdelta}_{S2SLS, n}) & = \frac{1}{n}
 		\begin{pmatrix}
-		\widetilde{\vu}_{n, \textrm{S2SLS}}^\top \left(\mI_n - \lambda_n\mM^\top_n\right)\mA_{1,n}\left(\mI_n - \lambda_n\mM_n\right)\widetilde{\vu}_{n, \textrm{S2SLS}} \\
-		\widetilde{\vu}_{n, \textrm{S2SLS}}^\top \left(\mI_n - \lambda_n\mM^\top_n\right)\mA_{2,n}\left(\mI_n - \lambda_n\mM_n\right)\widetilde{\vu}_{n, \textrm{S2SLS}}
+		\widetilde{\vu}_{n, S2SLS}^\top \left(\mI_n - \lambda_n\mM^\top_n\right)\mA_{1,n}\left(\mI_n - \lambda_n\mM_n\right)\widetilde{\vu}_{n, S2SLS} \\
+		\widetilde{\vu}_{n, S2SLS}^\top \left(\mI_n - \lambda_n\mM^\top_n\right)\mA_{2,n}\left(\mI_n - \lambda_n\mM_n\right)\widetilde{\vu}_{n, S2SLS}
 		\end{pmatrix}, \\
 		& = \widetilde{\mG}_n\begin{pmatrix} \lambda_n \\
                 \lambda^2_n
@@ -4610,7 +5216,7 @@ where,
                       \widetilde{\vu}^\top_n\left(\mA_{1n} + \mA^\top_{1n}\right)\widetilde{\vu}_{n,s} & - \widetilde{\vu}^\top_{n,s}\mA_{1n}\widetilde{\vu}^\top_{s,n} \\
                       \vdots & \vdots \\
                       \widetilde{\vu}^\top_n\left(\mA_{qn} + \mA^\top_{qn}\right)\widetilde{\vu}_{n,s} & - \widetilde{\vu}^\top_{n,s}\mA_{qn}\widetilde{\vu}^\top_{s,n}
-                    \end{pmatrix}, \\
+                    \end{pmatrix} \\
 \widetilde{\vg}_n & = \frac{1}{n}\begin{pmatrix}
                                 \widetilde{\vu}^\top_n\mA_{1n}\widetilde{\vu}_n \\
                                 \vdots \\
@@ -4622,14 +5228,14 @@ where,
 
 The initial GMM estimator for $\lambda$ is then defined as
 \begin{equation*}
-\breve{\lambda}_{n, \textrm{GMM}} = \underset{\lambda_n \in \Lambda}{\argmin}\left\lbrace \left[\widetilde{\mG}_n\begin{pmatrix} \lambda_n \\
+\breve{\lambda}_{gmm} = \underset{\lambda_n}{\argmin}\left\lbrace \left[\widetilde{\mG}_n\begin{pmatrix} \lambda_n \\
                 \lambda^2_n
 \end{pmatrix} - \widetilde{\vg}_n \right]^\top \left[\widetilde{\mG}_n\begin{pmatrix} \lambda_n \\
                 \lambda^2_n
-\end{pmatrix} - \widetilde{\vg}_n\right]\right\rbrace = \underset{\lambda_n\in \Lambda}{\argmin}\left[\vm_n(\lambda_n,\widetilde{\vdelta}_{n, \textrm{S2SLS}})^\top \vm_n(\lambda_n,\widetilde{\vdelta}_{n, \textrm{S2SLS}})\right],
+\end{pmatrix} - \widetilde{\vg}_n\right]\right\rbrace = \underset{\lambda_n}{\argmin}\left[\vm_n(\lambda_n,\widetilde{\vdelta}_{S2SLS, n})^\top \vm_n(\lambda_n,\widetilde{\vdelta}_{S2SLS, n})\right]
 \end{equation*}
 %
-where $\mUpsilon^{\lambda\lambda}_n = \mI_2$. This estimator is consistent but not efficient. For efficiency we need to replace $\mUpsilon^{\lambda\lambda}_n$ by the variance-covariance matrix of the sample moments. Furthermore, the expression above can be interpreted as a nonlinear least squares system of equations. The initial estimate is thus obtained as a solution of the above system. 
+where $\mUpsilon^{\lambda\lambda}_n = \mI$. This estimator is consistent but not efficient. For efficiency we need to replace $\mUpsilon^{\lambda\lambda}_n$ by the variance-covariance matrix of the sample moments. Furthermore, the expression above can be interpreted as a nonlinear least squares system of equations. The initial estimate is thus obtained as a solution of the above system. 
 
 Now, we need to define the expression for the matrices $\mA_{n,s}$. \cite{drukker2013two} suggest, for the homoskedastic case, the following expressions:
 \begin{equation*}
@@ -4656,23 +5262,24 @@ On the other hand, when heteroskedasticity is assumed, \cite{kelejian2010specifi
 
 The efficient GMM estimator of $\lambda_0$ is a weighted nonlinear least squares estimator. Specifically, this estimator is $\widetilde{\lambda}_n$ where:
 \begin{equation}\label{eq:nonlinear-gmm-lambda}
-\widetilde{\lambda}_{n, \textrm{EGMM}} = \underset{\lambda_n \in \Lambda}{\argmin} \left[\vm_n(\lambda_n,\widetilde{\vdelta}_n)^\top\widetilde{\mPsi}^{-1}_n\vm_n(\lambda_n,\widetilde{\vdelta}_n) \right],
+\widetilde{\lambda}_{ogmm} = \underset{\lambda_n}{\argmin} \left[\vm_n(\lambda_n,\widetilde{\vdelta}_n)^\top\widetilde{\mPsi}^{-1}_n\vm_n(\lambda_n,\widetilde{\vdelta}_n) \right],
 \end{equation}
 %
-and where the weighting matrix is $\widetilde{\mPsi}^{-1}_n$, where $\mPsi_n$ is the variance of the moment conditions $\vm(\lambda_0,\widetilde{\vdelta}_n)$. 
+and where the weighting matrix is $\widetilde{\mPsi}^{-1}_n$, where $\mPsi_n$ is the variance of the moment conditions $\vm(\lambda_0,\widetilde{\vdelta})$. 
 
-Let $\widetilde{\vu}_n = \vy - \mZ\widetilde{\vdelta}_{n, \textrm{S2SLS}}$. The matrix $\widetilde{\mPsi}^{-1}_n= \widetilde{\mPsi}^{-1}_n (\breve{\lambda}_{n,\textrm{GMM}})$ is defined as follows. Let $\widetilde{\mPsi}_n = \left[\widehat{\Psi}_{rs}\right]_{r,s = 1, 2}$ with
-\begin{equation}\label{eq:Psi-first-step}
-\widetilde{\Psi}_{rs} = (2n)^{-1}\tr\left[(\mA_{r, n} + \mA_{r, n}^\top)\widetilde{\mSigma}_n(\mA_{s, n} + \mA_{s, n}^\top)\widetilde{\mSigma}_n\right] + n^{-1}\widetilde{\va}_{r, n}^\top\widetilde{\mSigma}_n\widetilde{\va}_{s, n},
-\end{equation}
+
+The matrix $\widetilde{\mPsi}^{-1}_n= \widetilde{\mPsi}^{-1}_n (\breve{\lambda}_{gmm})$ is defined as follows. Let $\widetilde{\mPsi}_n = \left[\widehat{\Psi}_{rs}\right]_{r,s = 1, 2}$ with
+\begin{equation*}
+\widetilde{\Psi}_{rs} = (2n)^{-1}\tr\left[(\mA_{r, n} + \mA_{r, n}^\top)\widetilde{\mSigma}_n(\mA_{s, n} + \mA_{s, n}^\top)\widetilde{\mSigma}_n\right] + n^{-1}\widetilde{\va}_{r, n}^\top\widetilde{\mSigma}\widetilde{\va}_{s, n},
+\end{equation*}
 %
 where:
 \begin{equation*}
   \begin{aligned}
-    \widetilde{\mSigma}_n  & = \Diag\left(\widetilde{\epsilon}_{in}^2\right), \\
-    \widetilde{\vepsi}_n   & = \left(\mI_n - \breve{\lambda}_{n, \textrm{GMM}}\mM_n\right)\widetilde{\vu}_n, \\
-    \widetilde{\va}_{r,n} & = \left(\mI_n - \breve{\lambda}_{n, \textrm{GMM}}\mM_n^\top\right)^{-1}\mH_n\widetilde{\mP}_n\widetilde{\valpha}_{r,n},  \\
-    \widetilde{\valpha}_{r,n} & = - n^{-1}\left[\mZ^\top_n\left(\mI_n - \breve{\lambda}_{n, \textrm{GMM}}\mM_n^\top\right)(\mA_{r, n} + \mA_{r, n}^\top)\left(\mI_n - \breve{\lambda}_{n, \textrm{GMM}}\mM_n\right)\widetilde{\vu}_n\right] \\
+    \widetilde{\mSigma}_n  & = \diag_{i=1, \ldots,n}\left(\widetilde{\epsilon}_{in}^2\right) \\
+    \widetilde{\vepsi}_n   & = \left(\mI_n - \breve{\lambda}_{gmm}\mM_n\right)\widetilde{\vu}_n \\
+    \widetilde{\va}_{r,n} & = \left(\mI_n - \breve{\lambda}_{gmm}\mM_n\right)\mH_n\widetilde{\mP}_n\widetilde{\valpha}_{r,n} \\
+    \widetilde{\valpha}_{r,n} & = - n^{-1}\left[\mZ^\top_n\left(\mI_n - \breve{\lambda}_{gmm}\mM _n\right)(\mA_{r, n} + \mA_{r, n}^\top)\left(\mI_n - \breve{\lambda}_{gmm}\mM_n\right)\widetilde{\vu}_n\right] \\
     \widetilde{\mP}_n & = \left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH_n^\top\mZ_n \right)\left[\left(\frac{1}{n}\mH^\top\mZ_n\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_n\right)\right]^{-1}
   \end{aligned}
 \end{equation*}
@@ -4685,27 +5292,27 @@ It is important to note that this step is not necessary since the previous estim
 
 Using $\breve{\lambda}_{ogmm}$ from step 1c (or the consistent estimator from step 1b) in the transformed model we have:
 \begin{equation*}
-  \widehat{\vdelta}_n(\widetilde{\lambda}_{n, \textrm{EGMM}}) = \left[\widehat{\mZ}_{s,n}^\top(\widetilde{\lambda}_{n, \textrm{EGMM}}) \mZ(\widetilde{\lambda}_{n, \textrm{EGMM}})\right]^{-1}  \widehat{\mZ}_{s, n}^\top(\widetilde{\lambda}_{n, \textrm{EGMM}}) \vy_{s, n}(\widetilde{\lambda}_{n, \textrm{EGMM}})
+  \widehat{\vdelta}_n(\widetilde{\lambda}_{ogmm}) = \left[\widehat{\mZ}_{s,n}^\top(\widetilde{\lambda}_{ogmm}) \mZ(\widetilde{\lambda}_{ogmm})\right]^{-1}  \widehat{\mZ}_{s, n}^\top(\widetilde{\lambda}_{ogmm}) \vy_{s, n}(\widetilde{\lambda}_{ogmm})
 \end{equation*}
 %
 where
 \begin{equation*}
   \begin{aligned}
-    \vy_{s, n}(\widetilde{\lambda}_{n, \textrm{EGMM}})           & = \vy_n - \widetilde{\lambda}_{n, \textrm{EGMM}}\mM_n\vy_n, \\
-    \mZ_{s, n}(\widetilde{\lambda}_{n, \textrm{EGMM}})           & = \mZ_n - \widetilde{\lambda}_{n, \textrm{EGMM}}\mM_n\mZ_n, \\
-    \widehat{\mZ}_{s, n}(\widetilde{\lambda}_{n, \textrm{EGMM}}) & = \mP_{H, n}\mZ_{s, n}(\widetilde{\lambda}_{n, \textrm{EGMM}}),\\
+    \vy_{s, n}           & = \vy_n - \widetilde{\lambda}_{ogmm}\mM_n\vy_n, \\
+    \mZ_{s, n}           & = \mZ_n - \widetilde{\lambda}_{ogmm}\mM_n\mZ_n, \\
+    \widehat{\mZ}_{s, n} & = \mP_{H, n}\mZ_{s, n},\\
     \mP_{H, n}           & = \mH_n\left(\mH^\top_n\mH_n\right)^{-1}\mH^\top_n.
   \end{aligned}
 \end{equation*}
 
 
 %**********************************************************************************
-\subsubsection{Step 2b: Efficient GMM estimator of $\lambda$ using GS2SLS  residuals}
+\subsubsection{Step 2b: Efficient GMM estimator of $\lambda$ using GS2SLS  residual}
 %**********************************************************************************
 
 In this last step, the \textbf{efficient} GMM estimator of $\lambda_0$ based on the GS2SLS residuals is obtained by minimizing the following expression:
 \begin{equation*}
-\widehat{\lambda}_n = \underset{\lambda_n \in \Lambda}{\argmin}\left\lbrace \left[\widehat{\mG}_n
+\widehat{\lambda}_n = \underset{\lambda_n}{\argmin}\left\lbrace \left[\widehat{\mG}_n
 \begin{pmatrix} \lambda_n \\
                 \lambda^2_n
 \end{pmatrix}
@@ -4716,500 +5323,39 @@ In this last step, the \textbf{efficient} GMM estimator of $\lambda_0$ based on 
 %
 where $\widehat{\mPsi}_n^{\widehat{\lambda}\widehat{\lambda}}$ is an estimator for the variance-covariance matrix of the (normalized) sample moment vector based on the GS2SLS residuals. This estimator differs for the cases of homoskedastic and heteroskedastic errors.
 
-Note that the residuals are $\widehat{\vu}_n = \vy_n-\mZ_n\widehat{\vdelta}_n(\widetilde{\lambda}_{n, \textrm{EGMM}})$. For the \textbf{heteroskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}$ is given by:
-\begin{equation}\label{eq:Psi-second-step}
-  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} = (2n)^{-1}\tr\left[\left(\mA_{n,r} + \mA_{n, r}^\top\right)\widehat{\mSigma}_n\left(\mA_{n, s} + \mA_{n, s}^\top\right)\widehat{\mSigma}\right]  + n^{-1}\widehat{\va}_{n, r}^\top\widehat{\mSigma}_n\widehat{\va}_{n, s}^\top,
-\end{equation}
+For the \textbf{homoskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_n$ is given by:
+\begin{equation*}
+\begin{aligned}
+  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} & = \left[\widetilde{\sigma}^2\right]^2(2n)^{-1}\tr\left[\left(\mA_r + \mA_r^\top\right)\left(\mA_s + \mA_s^\top\right)\right] \\
+& + \widetilde{\sigma}^2n^{-1}\widetilde{\va}_r^\top\widetilde{\va}_s^\top \\
+& + n^{-1}\left(\widetilde{\mu}^{(4)} - 3\left[\widetilde{\sigma}^2\right]^2\right)\vec_D\left(\mA_r\right)^\top\vec_D\left(\mA_s\right) \\
+& + n^{-1}\widetilde{\mu}^{(3)}\left[\widetilde{\va}_r^\top\vec_D\left(\mA_s\right) + \widetilde{\va}_s^\top\vec_D\left(\mA_r\right)\right],
+\end{aligned}
+\end{equation*}
 %
-where:
+where
 \begin{equation*}
   \begin{aligned}
-    \widehat{\mSigma}_n  & = \Diag\left(\widetilde{\epsilon}_{in}^2\right), \\
-    \widehat{\vepsi}_n   & = \left(\mI_n - \widetilde{\lambda}_{n, \textrm{EGMM}}\mM_n\right)\widehat{\vu}_n, \\
-    \widehat{\va}_{r,n} & = \mH_n\widehat{\mP}_n\widetilde{\valpha}_{r,n},  \\
-    \widehat{\valpha}_{r,n} & = - n^{-1}\left[\mZ^\top_n\left(\mI_n - \widetilde{\lambda}_{n, \textrm{EGMM}}\mM_n^\top\right)(\mA_{r, n} + \mA_{r, n}^\top)\left(\mI_n - \widetilde{\lambda}_{n, \textrm{EGMM}}\mM_n\right)\widehat{\vu}_n\right] \\
-    \widehat{\mP}_n & = \left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH_n^\top\mZ_{n, s} \right)\left[\left(\frac{1}{n}\mH^\top\mZ_{n, s}\right)^\top\left(\frac{1}{n}\mH^\top_n\mH_n\right)^{-1}\left(\frac{1}{n}\mH^\top_n\mZ_{n, s}\right)\right]^{-1}
+    \widetilde{\va}_r & = \widehat{\mT}\widetilde{\alpha}_r \\
+    \widehat{\mT} & = \mH\widehat{\mP}, \\
+    \widehat{\mP} & = \widehat{\mQ}_{HH}^{-1}\widehat{\mQ}_{HZ}\left[\widehat{\mQ}_{HZ}^\top\widehat{\mQ}_{HH}^{-1} \widehat{\mQ}_{HZ}^\top\right]^{-1} \\
+    \widehat{\mQ}_{HH}^{-1} & = \left(n^{-1}\mH^\top\mH\right), \\
+  \widehat{\mQ}_{HZ} & = \left(n^{-1}\mH^\top\mZ\right), \\
+  \mZ & = \left(\mI - \widetilde{\lambda}\mM\right)\mZ, \\
+  \widetilde{\alpha}_r & = - n^{-1}\left[\mZ^\top\left(\mA_r + \mA_r^\top\right)\widehat{\vepsi}\right] \\
+  \widehat{\sigma}^2 & = n^{-1}\widehat{\vepsi}\widehat{\vepsi}, \\
+  \widehat{\mu}^{(3)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^3 , \\
+  \widehat{\mu}^{(4)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^4.
   \end{aligned}
 \end{equation*}
 
+For the \textbf{heteroskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}$ is given by:
 
-% For the \textbf{homoskedastic} case the $r, s$ (with $r,s = 1,2$) element of $\widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_n$ is given by:
-% \begin{equation*}
-% \begin{aligned}
-%   \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} & = \left[\widetilde{\sigma}^2\right]^2(2n)^{-1}\tr\left[\left(\mA_r + \mA_r^\top\right)\left(\mA_s + \mA_s^\top\right)\right] \\
-% & + \widetilde{\sigma}^2n^{-1}\widetilde{\va}_r^\top\widetilde{\va}_s^\top \\
-% & + n^{-1}\left(\widetilde{\mu}^{(4)} - 3\left[\widetilde{\sigma}^2\right]^2\right)\vec_D\left(\mA_r\right)^\top\vec_D\left(\mA_s\right) \\
-% & + n^{-1}\widetilde{\mu}^{(3)}\left[\widetilde{\va}_r^\top\vec_D\left(\mA_s\right) + \widetilde{\va}_s^\top\vec_D\left(\mA_r\right)\right],
-% \end{aligned}
-% \end{equation*}
-% %
-% where
-% \begin{equation*}
-%   \begin{aligned}
-%     \widetilde{\va}_r & = \widehat{\mT}\widetilde{\alpha}_r \\
-%     \widehat{\mT} & = \mH\widehat{\mP}, \\
-%     \widehat{\mP} & = \widehat{\mQ}_{HH}^{-1}\widehat{\mQ}_{HZ}\left[\widehat{\mQ}_{HZ}^\top\widehat{\mQ}_{HH}^{-1} \widehat{\mQ}_{HZ}^\top\right]^{-1} \\
-%     \widehat{\mQ}_{HH}^{-1} & = \left(n^{-1}\mH^\top\mH\right), \\
-%   \widehat{\mQ}_{HZ} & = \left(n^{-1}\mH^\top\mZ\right), \\
-%   \mZ & = \left(\mI - \widetilde{\lambda}\mM\right)\mZ, \\
-%   \widetilde{\alpha}_r & = - n^{-1}\left[\mZ^\top\left(\mA_r + \mA_r^\top\right)\widehat{\vepsi}\right] \\
-%   \widehat{\sigma}^2 & = n^{-1}\widehat{\vepsi}\widehat{\vepsi}, \\
-%   \widehat{\mu}^{(3)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^3 , \\
-%   \widehat{\mu}^{(4)} & = n^{-1}\sum_{i = 1}^n\widehat{\epsilon}_i^4.
-%   \end{aligned}
-% \end{equation*}
-
-%=============================================
-\subsection{Asymptotic Distribution}
-%=============================================
-
-The following Theorem provides the joint limiting distribution of $\widehat{\lambda}_n$ and $\widehat{\vdelta}_n$ following \cite{arraiz2010spatial}. 
-
-\begin{theorem}[Asymptotic Distribution of GS2SLS and EGMM estimators: $\widehat{\lambda}_n$ and $\widehat{\vdelta}_n$]
-Under the assumptions made. Then, $\widehat{\lambda}_n$ is efficient among the class of GMM estimators based on GS2SLS residuals, and
-\begin{equation*}
-\begin{pmatrix}
-\sqrt{n}\left(\widehat{\vdelta}_n - \vdelta_0\right)\\
-\sqrt{n}\left(\widehat{\lambda}_n - \lambda_0\right)
-\end{pmatrix}
-\dto
-\rN\left[\vzeros, \plim_{n\to\infty}\widehat{\mOmega}_n(\widehat{\lambda}_n)\right],
-\end{equation*}
-%
-where $\plim_{n\to\infty}\widehat{\mOmega}_n(\widehat{\lambda}_n)$ is a positive definite matrix. 
-\end{theorem}
-
-The estimator $\widehat{\mOmega}_n$ is given by
-\begin{equation}\label{eq:Omega-sarar-gsls}
-\widehat{\mOmega}_n = \begin{pmatrix}
-                      \widehat{\mP}_n^\top & \vzeros \\
-                      \vzeros  & \left(\widehat{\mJ}_n^\top\widehat{\mPsi}_n^{-1}\widehat{\mJ}_n\right)^{-1}\widehat{\mJ}^\top_n\widehat{\mPsi}^{-1}_n
-                     \end{pmatrix}
-                     \widehat{\mPsi}_0
-                     \begin{pmatrix}
-                      \widehat{\mP}_n & \vzeros \\
-                      \vzeros  & \widehat{\mPsi}^{-1}_n\widehat{\mJ}_n\left(\widehat{\mJ}_n^\top\widehat{\mPsi}_n^{-1}\widehat{\mJ}_n\right)^{-1}
-                     \end{pmatrix}
+\begin{equation}
+  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{rs} = (2n)^{-1}\tr\left[\left(\mA_r + \mA_r^\top\right)\widehat{\mSigma}\left(\mA_s + \mA_s^\top\right)\widehat{\mSigma}\right]  + n^{-1}\widetilde{\va}_r^\top\widehat{\mSigma}\widetilde{\va}_s^\top,
 \end{equation}
 %
-with
-\begin{equation*}
-\begin{aligned}
-\widehat{\mPsi}_0 &= \begin{pmatrix}
-                      \widehat{\mPsi}_{n, \vdelta\vdelta} & \widehat{\mPsi}_{n, \vdelta\lambda} \\
-                      \widehat{\mPsi}_{n, \vdelta\lambda}^\top & \widehat{\mPsi}_n
-                     \end{pmatrix},  \\
-\widehat{\mPsi}_{n} & = \begin{pmatrix}
-                         \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{n, 11} &  \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{n, 12} \\
-                         \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{n, 12} & \widehat{\mPsi}^{\widehat{\lambda}\widehat{\lambda}}_{n, 22}
-                         \end{pmatrix}, \\
-\widehat{\mPsi}_{n, \vdelta\vdelta} & = n^{-1}\mH_n^\top\widehat{\mSigma}_n\mH_n, \\           \widehat{\mPsi}_{n, \vdelta\lambda} & = n^{-1}\mH_n^\top\widehat{\mSigma}_n\left[\widehat{\va}_{n,1}, \widehat{\va}_{n,2}\right],\\
-\widehat{\mJ}_n & = \widehat{\mG}_n\begin{pmatrix}
-                                    1 \\
-                                    2 \widehat{\lambda}_n
-                                  \end{pmatrix}, \\
-  \widehat{\mG}_n & = \begin{pmatrix}
-                        2n^{-1}\widehat{\vu}_{n, s}^\top \mA_{n, 1}\widehat{\vu}_n & -n^{-1}\widehat{\vu}_{n, s}^\top\mA_{n, 1}\widehat{\vu}_{n, s} \\
-                        n^{-1}\widehat{\vu}_{n, s}^\top\left(\mA_{n, 2} + \mA_{n, 2}^\top\right)\widehat{\vu}_n & - n^{-1}\widehat{\vu}_{n, s}^\top\mA_{n, 2}\widehat{\vu}_{n, s}
-                      \end{pmatrix}
-  \end{aligned} 
-\end{equation*}
-%=============================================
-\subsection{Coding FG2SLS Estimator Procedure}
-%=============================================
-
-We begin by generating a DGP for the SAC (SARAR) model which will be used to test our function. The DGP assumes homoskedasticity, that is, $\vepsi_n$ are i.i.d $\rN(0, \sigma^2)$.
-<<dgp-sac>>=
-# Generate Data Generating Process
-set.seed(666)
-n      <- 529
-rho    <- 0.6
-lambda <- 0.6
-W.nb2  <- cell2nb(sqrt(n), sqrt(n))
-W      <- nb2mat(W.nb2)
-M.nb2  <- cell2nb(sqrt(n), sqrt(n), type = "queen")
-M      <- nb2mat(M.nb2)
-
-# Exogenous variables
-x1     <- rnorm(n)
-x2     <- rnorm(n)
-x3     <- rnorm(n)
-
-# DGP parameters
-b0      <- 0 ; b1 <- -1; b2 <- 0; b3 <- 1
-sigma2  <- 1
-epsilon <- rnorm(n, mean = 0, sd = sqrt(sigma2))
-
-# Simulate the dependent variable
-u <- solve(diag(n) -  lambda * M) %*% epsilon
-y <- solve(diag(n) -  rho * W) %*% (b0 + b1 * x1 + b2 * x2 + b3 * x3 + u)
-
-# Data as data.frame
-data <- as.data.frame(cbind(y, x1, x2, x3))
-names(data) <- c("y", "x1", "x2", "x3")
-@
-
-We generate several functions. The next function, \code{moments.kp}, generates the moment function $\vm_n(\lambda_n)$ given in Equation \eqref{eq:moment_conditions_reduced_u}. This function is needed later for the optimization of the GMM estimator of $\lambda_0$.
-<<moments.kp>>=
-# This function provides the KP's 2010 moments conditions
-moments.kp <- function(lambda, u, M, A1, A2){
-  n    <- length(u)
-  I    <- diag(n)
-  R    <- I - lambda * M
-  epsi <- R %*% u
-  m.q1 <- crossprod(epsi, A1) %*% epsi
-  m.q2 <- crossprod(epsi, A2) %*% epsi
-  m    <- rbind(m.q1, m.q2)
-  return(m)
-}
-@
-
-The following function provides the objective function to be optimize: $Q_n(\lambda)=\vm_n^\top\Upsilon_n\vm_n$, where $\vm_n$ is a $2\times 1$ vector and $\Upsilon_n$ is some $2\times2$ weighting-moment matrix. 
-<<Q.min>>=
-# This function generates the function Q(theta) to be minimized.
-Q.min <- function(lambda, u, M, A1, A2, Upsilon, verbose){
-  m <- moments.kp(lambda = lambda, u = u, M = M, A1 = A1, A2 = A2)
-  Q <- crossprod(m, Upsilon) %*% m / n
-  if (verbose) cat("function:", Q, "lambda:", lambda, "\n")
-  return(Q)
-}
-@
-
-The next function \code{make.Upsilon} generates either $\widetilde{\mPsi}_{n}$ given in Equation \eqref{eq:Psi-first-step} using $\widehat{\vu}_{n, \textrm{S2SLS}}$ or $\widehat{\mPsi}_{n}$ in Equation \eqref{eq:Psi-second-step} using $\widehat{\vu}_{n, \textrm{GS2SLS}}$, based on heteroskedastic error terms.
-<<make.Upsilon>>=
-# This function generates the VC matrix for 
-make.Upsilon <- function(lambda, HH.i, H, Z, A1, A2, u, M, 
-                         step = c("first", "second")){
-  step   <- match.arg(step)
-  n      <- nrow(H)
-  A1s    <- A1 + t(A1)
-  A2s    <- A2 + t(A2)
-  R      <- diag(n) - lambda * M
-  Zs     <- R %*% Z
-  us     <- R %*% u
-  alpha1 <- - (1 / n) * (crossprod(Zs, A1s) %*% us)
-  alpha2 <- - (1 / n) * (crossprod(Zs, A2s) %*% us)
-  if (step == "first"){
-    # Based on 2SLS residuals
-    HZ     <- crossprod(H, Z) / n
-    P      <- HH.i %*% HZ %*% solve(t(HZ) %*% HH.i %*% HZ)
-    R.inv  <- solve(t(R))
-    a1     <- crossprod(R.inv, H) %*% P %*% alpha1
-    a2     <- crossprod(R.inv, H) %*% P %*% alpha2
-  } else {
-    # Based on G2SLS residuals
-    HZ     <- crossprod(H, Zs) / n
-    P      <- HH.i %*% HZ %*% solve(t(HZ) %*% HH.i %*% HZ)
-    a1     <- H %*% P %*% alpha1
-    a2     <- H %*% P %*% alpha2
-  }
-  epsi   <- R %*% u
-  Sigma  <- diag(drop(epsi^2))
-  Psi.11 <- (1 / (2 * n)) * tr(A1s %*% Sigma %*% A1s %*% Sigma) + 
-            (1 / n) * crossprod(a1, Sigma) %*% a1
-  Psi.12 <- (1 / (2 * n)) * tr(A1s %*% Sigma %*% A2s %*% Sigma) + 
-            (1 / n) * crossprod(a1, Sigma) %*% a2
-  Psi.22 <- (1 / (2 * n)) * tr(A2s %*% Sigma %*% A2s %*% Sigma) + 
-            (1 / n) * crossprod(a2, Sigma) %*% a2
-  Upsi <- matrix(0, nrow = 2, ncol = 2)
-  Upsi[1, 1] <- Psi.11
-  Upsi[1, 2] <- Upsi[2, 1] <- Psi.12
-  Upsi[2, 2] <- Psi.22
-  out <- list(Upsi = Upsi, a1 = a1, a2 = a2, epsi = epsi, P = P, Sigma = Sigma)
-  return(out)
-}
-@
-
-The function \code{make.G} generates the function $\widehat{\mG}_n$ given in Equation \eqref{eq:G-g-moments}.  
-<<make.G>>=
-# This function generates matrix G
-make.G <- function(u, M, A1, A2){
-  n       <- length(u)
-  u.l     <- M %*% u
-  G       <- matrix(0, 2, 2)
-  G[1, 1] <- 2  * t(u.l) %*% (A1 + t(A1)) %*% u
-  G[1, 2] <- -1 * t(u.l) %*% A1 %*% u.l
-  G[2, 1] <- t(u.l) %*% (A2 + t(A2)) %*% u
-  G[2, 2] <- -1 * t(u.l) %*% A2 %*% u.l
-  G <- G / n
-  return(G)
-}  
-@
-
-The main function to estimate the GS2SLS estimator for the SAC model is the following:
-<<gstsls.sac>>=
-gstsls.sac <- function(formula, data, W, M = NULL, instruments = 2,
-                       verbose = FALSE){
-    # Model Frame
-    callT    <- match.call(expand.dots = TRUE)
-    mf       <- callT
-    m        <- match(c("formula", "data"), names(mf), 0L)
-    mf       <- mf[c(1L, m)]
-    mf[[1L]] <- as.name("model.frame")
-    mf       <- eval(mf, parent.frame())
-    
-    # Get variables and globals
-    y  <- model.response(mf)
-    X  <- model.matrix(formula, mf)
-    n  <- nrow(X)
-    
-    # Check spatial weight matrices
-    if (!is.null(M)){
-      if(identical(M, W)) {
-        M <- W
-        has.M <- FALSE
-      } else {
-        has.M <- TRUE
-      }
-    } else {
-      M <- W
-      has.M <- FALSE
-    }
-
-    #---------------------------- #
-    # Step 1a: S2SLS estimator
-    #---------------------------- #
-    # Make instruments
-    WXI <- make.H(W = W, X = X, l = instruments)
-    H   <- cbind(X, WXI)
-    if(has.M){
-      H  <- cbind(H, M %*% X[, -1], M %*% WXI)
-    }
-  
-    # Compute S2SLSE
-    Wy          <- W %*% y
-    Z           <- cbind(X, Wy)
-    colnames(Z) <- c(colnames(X), "Wy")
-    HH          <- crossprod(H)
-    HH.i        <- solve(HH)
-    PH          <- H %*% tcrossprod(HH.i, H)
-    Z_hat       <- PH %*% Z
-    b_2sls      <- solve(crossprod(Z_hat)) %*% crossprod(Z_hat, y)
-    y_hat       <- Z %*% b_2sls
-    u_2sls      <- y - y_hat
-    
-    #---------------------------------------- #
-    # Step 1b: Initial GMM estimator of lambda
-    #---------------------------------------- #
-    # Initial value for optimization 
-    init.1b <- crossprod(M %*% u_2sls, u_2sls) / crossprod(u_2sls)
-    
-    # Optimization
-    Upsilon.1b <- diag(2)
-    MM         <- crossprod(M)
-    A1.1b      <- MM - diag(diag(MM))
-    A2.1b      <- M
-    opt.1b <- nlminb(start     = init.1b, 
-                     objective = Q.min,
-                     u         = u_2sls, 
-                     M         = M, 
-                     A1        = A1.1b, 
-                     A2        = A2.1b, 
-                     Upsilon   = Upsilon.1b, 
-                     verbose   = verbose,
-                     lower     = -0.9 + .Machine$double.eps, 
-                     upper      = 0.9 - .Machine$double.eps)
-    
-    #------------------------------------------- #
-    # Step 1c: Efficient GMM estimator of lambda
-    #------------------------------------------- #
-    
-    # Initial value for optimization 
-    init.1c <- opt.1b$par
-    
-    # Optimization
-    Upsilon.1c <- make.Upsilon(lambda = init.1c, 
-                               HH.i = HH.i,
-                               H = H, 
-                               Z = Z, 
-                               A1 = A1.1b, 
-                               A2 = A2.1b, 
-                               u = u_2sls, 
-                               M = M, 
-                               step = "first")$Upsi
-    opt.1c <- nlminb(start     = init.1c, 
-                     objective = Q.min,
-                     u         = u_2sls, 
-                     M         = M, 
-                     A1        = A1.1b, 
-                     A2        = A2.1b, 
-                     Upsilon   = solve(Upsilon.1c), 
-                     verbose   = verbose,
-                     lower     = -0.9 + .Machine$double.eps, 
-                     upper      = 0.9 -  .Machine$double.eps)
-    
-    #---------------------------------------- #
-    # Step 2a: GS2SLS
-    #---------------------------------------- #
-    lambda.hat <- opt.1c$par
-    ys         <- y - lambda.hat * M %*% y
-    Zs         <- Z - lambda.hat * M %*% Z
-    
-    # Compute S2SLSE
-    Zs_hat  <- PH %*% Zs
-    b_g2sls <- solve(crossprod(Zs_hat)) %*% crossprod(Zs_hat, ys)
-    y_hat   <- Z %*% b_g2sls
-    u_g2sls <- y - y_hat
-    
-    #---------------------------------------- #
-    # Step 2b: Efficient GMM
-    #---------------------------------------- #
-    # Initial value for optimization 
-    init.2b  <- lambda.hat
-    
-    # Optimization
-    Upsilon.2b <- make.Upsilon(lambda = init.2b, 
-                               HH.i = HH.i,
-                               H = H,
-                               Z = Z, 
-                               A1 = A1.1b, 
-                               A2 = A2.1b, 
-                               u = u_g2sls, 
-                               M = M,
-                               step = "second")$Upsi
-    opt.2b <- nlminb(start     = init.2b, 
-                     objective = Q.min,
-                     u         = u_g2sls, 
-                     M         = M, 
-                     A1        = A1.1b, 
-                     A2        = A2.1b, 
-                     Upsilon   = solve(Upsilon.2b), 
-                     verbose   = verbose,
-                     lower     = -0.9 + .Machine$double.eps, 
-                     upper      = 0.9 -  .Machine$double.eps)
-    
-    b.hat.f <- c(b_g2sls, opt.2b$par)
-    names(b.hat.f) <- c(rownames(b_g2sls), "Wu")
-    
-    # Generate matrix G
-    G <- make.G(u = u_g2sls, M = M, A1 = A1.1b, A2 = A2.1b)
-    
-    # Save results
-    results <- structure(
-      list(
-        coefficients = b.hat.f, 
-        call         = callT, 
-        X            = X, 
-        H            = H,
-        HH.i         = HH.i,
-        Z            = Z, 
-        y            = y,
-        W            = W, 
-        M            = M, 
-        A1           = A1.1b, 
-        A2           = A2.1b, 
-        G            = G 
-      ), 
-      class = 'mygs2sls'
-    )
-}
-@
-
-The \code{vcov} function is based on Equation \eqref{eq:Omega-sarar-gsls}. 
-<<vcov.mygs2sls>>=
-vcov.mygs2sls <- function(object, ...){
-  theta.hat  <- object$coefficients
-  Z          <- object$Z
-  k          <- ncol(Z)
-  lambda.hat <- theta.hat[k + 1]
-  delta.hat  <- theta.hat[1:k]
-  H    <- object$H
-  HH.i <- object$HH.i
-  A1   <- object$A1
-  A2   <- object$A2
-  M    <- object$M
-  y    <- object$y
-  p    <- ncol(H) 
-  u_g2sls <- y - Z %*% delta.hat
-  fitL <- make.Upsilon(lambda = lambda.hat,
-                       HH.i = HH.i,
-                       H = H, 
-                       Z = Z, 
-                       A1 = A1, 
-                       A2 = A2, 
-                       u = u_g2sls, 
-                       M = M,
-                       step = "second")
-  ## Make Omega
-  Psi.rr      <- (1 / n) * crossprod(H, fitL$Sigma) %*% H
-  Psi.rd      <- (1 / n) * crossprod(H, fitL$Sigma) %*% cbind(fitL$a1, fitL$a2)
-  Psi.f10     <- cbind(Psi.rr, Psi.rd)
-  Psi         <- fitL$Upsi 
-  Psi.f20     <- cbind(t(Psi.rd), Psi)
-  Psi.0       <- rbind(Psi.f10, Psi.f20)
-  Psi.inv     <- solve(fitL$Upsi)
-  G           <- object$G
-  J           <- G %*% rbind(1, 2 * lambda.hat)
-  bread.lower <- solve(t(J) %*% Psi.inv %*% J) %*% t(J) %*% Psi.inv
-  bread       <- matrix(0, nrow = (k + 1), ncol = (p + 2))
-  bread[1:k, 1:p] <- t(fitL$P)
-  bread[k + 1, (p + 1):(p + 2)] <- bread.lower
-  Omega <- bread %*% Psi.0 %*% t(bread) / n
-  return(Omega)
-}
-@
-
-The S3 Methods are the following:
-<<summary.mygs2sls>>=
-summary.mygs2sls <- function(object,
-                             table = TRUE, 
-                             digits = max(3, .Options$digits - 3), 
-                             ...){
-  n         <- nrow(object$Z)
-  df        <- n - (ncol(object$Z) + 1)
-  b         <- object$coefficients
-  std.err   <- sqrt(diag(vcov(object)))
-  z         <- b / std.err
-  p         <- 2 * pt(-abs(z), df = df)
-  CoefTable <- cbind(b, std.err, z, p)
-  colnames(CoefTable) <- c("Estimate", "Std.Error", "t-value", "Pr(>|t|)")
-  result <- structure(
-    list(
-      CoefTable = CoefTable, 
-      digits    = digits, 
-      call      = object$call),
-    class = 'summary.mygs2sls'
-  )
-  return(result)
-}
-
-print.summary.mygs2sls <- function(x, 
-                                   digits = x$digits, 
-                                   na.print = "", 
-                                   symbolic.cor = p > 4, 
-                                   signif.stars = getOption("show.signif.stars"), 
-                                   ...)
-{
-  cat("\nCall:\n")
-  cat(paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-  
-  cat("\nCoefficients:\n")
-  printCoefmat(x$CoefTable, digit = digits, P.value = TRUE, has.Pvalue = TRUE)
-  invisible(NULL)
-}
-@
-
-Now, we test our function and compare the results with those obtained using \code{spreg} function from \pkg{sphet} package. 
-<<test-gstsls.sac>>=
-out <- gstsls.sac(y ~ x1 + x2 + x3, 
-           data = data, 
-           M = M, 
-           W = W)
-summary(out)
-@
-
-
-<<test1-sac>>=
-test1 <- spreg(y ~ x1 + x2 + x3, 
-               data = data, 
-               listw = mat2listw(W, style = "W"),
-               listw2 = mat2listw(M, style = "W"),
-               model = "sarar", 
-               het = TRUE, 
-               step1.c = TRUE)
-summary(test1)
-@
-
+where, $\widehat{\mSigma}$ is a diagonal matrix whose $i$th diagonal element is $\widehat{\epsilon}_i^2$. 
 
 
 %=============================================
@@ -5276,17 +5422,34 @@ In this example we will use the \textbf{simulated} US Driving Under the Influenc
 
 We load the required packages and dataset:
 
-<<>>=
-library("maptools") 
-library("spdep")  
-library("sphet")
-# Load Data
-us_shape <- readShapeSpatial("ccountyR")  # Load shape file
-names(us_shape)                           # Names of variables in dbf
-# Load weight matrix
-queen.w <- read.gal("ccountyR_w.gal")
-lw <- nb2listw(queen.w, style = "W")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{"maptools"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"sphet"}\hlstd{)}
+\hlcom{# Load Data}
+\hlstd{us_shape} \hlkwb{<-} \hlkwd{readShapeSpatial}\hlstd{(}\hlstr{"ccountyR"}\hlstd{)}  \hlcom{# Load shape file}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra packages among others}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra paackages among others}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra packages among others}}\begin{alltt}
+\hlkwd{names}\hlstd{(us_shape)}                           \hlcom{# Names of variables in dbf}
+\end{alltt}
+\begin{verbatim}
+## [1] "dry"      "nondui"   "vehicles" "elect"    "dui"      "police"
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Load weight matrix}
+\hlstd{queen.w} \hlkwb{<-} \hlkwd{read.gal}\hlstd{(}\hlstr{"ccountyR_w.gal"}\hlstd{)}
+\hlstd{lw} \hlkwb{<-} \hlkwd{nb2listw}\hlstd{(queen.w,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 \subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
@@ -5294,12 +5457,41 @@ lw <- nb2listw(queen.w, style = "W")
 
 First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
 
-<<gs2sls>>=
-GS2SLS <- gstsls(dui ~ police + nondui + vehicles + dry,
-                 data = us_shape,
-                 listw = lw)
-summary(GS2SLS)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{GS2SLS} \hlkwb{<-} \hlkwd{gstsls}\hlstd{(dui} \hlopt{~} \hlstd{police} \hlopt{+} \hlstd{nondui} \hlopt{+} \hlstd{vehicles} \hlopt{+} \hlstd{dry,}
+                 \hlkwc{data} \hlstd{= us_shape,}
+                 \hlkwc{listw} \hlstd{= lw)}
+\hlkwd{summary}\hlstd{(GS2SLS)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:gstsls(formula = dui ~ police + nondui + vehicles + dry, data = us_shape, 
+##     listw = lw)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -1.655535 -0.362165 -0.070363  0.277261  2.418849 
+## 
+## Type: GM SARAR estimator
+## Coefficients: (GM standard errors) 
+##                Estimate  Std. Error  z value  Pr(>|z|)
+## Rho_Wy       0.04692763  0.01696580   2.7660  0.005675
+## (Intercept) -6.40991922  0.41795923 -15.3362 < 2.2e-16
+## police       0.59810726  0.01490338  40.1323 < 2.2e-16
+## nondui       0.00024688  0.00108594   0.2273  0.820158
+## vehicles     0.01571247  0.00066816  23.5160 < 2.2e-16
+## dry          0.10608849  0.03492867   3.0373  0.002387
+## 
+## Lambda: 0.00095701
+## Residual variance (sigma squared): 0.3175, (sigma: 0.56347)
+## GM argmin sigma squared: 0.31789
+## Number of observations: 3109 
+## Number of parameters estimated: 8
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
 
@@ -5308,17 +5500,52 @@ The results show that all the variables are significant, except for \code{nondui
 The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
 
 
-<<>>=
-G2SLS_en_in <- spreg(dui ~ nondui + vehicles + dry,
-                data = us_shape,
-                listw = lw,
-               endog = ~ police,
-               instruments = ~ elect, 
-               model = "sarar", 
-               het = FALSE, 
-               lag.instr = TRUE)
-summary(G2SLS_en_in)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{G2SLS_en_in} \hlkwb{<-} \hlkwd{spreg}\hlstd{(dui} \hlopt{~} \hlstd{nondui} \hlopt{+} \hlstd{vehicles} \hlopt{+} \hlstd{dry,}
+                \hlkwc{data} \hlstd{= us_shape,}
+                \hlkwc{listw} \hlstd{= lw,}
+               \hlkwc{endog} \hlstd{=} \hlopt{~} \hlstd{police,}
+               \hlkwc{instruments} \hlstd{=} \hlopt{~} \hlstd{elect,}
+               \hlkwc{model} \hlstd{=} \hlstr{"sarar"}\hlstd{,}
+               \hlkwc{het} \hlstd{=} \hlnum{FALSE}\hlstd{,}
+               \hlkwc{lag.instr} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlkwd{summary}\hlstd{(G2SLS_en_in)}
+\end{alltt}
+\begin{verbatim}
+## ====================================================
+## ====================================================
+##                GS2SLS SARAR Model
+## ====================================================
+## ====================================================
+## 
+## Call:
+## spreg(formula = dui ~ nondui + vehicles + dry, data = us_shape, 
+##     listw = lw, endog = ~police, instruments = ~elect, lag.instr = TRUE, 
+##     model = "sarar", het = FALSE)
+## 
+## Residuals:
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -6.1862 -0.8838  0.0147 -0.0161  0.9213  8.3616 
+## 
+## Coefficients:
+##                Estimate  Std. Error t-value  Pr(>|t|)    
+## (Intercept) 11.60596811  1.66674437  6.9633 3.325e-12 ***
+## nondui      -0.00019624  0.00275912 -0.0711  0.943299    
+## vehicles     0.09299562  0.00564911 16.4620 < 2.2e-16 ***
+## dry          0.39825983  0.09090201  4.3812 1.180e-05 ***
+## police      -1.35130834  0.14101772 -9.5825 < 2.2e-16 ***
+## lambda       0.19319018  0.04431011  4.3600 1.301e-05 ***
+## rho         -0.08597523  0.03018333 -2.8484  0.004393 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Wald test that rho and lambda are both zero:
+##  Statistics: 7.6185 p-val: 0.0057773
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 
