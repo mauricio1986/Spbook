@@ -1707,7 +1707,7 @@ where $\vy$ is a $n\times 1$ vector containing observations on the dependent var
 \subsection{Spatial Durbin Model}
 %====================================
 
-The Spatial Durbin Model model (SDM) is defined as:\index{Spatial durbin model}
+The Spatial Durbin Model (SDM) is defined as:\index{Spatial durbin model}
 \begin{equation}\label{eq:Sdm}
 \vy  =  \rho \mW\vy + \alpha \vones_n + \mX\vbeta + \mW\mX\vgamma + \vepsi.
 \end{equation}
@@ -3235,7 +3235,119 @@ The matrix \texttt{out} also shows that both direct and indirect effects fall ou
 % 
 % According to 
 
+%=============================================================
+\section{Empirical Example: Growth and Spatial Externalities}
+%=============================================================
+
+\cite{ertur2007growth} developed a theoretical growth model that explicitly incorporates technological interdependence among economies and examines the role of spatial spillover effects.
+
+The model is based on an aggregate Cobb-Douglas production function for country $i$ at time $t$, exhibiting constant returns to scale in labor and physical capital:
+\begin{equation}\label{eq:prod_func}
+Y_i(t) = A_i(t)K_i^{\alpha}(t)L_i^{1- \alpha}(t), 
+\end{equation}
+where $Y_i(t)$ denotes total output, $K_i(t)$ is the stock of reproducible physical capital, $L_i(t)$ is the labor force, and $A_i(t)$ represents the aggregate level of technology.
+
+The evolution of $A_i(t)$ is modeled as:
+\begin{equation}\label{eq:A_growth}
+A_i(t) = \Omega(t)k_i^{\phi}(t)\prod_{j\neq i}A_j^{\gamma w_{ij}}(t),
+\end{equation}
+%
+where $k_i(t) = K_i(t)/L_i(t)$ is the capital intensity, and $w_{ij}$ denotes the weight capturing the connectivity between country $i$ and country $j$ in the spatial network.
+
+This formulation reflects three distinct sources of technological progress:
+\begin{enumerate}
+\item Exogenous Technological Progress: The term $\Omega(t)$ captures the common component of technological change across all countries, assumed to grow at a constant rate $\mu$, i.e., $\Omega(t) = \Omega(0)e^{\mu t}$.
+\item Domestic Knowledge Spillovers: The second term, $k_i^{\phi}(t)$, reflects the idea that technology in a country improves with its own capital deepening. The parameter $\phi \in [0,1)$ measures the strength of internal (or home) externalities from physical capital accumulation.
+\item International Knowledge Spillovers: The final term captures cross-country technological interdependence. It is modeled as a spatially weighted geometric mean of the technological levels of neighboring countries, where $\gamma \in [0,1)$ measures the strength of international spillovers. While $\gamma$ is assumed to be common across countries, the impact of spatial externalities on a specific country $i$ depends on its relative position and connectivity in the spatial structure, as encoded by the weights $w_{ij}$. The more a given country $i$ is connected to its neighbors, the higher $w_{ij}$ is, and the more country $i$ benefits from spatial externalities. 
+\end{enumerate}
+
+In logarithmic and  matrix form, Equation \eqref{eq:A_growth} becomes:
+\begin{equation*}
+\va = \mOmega + \phi\vk + \gamma \mW\va, 
+\end{equation*}
+%
+where $\va$ is the $n \times 1$ vector of the logarithms of technology levels, $\vk$ is the $n \times 1$ vector of the logarithms of capital per worker, and $\mW$ is the $n \times n$ spatial weight matrix with elements $w_{ij}$. Solving for $\va$---assuming $\gamma \neq 0$ and $1/\gamma$ is not an eigenvalue of $\mW$---yields:
+\begin{equation*}
+\va = \left(\mI-\gamma \mW\right)^{-1}\mOmega + \phi\left(\mI-\gamma \mW\right)^{-1}\vk.
+\end{equation*}
+
+If $|\gamma|<1$, then Equation \eqref{eq:A_growth} can be rewritten as:
+\begin{equation}\label{eq:new_A_g}
+A_i(t) = \Omega^{\frac{1}{1-\gamma}}k_i^{\phi}\prod_{j = 1}^nk_j^{\phi\sum_{r = 1}^{\infty}\gamma^rw_{ij}^{(r)}}(t),
+\end{equation}
+%
+where $w_{ij}^{(r)}$ denotes the $r$-th order spatial weight between countries $i$ and $j$.
+
+Substituting \eqref{eq:new_A_g} into the per-worker form of the production function \eqref{eq:prod_func} gives:
+\begin{equation}\label{eq:ypercapita}
+y_i(t) = \Omega^{\frac{1}{1-\gamma}}k_i^{u_{ii}}(t)\prod_{j\neq i}^nk_j^{u_{ij}}(t),
+\end{equation}
+%
+where $u_{ii} = \alpha + \phi\left(1 + \sum_{r = 1}^{\infty}\gamma^rw_{ii}^{(r)}\right)$ and $u_{ij} = \phi\sum_{r = 1}^{\infty}\gamma^rw_{ij}^{(r)}$, and $y_i(t)=Y_i(t)/L_i(t)$. 
+
+This expression implies spatial heterogeneity in the production function parameters. Specifically, if there are no externalities from physical capital (i.e., $\phi = 0$), then $u_{ii} = \alpha$ and $u_{ij} = 0$, and the model collapses to the standard neoclassical production function.
+
+The model also allows for an analysis of the \textit{social elasticity} of income per worker with respect to physical capital. According to Equation \eqref{eq:ypercapita}, when country $i$ increases its own capital per worker, it benefits from a marginal social return of $u_{ii}$. If instead all countries simultaneously raise their capital per worker, the total return for country $i$ increases to:
+\[
+u_{ii} + \sum_{j \neq i} u_{ij} = \alpha + \frac{\phi}{1 - \gamma}.
+\]
+To ensure local convergence and avoid explosive or endogenous growth dynamics, it is assumed that social returns are decreasing; that is, $\alpha + \frac{\phi}{1 - \gamma} < 1$.
+
+Assume that a constant fraction $s_i$ of output is saved, labor grows exogenously at rate $n_i$, and the depreciation rate of capital $\delta$ is identical across countries. Then, the dynamics of capital per worker follow the Solow equation: \begin{equation*} \dot{k}_i(t) = s_iy_i(t) - (n_i + \delta)k_i(t), \end{equation*} where the dot denotes a time derivative.
+
+Under these assumptions, \cite{ertur2007growth} derive the steady-state income per worker in country $i$ as:
+\begin{equation*}
+  \begin{aligned}
+    \log y_{it}^* & =  \frac{1}{1 - \alpha -\phi}\log \Omega_t + \frac{\alpha + \phi}{1 - \alpha -\phi}\log s_i - \frac{\alpha + \phi}{1 - \alpha -\phi}\log (n_i + g + \delta) \\
+                  & - \frac{\alpha\gamma}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\ln s_j + \frac{\alpha\gamma}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\ln(n_j + g + \delta) \\
+                  & + \frac{\gamma(1 - \alpha)}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\log y_{jt}^*
+  \end{aligned}
+\end{equation*}
+
+This steady-state equation is operationalized econometrically as the following SDM (for $t=0$):
+\begin{equation*}
+    \log \left(\frac{Y_i}{L_i}\right) =  \beta_0 + \beta_1\log s_i + \beta_2 \log (n_i + g + \delta) 
+                   + \theta_1 \sum_{j\neq i}^N w_{ij}\ln s_j + \theta_2\sum_{j\neq i}^N w_{ij}\ln(n_j + g + \delta) 
+                   + \rho \sum_{j\neq i}^N w_{ij}\log \left(\frac{Y_j}{L_j}\right) + \epsilon_i,
+\end{equation*}
+%
+where:
+\begin{itemize}
+  \item $\beta_0 + \epsilon_i = \frac{1}{1 - \alpha -\phi}\log \Omega_0$, 
+  \item $\beta_1 = \frac{\alpha + \phi}{1 - \alpha -\phi}$,
+  \item $\beta_2 = - \frac{\alpha + \phi}{1 - \alpha -\phi}$,
+  \item $\theta_1 = - \frac{\alpha\gamma}{1 - \alpha -\phi}$,
+  \item $\theta_2 = \frac{\alpha\gamma}{1 - \alpha -\phi}$,
+   \item $\rho = \frac{\gamma(1 - \alpha)}{1 - \alpha -\phi}$
+\end{itemize}
+%
+with the following theoretical constraints: 
+\begin{itemize}
+  \item $\beta_1 = - \beta_2$,
+  \item $\theta_2 = -\theta_1$
+\end{itemize}
+
+\cite{ertur2007growth} argue that the textbook Solow model is misspecified because it omits spatially correlated variables related to technological interdependence and physical capital externalities. In particular, the error term from the Solow model can be written as:
+\begin{equation*}
+  \vepsi_{\mbox{Solow}} = \frac{\phi}{1 - \alpha}\left(\mI - \gamma\mW\right)^{-1}k^{*} + \left(\mI - \gamma\mW\right)^{-1}\vepsi.
+\end{equation*}
+
+Hence, even if $\phi = 0$ (i.e., no domestic capital externalities), omitting spatially correlated variables induces spatial autocorrelation in the residuals, leading to model misspecification.
+
+To test this hypothesis empirically, we can estimate the following standard Solow model using OLS:
+\begin{equation*}
+  \log\left(\frac{Y_i}{L_i}\right) = \beta_0 + \beta_1 \ln(s_i) + \beta_2 \ln(n_i + g  + \delta) + \epsilon_i,
+\end{equation*}
+%
+and then use the Moran's I test on the residuals. 
+
+
+
+
+
+%======================
 \section{Exercises}
+%======================
 
 \begin{exercises}
 
@@ -6574,12 +6686,7 @@ The dataset is available in the \pkg{spdep} package, and we load it as follows:
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Load data}
-\hlstd{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/shapes/columbus.shp"}\hlstd{,}
-                                      \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in getinfo.shape(filen): Error opening SHP file}}\begin{alltt}
+\hlstd{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hlstd{(}\hlstr{"columbus.shp"}\hlstd{)}
 \hlstd{col.gal.nb} \hlkwb{<-} \hlkwd{read.gal}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/weights/columbus.gal"}\hlstd{,}
                                    \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
 \end{alltt}
@@ -6608,10 +6715,13 @@ The map in Figure~\ref{fig:spatial-crime} suggests a positive spatial autocorrel
     \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=9cm,height=9cm]{figure/spatial-crime-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'spplot' for signature '"{}data.frame"{}'}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of crime on the 49 Columbus, Ohio neighborhoods. Darker color indicates greater rate of crime. 
@@ -6794,10 +6904,7 @@ Next, we increase \code{INC} by 1 in spatial unit 30 and calculate the reduced-f
 
 \hlcom{# Change the income value}
 \hlstd{col_new}\hlopt{@}\hlkwc{data}\hlstd{[col_new}\hlopt{@}\hlkwc{data}\hlopt{$}\hlstd{POLYID} \hlopt{==} \hlnum{30}\hlstd{,} \hlstr{"INC"}\hlstd{]} \hlkwb{<-} \hlnum{14.906}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in col\_new@data[col\_new@data\$POLYID == 30, "{}INC"{}] <- 14.906: trying to get slot "{}data"{} from an object (class "{}data.frame"{}) that is not an S4 object}}\begin{alltt}
 \hlcom{# The predicted values}
 \hlstd{X_d}        \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlnum{1}\hlstd{, col_new}\hlopt{$}\hlstd{INC, col_new}\hlopt{$}\hlstd{HOVAL)}
 \hlstd{y_hat_post} \hlkwb{<-} \hlstd{A} \hlopt{%*%} \hlkwd{crossprod}\hlstd{(}\hlkwd{t}\hlstd{(X_d), beta_hat)}
@@ -6817,19 +6924,19 @@ Finally,  we compute the difference between pre- and post-predictions: $\widehat
 \hlkwd{summary}\hlstd{(delta_y)}
 \end{alltt}
 \begin{verbatim}
-##        V1   
-##  Min.   :0  
-##  1st Qu.:0  
-##  Median :0  
-##  Mean   :0  
-##  3rd Qu.:0  
-##  Max.   :0
+##        V1            
+##  Min.   :-1.1141241  
+##  1st Qu.:-0.0074114  
+##  Median :-0.0012172  
+##  Mean   :-0.0336341  
+##  3rd Qu.:-0.0002604  
+##  Max.   :-0.0000081
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sum}\hlstd{(delta_y)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0
+## [1] -1.648071
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -6862,16 +6969,13 @@ Sometimes it is useful to visualize these effects. For instance, we might want t
     \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in findInterval(col\_new\$delta\_y, breaks): 'vec' must be sorted non-decreasingly and not contain NAs}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in pairs.default(data.matrix(x), ...): object 'np' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in (function (s, units = "{}user"{}, cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows those regions that had low and high impact due to increase in \code{INC} in 30th. Red-colored regions are those regions with a decrease of crime rate larger than 0.05, whereas blue-colored regions are those regions with lower decrease of crime rate. 
@@ -6899,16 +7003,13 @@ Now, we map the magnitude of the changes caused by altering \texttt{INC} in regi
         \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect2-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in classIntervals(col\_new\$delta\_y, n = 5, style = "{}jenks"{}): single unique value}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in findColours(cats5, pal5): object 'cats5' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in pairs.default(data.matrix(x), ...): object 'colors5' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.graphicsAnnot(legend): object 'cats5' not found}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of the changes caused by altering \texttt{INC} in region 30.
@@ -8683,12 +8784,7 @@ To carry out the Moran's $I$ test on the residuals in \proglang{R} we need to pa
 \hlcom{# Moran test for residuals}
 \hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
 \hlcom{# Load data}
-\hlstd{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/shapes/columbus.shp"}\hlstd{,}
-                                      \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in getinfo.shape(filen): Error opening SHP file}}\begin{alltt}
+\hlstd{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hlstd{(}\hlstr{"columbus.shp"}\hlstd{)}
 \hlstd{col.gal.nb} \hlkwb{<-} \hlkwd{read.gal}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"etc/weights/columbus.gal"}\hlstd{,}
                                    \hlkwc{package} \hlstd{=} \hlstr{"spdep"}\hlstd{)[}\hlnum{1}\hlstd{])}
 \hlstd{listw} \hlkwb{<-} \hlkwd{nb2listw}\hlstd{(col.gal.nb,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
@@ -9719,7 +9815,7 @@ Alternatively, we can write the model more concisely as:
   \vy_n = \mZ_n \vdelta_0 + \vepsi_n,
 \end{equation*}
 %
-where $\mZ_n = \left[\mX_n, \mW_n\vy_n\right]$ is an $n \times (k + 1)$ matrix that combines the \textbf{exogenous regressors} and the spatially lagged dependent variable, and the $(k + 1)\times 1$ coefficient column vector is rearranged as  $\vdelta_0 = (\vbeta^\top, \rho)^\top$. As discussed in Section \ref{sec:consequences_slm}, the inclusion of the spatially lagged dependent variable, $\mW_n\vy_n$, on the right-hand side of the equation introduces endogeneity or simultaneous equation bias. Therefore, the OLS estimates are inconsistent.
+where $\mZ_n = \left[\mX_n, \mW_n\vy_n\right]$ is an $n \times (k + 1)$ matrix that combines the \textbf{exogenous regressors} and the spatially lagged dependent variable, and the $(k + 1)\times 1$ coefficient column vector is rearranged as  $\vdelta_0 = (\vbeta^\top_0, \rho_0)^\top$. As discussed in Section \ref{sec:consequences_slm}, the inclusion of the spatially lagged dependent variable, $\mW_n\vy_n$, on the right-hand side of the equation introduces endogeneity or simultaneous equation bias. Therefore, the OLS estimates are inconsistent.
 
 To address this issue, we may use an instrumental variables (IV) approach rather than resorting to QML or ML methods. The IV principle relies on the existence of a matrix of instruments, $\mH_n$, that is strongly correlated with $\mZ_n$ but asymptotically uncorrelated with the error term $\vepsi_n$.
 
@@ -15352,152 +15448,71 @@ To be added.
 % %
 % where $\mP_{jn}, j = 1, \ldots, m$ are from $\calP_{1n}$, the IV matrix $\mH_n$ is constructed from $\mX_n, \mW_n$ and $\mM_n$. 
 
-%===========================
-\section{Application in R}
-%===========================
-
-In this example we will use the \textbf{simulated} US Driving Under the Influence (DUI) county data set used in \cite{drukker2011command}. The dependent variable \code{dui} is defined as the alcohol-related arrest rate per 100,000 daily vehicle miles traveled (DVMT). The explanatory variables include 
-
-\begin{itemize}
-  \item \code{police}: number of sworn officers per 100,000 DVMT,
-  \item \code{nondui}: non-alcohol-related arrests per 100,000 DVMT,
-  \item \code{vehicles}: number of registered vehicles per 1,000 residents, and
-  \item \code{dry}: a dummy for counties that prohibit alcohol sale within their borders
-\end{itemize}
-
-We load the required packages and dataset:
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{library}\hlstd{(}\hlstr{"maptools"}\hlstd{)}
-\hlkwd{library}\hlstd{(}\hlstr{"spdep"}\hlstd{)}
-\hlkwd{library}\hlstd{(}\hlstr{"sphet"}\hlstd{)}
-\hlcom{# Load Data}
-\hlstd{us_shape} \hlkwb{<-} \hlkwd{readShapeSpatial}\hlstd{(}\hlstr{"ccountyR"}\hlstd{)}  \hlcom{# Load shape file}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra packages among others}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra paackages among others}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: shapelib support is provided by GDAL through the sf and terra packages among others}}\begin{alltt}
-\hlkwd{names}\hlstd{(us_shape)}                           \hlcom{# Names of variables in dbf}
-\end{alltt}
-\begin{verbatim}
-## [1] "dry"      "nondui"   "vehicles" "elect"    "dui"      "police"
-\end{verbatim}
-\begin{alltt}
-\hlcom{# Load weight matrix}
-\hlstd{queen.w} \hlkwb{<-} \hlkwd{read.gal}\hlstd{(}\hlstr{"ccountyR_w.gal"}\hlstd{)}
-\hlstd{lw} \hlkwb{<-} \hlkwd{nb2listw}\hlstd{(queen.w,} \hlkwc{style} \hlstd{=} \hlstr{"W"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
-
-
-First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{GS2SLS} \hlkwb{<-} \hlkwd{gstsls}\hlstd{(dui} \hlopt{~} \hlstd{police} \hlopt{+} \hlstd{nondui} \hlopt{+} \hlstd{vehicles} \hlopt{+} \hlstd{dry,}
-                 \hlkwc{data} \hlstd{= us_shape,}
-                 \hlkwc{listw} \hlstd{= lw)}
-\hlkwd{summary}\hlstd{(GS2SLS)}
-\end{alltt}
-\begin{verbatim}
-## 
-## Call:gstsls(formula = dui ~ police + nondui + vehicles + dry, data = us_shape, 
-##     listw = lw)
-## 
-## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -1.655535 -0.362165 -0.070363  0.277261  2.418849 
-## 
-## Type: GM SARAR estimator
-## Coefficients: (GM standard errors) 
-##                Estimate  Std. Error  z value  Pr(>|z|)
-## Rho_Wy       0.04692763  0.01696580   2.7660  0.005675
-## (Intercept) -6.40991922  0.41795923 -15.3362 < 2.2e-16
-## police       0.59810726  0.01490338  40.1323 < 2.2e-16
-## nondui       0.00024688  0.00108594   0.2273  0.820158
-## vehicles     0.01571247  0.00066816  23.5160 < 2.2e-16
-## dry          0.10608849  0.03492867   3.0373  0.002387
-## 
-## Lambda: 0.00095701
-## Residual variance (sigma squared): 0.3175, (sigma: 0.56347)
-## GM argmin sigma squared: 0.31789
-## Number of observations: 3109 
-## Number of parameters estimated: 8
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
-
-\subsection{SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}\index{GS2SLS!spreg function}
-
-The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{G2SLS_en_in} \hlkwb{<-} \hlkwd{spreg}\hlstd{(dui} \hlopt{~} \hlstd{nondui} \hlopt{+} \hlstd{vehicles} \hlopt{+} \hlstd{dry,}
-                \hlkwc{data} \hlstd{= us_shape,}
-                \hlkwc{listw} \hlstd{= lw,}
-               \hlkwc{endog} \hlstd{=} \hlopt{~} \hlstd{police,}
-               \hlkwc{instruments} \hlstd{=} \hlopt{~} \hlstd{elect,}
-               \hlkwc{model} \hlstd{=} \hlstr{"sarar"}\hlstd{,}
-               \hlkwc{het} \hlstd{=} \hlnum{FALSE}\hlstd{,}
-               \hlkwc{lag.instr} \hlstd{=} \hlnum{TRUE}\hlstd{)}
-\hlkwd{summary}\hlstd{(G2SLS_en_in)}
-\end{alltt}
-\begin{verbatim}
-## ====================================================
-## ====================================================
-##                GS2SLS SARAR Model
-## ====================================================
-## ====================================================
-## 
-## Call:
-## spreg(formula = dui ~ nondui + vehicles + dry, data = us_shape, 
-##     listw = lw, endog = ~police, instruments = ~elect, lag.instr = TRUE, 
-##     model = "sarar", het = FALSE)
-## 
-## Residuals:
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-## -6.1862 -0.8838  0.0147 -0.0161  0.9213  8.3616 
-## 
-## Coefficients:
-##                Estimate  Std. Error t-value  Pr(>|t|)    
-## (Intercept) 11.60596811  1.66674437  6.9633 3.325e-12 ***
-## nondui      -0.00019624  0.00275912 -0.0711  0.943299    
-## vehicles     0.09299562  0.00564911 16.4620 < 2.2e-16 ***
-## dry          0.39825983  0.09090201  4.3812 1.180e-05 ***
-## police      -1.35130834  0.14101772 -9.5825 < 2.2e-16 ***
-## lambda       0.19319018  0.04431011  4.3600 1.301e-05 ***
-## rho         -0.08597523  0.03018333 -2.8484  0.004393 ** 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Wald test that rho and lambda are both zero:
-##  Statistics: 7.6185 p-val: 0.0057773
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-
-
-
-An important issue here is that \textbf{the optimal instrument are unknown}. It is not recommended the inclusion of the spatial lag of these additional exogenous variables in the matrix of instruments. However, results reported in ? do consider the spatial lags of \code{elect}. 
-
-Now we assume that the error are heteroskedastic of unknown form. 
+% %===========================
+% \section{Application in R}
+% %===========================
+% 
+% In this example we will use the \textbf{simulated} US Driving Under the Influence (DUI) county data set used in \cite{drukker2011command}. The dependent variable \code{dui} is defined as the alcohol-related arrest rate per 100,000 daily vehicle miles traveled (DVMT). The explanatory variables include 
+% 
+% \begin{itemize}
+%   \item \code{police}: number of sworn officers per 100,000 DVMT,
+%   \item \code{nondui}: non-alcohol-related arrests per 100,000 DVMT,
+%   \item \code{vehicles}: number of registered vehicles per 1,000 residents, and
+%   \item \code{dry}: a dummy for counties that prohibit alcohol sale within their borders
+% \end{itemize}
+% 
+% We load the required packages and dataset:
+% 
+% <<>>=
+% library("maptools") 
+% library("spdep")  
+% library("sphet")
+% # Load Data
+% us_shape <- readShapeSpatial("ccountyR")  # Load shape file
+% names(us_shape)                           # Names of variables in dbf
+% # Load weight matrix
+% queen.w <- read.gal("ccountyR_w.gal")
+% lw <- nb2listw(queen.w, style = "W")
+% @
+% 
+% 
+% \subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
+% 
+% 
+% First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
+% 
+% <<gs2sls>>=
+% GS2SLS <- gstsls(dui ~ police + nondui + vehicles + dry,
+%                  data = us_shape,
+%                  listw = lw)
+% summary(GS2SLS)
+% @
+% 
+% The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
+% 
+% \subsection{SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}\index{GS2SLS!spreg function}
+% 
+% The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
+% 
+% 
+% <<>>=
+% G2SLS_en_in <- spreg(dui ~ nondui + vehicles + dry,
+%                 data = us_shape,
+%                 listw = lw,
+%                endog = ~ police,
+%                instruments = ~ elect, 
+%                model = "sarar", 
+%                het = FALSE, 
+%                lag.instr = TRUE)
+% summary(G2SLS_en_in)
+% @
+% 
+% 
+% 
+% 
+% An important issue here is that \textbf{the optimal instrument are unknown}. It is not recommended the inclusion of the spatial lag of these additional exogenous variables in the matrix of instruments. However, results reported in ? do consider the spatial lags of \code{elect}. 
+% 
+% Now we assume that the error are heteroskedastic of unknown form. 
 
 
 %-----------------------

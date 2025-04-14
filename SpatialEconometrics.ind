@@ -1,45 +1,42 @@
 \begin{theindex}
 
-  \item big O, \hyperpage{72}
-  \item BS2SLS, \hyperpage{209}
+  \item big O, \hyperpage{76}
+  \item BS2SLS, \hyperpage{215}
 
   \indexspace
 
-  \item Cochrane-Orcutt transformation, \hyperpage{124}
-  \item consistent estimator, \hyperpage{76}
+  \item Cochrane-Orcutt transformation, \hyperpage{128}
+  \item consistent estimator, \hyperpage{80}
   \item Convergence
-    \subitem bounded sequences, \hyperpage{71}
-    \subitem deterministic sequences, \hyperpage{69}
-  \item convergence in probability, \hyperpage{73}
+    \subitem bounded sequences, \hyperpage{75}
+    \subitem deterministic sequences, \hyperpage{73}
+  \item convergence in probability, \hyperpage{77}
 
   \indexspace
 
   \item eigen values, \hyperpage{41}
   \item Endogeneity
-    \subitem additional endogenous variables, \hyperpage{199}
-    \subitem error in variables, \hyperpage{199}
+    \subitem additional endogenous variables, \hyperpage{205}
+    \subitem error in variables, \hyperpage{205}
 
   \indexspace
 
-  \item Generalized method of moments, \hyperpage{187}
-    \subitem Moment conditions, \hyperpage{243}
-  \item GS2SLS
-    \subitem gstsls function, \hyperpage{290}
-    \subitem spreg function, \hyperpage{291}
+  \item Generalized method of moments, \hyperpage{193}
+    \subitem Moment conditions, \hyperpage{249}
 
   \indexspace
 
   \item Hessian
-    \subitem SLM, \hyperpage{119}
+    \subitem SLM, \hyperpage{123}
   \item Heteroskedasticity
-    \subitem error term, \hyperpage{195}
+    \subitem error term, \hyperpage{201}
 
   \indexspace
 
   \item Instrumental Variables
-    \subitem instruments, \hyperpage{193}
-    \subitem optimal instruments, \hyperpage{209}
-    \subitem S2SLS, \hyperpage{193}
+    \subitem instruments, \hyperpage{199}
+    \subitem optimal instruments, \hyperpage{215}
+    \subitem S2SLS, \hyperpage{199}
 
   \indexspace
 
@@ -47,11 +44,11 @@
 
   \indexspace
 
-  \item Maximum likelihood, \hyperpage{116}
-    \subitem concentrated log-likelihood, \hyperpage{118}
-    \subitem Jacobian, \hyperpage{116}
-    \subitem SLM, \hyperpage{115}
-  \item Moment conditions, \hyperpage{243}
+  \item Maximum likelihood, \hyperpage{120}
+    \subitem concentrated log-likelihood, \hyperpage{122}
+    \subitem Jacobian, \hyperpage{120}
+    \subitem SLM, \hyperpage{119}
+  \item Moment conditions, \hyperpage{249}
   \item Moran's I test, \hyperpage{24}
     \subitem Monte carlo, \hyperpage{27}
     \subitem Moran scatterplot, \hyperpage{25}
@@ -68,7 +65,7 @@
 
   \indexspace
 
-  \item quadratic moment conditions, \hyperpage{243}
+  \item quadratic moment conditions, \hyperpage{249}
 
   \indexspace
 
@@ -78,21 +75,21 @@
   \indexspace
 
   \item S2SLS
-    \subitem Asymptotic distribution, \hyperpage{201}
-    \subitem consistency, \hyperpage{200}
-    \subitem example, \hyperpage{203}
-    \subitem stsls function, \hyperpage{203}
+    \subitem Asymptotic distribution, \hyperpage{207}
+    \subitem consistency, \hyperpage{206}
+    \subitem example, \hyperpage{209}
+    \subitem stsls function, \hyperpage{209}
   \item SAC model
-    \subitem FGS2SLS, \hyperpage{268}
+    \subitem FGS2SLS, \hyperpage{274}
   \item score function
-    \subitem SLM, \hyperpage{119}
+    \subitem SLM, \hyperpage{123}
   \item Spatial autocorrelation, \hyperpage{4}
   \item Spatial autoregressive process, \hyperpage{36}
   \item Spatial dependence, \hyperpage{4}
   \item Spatial durbin model, \hyperpage{36}
   \item Spatial error model, \hyperpage{37}
   \item Spatial lag model, \hyperpage{35}
-    \subitem pure, \hyperpage{111}
+    \subitem pure, \hyperpage{115}
   \item Spillover effects
     \subitem Direct effects, \hyperpage{51}
     \subitem example, \hyperpage{57}

@@ -1055,8 +1055,7 @@ The dataset is available in the \pkg{spdep} package, and we load it as follows:
 
 <<load-columbus, warning = FALSE>>=
 # Load data
-columbus   <- readShapePoly(system.file("etc/shapes/columbus.shp",
-                                      package = "spdep")[1])
+columbus   <- readShapePoly("columbus.shp")
 col.gal.nb <- read.gal(system.file("etc/weights/columbus.gal",
                                    package = "spdep")[1])
 @

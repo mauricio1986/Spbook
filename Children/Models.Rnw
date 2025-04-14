@@ -74,7 +74,7 @@ where $\vy$ is a $n\times 1$ vector containing observations on the dependent var
 \subsection{Spatial Durbin Model}
 %====================================
 
-The Spatial Durbin Model model (SDM) is defined as:\index{Spatial durbin model}
+The Spatial Durbin Model (SDM) is defined as:\index{Spatial durbin model}
 \begin{equation}\label{eq:Sdm}
 \vy  =  \rho \mW\vy + \alpha \vones_n + \mX\vbeta + \mW\mX\vgamma + \vepsi.
 \end{equation}
@@ -1305,7 +1305,119 @@ The matrix \texttt{out} also shows that both direct and indirect effects fall ou
 % 
 % According to 
 
+%=============================================================
+\section{Empirical Example: Growth and Spatial Externalities}
+%=============================================================
+
+\cite{ertur2007growth} developed a theoretical growth model that explicitly incorporates technological interdependence among economies and examines the role of spatial spillover effects.
+
+The model is based on an aggregate Cobb-Douglas production function for country $i$ at time $t$, exhibiting constant returns to scale in labor and physical capital:
+\begin{equation}\label{eq:prod_func}
+Y_i(t) = A_i(t)K_i^{\alpha}(t)L_i^{1- \alpha}(t), 
+\end{equation}
+where $Y_i(t)$ denotes total output, $K_i(t)$ is the stock of reproducible physical capital, $L_i(t)$ is the labor force, and $A_i(t)$ represents the aggregate level of technology.
+
+The evolution of $A_i(t)$ is modeled as:
+\begin{equation}\label{eq:A_growth}
+A_i(t) = \Omega(t)k_i^{\phi}(t)\prod_{j\neq i}A_j^{\gamma w_{ij}}(t),
+\end{equation}
+%
+where $k_i(t) = K_i(t)/L_i(t)$ is the capital intensity, and $w_{ij}$ denotes the weight capturing the connectivity between country $i$ and country $j$ in the spatial network.
+
+This formulation reflects three distinct sources of technological progress:
+\begin{enumerate}
+\item Exogenous Technological Progress: The term $\Omega(t)$ captures the common component of technological change across all countries, assumed to grow at a constant rate $\mu$, i.e., $\Omega(t) = \Omega(0)e^{\mu t}$.
+\item Domestic Knowledge Spillovers: The second term, $k_i^{\phi}(t)$, reflects the idea that technology in a country improves with its own capital deepening. The parameter $\phi \in [0,1)$ measures the strength of internal (or home) externalities from physical capital accumulation.
+\item International Knowledge Spillovers: The final term captures cross-country technological interdependence. It is modeled as a spatially weighted geometric mean of the technological levels of neighboring countries, where $\gamma \in [0,1)$ measures the strength of international spillovers. While $\gamma$ is assumed to be common across countries, the impact of spatial externalities on a specific country $i$ depends on its relative position and connectivity in the spatial structure, as encoded by the weights $w_{ij}$. The more a given country $i$ is connected to its neighbors, the higher $w_{ij}$ is, and the more country $i$ benefits from spatial externalities. 
+\end{enumerate}
+
+In logarithmic and  matrix form, Equation \eqref{eq:A_growth} becomes:
+\begin{equation*}
+\va = \mOmega + \phi\vk + \gamma \mW\va, 
+\end{equation*}
+%
+where $\va$ is the $n \times 1$ vector of the logarithms of technology levels, $\vk$ is the $n \times 1$ vector of the logarithms of capital per worker, and $\mW$ is the $n \times n$ spatial weight matrix with elements $w_{ij}$. Solving for $\va$---assuming $\gamma \neq 0$ and $1/\gamma$ is not an eigenvalue of $\mW$---yields:
+\begin{equation*}
+\va = \left(\mI-\gamma \mW\right)^{-1}\mOmega + \phi\left(\mI-\gamma \mW\right)^{-1}\vk.
+\end{equation*}
+
+If $|\gamma|<1$, then Equation \eqref{eq:A_growth} can be rewritten as:
+\begin{equation}\label{eq:new_A_g}
+A_i(t) = \Omega^{\frac{1}{1-\gamma}}k_i^{\phi}\prod_{j = 1}^nk_j^{\phi\sum_{r = 1}^{\infty}\gamma^rw_{ij}^{(r)}}(t),
+\end{equation}
+%
+where $w_{ij}^{(r)}$ denotes the $r$-th order spatial weight between countries $i$ and $j$.
+
+Substituting \eqref{eq:new_A_g} into the per-worker form of the production function \eqref{eq:prod_func} gives:
+\begin{equation}\label{eq:ypercapita}
+y_i(t) = \Omega^{\frac{1}{1-\gamma}}k_i^{u_{ii}}(t)\prod_{j\neq i}^nk_j^{u_{ij}}(t),
+\end{equation}
+%
+where $u_{ii} = \alpha + \phi\left(1 + \sum_{r = 1}^{\infty}\gamma^rw_{ii}^{(r)}\right)$ and $u_{ij} = \phi\sum_{r = 1}^{\infty}\gamma^rw_{ij}^{(r)}$, and $y_i(t)=Y_i(t)/L_i(t)$. 
+
+This expression implies spatial heterogeneity in the production function parameters. Specifically, if there are no externalities from physical capital (i.e., $\phi = 0$), then $u_{ii} = \alpha$ and $u_{ij} = 0$, and the model collapses to the standard neoclassical production function.
+
+The model also allows for an analysis of the \textit{social elasticity} of income per worker with respect to physical capital. According to Equation \eqref{eq:ypercapita}, when country $i$ increases its own capital per worker, it benefits from a marginal social return of $u_{ii}$. If instead all countries simultaneously raise their capital per worker, the total return for country $i$ increases to:
+\[
+u_{ii} + \sum_{j \neq i} u_{ij} = \alpha + \frac{\phi}{1 - \gamma}.
+\]
+To ensure local convergence and avoid explosive or endogenous growth dynamics, it is assumed that social returns are decreasing; that is, $\alpha + \frac{\phi}{1 - \gamma} < 1$.
+
+Assume that a constant fraction $s_i$ of output is saved, labor grows exogenously at rate $n_i$, and the depreciation rate of capital $\delta$ is identical across countries. Then, the dynamics of capital per worker follow the Solow equation: \begin{equation*} \dot{k}_i(t) = s_iy_i(t) - (n_i + \delta)k_i(t), \end{equation*} where the dot denotes a time derivative.
+
+Under these assumptions, \cite{ertur2007growth} derive the steady-state income per worker in country $i$ as:
+\begin{equation*}
+  \begin{aligned}
+    \log y_{it}^* & =  \frac{1}{1 - \alpha -\phi}\log \Omega_t + \frac{\alpha + \phi}{1 - \alpha -\phi}\log s_i - \frac{\alpha + \phi}{1 - \alpha -\phi}\log (n_i + g + \delta) \\
+                  & - \frac{\alpha\gamma}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\ln s_j + \frac{\alpha\gamma}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\ln(n_j + g + \delta) \\
+                  & + \frac{\gamma(1 - \alpha)}{1 - \alpha -\phi}\sum_{j\neq i}^N w_{ij}\log y_{jt}^*
+  \end{aligned}
+\end{equation*}
+
+This steady-state equation is operationalized econometrically as the following SDM (for $t=0$):
+\begin{equation*}
+    \log \left(\frac{Y_i}{L_i}\right) =  \beta_0 + \beta_1\log s_i + \beta_2 \log (n_i + g + \delta) 
+                   + \theta_1 \sum_{j\neq i}^N w_{ij}\ln s_j + \theta_2\sum_{j\neq i}^N w_{ij}\ln(n_j + g + \delta) 
+                   + \rho \sum_{j\neq i}^N w_{ij}\log \left(\frac{Y_j}{L_j}\right) + \epsilon_i,
+\end{equation*}
+%
+where:
+\begin{itemize}
+  \item $\beta_0 + \epsilon_i = \frac{1}{1 - \alpha -\phi}\log \Omega_0$, 
+  \item $\beta_1 = \frac{\alpha + \phi}{1 - \alpha -\phi}$,
+  \item $\beta_2 = - \frac{\alpha + \phi}{1 - \alpha -\phi}$,
+  \item $\theta_1 = - \frac{\alpha\gamma}{1 - \alpha -\phi}$,
+  \item $\theta_2 = \frac{\alpha\gamma}{1 - \alpha -\phi}$,
+   \item $\rho = \frac{\gamma(1 - \alpha)}{1 - \alpha -\phi}$
+\end{itemize}
+%
+with the following theoretical constraints: 
+\begin{itemize}
+  \item $\beta_1 = - \beta_2$,
+  \item $\theta_2 = -\theta_1$
+\end{itemize}
+
+\cite{ertur2007growth} argue that the textbook Solow model is misspecified because it omits spatially correlated variables related to technological interdependence and physical capital externalities. In particular, the error term from the Solow model can be written as:
+\begin{equation*}
+  \vepsi_{\mbox{Solow}} = \frac{\phi}{1 - \alpha}\left(\mI - \gamma\mW\right)^{-1}k^{*} + \left(\mI - \gamma\mW\right)^{-1}\vepsi.
+\end{equation*}
+
+Hence, even if $\phi = 0$ (i.e., no domestic capital externalities), omitting spatially correlated variables induces spatial autocorrelation in the residuals, leading to model misspecification.
+
+To test this hypothesis empirically, we can estimate the following standard Solow model using OLS:
+\begin{equation*}
+  \log\left(\frac{Y_i}{L_i}\right) = \beta_0 + \beta_1 \ln(s_i) + \beta_2 \ln(n_i + g  + \delta) + \epsilon_i,
+\end{equation*}
+%
+and then use the Moran's I test on the residuals. 
+
+
+
+
+
+%======================
 \section{Exercises}
+%======================
 
 \begin{exercises}
 

@@ -295,7 +295,7 @@ Alternatively, we can write the model more concisely as:
   \vy_n = \mZ_n \vdelta_0 + \vepsi_n,
 \end{equation*}
 %
-where $\mZ_n = \left[\mX_n, \mW_n\vy_n\right]$ is an $n \times (k + 1)$ matrix that combines the \textbf{exogenous regressors} and the spatially lagged dependent variable, and the $(k + 1)\times 1$ coefficient column vector is rearranged as  $\vdelta_0 = (\vbeta^\top, \rho)^\top$. As discussed in Section \ref{sec:consequences_slm}, the inclusion of the spatially lagged dependent variable, $\mW_n\vy_n$, on the right-hand side of the equation introduces endogeneity or simultaneous equation bias. Therefore, the OLS estimates are inconsistent.
+where $\mZ_n = \left[\mX_n, \mW_n\vy_n\right]$ is an $n \times (k + 1)$ matrix that combines the \textbf{exogenous regressors} and the spatially lagged dependent variable, and the $(k + 1)\times 1$ coefficient column vector is rearranged as  $\vdelta_0 = (\vbeta^\top_0, \rho_0)^\top$. As discussed in Section \ref{sec:consequences_slm}, the inclusion of the spatially lagged dependent variable, $\mW_n\vy_n$, on the right-hand side of the equation introduces endogeneity or simultaneous equation bias. Therefore, the OLS estimates are inconsistent.
 
 To address this issue, we may use an instrumental variables (IV) approach rather than resorting to QML or ML methods. The IV principle relies on the existence of a matrix of instruments, $\mH_n$, that is strongly correlated with $\mZ_n$ but asymptotically uncorrelated with the error term $\vepsi_n$.
 
@@ -5261,71 +5261,71 @@ To be added.
 % %
 % where $\mP_{jn}, j = 1, \ldots, m$ are from $\calP_{1n}$, the IV matrix $\mH_n$ is constructed from $\mX_n, \mW_n$ and $\mM_n$. 
 
-%===========================
-\section{Application in R}
-%===========================
-
-In this example we will use the \textbf{simulated} US Driving Under the Influence (DUI) county data set used in \cite{drukker2011command}. The dependent variable \code{dui} is defined as the alcohol-related arrest rate per 100,000 daily vehicle miles traveled (DVMT). The explanatory variables include 
-
-\begin{itemize}
-  \item \code{police}: number of sworn officers per 100,000 DVMT,
-  \item \code{nondui}: non-alcohol-related arrests per 100,000 DVMT,
-  \item \code{vehicles}: number of registered vehicles per 1,000 residents, and
-  \item \code{dry}: a dummy for counties that prohibit alcohol sale within their borders
-\end{itemize}
-
-We load the required packages and dataset:
-
-<<>>=
-library("maptools") 
-library("spdep")  
-library("sphet")
-# Load Data
-us_shape <- readShapeSpatial("ccountyR")  # Load shape file
-names(us_shape)                           # Names of variables in dbf
-# Load weight matrix
-queen.w <- read.gal("ccountyR_w.gal")
-lw <- nb2listw(queen.w, style = "W")
-@
-
-
-\subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
-
-
-First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
-
-<<gs2sls>>=
-GS2SLS <- gstsls(dui ~ police + nondui + vehicles + dry,
-                 data = us_shape,
-                 listw = lw)
-summary(GS2SLS)
-@
-
-The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
-
-\subsection{SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}\index{GS2SLS!spreg function}
-
-The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
-
-
-<<>>=
-G2SLS_en_in <- spreg(dui ~ nondui + vehicles + dry,
-                data = us_shape,
-                listw = lw,
-               endog = ~ police,
-               instruments = ~ elect, 
-               model = "sarar", 
-               het = FALSE, 
-               lag.instr = TRUE)
-summary(G2SLS_en_in)
-@
-
-
-
-
-An important issue here is that \textbf{the optimal instrument are unknown}. It is not recommended the inclusion of the spatial lag of these additional exogenous variables in the matrix of instruments. However, results reported in ? do consider the spatial lags of \code{elect}. 
-
-Now we assume that the error are heteroskedastic of unknown form. 
+% %===========================
+% \section{Application in R}
+% %===========================
+% 
+% In this example we will use the \textbf{simulated} US Driving Under the Influence (DUI) county data set used in \cite{drukker2011command}. The dependent variable \code{dui} is defined as the alcohol-related arrest rate per 100,000 daily vehicle miles traveled (DVMT). The explanatory variables include 
+% 
+% \begin{itemize}
+%   \item \code{police}: number of sworn officers per 100,000 DVMT,
+%   \item \code{nondui}: non-alcohol-related arrests per 100,000 DVMT,
+%   \item \code{vehicles}: number of registered vehicles per 1,000 residents, and
+%   \item \code{dry}: a dummy for counties that prohibit alcohol sale within their borders
+% \end{itemize}
+% 
+% We load the required packages and dataset:
+% 
+% <<>>=
+% library("maptools") 
+% library("spdep")  
+% library("sphet")
+% # Load Data
+% us_shape <- readShapeSpatial("ccountyR")  # Load shape file
+% names(us_shape)                           # Names of variables in dbf
+% # Load weight matrix
+% queen.w <- read.gal("ccountyR_w.gal")
+% lw <- nb2listw(queen.w, style = "W")
+% @
+% 
+% 
+% \subsection{SAC Model with Homokedasticity (GS2SLS)}\index{GS2SLS!gstsls function}
+% 
+% 
+% First, we estimate the SAC model assuming homoskedasticity \citep{kelejian1998generalized} using the \code{gstsls} function from \pkg{spdep} package. We will also assume that $\mW = \mM$. The code is the following:
+% 
+% <<gs2sls>>=
+% GS2SLS <- gstsls(dui ~ police + nondui + vehicles + dry,
+%                  data = us_shape,
+%                  listw = lw)
+% summary(GS2SLS)
+% @
+% 
+% The results show that all the variables are significant, except for \code{nondui}. Importantly, higher number of sworn officers is positively correlated with the DUI arrest rate, after controlling for \code{nondui}, \code{vehicles} and \code{dry}! The spatial autoregressive coefficient $\rho$ is positive and significant indicating autocorrelation in the dependent variable. \cite{drukker2011command} give some theoretical explanation of this results. On the one hand, the positive coefficient may be explained in terms of coordination effort among police departments in different countries. On the other hand, it might well be that an enforcement effort in one of the counties leads people living close to the border to drink in neighboring counties. The estimate is $\lambda$ negative, however the output does not produce inference for it. Lastly, it is important to stress that the standard errors has a degrees of freedom correction in the variance-covariance matrix. 
+% 
+% \subsection{SAC Model with Homokedasticity and Additional Endogeneity (GS2SLS)}\index{GS2SLS!spreg function}
+% 
+% The size of the \code{police} force may be related with the arrest rates \code{dui}. As a consequence, \code{police} produces endogeneity. We will use the dummy variable \code{elect}, where elect is 1 if a country government faces an election, 0 otherwise. To do so, we use the \code{spreg} function from \pkg{sphet}. Note that $\lambda$ is $\rho$. The estimate of $\rho$ is positive and significant thus indicating spatial autocorrelation in the dependent variable (coordination effort among police departments in different counties). 
+% 
+% 
+% <<>>=
+% G2SLS_en_in <- spreg(dui ~ nondui + vehicles + dry,
+%                 data = us_shape,
+%                 listw = lw,
+%                endog = ~ police,
+%                instruments = ~ elect, 
+%                model = "sarar", 
+%                het = FALSE, 
+%                lag.instr = TRUE)
+% summary(G2SLS_en_in)
+% @
+% 
+% 
+% 
+% 
+% An important issue here is that \textbf{the optimal instrument are unknown}. It is not recommended the inclusion of the spatial lag of these additional exogenous variables in the matrix of instruments. However, results reported in ? do consider the spatial lags of \code{elect}. 
+% 
+% Now we assume that the error are heteroskedastic of unknown form. 
 
 
 %-----------------------

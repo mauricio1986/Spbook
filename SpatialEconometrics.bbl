@@ -133,12 +133,6 @@ Drukker, D.~M., Egger, P., and Prucha, I.~R. (2013).
   Autoregressive Disturbances and Endogenous Regressors}.
 \newblock {\em Econometric Reviews}, 32(5-6):686--733.
 
-\bibitem[Drukker et~al., 2011]{drukker2011command}
-Drukker, D.~M., Prucha, I.~R., and Raciborski, R. (2011).
-\newblock {A Command for Estimating Spatial-autoregressive Models with
-  Spatial-autoregressive Disturbances and Additional Endogenous Variables}.
-\newblock {\em Econometric Reviews}, 32:686--733.
-
 \bibitem[Elhorst, 2010]{elhorst2010applied}
 Elhorst, J.~P. (2010).
 \newblock {Applied Spatial Econometrics: Raising the Bar}.
@@ -149,6 +143,12 @@ Elhorst, J.~P. (2014).
 \newblock {\em {Spatial Econometrics: From Cross-Sectional Data to Spatial
   Panels}}.
 \newblock Springer.
+
+\bibitem[Ertur and Koch, 2007]{ertur2007growth}
+Ertur, C. and Koch, W. (2007).
+\newblock Growth, technological interdependence and spatial externalities:
+  theory and evidence.
+\newblock {\em Journal of applied econometrics}, 22(6):1033--1062.
 
 \bibitem[Filiztekin, 2009]{filiztekin2009regional}
 Filiztekin, A. (2009).
