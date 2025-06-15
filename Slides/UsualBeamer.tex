@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%% MATH PACKAGES%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,bm,natbib,babel} % Math packages
+\usefonttheme{professionalfonts} %Better math symbols
+\input{ee.sty} %My math style
+\newcommand{\notimplies}{% Implies symbols
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+%%%%%%%%%%%%%%%%%% FONT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lmodern}
+
+%%%%%%%%%%%%%%%%%% GRAPHICS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx} % Allows including images
+\DeclareGraphicsExtensions{.png,.pdf,.jpg,.eps,.jpeg} %Type of graphs
+\usepackage{textpos} %For logo in slides
+%%%%%%%%%%%%%%%%% TABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{float}
+\usepackage{longtable} %Better Tables
+\usepackage[normal,bf,singlelinecheck=off,center]{caption} %Titles
+\renewcommand{\arraystretch}{0.8}%Interlineado de tabla
+\usepackage{caption, subcaption}
+%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{natbib}
+
+%%%%%%%%%%%%%%%%% HYPHERREF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{url}
+%\usepackage{hyperref}
+\usepackage{xcolor}
+%\usepackage[bookmarks, colorlinks, breaklinks]{hyperref}
+%\hypersetup{colorlinks=true,linkcolor=red,citecolor=red,urlcolor=links}
+
+% Tikz
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc, patterns, shapes, backgrounds, positioning, matrix}
+\usepackage{relsize}
+\newcommand\W{\ensuremath{\mathit{W}}}
+
+%Animated tikz
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+
+% \highlight[<colour>]{<stuff>}
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+
+\usepackage[flushleft]{threeparttable}
+
+
+%Reference
+\usepackage{natbib}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{remark}[thm]{Remark}
+

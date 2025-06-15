@@ -5216,50 +5216,50 @@ summary(test1)
 \section{GMM Estimator for the SAC model}
 %=============================================
 
-To be added. 
-% Consider the SAC model
-% \begin{equation*}
-% \begin{aligned}
-%   \vy_n & = \rho_0\mW_n\vy_n + \mX_n\vbeta_0 + \vu_n, \\
-%   \vu_n & = \lambda_0\mM_n\vu_n + \vepsi_n, 
-% \end{aligned}
-% \end{equation*}
-% %
-% where $\epsilon_{ni}, i = 1, \ldots, n$ of $\vepsi_n$ are i.i.d. $(0, \sigma^2_0)$ with zero mean and variance $\sigma_0^2$. Let $\vtheta = (\lambda, \rho, \vbeta^\top)^\top$, and denote at the true $\vtheta = \vtheta_0$
-% \begin{equation*}
-% \begin{aligned}
-% \mS_0 & = \mI_n - \rho_0\mW_n, \\
-% \mR_0 & = \mI_n - \lambda_0 \mM_n, \\
-% \vepsi_n & = \mR_0\vu_n. 
-% \end{aligned}
-% \end{equation*}
-% 
-% The reduced form equation of this model can be written as
-% \begin{equation*}
-% \begin{aligned}
-%  \vy_n & = \mS_0^{-1}\mX_n\vbeta_0 + \mS_0^{-1}\mR_0^{-1}\vepsi_n,  \\
-%        & =  \mS_0^{-1}\mX_n\vbeta_0 + \mF_0^{-1}\vepsi_n, 
-% \end{aligned}
-% \end{equation*}
-% %
-% where $\mF_0 = \mR_0\mS_0$. The empirical moment conditions are
-% \begin{equation*}
-% \vg_n(\vtheta) = \begin{pmatrix}
-%                   \left(\mP_{1n}\vepsi_n(\vtheta)\right)^\top\\
-%                    \vdots \\
-%                    \left(\mP_{mn}\vepsi_n(\vtheta)\right)^\top \\
-%                    \mH_n^\top
-%                  \end{pmatrix}\vepsi_n(\vtheta) 
-%                  =
-%                  \begin{pmatrix}
-%                   \left(\mP_{1n}\mR_n(\lambda)\vu_n(\vtheta)\right)^\top\\
-%                    \vdots \\
-%                    \left(\mP_{mn}\mR_n(\lambda)\vu_n(\vtheta)\right)^\top \\
-%                    \mH_n^\top
-%                  \end{pmatrix}\mR_n(\lambda)\vu_n(\vtheta), 
-% \end{equation*}
-% %
-% where $\mP_{jn}, j = 1, \ldots, m$ are from $\calP_{1n}$, the IV matrix $\mH_n$ is constructed from $\mX_n, \mW_n$ and $\mM_n$. 
+
+Consider the SAC model
+\begin{equation*}
+\begin{aligned}
+  \vy_n & = \rho_0\mW_n\vy_n + \mX_n\vbeta_0 + \vu_n, \\
+  \vu_n & = \lambda_0\mM_n\vu_n + \vepsi_n,
+\end{aligned}
+\end{equation*}
+%
+where $\epsilon_{ni}, i = 1, \ldots, n$ of $\vepsi_n$ are i.i.d. $(0, \sigma^2_0)$ with zero mean and variance $\sigma_0^2$. Let $\vtheta = (\lambda, \rho, \vbeta^\top)^\top$, and denote at the true $\vtheta = \vtheta_0$
+\begin{equation*}
+\begin{aligned}
+\mS_0 & = \mI_n - \rho_0\mW_n, \\
+\mR_0 & = \mI_n - \lambda_0 \mM_n, \\
+\vepsi_n & = \mR_0\vu_n.
+\end{aligned}
+\end{equation*}
+
+The reduced form equation of this model can be written as
+\begin{equation*}
+\begin{aligned}
+ \vy_n & = \mS_0^{-1}\mX_n\vbeta_0 + \mS_0^{-1}\mR_0^{-1}\vepsi_n,  \\
+       & =  \mS_0^{-1}\mX_n\vbeta_0 + \mF_0^{-1}\vepsi_n,
+\end{aligned}
+\end{equation*}
+%
+where $\mF_0 = \mR_0\mS_0$. The empirical moment conditions are
+\begin{equation*}
+\vg_n(\vtheta) = \begin{pmatrix}
+                  \left(\mP_{1n}\vepsi_n(\vtheta)\right)^\top\\
+                   \vdots \\
+                   \left(\mP_{mn}\vepsi_n(\vtheta)\right)^\top \\
+                   \mH_n^\top
+                 \end{pmatrix}\vepsi_n(\vtheta)
+                 =
+                 \begin{pmatrix}
+                  \left(\mP_{1n}\mR_n(\lambda)\vu_n(\vtheta)\right)^\top\\
+                   \vdots \\
+                   \left(\mP_{mn}\mR_n(\lambda)\vu_n(\vtheta)\right)^\top \\
+                   \mH_n^\top
+                 \end{pmatrix}\mR_n(\lambda)\vu_n(\vtheta),
+\end{equation*}
+%
+where $\mP_{jn}, j = 1, \ldots, m$ are from $\calP_{1n}$, the IV matrix $\mH_n$ is constructed from $\mX_n, \mW_n$ and $\mM_n$.
 
 % %===========================
 % \section{Application in R}

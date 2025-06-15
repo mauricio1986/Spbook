@@ -1,0 +1,174 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Introduction to Spatial Econometric}{3}{Introduction to Spatial Econometric}{0}}
+\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{3}{Goals and Mandatory Reading}}
+\headcommand {\slideentry {1}{1}{1}{3/3}{Goals and Mandatory Reading}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{1}{2}{4/4}{Goals and Mandatory Reading}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{1}{3}{5/5}{Goals and Mandatory Reading}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\beamer@subsectionpages {3}{5}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{6}{Why do We Need Spatial Econometric?}}
+\headcommand {\slideentry {1}{2}{1}{6/6}{Why do We Need Spatial Econometric?}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\slideentry {1}{2}{2}{7/7}{Why do We Need Spatial Econometric?}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\slideentry {1}{2}{3}{8/8}{Why do We Need Spatial Econometric?}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\slideentry {1}{2}{4}{9/9}{Why do We Need Spatial Econometric?}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@subsectionpages {6}{9}}
+\headcommand {\beamer@subsectionentry {0}{1}{3}{10}{Spatial Heterogeneity and Dependence}}
+\headcommand {\slideentry {1}{3}{1}{10/10}{Spatial Heterogeneity and Dependence}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {1}{3}{2}{11/12}{Spatial Heterogeneity and Dependence}{0}}
+\headcommand {\beamer@framepages {11}{12}}
+\headcommand {\slideentry {1}{3}{3}{13/13}{Spatial Heterogeneity and Dependence}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {1}{3}{4}{14/15}{Spatial Heterogeneity and Dependence}{0}}
+\headcommand {\beamer@framepages {14}{15}}
+\headcommand {\slideentry {1}{3}{5}{16/16}{Spatial Heterogeneity and Dependence}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\beamer@subsectionpages {10}{16}}
+\headcommand {\beamer@subsectionentry {0}{1}{4}{17}{Spatial Autocorrelation}}
+\headcommand {\slideentry {1}{4}{1}{17/17}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {1}{4}{2}{18/21}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {18}{21}}
+\headcommand {\slideentry {1}{4}{3}{22/23}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {22}{23}}
+\headcommand {\slideentry {1}{4}{4}{24/25}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {24}{25}}
+\headcommand {\slideentry {1}{4}{5}{26/26}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {1}{4}{6}{27/27}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {1}{4}{7}{28/28}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {1}{4}{8}{29/29}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\slideentry {1}{4}{9}{30/34}{Spatial Autocorrelation}{0}}
+\headcommand {\beamer@framepages {30}{34}}
+\headcommand {\beamer@sectionpages {3}{34}}
+\headcommand {\beamer@subsectionpages {17}{34}}
+\headcommand {\sectionentry {2}{Spatial Weight Matrix}{35}{Spatial Weight Matrix}{0}}
+\headcommand {\beamer@subsectionpages {35}{34}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{35}{Definition}}
+\headcommand {\slideentry {2}{1}{1}{35/35}{Definition}{0}}
+\headcommand {\beamer@framepages {35}{35}}
+\headcommand {\slideentry {2}{1}{2}{36/37}{Definition}{0}}
+\headcommand {\beamer@framepages {36}{37}}
+\headcommand {\slideentry {2}{1}{3}{38/38}{Definition}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {2}{1}{4}{39/39}{Definition}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\slideentry {2}{1}{5}{40/40}{Definition}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\beamer@subsectionpages {35}{40}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{41}{Weights Based on Boundaries}}
+\headcommand {\slideentry {2}{2}{1}{41/41}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {41}{41}}
+\headcommand {\slideentry {2}{2}{2}{42/42}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {42}{42}}
+\headcommand {\slideentry {2}{2}{3}{43/43}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {43}{43}}
+\headcommand {\slideentry {2}{2}{4}{44/45}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {44}{45}}
+\headcommand {\slideentry {2}{2}{5}{46/47}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {46}{47}}
+\headcommand {\slideentry {2}{2}{6}{48/49}{Weights Based on Boundaries}{0}}
+\headcommand {\beamer@framepages {48}{49}}
+\headcommand {\beamer@subsectionpages {41}{49}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{50}{From Contiguity to the W Matrix}}
+\headcommand {\slideentry {2}{3}{1}{50/50}{From Contiguity to the W Matrix}{0}}
+\headcommand {\beamer@framepages {50}{50}}
+\headcommand {\slideentry {2}{3}{2}{51/51}{From Contiguity to the W Matrix}{0}}
+\headcommand {\beamer@framepages {51}{51}}
+\headcommand {\slideentry {2}{3}{3}{52/52}{From Contiguity to the W Matrix}{0}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\beamer@subsectionpages {50}{52}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{53}{Weights Based on Distance}}
+\headcommand {\slideentry {2}{4}{1}{53/53}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {53}{53}}
+\headcommand {\slideentry {2}{4}{2}{54/54}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\slideentry {2}{4}{3}{55/55}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\slideentry {2}{4}{4}{56/56}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {56}{56}}
+\headcommand {\slideentry {2}{4}{5}{57/57}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {57}{57}}
+\headcommand {\slideentry {2}{4}{6}{58/58}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {58}{58}}
+\headcommand {\slideentry {2}{4}{7}{59/59}{Weights Based on Distance}{0}}
+\headcommand {\beamer@framepages {59}{59}}
+\headcommand {\beamer@subsectionpages {53}{59}}
+\headcommand {\beamer@subsectionentry {0}{2}{5}{60}{Row Standardization}}
+\headcommand {\slideentry {2}{5}{1}{60/60}{Row Standardization}{0}}
+\headcommand {\beamer@framepages {60}{60}}
+\headcommand {\slideentry {2}{5}{2}{61/61}{Row Standardization}{0}}
+\headcommand {\beamer@framepages {61}{61}}
+\headcommand {\slideentry {2}{5}{3}{62/62}{Row Standardization}{0}}
+\headcommand {\beamer@framepages {62}{62}}
+\headcommand {\beamer@subsectionpages {60}{62}}
+\headcommand {\beamer@subsectionentry {0}{2}{6}{63}{Spatial Lag}}
+\headcommand {\slideentry {2}{6}{1}{63/63}{Spatial Lag}{0}}
+\headcommand {\beamer@framepages {63}{63}}
+\headcommand {\slideentry {2}{6}{2}{64/64}{Spatial Lag}{0}}
+\headcommand {\beamer@framepages {64}{64}}
+\headcommand {\beamer@subsectionpages {63}{64}}
+\headcommand {\beamer@subsectionentry {0}{2}{7}{65}{Higher-Order Spatial Neighbors}}
+\headcommand {\slideentry {2}{7}{1}{65/65}{Higher-Order Spatial Neighbors}{0}}
+\headcommand {\beamer@framepages {65}{65}}
+\headcommand {\slideentry {2}{7}{2}{66/66}{Higher-Order Spatial Neighbors}{0}}
+\headcommand {\beamer@framepages {66}{66}}
+\headcommand {\slideentry {2}{7}{3}{67/67}{Higher-Order Spatial Neighbors}{0}}
+\headcommand {\beamer@framepages {67}{67}}
+\headcommand {\beamer@sectionpages {35}{67}}
+\headcommand {\beamer@subsectionpages {65}{67}}
+\headcommand {\sectionentry {3}{Testing for Spatial Autocorrelation}{68}{Testing for Spatial Autocorrelation}{0}}
+\headcommand {\beamer@subsectionpages {68}{67}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{68}{Indicators of spatial association}}
+\headcommand {\slideentry {3}{1}{1}{68/68}{Indicators of spatial association}{0}}
+\headcommand {\beamer@framepages {68}{68}}
+\headcommand {\slideentry {3}{1}{2}{69/69}{Indicators of spatial association}{0}}
+\headcommand {\beamer@framepages {69}{69}}
+\headcommand {\beamer@subsectionpages {68}{69}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{70}{Moran's I}}
+\headcommand {\slideentry {3}{2}{1}{70/70}{Moran's I}{0}}
+\headcommand {\beamer@framepages {70}{70}}
+\headcommand {\slideentry {3}{2}{2}{71/71}{Moran's I}{0}}
+\headcommand {\beamer@framepages {71}{71}}
+\headcommand {\slideentry {3}{2}{3}{72/72}{Moran's I}{0}}
+\headcommand {\beamer@framepages {72}{72}}
+\headcommand {\slideentry {3}{2}{4}{73/74}{Moran's I}{0}}
+\headcommand {\beamer@framepages {73}{74}}
+\headcommand {\slideentry {3}{2}{5}{75/75}{Moran's I}{0}}
+\headcommand {\beamer@framepages {75}{75}}
+\headcommand {\slideentry {3}{2}{6}{76/76}{Moran's I}{0}}
+\headcommand {\beamer@framepages {76}{76}}
+\headcommand {\slideentry {3}{2}{7}{77/77}{Moran's I}{0}}
+\headcommand {\beamer@framepages {77}{77}}
+\headcommand {\slideentry {3}{2}{8}{78/78}{Moran's I}{0}}
+\headcommand {\beamer@framepages {78}{78}}
+\headcommand {\slideentry {3}{2}{9}{79/79}{Moran's I}{0}}
+\headcommand {\beamer@framepages {79}{79}}
+\headcommand {\slideentry {3}{2}{10}{80/80}{Moran's I}{0}}
+\headcommand {\beamer@framepages {80}{80}}
+\headcommand {\slideentry {3}{2}{11}{81/81}{Moran's I}{0}}
+\headcommand {\beamer@framepages {81}{81}}
+\headcommand {\slideentry {3}{2}{12}{82/82}{Moran's I}{0}}
+\headcommand {\beamer@framepages {82}{82}}
+\headcommand {\slideentry {3}{2}{13}{83/83}{Moran's I}{0}}
+\headcommand {\beamer@framepages {83}{83}}
+\headcommand {\beamer@partpages {1}{83}}
+\headcommand {\beamer@subsectionpages {70}{83}}
+\headcommand {\beamer@sectionpages {68}{83}}
+\headcommand {\beamer@documentpages {83}}
+\headcommand {\gdef \inserttotalframenumber {54}}

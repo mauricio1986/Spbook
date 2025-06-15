@@ -1,0 +1,17 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Introduction to Spatial Econometric}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Goals and Mandatory Reading}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Why do We Need Spatial Econometric?}{6}{0}{1}
+\beamer@subsectionintoc {1}{3}{Spatial Heterogeneity and Dependence}{10}{0}{1}
+\beamer@subsectionintoc {1}{4}{Spatial Autocorrelation}{17}{0}{1}
+\beamer@sectionintoc {2}{Spatial Weight Matrix}{35}{0}{2}
+\beamer@subsectionintoc {2}{1}{Definition}{35}{0}{2}
+\beamer@subsectionintoc {2}{2}{Weights Based on Boundaries}{41}{0}{2}
+\beamer@subsectionintoc {2}{3}{From Contiguity to the W Matrix}{50}{0}{2}
+\beamer@subsectionintoc {2}{4}{Weights Based on Distance}{53}{0}{2}
+\beamer@subsectionintoc {2}{5}{Row Standardization}{60}{0}{2}
+\beamer@subsectionintoc {2}{6}{Spatial Lag}{63}{0}{2}
+\beamer@subsectionintoc {2}{7}{Higher-Order Spatial Neighbors}{65}{0}{2}
+\beamer@sectionintoc {3}{Testing for Spatial Autocorrelation}{68}{0}{3}
+\beamer@subsectionintoc {3}{1}{Indicators of spatial association}{68}{0}{3}
+\beamer@subsectionintoc {3}{2}{Moran's I}{70}{0}{3}

@@ -1,7 +1,7 @@
 \begin{theindex}
 
   \item big O, \hyperpage{76}
-  \item BS2SLS, \hyperpage{215}
+  \item BS2SLS, \hyperpage{213}
 
   \indexspace
 
@@ -16,27 +16,27 @@
 
   \item eigen values, \hyperpage{41}
   \item Endogeneity
-    \subitem additional endogenous variables, \hyperpage{205}
-    \subitem error in variables, \hyperpage{205}
+    \subitem additional endogenous variables, \hyperpage{203}
+    \subitem error in variables, \hyperpage{203}
 
   \indexspace
 
-  \item Generalized method of moments, \hyperpage{193}
-    \subitem Moment conditions, \hyperpage{249}
+  \item Generalized method of moments, \hyperpage{191}
+    \subitem Moment conditions, \hyperpage{247}
 
   \indexspace
 
   \item Hessian
     \subitem SLM, \hyperpage{123}
   \item Heteroskedasticity
-    \subitem error term, \hyperpage{201}
+    \subitem error term, \hyperpage{199}
 
   \indexspace
 
   \item Instrumental Variables
-    \subitem instruments, \hyperpage{199}
-    \subitem optimal instruments, \hyperpage{215}
-    \subitem S2SLS, \hyperpage{199}
+    \subitem instruments, \hyperpage{197}
+    \subitem optimal instruments, \hyperpage{213}
+    \subitem S2SLS, \hyperpage{197}
 
   \indexspace
 
@@ -48,13 +48,11 @@
     \subitem concentrated log-likelihood, \hyperpage{122}
     \subitem Jacobian, \hyperpage{120}
     \subitem SLM, \hyperpage{119}
-  \item Moment conditions, \hyperpage{249}
+  \item Moment conditions, \hyperpage{247}
   \item Moran's I test, \hyperpage{24}
+    \subitem \texttt{moran.mc} function, \hyperpage{30}
+    \subitem \texttt{moran.test} function, \hyperpage{29}
     \subitem Monte carlo, \hyperpage{27}
-    \subitem Moran scatterplot, \hyperpage{25}
-    \subitem moran.mc function, \hyperpage{31}
-    \subitem moran.plot function, \hyperpage{31}
-    \subitem moran.test function, \hyperpage{29}
     \subitem Normality, \hyperpage{27}
     \subitem Randomization, \hyperpage{27}
   \item Multiplier effect, \hyperpage{42}
@@ -65,7 +63,7 @@
 
   \indexspace
 
-  \item quadratic moment conditions, \hyperpage{249}
+  \item quadratic moment conditions, \hyperpage{247}
 
   \indexspace
 
@@ -75,12 +73,12 @@
   \indexspace
 
   \item S2SLS
-    \subitem Asymptotic distribution, \hyperpage{207}
-    \subitem consistency, \hyperpage{206}
-    \subitem example, \hyperpage{209}
-    \subitem stsls function, \hyperpage{209}
+    \subitem Asymptotic distribution, \hyperpage{205}
+    \subitem consistency, \hyperpage{204}
+    \subitem example, \hyperpage{207}
+    \subitem stsls function, \hyperpage{207}
   \item SAC model
-    \subitem FGS2SLS, \hyperpage{274}
+    \subitem FGS2SLS, \hyperpage{272}
   \item score function
     \subitem SLM, \hyperpage{123}
   \item Spatial autocorrelation, \hyperpage{4}
@@ -105,15 +103,17 @@
   \indexspace
 
   \item Weight matrix, \hyperpage{6}
+    \subitem \texttt{coords} function, \hyperpage{21}
+    \subitem \texttt{knearneigh} function, \hyperpage{20}
+    \subitem \texttt{lag.listw} function, \hyperpage{24}
+    \subitem \texttt{nb2listw} function, \hyperpage{17}
+    \subitem \texttt{poly2nb} function, \hyperpage{16}
     \subitem Based on distance, \hyperpage{9}
     \subitem Bishop contiguity, \hyperpage{8}
     \subitem Definition, \hyperpage{7}
     \subitem Higher order, \hyperpage{12}
     \subitem Invertibility, \hyperpage{41}
-    \subitem knearneigh function, \hyperpage{20}
-    \subitem lag.listw function, \hyperpage{24}
-    \subitem nb2listw function, \hyperpage{17}
-    \subitem poly2nb function, \hyperpage{16}
+    \subitem Minkowki, \hyperpage{9}
     \subitem Queen contiguity, \hyperpage{8}
     \subitem Rook contiguity, \hyperpage{7}
     \subitem Row-standardization, \hyperpage{11}
