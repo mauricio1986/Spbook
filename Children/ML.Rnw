@@ -1042,10 +1042,10 @@ We begin the analysis by loading the necessary \proglang{R} packages into the wo
 
 <<message = FALSE, warning=FALSE>>=
 # Load packages
-library("spdep")   
+library("spdep")
+library("tmap")
 library("spatialreg")
 library("memisc")            # Package for tables
-library("maptools")          
 library("RColorBrewer") 
 library("classInt")
 source("getSummary.sarlm.R") # Function for spdep models
@@ -1055,19 +1055,21 @@ The dataset is available in the \pkg{spdep} package, and we load it as follows:
 
 <<load-columbus, warning = FALSE>>=
 # Load data
-columbus   <- readShapePoly("columbus.shp")
-col.gal.nb <- read.gal(system.file("etc/weights/columbus.gal",
-                                   package = "spdep")[1])
+columbus <- st_read(system.file("shapes/columbus.gpkg", package="spData")[1], 
+                           quiet = TRUE)
+col.gal.nb <- poly2nb(columbus)
 @
 
-Before estimating models, it is essential to determine whether there is a spatial pattern in the crime variable. To visualize this, we create a quantile choropleth map for \texttt{CRIME}:
+Before estimating models, it is essential to determine whether there is a spatial pattern in the crime variable. To visualize this, we create a choropleth map for \texttt{CRIME}:
 
 <<spatial-crime-false, eval = FALSE >>=
 # Spatial distribution of crime
-spplot(columbus, "CRIME", 
-       at = quantile(columbus$CRIME, p = c(0, .25, .5, .75, 1), na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = "")
+tm_shape(columbus) +
+  tm_polygons("CRIME",
+              title = "Crime Status",
+              parlette = "RdYBu"
+              ) +
+  tm_layout(frame = FALSE) 
 @
 
 The map in Figure~\ref{fig:spatial-crime} suggests a positive spatial autocorrelation in crime rates. To confirm this, we perform Moran's I test using a row-normalized binary contiguity matrix, \texttt{col.gal.nb}, based on the Queen criterion. The Moran test is performed using Monte Carlo simulations with 99 replications:
@@ -1079,10 +1081,12 @@ The map in Figure~\ref{fig:spatial-crime} suggests a positive spatial autocorrel
 	\begin{minipage}{.9\linewidth}
 <<spatial-crime, echo = FALSE, message = FALSE, fig.align='center', out.width = '9cm', out.height = '9cm'>>=
 par(mar = c(0.1, 0.1, 0.1, 0.1))
-spplot(columbus, "CRIME", 
-       at = quantile(columbus$CRIME, p = c(0, .25, .5, .75, 1), na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = "")
+tm_shape(columbus) +
+  tm_polygons("CRIME",
+              title = "Crime Status",
+              parlette = "RdYBu"
+              ) +
+  tm_layout(frame = FALSE) 
 @
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of crime on the 49 Columbus, Ohio neighborhoods. Darker color indicates greater rate of crime. 
@@ -1218,7 +1222,7 @@ Next, we increase \code{INC} by 1 in spatial unit 30 and calculate the reduced-f
 col_new <- columbus # copy the data frame
 
 # Change the income value
-col_new@data[col_new@data$POLYID == 30, "INC"] <- 14.906
+col_new[30, "INC"] <- 14.906
 
 # The predicted values
 X_d        <- cbind(1, col_new$INC, col_new$HOVAL)
@@ -1241,16 +1245,13 @@ According to the results from \code{sum(delta\_y)}, the predicted effect of this
 Sometimes it is useful to visualize these effects. For instance, we might want to identify regions with high and low impacts due to the increase in \code{INC}. Let us define ``highly impacted regions'' as those where the crime rate decreases by more than 0.05. The following code generates Figure \ref{fig:predicted-effect}, which illustrates these regions:
 
 <<predicted-effect-evalF, eval = FALSE>>=
-# Breaks
-breaks <- c(min(col_new$delta_y), -0.05, max(col_new$delta_y))
-labels <- c("High-Impacted Regions", "Low-Impacted Regions")
-np     <- findInterval(col_new$delta_y, breaks)
-colors <- c("red", "blue")
-
-# Draw Map
-plot(col_new, col = colors[np])
-legend("topleft", legend = labels, fill = colors, bty = "n")
-points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
+tm_shape(col_new) +
+  tm_polygons(col = "delta_y",
+              title = "Impact",
+              breaks = c(-Inf,-0.05, Inf),
+              palette = c("red", "blue")
+              ) +
+  tm_layout(frame = FALSE) 
 @
 
 
@@ -1261,15 +1262,13 @@ points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
 	\begin{minipage}{.9\linewidth}
 <<predicted-effect, echo = FALSE, message = FALSE, fig.align='center', out.width = '10cm', out.height = '10cm'>>=
 # Breaks
-breaks <- c(min(col_new$delta_y), -0.05, max(col_new$delta_y))
-labels <- c("High-Impacted Regions", "Low-Impacted Regions")
-np     <- findInterval(col_new$delta_y, breaks)
-colors <- c("red", "blue")
-
-# Draw Map
-plot(col_new, col = colors[np])
-legend("topleft", legend = labels, fill = colors, bty = "n")
-points(38.29, 30.35, pch = 19, col = "black", cex = 0.5)
+tm_shape(col_new) +
+  tm_polygons(col = "delta_y",
+              title = "Impact",
+              breaks = c(-Inf,-0.05, Inf),
+              palette = c("red", "blue")
+              ) +
+  tm_layout(frame = FALSE) 
 @
 \footnotesize
 		\emph{Notes:} This graph shows those regions that had low and high impact due to increase in \code{INC} in 30th. Red-colored regions are those regions with a decrease of crime rate larger than 0.05, whereas blue-colored regions are those regions with lower decrease of crime rate. 
@@ -1293,11 +1292,13 @@ legend("topleft", legend = round(cats5$brks, 2), fill = pal5, bty = "n")
         \centering 
 	\begin{minipage}{.9\linewidth}
 <<predicted-effect2, echo = FALSE, message = FALSE, fig.align='center', out.width = '10cm', out.height = '10cm'>>=
-pal5    <- brewer.pal(6, "Spectral")
-cats5   <- classIntervals(col_new$delta_y, n = 5, style = "jenks")
-colors5 <- findColours(cats5, pal5)
-plot(col_new, col = colors5)
-legend("topleft", legend = round(cats5$brks, 4), fill = pal5, bty = "n")
+tm_shape(col_new) +
+  tm_polygons(col = "delta_y",
+              title = "Impacts",
+              palette = "OrRd", 
+              style = "quantile",
+              ) +
+  tm_layout(frame = FALSE) 
 @
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of the changes caused by altering \texttt{INC} in region 30.

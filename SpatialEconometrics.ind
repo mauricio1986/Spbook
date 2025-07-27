@@ -1,7 +1,7 @@
 \begin{theindex}
 
   \item big O, \hyperpage{76}
-  \item BS2SLS, \hyperpage{213}
+  \item BS2SLS, \hyperpage{215}
 
   \indexspace
 
@@ -16,27 +16,27 @@
 
   \item eigen values, \hyperpage{41}
   \item Endogeneity
-    \subitem additional endogenous variables, \hyperpage{203}
-    \subitem error in variables, \hyperpage{203}
+    \subitem additional endogenous variables, \hyperpage{205}
+    \subitem error in variables, \hyperpage{205}
 
   \indexspace
 
-  \item Generalized method of moments, \hyperpage{191}
-    \subitem Moment conditions, \hyperpage{247}
+  \item Generalized method of moments, \hyperpage{193}
+    \subitem Moment conditions, \hyperpage{249}
 
   \indexspace
 
   \item Hessian
     \subitem SLM, \hyperpage{123}
   \item Heteroskedasticity
-    \subitem error term, \hyperpage{199}
+    \subitem error term, \hyperpage{201}
 
   \indexspace
 
   \item Instrumental Variables
-    \subitem instruments, \hyperpage{197}
-    \subitem optimal instruments, \hyperpage{213}
-    \subitem S2SLS, \hyperpage{197}
+    \subitem instruments, \hyperpage{199}
+    \subitem optimal instruments, \hyperpage{215}
+    \subitem S2SLS, \hyperpage{199}
 
   \indexspace
 
@@ -48,7 +48,7 @@
     \subitem concentrated log-likelihood, \hyperpage{122}
     \subitem Jacobian, \hyperpage{120}
     \subitem SLM, \hyperpage{119}
-  \item Moment conditions, \hyperpage{247}
+  \item Moment conditions, \hyperpage{249}
   \item Moran's I test, \hyperpage{24}
     \subitem \texttt{moran.mc} function, \hyperpage{30}
     \subitem \texttt{moran.test} function, \hyperpage{29}
@@ -63,7 +63,7 @@
 
   \indexspace
 
-  \item quadratic moment conditions, \hyperpage{247}
+  \item quadratic moment conditions, \hyperpage{249}
 
   \indexspace
 
@@ -73,12 +73,12 @@
   \indexspace
 
   \item S2SLS
-    \subitem Asymptotic distribution, \hyperpage{205}
-    \subitem consistency, \hyperpage{204}
-    \subitem example, \hyperpage{207}
-    \subitem stsls function, \hyperpage{207}
+    \subitem Asymptotic distribution, \hyperpage{207}
+    \subitem consistency, \hyperpage{206}
+    \subitem example, \hyperpage{209}
+    \subitem stsls function, \hyperpage{209}
   \item SAC model
-    \subitem FGS2SLS, \hyperpage{272}
+    \subitem FGS2SLS, \hyperpage{274}
   \item score function
     \subitem SLM, \hyperpage{123}
   \item Spatial autocorrelation, \hyperpage{4}

@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.12)  3 JUL 2025 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.12)  4 JUL 2025 07:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**1.Lecture1.tex
-(./1.Lecture1.tex
+**2.Lecture2.tex
+(./2.Lecture2.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22>
 (/usr/local/texlive/2023/texmf-dist/tex/latex/beamer/beamer.cls
@@ -904,6 +904,60 @@ Package caption Info: New subtype `subfigure' on input line 239.
 Package caption Info: New subtype `subtable' on input line 239.
 \c@subtable=\count350
 )
+(/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks49
+\XKV@tempa@toks=\toks50
+)
+\XKV@depth=\count351
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
+\collectedbox=\box84
+)
+\tc@llx=\dimen326
+\tc@lly=\dimen327
+\tc@urx=\dimen328
+\tc@ury=\dimen329
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen330
+\adjbox@Height=\dimen331
+\adjbox@Depth=\dimen332
+\adjbox@Totalheight=\dimen333
+\adjbox@pwidth=\dimen334
+\adjbox@pheight=\dimen335
+\adjbox@pdepth=\dimen336
+\adjbox@ptotalheight=\dimen337
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
+\c@checkoddpage=\count352
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box85
+\sift@deathcycles=\count353
+\@vwid@loff=\dimen338
+\@vwid@roff=\dimen339
+))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/pgfplots/pgfplots.sty
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
@@ -914,7 +968,7 @@ Package: pgf 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
 e.tex
 File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box84
+\pgfnodeparttextbox=\box86
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
 tex
@@ -923,8 +977,8 @@ File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -0-65.sty
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen326
-\pgf@nodesepend=\dimen327
+\pgf@nodesepstart=\dimen340
+\pgf@nodesepend=\dimen341
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -1-18.sty
@@ -933,10 +987,10 @@ Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen328
-\pgffor@skip=\dimen329
-\pgffor@stack=\toks49
-\pgffor@toks=\toks50
+\pgffor@iter=\dimen342
+\pgffor@skip=\dimen343
+\pgffor@stack=\toks51
+\pgffor@toks=\toks52
 ))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
@@ -945,34 +999,34 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count351
-\pgfplotmarksize=\dimen330
+\pgf@plot@mark@count=\count354
+\pgfplotmarksize=\dimen344
 )
-\tikz@lastx=\dimen331
-\tikz@lasty=\dimen332
-\tikz@lastxsaved=\dimen333
-\tikz@lastysaved=\dimen334
-\tikz@lastmovetox=\dimen335
-\tikz@lastmovetoy=\dimen336
-\tikzleveldistance=\dimen337
-\tikzsiblingdistance=\dimen338
-\tikz@figbox=\box85
-\tikz@figbox@bg=\box86
-\tikz@tempbox=\box87
-\tikz@tempbox@bg=\box88
-\tikztreelevel=\count352
-\tikznumberofchildren=\count353
-\tikznumberofcurrentchild=\count354
-\tikz@fig@count=\count355
+\tikz@lastx=\dimen345
+\tikz@lasty=\dimen346
+\tikz@lastxsaved=\dimen347
+\tikz@lastysaved=\dimen348
+\tikz@lastmovetox=\dimen349
+\tikz@lastmovetoy=\dimen350
+\tikzleveldistance=\dimen351
+\tikzsiblingdistance=\dimen352
+\tikz@figbox=\box87
+\tikz@figbox@bg=\box88
+\tikz@tempbox=\box89
+\tikz@tempbox@bg=\box90
+\tikztreelevel=\count355
+\tikznumberofchildren=\count356
+\tikznumberofcurrentchild=\count357
+\tikz@fig@count=\count358
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count356
-\pgfmatrixcurrentcolumn=\count357
-\pgf@matrix@numberofcolumns=\count358
+\pgfmatrixcurrentrow=\count359
+\pgfmatrixcurrentcolumn=\count360
+\pgf@matrix@numberofcolumns=\count361
 )
-\tikz@expandcount=\count359
+\tikz@expandcount=\count362
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -980,12 +1034,12 @@ File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks51
-\t@pgfplots@tokb=\toks52
-\t@pgfplots@tokc=\toks53
-\pgfplots@tmpa=\dimen339
-\c@pgfplots@coordindex=\count360
-\c@pgfplots@scanlineindex=\count361
+\t@pgfplots@toka=\toks53
+\t@pgfplots@tokb=\toks54
+\t@pgfplots@tokc=\toks55
+\pgfplots@tmpa=\dimen353
+\c@pgfplots@coordindex=\count363
+\c@pgfplots@scanlineindex=\count364
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric
 .code.tex))
@@ -996,9 +1050,9 @@ soldpgfsupp_loader.code.tex
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.cod
 e.tex)
 Package pgfplots: loading complementary utilities for your pgf version...
-\t@pgf@toka=\toks54
-\t@pgf@tokb=\toks55
-\t@pgf@tokc=\toks56
+\t@pgf@toka=\toks56
+\t@pgf@tokb=\toks57
+\t@pgf@tokc=\toks58
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplot
 soldpgfsupp_pgfutil-common-lists.tex))
@@ -1010,14 +1064,14 @@ liststructure.code.tex)
 liststructureext.code.tex)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 array.code.tex
-\c@pgfplotsarray@tmp=\count362
+\c@pgfplotsarray@tmp=\count365
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 matrix.code.tex)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable
 shared.code.tex
-\c@pgfplotstable@counta=\count363
-\t@pgfplotstable@a=\toks57
+\c@pgfplotstable@counta=\count366
+\t@pgfplotstable@a=\toks59
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 deque.code.tex)
@@ -1029,7 +1083,7 @@ ta.code.tex))
 .code.tex)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplot
 s.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count364
+\c@pgfplotslibrarysurf@no=\count367
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots
 .surfshading.pgfsys-pdftex.def)))
@@ -1061,16 +1115,16 @@ x)
 s/tikzlibrarydecorations.code.tex
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoration
 s.code.tex
-\pgfdecoratedcompleteddistance=\dimen340
-\pgfdecoratedremainingdistance=\dimen341
-\pgfdecoratedinputsegmentcompleteddistance=\dimen342
-\pgfdecoratedinputsegmentremainingdistance=\dimen343
-\pgf@decorate@distancetomove=\dimen344
-\pgf@decorate@repeatstate=\count365
-\pgfdecorationsegmentamplitude=\dimen345
-\pgfdecorationsegmentlength=\dimen346
+\pgfdecoratedcompleteddistance=\dimen354
+\pgfdecoratedremainingdistance=\dimen355
+\pgfdecoratedinputsegmentcompleteddistance=\dimen356
+\pgfdecoratedinputsegmentremainingdistance=\dimen357
+\pgf@decorate@distancetomove=\dimen358
+\pgf@decorate@repeatstate=\count368
+\pgfdecorationsegmentamplitude=\dimen359
+\pgfdecorationsegmentlength=\dimen360
 )
-\tikz@lib@dec@box=\box89
+\tikz@lib@dec@box=\box91
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarydecorations.pathmorphing.code.tex
@@ -1082,13 +1136,13 @@ s/tikzlibrarydecorations.pathreplacing.code.tex
 brarydecorations.pathreplacing.code.tex))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplo
 ts.contourlua.code.tex)
-\pgfplots@numplots=\count366
-\pgfplots@xmin@reg=\dimen347
-\pgfplots@xmax@reg=\dimen348
-\pgfplots@ymin@reg=\dimen349
-\pgfplots@ymax@reg=\dimen350
-\pgfplots@zmin@reg=\dimen351
-\pgfplots@zmax@reg=\dimen352
+\pgfplots@numplots=\count369
+\pgfplots@xmin@reg=\dimen361
+\pgfplots@xmax@reg=\dimen362
+\pgfplots@ymin@reg=\dimen363
+\pgfplots@ymax@reg=\dimen364
+\pgfplots@zmin@reg=\dimen365
+\pgfplots@zmax@reg=\dimen366
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryplotmarks.code.tex
@@ -1105,7 +1159,7 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen353
+\arrowsize=\dimen367
 ))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
@@ -1166,32 +1220,32 @@ File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
 shapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box90
-\pgfnodeparttwobox=\box91
-\pgfnodepartthreebox=\box92
-\pgfnodepartfourbox=\box93
-\pgfnodeparttwentybox=\box94
-\pgfnodepartnineteenbox=\box95
-\pgfnodeparteighteenbox=\box96
-\pgfnodepartseventeenbox=\box97
-\pgfnodepartsixteenbox=\box98
-\pgfnodepartfifteenbox=\box99
-\pgfnodepartfourteenbox=\box100
-\pgfnodepartthirteenbox=\box101
-\pgfnodeparttwelvebox=\box102
-\pgfnodepartelevenbox=\box103
-\pgfnodeparttenbox=\box104
-\pgfnodepartninebox=\box105
-\pgfnodeparteightbox=\box106
-\pgfnodepartsevenbox=\box107
-\pgfnodepartsixbox=\box108
-\pgfnodepartfivebox=\box109
+\pgfnodepartlowerbox=\box92
+\pgfnodeparttwobox=\box93
+\pgfnodepartthreebox=\box94
+\pgfnodepartfourbox=\box95
+\pgfnodeparttwentybox=\box96
+\pgfnodepartnineteenbox=\box97
+\pgfnodeparteighteenbox=\box98
+\pgfnodepartseventeenbox=\box99
+\pgfnodepartsixteenbox=\box100
+\pgfnodepartfifteenbox=\box101
+\pgfnodepartfourteenbox=\box102
+\pgfnodepartthirteenbox=\box103
+\pgfnodeparttwelvebox=\box104
+\pgfnodepartelevenbox=\box105
+\pgfnodeparttenbox=\box106
+\pgfnodepartninebox=\box107
+\pgfnodeparteightbox=\box108
+\pgfnodepartsevenbox=\box109
+\pgfnodepartsixbox=\box110
+\pgfnodepartfivebox=\box111
 )))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarybackgrounds.code.tex
 File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@layerbox@background=\box110
-\pgf@layerboxsaved@background=\box111
+\pgf@layerbox@background=\box112
+\pgf@layerboxsaved@background=\box113
 )
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarypositioning.code.tex
@@ -1206,9 +1260,9 @@ Package: relsize 2013/03/29 ver 4.1
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box112
+\@tempboxb=\box114
 )
-\c@thm=\count367
+\c@thm=\count370
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/beamer/beamerfontthemeserif.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumb
@@ -1226,18 +1280,11 @@ File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count368
-\l__pdf_internal_box=\box113
+\l__color_backend_stack_int=\count371
+\l__pdf_internal_box=\box115
 )
-(./1.Lecture1.aux
-
-LaTeX Warning: Label `fig:example_poll' multiply defined.
-
-
-LaTeX Warning: Label `fig:Rook_cont_grid' multiply defined.
-
-)
-\openout1 = `1.Lecture1.aux'.
+(./2.Lecture2.aux)
+\openout1 = `2.Lecture2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 141.
 LaTeX Font Info:    ... okay on input line 141.
@@ -1294,17 +1341,17 @@ LaTeX Font Info:    ... okay on input line 141.
 
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count369
-\scratchdimen=\dimen354
-\scratchbox=\box114
-\nofMPsegments=\count370
-\nofMParguments=\count371
-\everyMPshowfont=\toks58
-\MPscratchCnt=\count372
-\MPscratchDim=\dimen355
-\MPnumerator=\count373
-\makeMPintoPDFobject=\count374
-\everyMPtoPDFconversion=\toks59
+\scratchcounter=\count372
+\scratchdimen=\dimen368
+\scratchbox=\box116
+\nofMPsegments=\count373
+\nofMParguments=\count374
+\everyMPshowfont=\toks60
+\MPscratchCnt=\count375
+\MPscratchDim=\dimen369
+\MPnumerator=\count376
+\makeMPintoPDFobject=\count377
+\everyMPtoPDFconversion=\toks61
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1316,9 +1363,9 @@ e
 ))
 Package hyperref Info: Link coloring OFF on input line 141.
 
-(./1.Lecture1.out) (./1.Lecture1.out)
+(./2.Lecture2.out) (./2.Lecture2.out)
 \@outlinefile=\write5
-\openout5 = `1.Lecture1.out'.
+\openout5 = `2.Lecture2.out'.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/translator/translator-basic-dicti
@@ -1355,7 +1402,7 @@ ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into
 your preamble.
  on input line 141.
 
-(./1.Lecture1.nav)
+(./2.Lecture2.nav)
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
 144.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ot1lmss.fd
@@ -1363,145 +1410,140 @@ File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] (./1.Lecture1.toc) [2
+al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] (./2.Lecture2.toc) [2
 
-] (./1.Lecture1.toc) [3
+] (./2.Lecture2.toc) [3
+
+] [4
+
+] [5
+
+] (./2.Lecture2.toc) [6
+
+] [7
 
 ]
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-78.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
+22.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-178.
+222.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-178.
+222.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 178.
+(Font)              <10> on input line 222.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 178.
+(Font)              <7> on input line 222.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 178.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 178
+(Font)              <5> on input line 222.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 222
 .
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 178
+LaTeX Font Info:    Trying to load font information for U+msb on input line 222
 .
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 178.
+ut line 222.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) [4
-
-{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-[5
-
-] (./1.Lecture1.toc) [6
-
-]
+)
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 211.
+(Font)              <9> on input line 222.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 211.
- [7
+(Font)              <6> on input line 222.
+ [8
 
-] [8
+{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/loca
+l/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [9
 
-]
-<Waldo_Tobler.jpg, id=392, 167.6664pt x 214.401pt>
-File: Waldo_Tobler.jpg Graphic file (type jpg)
-<use Waldo_Tobler.jpg>
-Package pdftex.def Info: Waldo_Tobler.jpg  used on input line 250.
-(pdftex.def)             Requested size: 113.81207pt x 113.8119pt.
- [9
-
- <./Waldo_Tobler.jpg>] (./1.Lecture1.toc)
-[10
+{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [10
 
 ] [11
 
-{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-[12
+] [12
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{fig:example_p
-oll}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.310 \end{frame}
-                  [13
+[13
 
-] [14
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 320.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 320.
+ [14
 
 ] [15
 
 ] [16
 
-] (./1.Lecture1.toc) [17
+] [17
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 365.
- [18
+] [18
 
 ] [19
 
-]
-[20
+] [20
 
-] [21
+] (./2.Lecture2.toc) [21
 
 ] [22
 
 ] [23
 
-] [24
+]
+(./2.Lecture2.toc) [24
 
 ] [25
 
-]
-\openout4 = `1.Lecture1.vrb'.
+] [26
 
- (./1.Lecture1.vrb
-<figure/plot_spatial_auto-1.pdf, id=1033, 505.89pt x 505.89pt>
-File: figure/plot_spatial_auto-1.pdf Graphic file (type pdf)
-<use figure/plot_spatial_auto-1.pdf>
-Package pdftex.def Info: figure/plot_spatial_auto-1.pdf  used on input line 5.
-(pdftex.def)             Requested size: 227.62523pt x 227.62523pt.
-) [26
+] (./2.Lecture2.toc) [27
 
- <./figure/plot_spatial_auto-1.pdf>] [27
+] [28
 
 ]
-<luc_anselin.png, id=1103, 301.125pt x 388.45125pt>
-File: luc_anselin.png Graphic file (type png)
-<use luc_anselin.png>
-Package pdftex.def Info: luc_anselin.png  used on input line 463.
-(pdftex.def)             Requested size: 142.26852pt x 142.26659pt.
- [28
+\openout4 = `2.Lecture2.vrb'.
 
- <./luc_anselin.png>] [29
 
-] [30
+(./2.Lecture2.vrb
+Overfull \hbox (3.63037pt too wide) in alignment at lines 11--14
+ [][][] []
+ []
+
+
+Overfull \hbox (8.06535pt too wide) detected at line 19
+\OML/cmm/b/it/7 y \OT1/lmr/m/n/7 = \OML/lmm/m/it/7 ^^Z\OML/cmm/b/it/7 Wy \OT1/l
+mr/m/n/7 + \OML/cmm/b/it/7 X^^L \OT1/lmr/m/n/7 + \OML/cmm/b/it/7 WX^^M \OT1/lmr
+/m/n/7 + \OML/cmm/b/it/7 "
+ []
+
+
+Overfull \hbox (7.5537pt too wide) in alignment at lines 22--25
+ [][][] []
+ []
+
+) [29
+
+] (./2.Lecture2.toc) [30
 
 ] [31
 
@@ -1509,37 +1551,29 @@ Package pdftex.def Info: luc_anselin.png  used on input line 463.
 
 ] [33
 
-] [34
+] (./2.Lecture2.toc) [34
+
+] [35
 
 ]
-(./1.Lecture1.toc) [35
-
-] [36
+(./2.Lecture2.toc) [36
 
 ] [37
 
-] [38
+] (./2.Lecture2.toc) [38
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 535.
- [39
+] [39
 
-{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [40
+] [40
 
-] (./1.Lecture1.toc) [41
+] [41
 
 ] [42
 
-] [43
-
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{fig:Rook_cont
-_grid}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.629 \end{frame}
-                  [44
+[43
+
+] [44
 
 ] [45
 
@@ -1551,182 +1585,213 @@ l.629 \end{frame}
 
 ] [49
 
-] (./1.Lecture1.toc) [50
+] [50
 
-]
-Overfull \hbox (68.40797pt too wide) in paragraph at lines 738--738
-[]  
- []
+] [51
 
+] [52
 
-Overfull \hbox (65.1015pt too wide) detected at line 738
-\OML/cmm/b/it/10 W \OT1/lmr/m/n/10 = []
- []
+] [53
 
-[51
-
-]
-Overfull \hbox (68.40797pt too wide) in paragraph at lines 782--782
-[]  
- []
-
-
-Overfull \hbox (65.1015pt too wide) detected at line 782
-\OML/cmm/b/it/10 W \OT1/lmr/m/n/10 = []
- []
-
-[52
-
-] (./1.Lecture1.toc) [53
-
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 795.
- [54
+] (./2.Lecture2.toc)
+[54
 
 ] [55
 
-] [56
-
-] [57
+] (./2.Lecture2.toc) [56
 
 ]
-<figure/dist-graph-1.pdf, id=2066, 505.89pt x 505.89pt>
-File: figure/dist-graph-1.pdf Graphic file (type pdf)
-<use figure/dist-graph-1.pdf>
-Package pdftex.def Info: figure/dist-graph-1.pdf  used on input line 871.
-(pdftex.def)             Requested size: 227.62523pt x 227.62523pt.
- [58
+<James_Lesage.jpeg, id=2031, 513.92pt x 513.92pt>
+File: James_Lesage.jpeg Graphic file (type jpg)
+<use James_Lesage.jpeg>
+Package pdftex.def Info: James_Lesage.jpeg  used on input line 1089.
+(pdftex.def)             Requested size: 168.66095pt x 142.26552pt.
+<Pace.jpg, id=2032, 60.225pt x 84.315pt>
+File: Pace.jpg Graphic file (type jpg)
+<use Pace.jpg>
+Package pdftex.def Info: Pace.jpg  used on input line 1089.
+(pdftex.def)             Requested size: 137.68932pt x 142.26701pt.
+ [57
 
- <./figure/dist-graph-1.pdf>] [59
+ <./James_Lesage.jpeg> <./Pace.jpg>]
+<Lesage_ex.png, id=2058, 545.03625pt x 272.01625pt>
+File: Lesage_ex.png Graphic file (type png)
+<use Lesage_ex.png>
+Package pdftex.def Info: Lesage_ex.png  used on input line 1099.
+(pdftex.def)             Requested size: 227.61627pt x 170.72363pt.
 
-] (./1.Lecture1.toc) [60
+[58
 
-] [61
+ <./Lesage_ex.png>]
+<Lesage_ex2.png, id=2086, 539.01375pt x 176.66pt>
+File: Lesage_ex2.png Graphic file (type png)
+<use Lesage_ex2.png>
+Package pdftex.def Info: Lesage_ex2.png  used on input line 1108.
+(pdftex.def)             Requested size: 227.62614pt x 113.81139pt.
+ [59
 
-] [62
-
-] (./1.Lecture1.toc) [63
-
-] [64
-
-]
-(./1.Lecture1.toc) [65
-
-] [66
-
-] [67
-
-] (./1.Lecture1.toc) [68
-
-] [69
-
-]
-(./1.Lecture1.toc) [70
-
-] [71
+ <./Lesage_ex2.png>] [60
 
 ]
-<figure/moran-1.pdf, id=2556, 289.08pt x 289.08pt>
-File: figure/moran-1.pdf Graphic file (type pdf)
-<use figure/moran-1.pdf>
-Package pdftex.def Info: figure/moran-1.pdf  used on input line 1148.
-(pdftex.def)             Requested size: 240.93567pt x 240.93321pt.
+\openout4 = `2.Lecture2.vrb'.
 
-Overfull \vbox (10.36702pt too high) detected at line 1148
- []
-
-[72
-
- <./figure/moran-1.pdf>] [73
-
-] [74
-
-] [75
-
-] [76
-
-] [77
-
-] [78
-
-] [79
-
-]
-<p-monte.png, id=2818, 569.12625pt x 465.74pt>
-File: p-monte.png Graphic file (type png)
-<use p-monte.png>
-Package pdftex.def Info: p-monte.png  used on input line 1265.
-(pdftex.def)             Requested size: 227.6204pt x 113.80527pt.
- [80
-
- <./p-monte.png>] [81
-
-] [82
-
-]
+ (./2.Lecture2.vrb
 LaTeX Font Info:    Trying to load font information for OT1+lmtt on input line 
-1298.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ot1lmtt.fd
+4.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ot1lmtt.fd
 File: ot1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-[83
+LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <9> not available
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 6.
+) [61
 
 {/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb)
+[62
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb
+LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 6.
+) [63
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb) [64
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb)
+[65
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb) [66
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb) [67
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb
+Overfull \hbox (12.80363pt too wide) in paragraph at lines 14--14
+[][]\OT1/lmtt/m/n/10 Total[] []<-[] []\OT1/lmtt/b/n/10 crossprod[][]\OT1/lmtt/m
+/n/10 ([][]\OT1/lmtt/b/n/10 rep[][]\OT1/lmtt/m/n/10 ([][]1[][],[] []\OT1/lmtt/b
+/n/10 nrow[][]\OT1/lmtt/m/n/10 (W)), S)[] []%*%[] []\OT1/lmtt/b/n/10 rep[][]\OT
+1/lmtt/m/n/10 ([][]1[][],[] []\OT1/lmtt/b/n/10 nrow[][]\OT1/lmtt/m/n/10 (W))[] 
+[]/[] []\OT1/lmtt/b/n/10 nrow[][]\OT1/lmtt/m/n/10 (W)[][] 
+ []
+
+) [68
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb) [69
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb
+Overfull \hbox (51.28964pt too wide) in paragraph at lines 10--10
+[][]\OT1/lmtt/m/n/10 out[] []<-[] []\OT1/lmtt/b/n/10 matrix[][]\OT1/lmtt/m/n/10
+ ([][]NA[][],[] []nrow[] []=[] []11[][],[] []ncol[] []=[] []3[][])[]           
+  []\OT1/lmtt/m/it/10 # Matrix for the results[][] 
+ []
+
+LaTeX Font Info:    Trying to load font information for OMS+lmtt on input line 
+14.
+LaTeX Font Info:    No file OMSlmtt.fd. on input line 14.
+
+LaTeX Font Warning: Font shape `OMS/lmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 14.
+
+) [70
+
+]
+\openout4 = `2.Lecture2.vrb'.
+
+ (./2.Lecture2.vrb
+LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <7> not available
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 7.
+) [71
+
+]
 \tf@nav=\write6
-\openout6 = `1.Lecture1.nav'.
+\openout6 = `2.Lecture2.nav'.
 
 \tf@toc=\write7
-\openout7 = `1.Lecture1.toc'.
+\openout7 = `2.Lecture2.toc'.
 
 \tf@snm=\write8
-\openout8 = `1.Lecture1.snm'.
+\openout8 = `2.Lecture2.snm'.
 
+ (./2.Lecture2.aux)
 
-(./1.Lecture1.aux)
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-LaTeX Warning: There were multiply-defined labels.
-
-Package rerunfilecheck Info: File `1.Lecture1.out' has not changed.
-(rerunfilecheck)             Checksum: BA069A7692C807AAF8029B54EB4E61D1;3040.
+Package rerunfilecheck Info: File `2.Lecture2.out' has not changed.
+(rerunfilecheck)             Checksum: CA9DDCAE0AFCE2551BF4B68964E0EE9A;2605.
  ) 
 Here is how much of TeX's memory you used:
- 42609 strings out of 476025
- 1016525 string characters out of 5790016
- 1883388 words of memory out of 5000000
- 61969 multiletter control sequences out of 15000+600000
- 593683 words of font info for 126 fonts, out of 8000000 for 9000
+ 43802 strings out of 476025
+ 1037056 string characters out of 5790016
+ 1880388 words of memory out of 5000000
+ 63119 multiletter control sequences out of 15000+600000
+ 590182 words of font info for 125 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,14n,122p,747b,959s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pf
-b></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib
-9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmb10.pfb></usr
-/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/tex
-live/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/
-texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist
-/fonts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
-e1/public/lm/lmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/l
-m/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi7.pfb
-></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/loca
-l/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2
-023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-d
-ist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/ty
-pe1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/l
-m/lmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb><
-/usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/t
-exlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/202
-3/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2023/texmf-di
-st/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2023/texmf-dist/fonts/t
-ype1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
-lic/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lms
-y7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></us
-r/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/te
-xlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local
-/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 1.Lecture1.pdf (83 pages, 1354183 bytes).
+ 128i,23n,122p,747b,994s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb
+></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5
+.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cm
+mib7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextr
+a/cmmib9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pf
+b></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/lo
+cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texliv
+e/2023/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2023/texm
+f-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/font
+s/type1/public/lm/lmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
+lic/lm/lmmi9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr1
+0.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/
+local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texliv
+e/2023/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2023/texmf
+-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/
+type1/public/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public
+/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmss10
+.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/t
+exlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/202
+3/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
+e1/public/lm/lmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/l
+m/lmsy9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtk10.pf
+b></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/lo
+cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive
+/2023/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/2023/texmf
+-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2023/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msam5.pfb></usr/local/texlive/2023/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2023/
+texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on 2.Lecture2.pdf (71 pages, 909557 bytes).
 PDF statistics:
- 3098 PDF objects out of 3580 (max. 8388607)
- 2678 compressed objects within 27 object streams
- 193 named destinations out of 1000 (max. 500000)
- 1599 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2634 PDF objects out of 2984 (max. 8388607)
+ 2306 compressed objects within 24 object streams
+ 180 named destinations out of 1000 (max. 500000)
+ 1033 words of extra memory for PDF output out of 10000 (max. 10000000)
 

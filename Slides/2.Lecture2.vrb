@@ -1,0 +1,31 @@
+\frametitle{Cumulative Effects}
+  \scriptsize
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Print results}
+\hlkwd{round}\hldef{(out,} \hlnum{4}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##       Total Direct Indirect
+## q=0  0.1350 0.1350   0.0000
+## q=1  0.0867 0.0000   0.0867
+## q=2  0.0556 0.0318   0.0238
+## q=3  0.0357 0.0000   0.0357
+## q=4  0.0229 0.0106   0.0123
+## q=5  0.0147 0.0000   0.0147
+## q=6  0.0095 0.0039   0.0056
+## q=7  0.0061 0.0000   0.0061
+## q=8  0.0039 0.0015   0.0024
+## q=9  0.0025 0.0000   0.0025
+## q=10 0.0016 0.0006   0.0010
+\end{verbatim}
+\begin{alltt}
+\hlkwd{round}\hldef{(}\hlkwd{colSums}\hldef{(out),} \hlnum{4}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##    Total   Direct Indirect
+##   0.3742   0.1834   0.1909
+\end{verbatim}
+\end{kframe}
+\end{knitrout}

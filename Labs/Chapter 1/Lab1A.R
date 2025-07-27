@@ -7,15 +7,12 @@
 ## I: Clean directory and load packages ====
 rm(list = ls(all = TRUE)) # Clean workspace
 
-#install.packages("maptools", "spdep", "foreign", "RColorBrewer")
-
-library("maptools") # Tools for reading and handling spatial objects
-library("spdep")    # Tools for spatial analysis
-library("foreign")  # Read stata files
+library("sf")           # Tools for reading and handling spatial objects
+library("tmap")        # Tools for maps
+library("spdep")        # Tools for spatial analysis
+library("foreign")      # Read stata files
 library("RColorBrewer") # Creates nice looking palettes specially for thematic maps
 
-# Change the following:
-setwd("~/Dropbox/Mis Clases/Spatial Econometrics/Data/PollutionRM")
 
 ## II: Merge shape file with data.frame ====
 
@@ -28,10 +25,8 @@ setwd("~/Dropbox/Mis Clases/Spatial Econometrics/Data/PollutionRM")
 # Other files:
 #     .prj = projection format; the coordinates system and projection information. 
 
-
-mr_shape <- readShapeSpatial("mr_chile")  # Load shape file
-names(mr_shape)                           # Names of variables in dbf
-mr_shape@data                             # Show data in dbf
+mr_shape <- read_sf("~/Library/CloudStorage/Dropbox/work/Book Projects/Spbook/Labs/Chapter 1/mr_chile.shp")  # Load shape file
+names(mr_shape)                                   # Names of variables in dbf
 
 poll_data <- read.dta("Pollution_RM.dta") # Load data is Stata (for example)
 names(poll_data)                          # Names of variables
@@ -40,7 +35,7 @@ names(poll_data)                          # Names of variables
 
 # Combine
 poll_sh <- mr_shape                     # Create a new shape file
-poll_sh@data <- merge(mr_shape@data,    # object of class Spatial
+poll_sh <- merge(mr_shape,    # object of class Spatial
                       poll_data,        # object of class data.frame        
                       by.x  = "ID", 
                       by.y  = "ID", 
@@ -53,61 +48,37 @@ poll_sh$lco2 <- log(poll_sh$co2)
 poll_sh$lnox <- log(poll_sh$nox)
 poll_sh$lcov <- log(poll_sh$cov)
 
+p1 <- tm_shape(poll_sh) +
+  tm_polygons("lco2", 
+              palette = "OrRd", 
+              style = "quantile",
+              title = "log(CO2)"
+  ) +
+  tm_layout(frame = FALSE) 
 
-spplot(poll_sh, 
-       "lco2", 
-       at = quantile(poll_sh$lco2, p = c(0, .25, .5, .75, 1), 
-                     na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = expression(Log(C0[2])))
-spplot(poll_sh, 
-       "lnox", 
-       at = quantile(poll_sh$lnox, p = c(0, .25, .5, .75, 1), 
-                     na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = expression(Log(NOX)))
-spplot(poll_sh, 
-       "lcov", 
-       at = quantile(poll_sh$lcov, p = c(0, .25, .5, .75, 1), 
-                     na.rm = TRUE),
-       col.regions = brewer.pal(5, "Blues"), 
-       main = expression(Log(COV)))
+p2 <- tm_shape(poll_sh) +
+  tm_polygons("lnox", 
+              palette = "OrRd", 
+              style = "quantile",
+              title = "log(NOX)"
+  ) +
+  tm_layout(frame = FALSE) 
 
-# Equal breaks, quantile breaks, jenks breaks
-library("classInt")
-pal <- brewer.pal(7, "Greens")
-brks.qt <- classIntervals(poll_sh$lco2, n = 7, style = "quantile")
-brks.jk <- classIntervals(poll_sh$lco2, n = 7, style = "jenks")
-brks.eq <- classIntervals(poll_sh$lco2, n = 7, style = "equal")
+p3 <- tm_shape(poll_sh) +
+  tm_polygons("lcov", 
+              palette = "OrRd", 
+              style = "quantile",
+              title = "log(COV)"
+  ) +
+  tm_layout(frame = FALSE) 
 
-
-library("gridExtra") # To combine graphs
-p1 <- spplot(poll_sh, "lco2", 
-       at = brks.qt$brks,
-       col.regions = pal, 
-       col = "transparent",
-       main = "Quantile breaks")
-p2 <- spplot(poll_sh, "lco2", 
-       at = brks.jk$brks,
-       col.regions = pal, 
-       col = "transparent",
-       main = "Jenks breaks")
-p3 <- spplot(poll_sh, "lco2", 
-       at = brks.eq$brks,
-       col.regions = pal, 
-       col = "transparent",
-       main = "Equal breaks")
-
-grid.arrange(p1, p2, p3)
-
-#Cumulative dist plot
-par(mfrow = c(1, 3))
-plot(brks.qt, pal = pal, main = "Quantile")
-plot(brks.jk, pal = pal, main = "Jenks")
-plot(brks.eq, pal = pal, main = "Equal")
-
+tmap_arrange(p1, p2, p3)
 
 ## IV: W Matrices ====
+
+sf_use_s2(FALSE)
+poll_sh <- as(poll_sh, "Spatial")
+queen.w <- poly2nb(poll_sh, queen =  TRUE, row.names = poll_sh$NAME)
 
 # Queen
 queen.w <- poly2nb(poll_sh, 
@@ -129,6 +100,7 @@ rook.w <- poly2nb(poll_sh, row.names = poll_sh$NAME, queen =  FALSE)
 rowSums(listw2mat(nb2listw(rook.w)))
 
 # K-neighboords
+library("sp")
 coords <- coordinates(poll_sh)
 
 k1neigh <- knn2nb(knearneigh(coords, k = 1))
@@ -257,21 +229,32 @@ plot(sp.correlogram(neighbours = queen.w,
 # Local moran
 local.mi <- localmoran(poll_sh$lco2,
                        listw = nb2listw(queen.w),
-                       alternative = "two.sided",
-                       p.adjust.method  = "fdr")
+                       alternative = "two.sided")
 
+poll_sh <- as(poll_sh, "sf")
 poll_sh$lmi   <- local.mi[, 1]
 poll_sh$lmi.p <- local.mi[, 5]
+poll_sh$quadrant <- attributes(local.mi)$quadr$mean
 
-poll_sh$lmi.p.sig <- as.factor(ifelse(local.mi[,5] < 0.001, "Sig p < 0.001", 
-                              ifelse(local.mi[, 5] < 0.05, "Sig p< 0.05", "NS")))
 
-spplot(poll_sh, "lmi", at = summary(poll_sh$lmi), 
-       col.regions = brewer.pal(5, "RdBu"), 
-       main = "Local Moran's I")
 
-spplot(poll_sh, 
-       "lmi.p.sig", 
-       col.regions = c("white", "Red", "Yellow"))
+g1 <- tm_shape(poll_sh) +
+  tm_polygons("quadrant", 
+              title = "Local Moran's I",
+              palette = c("blue", "pink", "cyan", "red")
+  ) +
+  tm_layout(frame = FALSE) 
+
+g2 <- tm_shape(poll_sh) +
+  tm_polygons(col = "lmi.p",
+              title = "Significance",
+              breaks = c(-Inf, 0.01, 0.05, 0.1, Inf),
+              palette = c("#238b45", "#74c476", "#edf8e9")
+  ) +
+  tm_layout(frame = FALSE) 
+
+tmap_arrange(g1, g2)
+
+
 
 

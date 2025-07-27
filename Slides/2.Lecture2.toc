@@ -1,0 +1,17 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Taxonomy of Models}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Goals and mandatory reading}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Spatial Lag Model}{6}{0}{1}
+\beamer@subsubsectionintoc {1}{2}{1}{Reduced Form and Parameter Space}{14}{0}{1}
+\beamer@subsubsectionintoc {1}{2}{2}{Expected Value and Variance}{17}{0}{1}
+\beamer@subsectionintoc {1}{3}{Spatial Durbin Model}{21}{0}{1}
+\beamer@subsectionintoc {1}{4}{Spatial Error Model}{24}{0}{1}
+\beamer@subsectionintoc {1}{5}{SAC}{27}{0}{1}
+\beamer@sectionintoc {2}{Motivating Spatial Models}{30}{0}{2}
+\beamer@subsectionintoc {2}{1}{SLM as a Long-run Equilibrium}{30}{0}{2}
+\beamer@subsectionintoc {2}{2}{SEM and Omitted Variables Motivation}{34}{0}{2}
+\beamer@subsectionintoc {2}{3}{SDM and Omitted Variables Motivation}{36}{0}{2}
+\beamer@sectionintoc {3}{Interpreting Spatial Models}{38}{0}{3}
+\beamer@subsectionintoc {3}{1}{Measuring Spillovers}{38}{0}{3}
+\beamer@subsectionintoc {3}{2}{Partitioning Global Effects Estimates Over Space}{54}{0}{3}
+\beamer@subsectionintoc {3}{3}{Lesage's Book Example}{56}{0}{3}

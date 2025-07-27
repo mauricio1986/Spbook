@@ -20,6 +20,7 @@ help("nb2mat")
 W <- nb2mat(rook4x4, 
             style = "W") #Normalized W matrix
 W
+rowSums(W)
 
 # 3. Creating a Spatial Lag Using Matrix Multiplication ----
 x <- rnorm(16, mean = 0, sd = 1)
@@ -64,29 +65,6 @@ stat <- (mi1 - EI) / sqrt(VI)
 stat
 
 moran.test(x, nb2listw(rook4x4), randomisation = FALSE)
-
-# Try with matrices
-S0 <- sum(W)
-c <- n / S0
-Ws <- ((W + t(W)) /2) 
-I <- c * (t(z) %*% Ws %*% z) / (t(z) %*% z)
-I
-
-tr <- function(x) sum(diag(x))
-
-P <- diag(n) - (1 / n)* matrix(1, nrow = n, ncol = n)
-A <- P %*% Ws %*% P
-B <- P
-A_s <- (A + t(A)) /2
-B_s <- (B + t(B)) / 2
-I2 <- c^2 * (sum(diag(A))^2 + sum(diag(A %*% A_s))) / (sum(diag(B))^2 + sum(diag(B %*% B_s))) 
-
-I2 <- c^2 * ((tr(A)^2 + tr(A %*% t(A)) + tr(A %*% A)) / (tr(B)^2 + tr(B %*% t(B)) + tr(B %*% B)))
-I2
-EI2
-
-I2 <- c^2 * (tr(A)^2 + tr(A %*% A_s)) / (tr(B)^2 + tr(B %*% B_s))
-EI2
 
 
 # 5. My own function under normality ====

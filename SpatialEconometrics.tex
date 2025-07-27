@@ -2132,7 +2132,7 @@ To proceed with matrix computations, we convert this \code{nb} object into a spa
 \hlkwd{round}\hldef{(W.queen,} \hlnum{3}\hldef{)}
 \end{alltt}
 \begin{verbatim}
-##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9]
+##       1:1   2:1   3:1   1:2   2:2   3:2   1:3   2:3   3:3
 ## 1:1 0.000 0.333 0.000 0.333 0.333 0.000 0.000 0.000 0.000
 ## 2:1 0.200 0.000 0.200 0.200 0.200 0.200 0.000 0.000 0.000
 ## 3:1 0.000 0.333 0.000 0.000 0.333 0.333 0.000 0.000 0.000
@@ -2237,7 +2237,7 @@ Another approach to constructing spatial weight matrices, particularly for Monte
 \hldef{W.cir}
 \end{alltt}
 \begin{verbatim}
-##     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+##      1:1  2:1  3:1  1:2  2:2  3:2  1:3  2:3  3:3
 ## 1:1 0.00 0.25 0.25 0.00 0.00 0.00 0.00 0.25 0.25
 ## 2:1 0.25 0.00 0.25 0.25 0.00 0.00 0.00 0.00 0.25
 ## 3:1 0.25 0.25 0.00 0.25 0.25 0.00 0.00 0.00 0.00
@@ -6681,13 +6681,9 @@ We begin the analysis by loading the necessary \proglang{R} packages into the wo
 \begin{alltt}
 \hlcom{# Load packages}
 \hlkwd{library}\hldef{(}\hlsng{"spdep"}\hldef{)}
+\hlkwd{library}\hldef{(}\hlsng{"tmap"}\hldef{)}
 \hlkwd{library}\hldef{(}\hlsng{"spatialreg"}\hldef{)}
 \hlkwd{library}\hldef{(}\hlsng{"memisc"}\hldef{)}            \hlcom{# Package for tables}
-\hlkwd{library}\hldef{(}\hlsng{"maptools"}\hldef{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in library("{}maptools"{}): there is no package called 'maptools'}}\begin{alltt}
 \hlkwd{library}\hldef{(}\hlsng{"RColorBrewer"}\hldef{)}
 \hlkwd{library}\hldef{(}\hlsng{"classInt"}\hldef{)}
 \hlkwd{source}\hldef{(}\hlsng{"getSummary.sarlm.R"}\hldef{)} \hlcom{# Function for spdep models}
@@ -6701,27 +6697,25 @@ The dataset is available in the \pkg{spdep} package, and we load it as follows:
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Load data}
-\hldef{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hldef{(}\hlsng{"columbus.shp"}\hldef{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in readShapePoly("{}columbus.shp"{}): could not find function "{}readShapePoly"{}}}\begin{alltt}
-\hldef{col.gal.nb} \hlkwb{<-} \hlkwd{read.gal}\hldef{(}\hlkwd{system.file}\hldef{(}\hlsng{"etc/weights/columbus.gal"}\hldef{,}
-                                   \hlkwc{package} \hldef{=} \hlsng{"spdep"}\hldef{)[}\hlnum{1}\hldef{])}
+\hldef{columbus} \hlkwb{<-} \hlkwd{st_read}\hldef{(}\hlkwd{system.file}\hldef{(}\hlsng{"shapes/columbus.gpkg"}\hldef{,} \hlkwc{package}\hldef{=}\hlsng{"spData"}\hldef{)[}\hlnum{1}\hldef{],}
+                           \hlkwc{quiet} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{col.gal.nb} \hlkwb{<-} \hlkwd{poly2nb}\hldef{(columbus)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
-Before estimating models, it is essential to determine whether there is a spatial pattern in the crime variable. To visualize this, we create a quantile choropleth map for \texttt{CRIME}:
+Before estimating models, it is essential to determine whether there is a spatial pattern in the crime variable. To visualize this, we create a choropleth map for \texttt{CRIME}:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Spatial distribution of crime}
-\hlkwd{spplot}\hldef{(columbus,} \hlsng{"CRIME"}\hldef{,}
-       \hlkwc{at} \hldef{=} \hlkwd{quantile}\hldef{(columbus}\hlopt{$}\hldef{CRIME,} \hlkwc{p} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{.25}\hldef{,} \hlnum{.5}\hldef{,} \hlnum{.75}\hldef{,} \hlnum{1}\hldef{),} \hlkwc{na.rm} \hldef{=} \hlnum{TRUE}\hldef{),}
-       \hlkwc{col.regions} \hldef{=} \hlkwd{brewer.pal}\hldef{(}\hlnum{5}\hldef{,} \hlsng{"Blues"}\hldef{),}
-       \hlkwc{main} \hldef{=} \hlsng{""}\hldef{)}
+\hlkwd{tm_shape}\hldef{(columbus)} \hlopt{+}
+  \hlkwd{tm_polygons}\hldef{(}\hlsng{"CRIME"}\hldef{,}
+              \hlkwc{title} \hldef{=} \hlsng{"Crime Status"}\hldef{,}
+              \hlkwc{parlette} \hldef{=} \hlsng{"RdYBu"}
+              \hldef{)} \hlopt{+}
+  \hlkwd{tm_layout}\hldef{(}\hlkwc{frame} \hldef{=} \hlnum{FALSE}\hldef{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -6734,10 +6728,13 @@ The map in Figure~\ref{fig:spatial-crime} suggests a positive spatial autocorrel
     \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=9cm,height=9cm]{figure/spatial-crime-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: unable to find an inherited method for function 'spplot' for signature 'obj = "{}data.frame"{}'}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of crime on the 49 Columbus, Ohio neighborhoods. Darker color indicates greater rate of crime. 
@@ -6762,7 +6759,7 @@ The map in Figure~\ref{fig:spatial-crime} suggests a positive spatial autocorrel
 ## weights: listw  
 ## number of simulations + 1: 100 
 ## 
-## statistic = 0.48577, observed rank = 100, p-value = 0.01
+## statistic = 0.50019, observed rank = 100, p-value = 0.01
 ## alternative hypothesis: greater
 \end{verbatim}
 \end{kframe}
@@ -6858,22 +6855,22 @@ Finally, the Spatial Autoregressive Combined (SAC) model results are shown in co
 \multicolumn{1}{c}{SEM} & 
 \multicolumn{1}{c}{SAC}\\
 \midrule
-\emph{Constant} & 68.619^{***} & 74.029^{***} & 46.851^{***} & 45.593^{***} & 61.054^{***} & 49.051^{***}\\
-                 & (4.735) & (6.722) & (7.315) & (13.129) & (5.315) & (10.055)\\
-INC              & -1.597^{***} & -1.108^{**} & -1.074^{***} & -0.939^{**} & -0.995^{**} & -1.069^{**}\\
-                 & (0.334) & (0.375) & (0.311) & (0.338) & (0.337) & (0.333)\\
-HOVAL            & -0.274^{*} & -0.295^{**} & -0.270^{**} & -0.300^{***} & -0.308^{***} & -0.283^{**}\\
-                 & (0.103) & (0.101) & (0.090) & (0.091) & (0.093) & (0.092)\\
-$W.INC$          &  & -1.383^{*} &  & -0.618 &  & \\
-                 &  & (0.559) &  & (0.577) &  & \\
-$W.HOVAL$        &  & 0.226 &  & 0.267 &  & \\
-                 &  & (0.203) &  & (0.184) &  & \\
-$\rho$          &  &  & 0.404^{***} & 0.383^{*} &  & 0.353\\
-                 &  &  & (0.121) & (0.162) &  & (0.197)\\
-$\lambda$       &  &  &  &  & 0.521^{***} & 0.132\\
-                 &  &  &  &  & (0.141) & (0.299)\\
+\emph{Constant} & 68.619^{***} & 74.553^{***} & 45.603^{***} & 44.320^{***} & 60.279^{***} & 47.915^{***}\\
+                 & (4.735) & (6.716) & (7.257) & (13.045) & (5.366) & (9.986)\\
+INC              & -1.597^{***} & -1.097^{**} & -1.049^{***} & -0.920^{**} & -0.957^{**} & -1.043^{**}\\
+                 & (0.334) & (0.374) & (0.307) & (0.335) & (0.334) & (0.329)\\
+HOVAL            & -0.274^{*} & -0.294^{**} & -0.266^{**} & -0.297^{**} & -0.305^{***} & -0.280^{**}\\
+                 & (0.103) & (0.102) & (0.089) & (0.090) & (0.092) & (0.091)\\
+$W.INC$          &  & -1.399^{*} &  & -0.584 &  & \\
+                 &  & (0.560) &  & (0.574) &  & \\
+$W.HOVAL$        &  & 0.215 &  & 0.258 &  & \\
+                 &  & (0.208) &  & (0.187) &  & \\
+$\rho$          &  &  & 0.423^{***} & 0.403^{*} &  & 0.369\\
+                 &  &  & (0.120) & (0.161) &  & (0.196)\\
+$\lambda$       &  &  &  &  & 0.547^{***} & 0.146\\
+                 &  &  &  &  & (0.138) & (0.301)\\
 \midrule
-AIC              & 382.754 & 380.197 & 376.337 & 378.032 & 378.310 & 378.146\\
+AIC              & 382.754 & 379.941 & 375.348 & 377.279 & 377.499 & 377.110\\
 N                &  49     &  49     &  49     &  49     &  49     &  49    \\
 \bottomrule
 \multicolumn{7}{p{.7\linewidth}}{Significance: 
@@ -6919,11 +6916,8 @@ Next, we increase \code{INC} by 1 in spatial unit 30 and calculate the reduced-f
 \hldef{col_new} \hlkwb{<-} \hldef{columbus} \hlcom{# copy the data frame}
 
 \hlcom{# Change the income value}
-\hldef{col_new}\hlopt{@}\hlkwc{data}\hldef{[col_new}\hlopt{@}\hlkwc{data}\hlopt{$}\hldef{POLYID} \hlopt{==} \hlnum{30}\hldef{,} \hlsng{"INC"}\hldef{]} \hlkwb{<-} \hlnum{14.906}
-\end{alltt}
+\hldef{col_new[}\hlnum{30}\hldef{,} \hlsng{"INC"}\hldef{]} \hlkwb{<-} \hlnum{14.906}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in `*tmp*`@data: no applicable method for `@` applied to an object of class "{}data.frame"{}}}\begin{alltt}
 \hlcom{# The predicted values}
 \hldef{X_d}        \hlkwb{<-} \hlkwd{cbind}\hldef{(}\hlnum{1}\hldef{, col_new}\hlopt{$}\hldef{INC, col_new}\hlopt{$}\hldef{HOVAL)}
 \hldef{y_hat_post} \hlkwb{<-} \hldef{A} \hlopt{%*%} \hlkwd{crossprod}\hldef{(}\hlkwd{t}\hldef{(X_d), beta_hat)}
@@ -6943,19 +6937,19 @@ Finally,  we compute the difference between pre- and post-predictions: $\widehat
 \hlkwd{summary}\hldef{(delta_y)}
 \end{alltt}
 \begin{verbatim}
-##        V1   
-##  Min.   :0  
-##  1st Qu.:0  
-##  Median :0  
-##  Mean   :0  
-##  3rd Qu.:0  
-##  Max.   :0
+##        V1            
+##  Min.   :-1.091e+00  
+##  1st Qu.:-1.047e-02  
+##  Median :-2.383e-03  
+##  Mean   :-3.572e-02  
+##  3rd Qu.:-4.923e-04  
+##  Max.   :-5.038e-05
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sum}\hldef{(delta_y)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0
+## [1] -1.750446
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -6967,16 +6961,13 @@ Sometimes it is useful to visualize these effects. For instance, we might want t
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Breaks}
-\hldef{breaks} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlkwd{min}\hldef{(col_new}\hlopt{$}\hldef{delta_y),} \hlopt{-}\hlnum{0.05}\hldef{,} \hlkwd{max}\hldef{(col_new}\hlopt{$}\hldef{delta_y))}
-\hldef{labels} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"High-Impacted Regions"}\hldef{,} \hlsng{"Low-Impacted Regions"}\hldef{)}
-\hldef{np}     \hlkwb{<-} \hlkwd{findInterval}\hldef{(col_new}\hlopt{$}\hldef{delta_y, breaks)}
-\hldef{colors} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"red"}\hldef{,} \hlsng{"blue"}\hldef{)}
-
-\hlcom{# Draw Map}
-\hlkwd{plot}\hldef{(col_new,} \hlkwc{col} \hldef{= colors[np])}
-\hlkwd{legend}\hldef{(}\hlsng{"topleft"}\hldef{,} \hlkwc{legend} \hldef{= labels,} \hlkwc{fill} \hldef{= colors,} \hlkwc{bty} \hldef{=} \hlsng{"n"}\hldef{)}
-\hlkwd{points}\hldef{(}\hlnum{38.29}\hldef{,} \hlnum{30.35}\hldef{,} \hlkwc{pch} \hldef{=} \hlnum{19}\hldef{,} \hlkwc{col} \hldef{=} \hlsng{"black"}\hldef{,} \hlkwc{cex} \hldef{=} \hlnum{0.5}\hldef{)}
+\hlkwd{tm_shape}\hldef{(col_new)} \hlopt{+}
+  \hlkwd{tm_polygons}\hldef{(}\hlkwc{col} \hldef{=} \hlsng{"delta_y"}\hldef{,}
+              \hlkwc{title} \hldef{=} \hlsng{"Impact"}\hldef{,}
+              \hlkwc{breaks} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{Inf}\hldef{,}\hlopt{-}\hlnum{0.05}\hldef{,} \hlnum{Inf}\hldef{),}
+              \hlkwc{palette} \hldef{=} \hlkwd{c}\hldef{(}\hlsng{"red"}\hldef{,} \hlsng{"blue"}\hldef{)}
+              \hldef{)} \hlopt{+}
+  \hlkwd{tm_layout}\hldef{(}\hlkwc{frame} \hldef{=} \hlnum{FALSE}\hldef{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -6988,16 +6979,13 @@ Sometimes it is useful to visualize these effects. For instance, we might want t
     \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in findInterval(col\_new\$delta\_y, breaks): 'vec' must be sorted non-decreasingly and not contain NAs}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'np' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in (function (s, units = "{}user"{}, cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows those regions that had low and high impact due to increase in \code{INC} in 30th. Red-colored regions are those regions with a decrease of crime rate larger than 0.05, whereas blue-colored regions are those regions with lower decrease of crime rate. 
@@ -7025,16 +7013,13 @@ Now, we map the magnitude of the changes caused by altering \texttt{INC} in regi
         \centering 
 	\begin{minipage}{.9\linewidth}
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=10cm,height=10cm]{figure/predicted-effect2-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in classIntervals(col\_new\$delta\_y, n = 5, style = "{}jenks"{}): single unique value}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'cats5' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'colors5' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'cats5' not found}}\end{kframe}
 \end{knitrout}
 \footnotesize
 		\emph{Notes:} This graph shows the spatial distribution of the changes caused by altering \texttt{INC} in region 30.
@@ -7060,8 +7045,8 @@ If the spatial weights object (\code{listw}) is provided, the exact $\mA(\mW)^{-
 \begin{verbatim}
 ## Impact measures (lag, exact):
 ##           Direct   Indirect      Total
-## INC   -1.1225156 -0.6783818 -1.8008973
-## HOVAL -0.2823163 -0.1706152 -0.4529315
+## INC   -1.1008954 -0.7176834 -1.8185788
+## HOVAL -0.2795832 -0.1822627 -0.4618459
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -7079,7 +7064,7 @@ The output indicates that a \$1,000 increase in income results in a total crime 
 \hldef{ADI}
 \end{alltt}
 \begin{verbatim}
-## [1] -1.122516
+## [1] -1.100895
 \end{verbatim}
 \begin{alltt}
 \hldef{n}     \hlkwb{<-} \hlkwd{length}\hldef{(listw}\hlopt{$}\hldef{neighbours)}
@@ -7088,7 +7073,7 @@ The output indicates that a \$1,000 increase in income results in a total crime 
 \end{alltt}
 \begin{verbatim}
 ##           [,1]
-## [1,] -1.800897
+## [1,] -1.818579
 \end{verbatim}
 \begin{alltt}
 \hldef{Indirect} \hlkwb{<-} \hldef{Total} \hlopt{-} \hldef{ADI}
@@ -7096,7 +7081,7 @@ The output indicates that a \$1,000 increase in income results in a total crime 
 \end{alltt}
 \begin{verbatim}
 ##            [,1]
-## [1,] -0.6783818
+## [1,] -0.7176834
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -7113,25 +7098,25 @@ Note that the results obtained here are consistent with those computed using the
 \begin{verbatim}
 ## Impact measures (lag, exact):
 ##           Direct   Indirect      Total
-## INC   -1.1225156 -0.6783818 -1.8008973
-## HOVAL -0.2823163 -0.1706152 -0.4529315
+## INC   -1.1008954 -0.7176834 -1.8185788
+## HOVAL -0.2795832 -0.1822627 -0.4618459
 ## ========================================================
 ## Simulation results ( variance matrix):
 ## ========================================================
 ## Simulated standard errors
 ##           Direct  Indirect     Total
-## INC   0.28508990 0.3418742 0.5254074
-## HOVAL 0.09464442 0.1093738 0.1772125
+## INC   0.28282601 0.3577736 0.5405404
+## HOVAL 0.09392349 0.1157325 0.1828627
 ## 
 ## Simulated z-values:
 ##          Direct  Indirect     Total
-## INC   -3.857740 -2.090573 -3.453541
-## HOVAL -3.114138 -1.761298 -2.750232
+## INC   -3.813107 -2.113637 -3.394102
+## HOVAL -3.108223 -1.779117 -2.722461
 ## 
 ## Simulated p-values:
 ##       Direct     Indirect Total     
-## INC   0.00011444 0.036566 0.00055328
-## HOVAL 0.00184483 0.078188 0.00595532
+## INC   0.00013723 0.034546 0.00068854
+## HOVAL 0.00188216 0.075221 0.00647977
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -7155,25 +7140,25 @@ To further investigate impacts, we follow an approach that converts the spatial 
 \begin{verbatim}
 ## Impact measures (lag, trace):
 ##           Direct   Indirect      Total
-## INC   -1.1220237 -0.6788736 -1.8008973
-## HOVAL -0.2821926 -0.1707389 -0.4529315
+## INC   -1.1005308 -0.7180480 -1.8185788
+## HOVAL -0.2794906 -0.1823553 -0.4618459
 ## ========================================================
 ## Simulation results ( variance matrix):
 ## ========================================================
 ## Simulated standard errors
 ##           Direct  Indirect     Total
-## INC   0.30303387 0.2985437 0.4706174
-## HOVAL 0.09635802 0.1161956 0.1879878
+## INC   0.30031535 0.3102509 0.4822243
+## HOVAL 0.09562931 0.1231717 0.1942588
 ## 
 ## Simulated z-values:
 ##          Direct  Indirect     Total
-## INC   -3.821767 -2.198798 -3.855705
-## HOVAL -2.937362 -1.457964 -2.406792
+## INC   -3.783033 -2.246741 -3.801460
+## HOVAL -2.931650 -1.473802 -2.377665
 ## 
 ## Simulated p-values:
-##       Direct    Indirect Total    
-## INC   0.0001325 0.027892 0.0001154
-## HOVAL 0.0033102 0.144850 0.0160933
+##       Direct     Indirect Total     
+## INC   0.00015493 0.024657 0.00014385
+## HOVAL 0.00337167 0.140535 0.01742266
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -7190,102 +7175,102 @@ Additionally, we can examine cumulative impacts by specifying the \code{Q} argum
 \begin{verbatim}
 ## Impact measures (lag, trace):
 ##           Direct   Indirect      Total
-## INC   -1.1220237 -0.6788736 -1.8008973
-## HOVAL -0.2821926 -0.1707389 -0.4529315
+## INC   -1.1005308 -0.7180480 -1.8185788
+## HOVAL -0.2794906 -0.1823553 -0.4618459
 ## =================================
 ## Impact components
 ## $direct
 ##             INC         HOVAL
-## Q1 -1.073533465 -0.2699971236
+## Q1 -1.048728151 -0.2663348082
 ## Q2  0.000000000  0.0000000000
-## Q3 -0.038985415 -0.0098049573
-## Q4 -0.005035472 -0.0012664374
-## Q5 -0.003072085 -0.0007726393
+## Q3 -0.040699822 -0.0103361193
+## Q4 -0.005824619 -0.0014792192
+## Q5 -0.003506134 -0.0008904172
 ## 
 ## $indirect
 ##            INC        HOVAL
 ## Q1  0.00000000  0.000000000
-## Q2 -0.43358910 -0.109049054
-## Q3 -0.13613675 -0.034238831
-## Q4 -0.06569456 -0.016522394
-## Q5 -0.02549505 -0.006412086
+## Q2 -0.44395329 -0.112746297
+## Q3 -0.14723690 -0.037392255
+## Q4 -0.07373377 -0.018725415
+## Q5 -0.03017296 -0.007662718
 ## 
 ## $total
 ##            INC        HOVAL
-## Q1 -1.07353347 -0.269997124
-## Q2 -0.43358910 -0.109049054
-## Q3 -0.17512216 -0.044043788
-## Q4 -0.07073004 -0.017788832
-## Q5 -0.02856713 -0.007184726
+## Q1 -1.04872815 -0.266334808
+## Q2 -0.44395329 -0.112746297
+## Q3 -0.18793672 -0.047728374
+## Q4 -0.07955839 -0.020204635
+## Q5 -0.03367909 -0.008553136
 ## 
 ## ========================================================
 ## Simulation results ( variance matrix):
 ## ========================================================
 ## Simulated standard errors
 ##           Direct  Indirect     Total
-## INC   0.34631256 0.4029543 0.6401131
-## HOVAL 0.08921795 0.1241116 0.1807874
+## INC   0.34376793 0.4220001 0.6581614
+## HOVAL 0.08852368 0.1318822 0.1878685
 ## 
 ## Simulated z-values:
 ##          Direct  Indirect     Total
-## INC   -3.233305 -1.853701 -2.916189
-## HOVAL -3.239503 -1.585160 -2.686904
+## INC   -3.195109 -1.872734 -2.869616
+## HOVAL -3.234666 -1.595724 -2.644361
 ## 
 ## Simulated p-values:
 ##       Direct    Indirect Total    
-## INC   0.0012237 0.063782 0.0035434
-## HOVAL 0.0011974 0.112930 0.0072118
+## INC   0.0013978 0.061105 0.0041097
+## HOVAL 0.0012179 0.110550 0.0081845
 ## ========================================================
 ## Simulated impact components z-values:
 ## $Direct
 ##          INC      HOVAL
-## Q1 -3.167835 -3.1796183
+## Q1 -3.128663 -3.1723958
 ## Q2       NaN        NaN
-## Q3 -1.703030 -1.5687862
-## Q4 -1.272087 -1.0947684
-## Q5 -1.002337 -0.8174607
+## Q3 -1.762712 -1.6370540
+## Q4 -1.322197 -1.1457789
+## Q5 -1.043953 -0.8562793
 ## 
 ## $Indirect
 ##          INC      HOVAL
 ## Q1       NaN        NaN
-## Q2 -2.465562 -2.4657025
-## Q3 -1.703030 -1.5687862
-## Q4 -1.272087 -1.0947684
-## Q5 -1.002337 -0.8174607
+## Q2 -2.517127 -2.5426679
+## Q3 -1.762712 -1.6370540
+## Q4 -1.322197 -1.1457789
+## Q5 -1.043953 -0.8562793
 ## 
 ## $Total
 ##          INC      HOVAL
-## Q1 -3.167835 -3.1796183
-## Q2 -2.465562 -2.4657025
-## Q3 -1.703030 -1.5687862
-## Q4 -1.272087 -1.0947684
-## Q5 -1.002337 -0.8174607
+## Q1 -3.128663 -3.1723958
+## Q2 -2.517127 -2.5426679
+## Q3 -1.762712 -1.6370540
+## Q4 -1.322197 -1.1457789
+## Q5 -1.043953 -0.8562793
 ## 
 ## 
 ## Simulated impact components p-values:
 ## $Direct
-##    INC       HOVAL    
-## Q1 0.0015358 0.0014747
-## Q2 NA        NA       
-## Q3 0.0885624 0.1166978
-## Q4 0.2033424 0.2736181
-## Q5 0.3161810 0.4136652
+##    INC      HOVAL    
+## Q1 0.001756 0.0015119
+## Q2 NA       NA       
+## Q3 0.077949 0.1016192
+## Q4 0.186103 0.2518866
+## Q5 0.296507 0.3918433
 ## 
 ## $Indirect
 ##    INC      HOVAL   
 ## Q1 NA       NA      
-## Q2 0.013680 0.013674
-## Q3 0.088562 0.116698
-## Q4 0.203342 0.273618
-## Q5 0.316181 0.413665
+## Q2 0.011832 0.011001
+## Q3 0.077949 0.101619
+## Q4 0.186103 0.251887
+## Q5 0.296507 0.391843
 ## 
 ## $Total
-##    INC       HOVAL    
-## Q1 0.0015358 0.0014747
-## Q2 0.0136799 0.0136745
-## Q3 0.0885624 0.1166978
-## Q4 0.2033424 0.2736181
-## Q5 0.3161810 0.4136652
+##    INC      HOVAL    
+## Q1 0.001756 0.0015119
+## Q2 0.011832 0.0110010
+## Q3 0.077949 0.1016192
+## Q4 0.186103 0.2518866
+## Q5 0.296507 0.3918433
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -8809,13 +8794,9 @@ To carry out the Moran's $I$ test on the residuals in \proglang{R} we need to pa
 \hlcom{# Moran test for residuals}
 \hlkwd{library}\hldef{(}\hlsng{"spdep"}\hldef{)}
 \hlcom{# Load data}
-\hldef{columbus}   \hlkwb{<-} \hlkwd{readShapePoly}\hldef{(}\hlsng{"columbus.shp"}\hldef{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in readShapePoly("{}columbus.shp"{}): could not find function "{}readShapePoly"{}}}\begin{alltt}
-\hldef{col.gal.nb} \hlkwb{<-} \hlkwd{read.gal}\hldef{(}\hlkwd{system.file}\hldef{(}\hlsng{"etc/weights/columbus.gal"}\hldef{,}
-                                   \hlkwc{package} \hldef{=} \hlsng{"spdep"}\hldef{)[}\hlnum{1}\hldef{])}
+\hldef{columbus} \hlkwb{<-} \hlkwd{st_read}\hldef{(}\hlkwd{system.file}\hldef{(}\hlsng{"shapes/columbus.gpkg"}\hldef{,} \hlkwc{package}\hldef{=}\hlsng{"spData"}\hldef{)[}\hlnum{1}\hldef{],}
+                           \hlkwc{quiet} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{col.gal.nb} \hlkwb{<-} \hlkwd{poly2nb}\hldef{(columbus)}
 \hldef{listw} \hlkwb{<-} \hlkwd{nb2listw}\hldef{(col.gal.nb,} \hlkwc{style} \hldef{=} \hlsng{"W"}\hldef{)}
 \hldef{ols} \hlkwb{<-} \hlkwd{lm}\hldef{(CRIME} \hlopt{~} \hldef{INC} \hlopt{+} \hldef{HOVAL,}
           \hlkwc{data} \hldef{=  columbus)}
@@ -8829,11 +8810,11 @@ To carry out the Moran's $I$ test on the residuals in \proglang{R} we need to pa
 ## model: lm(formula = CRIME ~ INC + HOVAL, data = columbus)
 ## weights: listw
 ## 
-## Moran I statistic standard deviate = 2.681, p-value = 0.00734
+## Moran I statistic standard deviate = 2.8393, p-value = 0.004521
 ## alternative hypothesis: two.sided
 ## sample estimates:
 ## Observed Moran I      Expectation         Variance 
-##      0.212374153     -0.033268284      0.008394853
+##      0.222109407     -0.033418335      0.008099305
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -9342,7 +9323,7 @@ Lagrange Multiplier tests, as well as their robust forms are included in the \co
 ## model: lm(formula = CRIME ~ INC + HOVAL, data = columbus)
 ## test weights: listw
 ## 
-## RSerr = 4.6111, df = 1, p-value = 0.03177
+## RSerr = 5.2062, df = 1, p-value = 0.02251
 ## 
 ## 
 ## 	Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial
@@ -9352,7 +9333,7 @@ Lagrange Multiplier tests, as well as their robust forms are included in the \co
 ## model: lm(formula = CRIME ~ INC + HOVAL, data = columbus)
 ## test weights: listw
 ## 
-## adjRSerr = 0.033514, df = 1, p-value = 0.8547
+## adjRSerr = 0.043906, df = 1, p-value = 0.834
 ## 
 ## 
 ## 	Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial
@@ -9362,7 +9343,7 @@ Lagrange Multiplier tests, as well as their robust forms are included in the \co
 ## model: lm(formula = CRIME ~ INC + HOVAL, data = columbus)
 ## test weights: listw
 ## 
-## RSlag = 7.8557, df = 1, p-value = 0.005066
+## RSlag = 8.898, df = 1, p-value = 0.002855
 ## 
 ## 
 ## 	Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial
@@ -9372,7 +9353,7 @@ Lagrange Multiplier tests, as well as their robust forms are included in the \co
 ## model: lm(formula = CRIME ~ INC + HOVAL, data = columbus)
 ## test weights: listw
 ## 
-## adjRSlag = 3.2781, df = 1, p-value = 0.07021
+## adjRSlag = 3.7357, df = 1, p-value = 0.05326
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

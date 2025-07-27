@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.12)  13 JUN 2025 10:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.12)  27 JUL 2025 09:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -4135,24 +4135,16 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [136]
-Overfull \hbox (40.36864pt too wide) in paragraph at lines 6708--6708
-[]\T1/cmtt/m/n/12 ## Error in readShapePoly("columbus.shp"): could not find fun
-ction "readShapePoly"[] 
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 6700--6700
+[][]\T1/cmtt/m/n/12 columbus[] []<-[] []st_read[][]([][]system.file[][]([][]"sh
+apes/columbus.gpkg"[][],[] []package[][]=[][]"spData"[][])[[][]1[][]],[][] 
  []
 
-
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 6722--6722
-[]       []\T1/cmtt/m/n/12 at[] []=[] []quantile[][](columbus[][]$[][]CRIME,[] 
-[]p[] []=[] []c[][]([][]0[][],[] [].25[][],[] [].5[][],[] [].75[][],[] []1[][])
-,[] []na.rm[] []=[] []TRUE[][]),[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6740--6740
-[]\T1/cmtt/m/n/12 ## Error: unable to find an inherited method for function 'sp
-plot'
- []
-
+<figure/spatial-crime-1.pdf, id=2072, 505.89pt x 505.89pt>
+File: figure/spatial-crime-1.pdf Graphic file (type pdf)
+<use figure/spatial-crime-1.pdf>
+Package pdftex.def Info: figure/spatial-crime-1.pdf  used on input line 6733.
+(pdftex.def)             Requested size: 256.07838pt x 256.07838pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4180,7 +4172,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[138]
+[138 <./figure/spatial-crime-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4195,248 +4187,265 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [139]
-Overfull \hbox (13.25018pt too wide) detected at line 6861
+Overfull \hbox (13.25018pt too wide) detected at line 6858
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 619[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6861
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 029[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6858
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 553[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6861
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 851[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6858
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 603[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6861
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 593[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6858
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 320[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6861
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 054[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6858
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 279[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6862
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 051[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6859
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 915[]$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6862
+Overfull \hbox (4.5694pt too wide) detected at line 6859
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 735)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6862
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 722)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6859
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 716)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6862
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 315)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6859
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 257)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6862
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 129)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6859
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 045)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6862
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 315)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6859
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 366)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6863
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 055)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6860
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 986)$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6863
+Overfull \hbox (13.25018pt too wide) detected at line 6860
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 597[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6863
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 108[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6860
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 097[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6863
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 074[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6860
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 049[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6863
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 939[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6860
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 920[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6863
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 995[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6860
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 957[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6864
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 069[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6861
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 043[]$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6864
+Overfull \hbox (4.5694pt too wide) detected at line 6861
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 334)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6864
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 375)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6861
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 374)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6864
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 311)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6861
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 307)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6864
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 338)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6861
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 335)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6864
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 337)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6861
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 334)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6865
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 333)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6862
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 329)$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 6865
+Overfull \hbox (4.75006pt too wide) detected at line 6862
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 274[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6865
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 295[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6862
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 294[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6865
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 270[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6862
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 266[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6865
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 300[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6862
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 297[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6865
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 308[]$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6862
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 305[]$ 
  []
 
 
-Overfull \hbox (9.00012pt too wide) detected at line 6866
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 283[]$ 
+Overfull \hbox (9.00012pt too wide) detected at line 6863
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 280[]$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6866
+Overfull \hbox (4.5694pt too wide) detected at line 6863
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 103)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6866
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 101)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6863
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 102)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6866
+Overfull \hbox (4.5694pt too wide) detected at line 6863
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 089)$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6863
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 090)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6866
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 091)$ 
- []
-
-
-Overfull \hbox (4.5694pt too wide) detected at line 6866
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 093)$ 
- []
-
-
-Overfull \hbox (4.5694pt too wide) detected at line 6867
+Overfull \hbox (4.5694pt too wide) detected at line 6863
 $\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 092)$ 
  []
 
 
-Overfull \hbox (4.75006pt too wide) detected at line 6867
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 383[]$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6864
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 091)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6868
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 559)$ 
+Overfull \hbox (4.75006pt too wide) detected at line 6864
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 399[]$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6868
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 577)$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6865
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 560)$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6865
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 574)$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6867
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 208)$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6867
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 187)$ 
+ []
+
+
+Overfull \hbox (13.25018pt too wide) detected at line 6868
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 423[]$ 
+ []
+
+
+Overfull \hbox (4.75006pt too wide) detected at line 6868
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 403[]$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6869
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 120)$ 
+ []
+
+
+Overfull \hbox (4.5694pt too wide) detected at line 6869
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 161)$ 
  []
 
 
 Overfull \hbox (4.5694pt too wide) detected at line 6870
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 203)$ 
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 196)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6870
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 184)$ 
+Overfull \hbox (13.25018pt too wide) detected at line 6870
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 547[]$ 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6871
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 404[]$ 
- []
-
-
-Overfull \hbox (4.75006pt too wide) detected at line 6871
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 383[]$ 
+Overfull \hbox (4.5694pt too wide) detected at line 6871
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 138)$ 
  []
 
 
 Overfull \hbox (4.5694pt too wide) detected at line 6872
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 121)$ 
+$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 301)$ 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6872
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 162)$ 
+Overfull \hbox (36.27797pt too wide) in paragraph at lines 6901--6901
+[][]\T1/cmtt/m/n/12 rho[]       []<-[] []slm[][]$[][]rho[]                     
+           []\T1/cmtt/m/it/12 # Estimated rho from SLM model[][] 
  []
 
 
-Overfull \hbox (4.5694pt too wide) detected at line 6873
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 197)$ 
+Overfull \hbox (36.27797pt too wide) in paragraph at lines 6904--6904
+[][]\T1/cmtt/m/n/12 X[]         []<-[] []cbind[][]([][]1[][], columbus[][]$[][]
+INC, columbus[][]$[][]HOVAL)[] []\T1/cmtt/m/it/12 # Matrix of observed variable
+s[][] 
  []
 
 
-Overfull \hbox (13.25018pt too wide) detected at line 6873
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 521[]$ 
- []
-
-
-Overfull \hbox (4.5694pt too wide) detected at line 6874
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 141)$ 
- []
-
-
-Overfull \hbox (4.5694pt too wide) detected at line 6875
-$\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 299)$ 
+Overfull \vbox (0.8478pt too high) detected at line 6907
  []
 
 
@@ -4453,24 +4462,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [140]
-Overfull \hbox (36.27797pt too wide) in paragraph at lines 6904--6904
-[][]\T1/cmtt/m/n/12 rho[]       []<-[] []slm[][]$[][]rho[]                     
-           []\T1/cmtt/m/it/12 # Estimated rho from SLM model[][] 
- []
-
-
-Overfull \hbox (36.27797pt too wide) in paragraph at lines 6907--6907
-[][]\T1/cmtt/m/n/12 X[]         []<-[] []cbind[][]([][]1[][], columbus[][]$[][]
-INC, columbus[][]$[][]HOVAL)[] []\T1/cmtt/m/it/12 # Matrix of observed variable
-s[][] 
- []
-
-
-Overfull \hbox (15.67467pt too wide) in paragraph at lines 6926--6926
-[]\T1/cmtt/m/n/12 ## Error in `*tmp*`@data: no applicable method for `@` applie
-d to an object of
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4485,28 +4476,18 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [141]
-Underfull \hbox (badness 10000) in paragraph at lines 6994--6995
-[]\T1/cmtt/m/n/12 ## Error in findInterval(col_new$delta_y, breaks): 'vec' must
- be
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6998--6999
-[]\T1/cmtt/m/n/12 ## Error in (function (s, units = "user", cex = NULL, font = 
-NULL,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 7000--7000
-[]\T1/cmtt/m/n/12 ## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.
-new
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 7031--7032
-[]\T1/cmtt/m/n/12 ## Error in classIntervals(col_new$delta_y, n = 5, style = "j
-enks"):
- []
+<figure/predicted-effect-1.pdf, id=2108, 505.89pt x 505.89pt>
+File: figure/predicted-effect-1.pdf Graphic file (type pdf)
+<use figure/predicted-effect-1.pdf>
+Package pdftex.def Info: figure/predicted-effect-1.pdf  used on input line 6984
+.
+(pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
+<figure/predicted-effect2-1.pdf, id=2110, 505.89pt x 505.89pt>
+File: figure/predicted-effect2-1.pdf Graphic file (type pdf)
+<use figure/predicted-effect2-1.pdf>
+Package pdftex.def Info: figure/predicted-effect2-1.pdf  used on input line 701
+8.
+(pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4535,7 +4516,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[143]
+[143 <./figure/predicted-effect-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4549,7 +4530,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[144]
+[144 <./figure/predicted-effect2-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4578,11 +4559,11 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [146]
-Underfull \vbox (badness 10000) detected at line 7290
+Underfull \vbox (badness 10000) detected at line 7275
  []
 
 
-Underfull \vbox (badness 10000) detected at line 7290
+Underfull \vbox (badness 10000) detected at line 7275
  []
 
 
@@ -4599,14 +4580,28 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [147]
-Overfull \hbox (52.71562pt too wide) in paragraph at lines 7327--7327
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[148]
+Overfull \hbox (52.71562pt too wide) in paragraph at lines 7312--7312
 []  []\T1/cmtt/m/n/12 ll[]   []<-[] []-[][]0.5[] []*[] []N[] []*[] []log[][]([]
 []2[] []*[] []pi[] []*[] []sig.sq)[] []-[] []0.5[] []*[] []crossprod[][](res)[]
  []/[] []sig.sq[] []+[] []log[][](detA)[][] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 7345--7345
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 7330--7330
 []    []\T1/cmtt/m/n/12 h_rr[] []<-[] []-[] []sum[][]([][]diag[][](C[] []%*%[] 
 []C))[] []-[] []([][]1[] []/[] []sig.sq)[] []*[] []([][]t[][](y)[] []%*%[] []t[
 ][](W)[] []%*%[] []W[] []%*%[] []y)[][] 
@@ -4625,14 +4620,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[148]
-Overfull \hbox (48.62495pt too wide) in paragraph at lines 7405--7405
+[149]
+Overfull \hbox (48.62495pt too wide) in paragraph at lines 7390--7390
 []  []\T1/cmtt/m/it/12 # Restricted optimization if BFGS: A %*% theta + B >= 0:
  Constraint rho and sigma2[][] 
  []
 
 
-Overfull \hbox (182.35896pt too wide) in paragraph at lines 7409--7409
+Overfull \hbox (182.35896pt too wide) in paragraph at lines 7394--7394
 []    []\T1/cmtt/m/n/12 lambda_space[] []<-[] []if[] []([][]is.complex[][](omeg
 a[][]$[][]values))[] []1[] []/[] []range[][]([][]Re[][](omega[][]$[][]values))[
 ] []else[] []1[] []/[] []range[][](omega[][]$[][]values)[][] 
@@ -4651,28 +4646,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[149]
-Underfull \vbox (badness 10000) detected at line 7439
- []
-
-
-Underfull \vbox (badness 10000) detected at line 7439
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [150]
+Underfull \vbox (badness 10000) detected at line 7424
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 7424
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4701,9 +4682,37 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [152]
-Overfull \hbox (0.6255pt too wide) in paragraph at lines 7581--7582
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[153]
+Overfull \hbox (0.6255pt too wide) in paragraph at lines 7566--7567
 []\T1/cmr/m/n/12 Both op-ti-miza-tion pro-ce-dures yield sim-i-lar es-ti-mates 
 and stan-dard er-rors, but the Newton-
+ []
+
+
+Overfull \hbox (65.0626pt too wide) in paragraph at lines 7583--7583
+[]  []\T1/cmtt/m/n/12 det[]    []<-[] []if[] []([][]is.complex[][](omega))[] []
+Re[][]([][]prod[][]([][]1[] []-[] []rho[] []*[] []omega))[] []else[] []prod[][]
+([][]1[] []-[] []rho[] []*[] []omega)[][] 
+ []
+
+
+Overfull \hbox (21.84816pt too wide) in paragraph at lines 7588--7588
+[]  []\T1/cmtt/m/n/12 l_c[]    []<-[] []-[] [](n[] []/[] []2[][])[] []-[] [](n[
+] []/[] []2[][])[] []*[] []log[][]([][]2[] []*[] []pi)[] []-[] [](n[] []/[] []2
+[][])[] []*[] []log[][](sigma2)[] []+[] []log[][](det)[][] 
  []
 
 
@@ -4719,22 +4728,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[153]
-Overfull \hbox (65.0626pt too wide) in paragraph at lines 7598--7598
-[]  []\T1/cmtt/m/n/12 det[]    []<-[] []if[] []([][]is.complex[][](omega))[] []
-Re[][]([][]prod[][]([][]1[] []-[] []rho[] []*[] []omega))[] []else[] []prod[][]
-([][]1[] []-[] []rho[] []*[] []omega)[][] 
- []
-
-
-Overfull \hbox (21.84816pt too wide) in paragraph at lines 7603--7603
-[]  []\T1/cmtt/m/n/12 l_c[]    []<-[] []-[] [](n[] []/[] []2[][])[] []-[] [](n[
-] []/[] []2[][])[] []*[] []log[][]([][]2[] []*[] []pi)[] []-[] [](n[] []/[] []2
-[][])[] []*[] []log[][](sigma2)[] []+[] []log[][](det)[][] 
- []
-
-
-Overfull \hbox (151.4915pt too wide) in paragraph at lines 7646--7646
+[154]
+Overfull \hbox (151.4915pt too wide) in paragraph at lines 7631--7631
 []  []\T1/cmtt/m/n/12 rho_space[] []<-[] []if[] []([][]is.complex[][](omega[][]
 $[][]values))[] []1[] []/[] []range[][]([][]Re[][](omega[][]$[][]values))[] []e
 lse[] []1[] []/[] []range[][](omega[][]$[][]values)[][] 
@@ -4753,7 +4748,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[154]
+[155]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4767,14 +4762,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[155]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 7754--7754
+[156]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 7739--7739
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 7761--7761
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 7746--7746
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -4792,25 +4787,11 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[156]
-Overfull \hbox (21.1873pt too wide) in paragraph at lines 7798--7810
+[157]
+Overfull \hbox (21.1873pt too wide) in paragraph at lines 7783--7795
  [][] 
  []
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[157]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4867,7 +4848,21 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [161]
-Overfull \hbox (102.11815pt too wide) in paragraph at lines 8104--8105
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[162]
+Overfull \hbox (102.11815pt too wide) in paragraph at lines 8089--8090
 []\T1/cmr/m/n/12 Since $\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 C[]X[]^^L[]\OT1/cmr/m
 /n/12 )[]\OML/cmm/b/it/12 M[]$ \T1/cmr/m/n/12 is uni-formly bounded, then by Ch
 eby-shev's in-equal-ity [][]3.B.4[][] $\OML/cmm/m/it/12 n[]\OT1/cmr/m/n/12 (\OM
@@ -4875,7 +4870,7 @@ L/cmm/b/it/12 C[]X[]^^L[]\OT1/cmr/m/n/12 )[]\OML/cmm/b/it/12 M[]"[] []
  []
 
 
-Overfull \hbox (15.67862pt too wide) detected at line 8116
+Overfull \hbox (15.67862pt too wide) detected at line 8101
 [][]
  []
 
@@ -4892,27 +4887,13 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[162]
-Overfull \hbox (62.85275pt too wide) in paragraph at lines 8154--8155
+[163]
+Overfull \hbox (62.85275pt too wide) in paragraph at lines 8139--8140
  []\T1/cmr/bx/n/12 Identification[] \T1/cmr/m/n/12 Here, we need to show that f
 or any $\OML/cmm/m/it/12 ^^O > \OT1/cmr/m/n/12 0$\T1/cmr/m/n/12 , $[] [][] [] \
 OML/cmm/m/it/12 <
  []
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[163]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4941,10 +4922,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [165]
-Overfull \hbox (14.1501pt too wide) detected at line 8391
-[][][][][]
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4959,12 +4936,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [166]
-Overfull \hbox (36.88786pt too wide) detected at line 8405
+Overfull \hbox (14.1501pt too wide) detected at line 8376
 [][][][][]
  []
 
 
-Overfull \hbox (14.01323pt too wide) detected at line 8432
+Overfull \hbox (36.88786pt too wide) detected at line 8390
 [][][][][]
  []
 
@@ -4982,7 +4959,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [167]
-Overfull \hbox (14.88966pt too wide) detected at line 8442
+Overfull \hbox (14.01323pt too wide) detected at line 8417
+[][][][][]
+ []
+
+
+Overfull \hbox (14.88966pt too wide) detected at line 8427
 [][][]\OML/cmm/b/it/12 J[] \OT1/cmr/m/n/12 = []
  []
 
@@ -5028,18 +5010,13 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [170]
-Overfull \hbox (31.81856pt too wide) detected at line 8579
+Overfull \hbox (31.81856pt too wide) detected at line 8564
 [][]
  []
 
 
-Overfull \hbox (44.79352pt too wide) detected at line 8606
+Overfull \hbox (44.79352pt too wide) detected at line 8591
 [][][][][] \OT1/cmr/m/n/12 = []
- []
-
-
-Overfull \hbox (65.23691pt too wide) detected at line 8618
-[][][][][]
  []
 
 
@@ -5056,6 +5033,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [171]
+Overfull \hbox (65.23691pt too wide) detected at line 8603
+[][][][][]
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5070,61 +5051,56 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [172]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[173]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[174
+
+]
 Chapter 5.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 8670--8670
+Overfull \hbox (10.0pt too wide) in paragraph at lines 8655--8655
 [][][][][][][][][]  
  []
 
-[173
-
-]
-Package mdframed Info: mdframed works in twoside mode on input line 8701.
+[175]
+Package mdframed Info: mdframed works in twoside mode on input line 8686.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8701.
+(mdframed)              on input line 8686.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 8776.
+(hyperref)                removing `math shift' on input line 8761.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 8776.
+(hyperref)                removing `math shift' on input line 8761.
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[174]
-Overfull \hbox (40.36864pt too wide) in paragraph at lines 8816--8816
-[]\T1/cmtt/m/n/12 ## Error in readShapePoly("columbus.shp"): could not find fun
-ction "readShapePoly"[] 
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[175]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5139,10 +5115,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [176]
-Package mdframed Info: mdframed works in twoside mode on input line 8894.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 8894.
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 8797--8797
+[][]\T1/cmtt/m/n/12 columbus[] []<-[] []st_read[][]([][]system.file[][]([][]"sh
+apes/columbus.gpkg"[][],[] []package[][]=[][]"spData"[][])[[][]1[][]],[][] 
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5172,10 +5148,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [178]
-Package mdframed Info: mdframed works in twoside mode on input line 8995.
+Package mdframed Info: mdframed works in twoside mode on input line 8875.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 8995.
+(mdframed)              on input line 8875.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5191,11 +5167,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [179]
-Package mdframed Info: mdframed works in twoside mode on input line 9052.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9052.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5210,14 +5181,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [180]
-Package mdframed Info: mdframed works in twoside mode on input line 9081.
+Package mdframed Info: mdframed works in twoside mode on input line 8976.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9081.
-
-
-LaTeX Warning: Reference `eq:asyvar_slm' on page 181 undefined on input line 91
-13.
+(mdframed)              on input line 8976.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5233,14 +5200,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [181]
-Package mdframed Info: mdframed works in twoside mode on input line 9146.
+Package mdframed Info: mdframed works in twoside mode on input line 9033.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9146.
-Package mdframed Info: mdframed works in twoside mode on input line 9178.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9178.
+(mdframed)              on input line 9033.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5256,7 +5219,53 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [182]
-Overfull \hbox (16.63945pt too wide) in paragraph at lines 9235--9238
+Package mdframed Info: mdframed works in twoside mode on input line 9062.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9062.
+
+
+LaTeX Warning: Reference `eq:asyvar_slm' on page 183 undefined on input line 90
+94.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[183]
+Package mdframed Info: mdframed works in twoside mode on input line 9127.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9127.
+Package mdframed Info: mdframed works in twoside mode on input line 9159.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9159.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[184]
+Overfull \hbox (16.63945pt too wide) in paragraph at lines 9216--9219
 \T1/cmr/m/n/12 where $\OML/cmm/b/it/12 W[] \OT1/cmr/m/n/12 = \OML/cmm/b/it/12 W
 \OT1/cmr/m/n/12 (\OML/cmm/b/it/12 I \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^U\O
 ML/cmm/b/it/12 W\OT1/cmr/m/n/12 )[]$\T1/cmr/m/n/12 . Un-der the null, $\U/msb/m
@@ -5277,39 +5286,11 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[183]
-
-LaTeX Warning: Reference `eq:asyvar_slm' on page 184 undefined on input line 92
-72.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[184]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [185]
+
+LaTeX Warning: Reference `eq:asyvar_slm' on page 186 undefined on input line 92
+53.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5379,14 +5360,19 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[190
+[190]
 
-]
-Chapter 6.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 9550--9550
-[][][][][][][][][]  
- []
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [191]
 
@@ -5402,19 +5388,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[192]
+[192
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
+]
+Chapter 6.
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+Overfull \hbox (10.0pt too wide) in paragraph at lines 9531--9531
+[][][][][][][][][]  
+ []
 
 [193]
 
@@ -5431,12 +5412,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [194]
-Overfull \hbox (14.14201pt too wide) detected at line 9731
-[][][][] [] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 ^^@ [][] [][] \OML/cmm/b/it/12 ^
-^G[] [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 o[]\OT1/cmr/m/n/12 (1)\OML/cmm/m/it/
-12 ;
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5465,6 +5440,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [196]
+Overfull \hbox (14.14201pt too wide) detected at line 9712
+[][][][] [] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 ^^@ [][] [][] \OML/cmm/b/it/12 ^
+^G[] [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 o[]\OT1/cmr/m/n/12 (1)\OML/cmm/m/it/
+12 ;
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5493,37 +5474,65 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [198]
-Package mdframed Info: mdframed works in twoside mode on input line 9902.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[199]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[200]
+Package mdframed Info: mdframed works in twoside mode on input line 9883.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9902.
+(mdframed)              on input line 9883.
 
-Overfull \hbox (5.66328pt too wide) in paragraph at lines 9903--9904
+Overfull \hbox (5.66328pt too wide) in paragraph at lines 9884--9885
 \T1/cmr/m/n/12 Ad-di-tion-ally the er-rors are as-sumed to pos-sess fourth mo-m
 ents, that is $[][] \U/msb/m/n/12 E [][]$
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 9912.
+Package mdframed Info: mdframed works in twoside mode on input line 9893.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9912.
+(mdframed)              on input line 9893.
 
-Overfull \hbox (61.85654pt too wide) in paragraph at lines 9913--9914
+Overfull \hbox (61.85654pt too wide) in paragraph at lines 9894--9895
 [][][][]\T1/cmss/bx/n/10.95 Assumption 6.2 []--- Ho-moskedas-tic Er-rors ([][]K
 ele-jian and Prucha[][], [][]1998[][]). [][][][]\T1/cmr/m/n/12 The er-rors $[]$
 
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 9920.
+Package mdframed Info: mdframed works in twoside mode on input line 9901.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9920.
-Package mdframed Info: mdframed works in twoside mode on input line 9928.
+(mdframed)              on input line 9901.
+Package mdframed Info: mdframed works in twoside mode on input line 9909.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 9928.
+(mdframed)              on input line 9909.
 
-Overfull \hbox (9.26637pt too wide) in paragraph at lines 9940--9941
+Overfull \hbox (9.26637pt too wide) in paragraph at lines 9921--9922
 []\T1/cmr/m/n/12 Furthermore, As-sump-tion [][]6.1[][] (Het-eroskedas-tic Er-ro
 rs) im-plies that the pop-u-la-tion variance-
  []
@@ -5541,56 +5550,23 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[199]
-Package mdframed Info: mdframed works in twoside mode on input line 9953.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9953.
-Package mdframed Info: mdframed works in twoside mode on input line 9966.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9966.
-Package mdframed Info: mdframed works in twoside mode on input line 9976.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9976.
-Package mdframed Info: mdframed works in twoside mode on input line 9983.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 9983.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[200]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [201]
-Package mdframed Info: mdframed works in twoside mode on input line 10046.
+Package mdframed Info: mdframed works in twoside mode on input line 9934.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 10046.
+(mdframed)              on input line 9934.
+Package mdframed Info: mdframed works in twoside mode on input line 9947.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9947.
+Package mdframed Info: mdframed works in twoside mode on input line 9957.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9957.
+Package mdframed Info: mdframed works in twoside mode on input line 9964.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 9964.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5620,14 +5596,10 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [203]
-Overfull \hbox (2.64258pt too wide) detected at line 10121
-[][][][][]
- []
-
-
-Overfull \hbox (41.56834pt too wide) detected at line 10129
-[][][][][]
- []
+Package mdframed Info: mdframed works in twoside mode on input line 10027.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10027.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5643,15 +5615,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [204]
-Overfull \hbox (48.9155pt too wide) detected at line 10169
-[][][][][]
- []
-
-Package mdframed Info: mdframed works in twoside mode on input line 10209.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10209.
-Package mdframed Info: Not enough space on this page on input line 10243.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5666,7 +5629,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [205]
-Package mdframed Info: Not enough space on this page on input line 10243.
+Overfull \hbox (2.64258pt too wide) detected at line 10102
+[][][][][]
+ []
+
+
+Overfull \hbox (41.56834pt too wide) detected at line 10110
+[][][][][]
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5682,7 +5652,46 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [206]
-Overfull \hbox (23.93098pt too wide) in paragraph at lines 10290--10290
+Overfull \hbox (48.9155pt too wide) detected at line 10150
+[][][][][]
+ []
+
+Package mdframed Info: mdframed works in twoside mode on input line 10190.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10190.
+Package mdframed Info: Not enough space on this page on input line 10224.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[207]
+Package mdframed Info: Not enough space on this page on input line 10224.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[208]
+Overfull \hbox (23.93098pt too wide) in paragraph at lines 10271--10271
 []                                               []\T1/cmtt/m/n/12 dim[][](X)[[
 ][]2[][]][] []-[] []1[][])[] []\T1/cmtt/m/it/12 #Drop first column[][] 
  []
@@ -5700,44 +5709,44 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[207]
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10356--10356
+[209]
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10337--10337
 []\T1/cmtt/m/n/12 ##            W*x1       W*x2        W*x3       WW*x1       W
 W*x2       WW*x3 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10357--10357
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10338--10338
 []\T1/cmtt/m/n/12 ## [1,] -0.1838084  1.4871684  1.06237375 -0.19093708 -0.6672
 1937  0.11419352[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10358--10358
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10339--10339
 []\T1/cmtt/m/n/12 ## [2,] -0.1734224 -0.4801317  0.00889001 -0.18346010  1.1672
 4914  0.84907535[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10359--10359
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10340--10340
 []\T1/cmtt/m/n/12 ## [3,] -0.1376933  0.7858546  0.65742663 -0.07600407 -0.0655
 9888 -0.33095264[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10360--10360
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10341--10341
 []\T1/cmtt/m/n/12 ## [4,]  0.2516524  0.5410386 -0.66094372 -0.17572619  0.0462
 4316  0.12822625[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10361--10361
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10342--10342
 []\T1/cmtt/m/n/12 ## [5,] -0.2524966 -0.7357899 -0.27611007  0.53392070  0.4656
 8956 -0.40883400[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 10362--10362
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10343--10343
 []\T1/cmtt/m/n/12 ## [6,]  0.7127103  0.4896574 -0.25597660 -0.08935028 -0.6527
 4040 -0.05759884[] 
  []
@@ -5755,18 +5764,18 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[208]
-Overfull \hbox (58.88911pt too wide) in paragraph at lines 10396--10396
+[210]
+Overfull \hbox (58.88911pt too wide) in paragraph at lines 10377--10377
 []  []\T1/cmtt/m/n/12 if[] [](n[] []!=[] []sn)[] []stop[][]([][]"number of spat
 ial units in W is different to the number of data"[][])[][] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 10433
+Underfull \vbox (badness 10000) detected at line 10414
  []
 
 
-Underfull \vbox (badness 10000) detected at line 10433
+Underfull \vbox (badness 10000) detected at line 10414
  []
 
 
@@ -5782,21 +5791,21 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[209]
-Overfull \hbox (52.71562pt too wide) in paragraph at lines 10455--10455
+[211]
+Overfull \hbox (52.71562pt too wide) in paragraph at lines 10436--10436
 []        []\T1/cmtt/m/n/12 Delta.hat[] []<-[] []Delta.hat[] []+[] []drop[][](o
 bject[][]$[][]e_hat[i][] []^[][]2[][])[] []*[] []tcrossprod[][](object[][]$[][]
 H[i, ])[][] 
  []
 
 
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 10503--10503
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 10484--10484
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 10510--10510
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 10491--10491
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -5814,7 +5823,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[210]
+[212]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5828,22 +5837,22 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[211]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 10568--10568
+[213]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 10549--10549
 [][]\T1/cmtt/m/n/12 spreg1[] []<-[] []stsls[][](y[] []~[] []x1[] []+[] []x2[] [
 ]+[] []x3,[] []data[] []= data,[] []listw[] []=[] []mat2listw[][](W,[] []style[
 ] []=[] []"W"[][]))[][] 
  []
 
 
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 10569--10569
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 10550--10550
 [][]\T1/cmtt/m/n/12 spreg2[] []<-[] []stsls[][](y[] []~[] []x1[] []+[] []x2[] [
 ]+[] []x3,[] []data[] []= data,[] []listw[] []=[] []mat2listw[][](W,[] []style[
 ] []=[] []"W"[][]),[][] 
  []
 
 
-Overfull \hbox (40.36864pt too wide) in paragraph at lines 10571--10571
+Overfull \hbox (40.36864pt too wide) in paragraph at lines 10552--10552
 [][]\T1/cmtt/m/n/12 cbind[][]([][]as.numeric[][]([][]coef[][](spreg1)[[][]c[][]
 ([][]2[][],[] []3[][],[] []4[][],[] []5[][],[] []1[][])]),[] []as.numeric[][](s
 2sls.e[][]$[][]coefficients))[][] 
@@ -5862,54 +5871,16 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[212]
-Overfull \hbox (4.60112pt too wide) in paragraph at lines 10609--10610
+[214]
+Overfull \hbox (4.60112pt too wide) in paragraph at lines 10590--10591
 []\T1/cmr/m/n/12 The re-sult-ing S2SLS es-ti-ma-tor is called the Best Spa-tial
  Two Stage Least Squares (BS2SLS)
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 10617.
+Package mdframed Info: mdframed works in twoside mode on input line 10598.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 10617.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[213]
-Package mdframed Info: mdframed works in twoside mode on input line 10636.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10636.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[214]
-Package mdframed Info: mdframed works in twoside mode on input line 10685.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 10685.
-
+(mdframed)              on input line 10598.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5924,6 +5895,11 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [215]
+Package mdframed Info: mdframed works in twoside mode on input line 10617.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10617.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5938,7 +5914,40 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [216]
-Overfull \hbox (58.88911pt too wide) in paragraph at lines 10854--10854
+Package mdframed Info: mdframed works in twoside mode on input line 10666.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 10666.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[217]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[218]
+Overfull \hbox (58.88911pt too wide) in paragraph at lines 10835--10835
 []  []\T1/cmtt/m/n/12 if[] [](n[] []!=[] []sn)[] []stop[][]([][]"number of spat
 ial units in W is different to the number of data"[][])[][] 
  []
@@ -5956,12 +5965,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[217]
-Underfull \vbox (badness 10000) detected at line 10895
+[219]
+Underfull \vbox (badness 10000) detected at line 10876
  []
 
 
-Underfull \vbox (badness 10000) detected at line 10895
+Underfull \vbox (badness 10000) detected at line 10876
  []
 
 
@@ -5977,14 +5986,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[218]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 10962--10962
+[220]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 10943--10943
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 10969--10969
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 10950--10950
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -6002,46 +6011,18 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[219]
+[221]
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 10968--10968
+[]\T1/cmtt/m/n/12 ## slm.b2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, 
+instruments = 2)[] 
+ []
+
+
 Overfull \hbox (3.32768pt too wide) in paragraph at lines 10987--10987
 []\T1/cmtt/m/n/12 ## slm.b2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, 
 instruments = 2)[] 
  []
 
-
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 11006--11006
-[]\T1/cmtt/m/n/12 ## slm.b2sls(formula = y ~ x1 + x2 + x3, data = data, W = W, 
-instruments = 2)[] 
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[220]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[221]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6056,15 +6037,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [222]
-Overfull \hbox (62.8501pt too wide) detected at line 11241
-[][]
- []
-
-
-Overfull \hbox (66.79883pt too wide) detected at line 11251
-[][]
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6079,11 +6051,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [223]
-Package mdframed Info: mdframed works in twoside mode on input line 11297.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 11297.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6098,12 +6065,54 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [224]
-Package mdframed Info: mdframed works in twoside mode on input line 11326.
+Overfull \hbox (62.8501pt too wide) detected at line 11222
+[][]
+ []
+
+
+Overfull \hbox (66.79883pt too wide) detected at line 11232
+[][]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[225]
+Package mdframed Info: mdframed works in twoside mode on input line 11278.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 11326.
+(mdframed)              on input line 11278.
 
-Overfull \hbox (21.50482pt too wide) in paragraph at lines 11330--11333
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[226]
+Package mdframed Info: mdframed works in twoside mode on input line 11307.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 11307.
+
+Overfull \hbox (21.50482pt too wide) in paragraph at lines 11311--11314
 \T1/cmr/m/n/12 has a unique root at $\OML/cmm/b/it/12 ^^R[]$ \T1/cmr/m/n/12 in 
 $\OML/cmm/b/it/12 ^^B$\T1/cmr/m/n/12 . Then, the GMM es-ti-ma-tor $[]$ de-rived
  from $[][] \OML/cmm/b/it/12 g[]\OT1/cmr/m/n/12 (\OML/cmm/b/it/12 ^^R\OT1/cmr/m
@@ -6124,36 +6133,36 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[225]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[226]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [227]
-Overfull \hbox (22.25697pt too wide) detected at line 11513
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[228]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[229]
+Overfull \hbox (22.25697pt too wide) detected at line 11494
 [][]
  []
 
@@ -6170,8 +6179,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[228]
-Overfull \hbox (27.28177pt too wide) in paragraph at lines 11576--11578
+[230]
+Overfull \hbox (27.28177pt too wide) in paragraph at lines 11557--11559
 \T1/cmr/m/n/12 equicon-tin-u-ous on $\OML/cmm/b/it/12 ^^B$\T1/cmr/m/n/12 . The 
 iden-ti-fi-ca-tion con-di-tion and the uni-form equicon-ti-nu-ity of $\OT1/cmr/
 m/n/12 (1\OML/cmm/m/it/12 =n\OT1/cmr/m/n/12 )\U/msb/m/n/12 E\OT1/cmr/m/n/12 (\O
@@ -6191,13 +6200,13 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[229]
-Overfull \hbox (46.51666pt too wide) detected at line 11644
+[231]
+Overfull \hbox (46.51666pt too wide) detected at line 11625
 [][]
  []
 
 
-Overfull \hbox (36.03278pt too wide) detected at line 11681
+Overfull \hbox (36.03278pt too wide) detected at line 11662
 [][] [] []
  []
 
@@ -6214,12 +6223,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[230]
-Package mdframed Info: mdframed works in twoside mode on input line 11736.
+[232]
+Package mdframed Info: mdframed works in twoside mode on input line 11717.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 11736.
-Package mdframed Info: Not enough space on this page on input line 11759.
+(mdframed)              on input line 11717.
+Package mdframed Info: Not enough space on this page on input line 11740.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6234,8 +6243,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[231]
-Package mdframed Info: Not enough space on this page on input line 11759.
+[233]
+Package mdframed Info: Not enough space on this page on input line 11740.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -6250,8 +6259,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[232]
-Overfull \hbox (30.10448pt too wide) in paragraph at lines 11875--11875
+[234]
+Overfull \hbox (30.10448pt too wide) in paragraph at lines 11856--11856
 []  []\T1/cmtt/m/n/12 Vp1[[][]1[][]:[][]2[][],[] []1[][]:[][]2[][]][]         [
 ]<-[] [](mu4.hat[] []-[] []3[] []*[] []sigma2[][]^[][]2[][])[] []*[] []crosspro
 d[][](omega)[]   []\T1/cmtt/m/it/12 # 2 * 2 [][] 
@@ -6270,14 +6279,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[233]
-Overfull \hbox (58.88911pt too wide) in paragraph at lines 11911--11911
+[235]
+Overfull \hbox (58.88911pt too wide) in paragraph at lines 11892--11892
 []  []\T1/cmtt/m/n/12 if[] [](n[] []!=[] []sn)[] []stop[][]([][]"number of spat
 ial units in W is different to the number of data"[][])[][] 
  []
 
 
-Overfull \hbox (135.05385pt too wide) in paragraph at lines 11936--11936
+Overfull \hbox (135.05385pt too wide) in paragraph at lines 11917--11917
 []  []\T1/cmtt/m/it/12 # OGMM: GMM estimator with weighting matrix using the in
 verse of the var-cov of moment functions[][] 
  []
@@ -6295,50 +6304,50 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[234]
-Underfull \vbox (badness 10000) detected at line 11971
- []
-
-
-Underfull \vbox (badness 10000) detected at line 11971
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[235]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [236]
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 12030--12030
+Underfull \vbox (badness 10000) detected at line 11952
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 11952
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[237]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[238]
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 12011--12011
 []      []\T1/cmtt/m/n/12 D[]     []<-[] []make.D[][]([][]rho[] []= rho,[] []be
 ta[] []= beta,[] []y[] []= y,[] []X[] []= X,[] []H[] []= H,[] []W[] []= W)[] []
 /[] []n[][] 
  []
 
 
-Overfull \hbox (52.71562pt too wide) in paragraph at lines 12036--12036
+Overfull \hbox (52.71562pt too wide) in paragraph at lines 12017--12017
 []    []\T1/cmtt/m/n/12 var[]   []<-[] []solve[][]([][]crossprod[][](D))[] []%*
 %[] []t[][](D)[] []%*%[] []Omega[] []%*%[] []D[] []%*%[] []solve[][]([][]crossp
 rod[][](D))[] []/[] []n[][] 
@@ -6357,14 +6366,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[237]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 12085--12085
+[239]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 12066--12066
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 12092--12092
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 12073--12073
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -6382,36 +6391,36 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[238]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[239]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [240]
-Overfull \hbox (3.45755pt too wide) in paragraph at lines 12268--12279
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[241]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[242]
+Overfull \hbox (3.45755pt too wide) in paragraph at lines 12249--12260
  [][] 
  []
 
@@ -6428,8 +6437,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[241]
-Overfull \hbox (31.76573pt too wide) detected at line 12373
+[243]
+Overfull \hbox (31.76573pt too wide) detected at line 12354
 [][]
  []
 
@@ -6446,7 +6455,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[242]
+[244]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6460,18 +6469,18 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[243]
-Package mdframed Info: mdframed works in twoside mode on input line 12483.
+[245]
+Package mdframed Info: mdframed works in twoside mode on input line 12464.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 12483.
+(mdframed)              on input line 12464.
 
-Overfull \hbox (11.23672pt too wide) detected at line 12496
+Overfull \hbox (11.23672pt too wide) detected at line 12477
 \OML/cmm/b/it/12 ^^F[] \OT1/cmr/m/n/12 = [] [] [] \OML/cmm/m/it/12 ;
  []
 
 
-Overfull \hbox (11.63756pt too wide) detected at line 12512
+Overfull \hbox (11.63756pt too wide) detected at line 12493
 \OML/cmm/b/it/12 ^^F[] \OT1/cmr/m/n/12 = [] [] [] \OML/cmm/m/it/12 ;
  []
 
@@ -6488,8 +6497,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[244]
-Overfull \hbox (6.5083pt too wide) in paragraph at lines 12555--12555
+[246]
+Overfull \hbox (6.5083pt too wide) in paragraph at lines 12536--12536
 []\T1/cmr/bx/n/17.28 Feasible Gen-er-al-ized Least Squares Es-ti-ma-tor for SEM
 
  []
@@ -6507,49 +6516,16 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[245]
-Package mdframed Info: mdframed works in twoside mode on input line 12582.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12582.
-Package mdframed Info: mdframed works in twoside mode on input line 12590.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12590.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[246]
-Package mdframed Info: mdframed works in twoside mode on input line 12653.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12653.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [247]
+Package mdframed Info: mdframed works in twoside mode on input line 12563.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12563.
+Package mdframed Info: mdframed works in twoside mode on input line 12571.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12571.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6564,25 +6540,11 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [248]
-Package mdframed Info: mdframed works in twoside mode on input line 12781.
+Package mdframed Info: mdframed works in twoside mode on input line 12634.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 12781.
-Package mdframed Info: mdframed works in twoside mode on input line 12787.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12787.
+(mdframed)              on input line 12634.
 
-
-Package mdframed Warning: You got a bad break
-(mdframed)                because the last box will be empty
-(mdframed)                you have to change it manually
-(mdframed)                by changing the text, the space
-(mdframed)                or something else on input line 12797.
-
-Package mdframed Info: You first box width is to small
- mdframed fixed it
-(mdframed)              on input line 12797.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6598,19 +6560,6 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 
 [249]
 
-Package mdframed Warning: You got a bad break
-(mdframed)                because the last split box is empty
-(mdframed)                You have to change the settings on input line 12797.
-
-Package mdframed Info: mdframed works in twoside mode on input line 12805.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12805.
-Package mdframed Info: mdframed works in twoside mode on input line 12812.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 12812.
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -6624,6 +6573,25 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [250]
+Package mdframed Info: mdframed works in twoside mode on input line 12762.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12762.
+Package mdframed Info: mdframed works in twoside mode on input line 12768.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12768.
+
+
+Package mdframed Warning: You got a bad break
+(mdframed)                because the last box will be empty
+(mdframed)                you have to change it manually
+(mdframed)                by changing the text, the space
+(mdframed)                or something else on input line 12778.
+
+Package mdframed Info: You first box width is to small
+ mdframed fixed it
+(mdframed)              on input line 12778.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6638,30 +6606,19 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [251]
-Package mdframed Info: mdframed works in twoside mode on input line 12971.
+
+Package mdframed Warning: You got a bad break
+(mdframed)                because the last split box is empty
+(mdframed)                You have to change the settings on input line 12778.
+
+Package mdframed Info: mdframed works in twoside mode on input line 12786.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 12971.
-Package mdframed Info: mdframed works in twoside mode on input line 12984.
+(mdframed)              on input line 12786.
+Package mdframed Info: mdframed works in twoside mode on input line 12793.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 12984.
-
-Overfull \hbox (4.4369pt too wide) in paragraph at lines 12985--12987
-[][][][]\T1/cmss/bx/n/10.95 Theorem 6.24 []--- Asymp-totic Prop-er-ties of FGLS
- Es-ti-ma-tor. [][][][]\T1/cmr/m/n/12 If as-sump-tions [][]6.1[][] (Ho-moskedas
--
- []
-
-
-Overfull \hbox (5.95775pt too wide) in paragraph at lines 12993--12994
-[]\T1/cmr/m/n/12 Suppose fur-ther than $[]$ is a con-sis-tent es-ti-ma-tor for 
-$\OML/cmm/m/it/12 ^^[[]$\T1/cmr/m/n/12 . Then $[] []$
- []
-
-Package mdframed Info: Box was splittet wrong
- starting loop to iterate the splitting point
-(mdframed)              on input line 12995.
+(mdframed)              on input line 12793.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6690,7 +6647,59 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [253]
-Overfull \hbox (6.43422pt too wide) in paragraph at lines 13062--13065
+Package mdframed Info: mdframed works in twoside mode on input line 12952.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12952.
+Package mdframed Info: mdframed works in twoside mode on input line 12965.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 12965.
+
+Overfull \hbox (4.4369pt too wide) in paragraph at lines 12966--12968
+[][][][]\T1/cmss/bx/n/10.95 Theorem 6.24 []--- Asymp-totic Prop-er-ties of FGLS
+ Es-ti-ma-tor. [][][][]\T1/cmr/m/n/12 If as-sump-tions [][]6.1[][] (Ho-moskedas
+-
+ []
+
+
+Overfull \hbox (5.95775pt too wide) in paragraph at lines 12974--12975
+[]\T1/cmr/m/n/12 Suppose fur-ther than $[]$ is a con-sis-tent es-ti-ma-tor for 
+$\OML/cmm/m/it/12 ^^[[]$\T1/cmr/m/n/12 . Then $[] []$
+ []
+
+Package mdframed Info: Box was splittet wrong
+ starting loop to iterate the splitting point
+(mdframed)              on input line 12976.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[254]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[255]
+Overfull \hbox (6.43422pt too wide) in paragraph at lines 13043--13046
 \T1/cmr/m/n/12 where $[][] \OML/cmm/m/it/12 n[]^^[[]\OML/cmm/b/it/12 A[]A[] \OT
 1/cmr/m/n/12 = \OML/cmm/m/it/12 ^^[[] [][] n[]\OML/cmm/b/it/12 X[] [][] [] X[] 
 \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 ^^[[]\OML/cmm/b/it/12 Q[]\OT1/cmr/m/n/12 (\O
@@ -6698,7 +6707,7 @@ ML/cmm/m/it/12 ^^U[]\OT1/cmr/m/n/12 )$\T1/cmr/m/n/12 .
  []
 
 
-Overfull \hbox (39.56459pt too wide) detected at line 13123
+Overfull \hbox (39.56459pt too wide) detected at line 13104
 []\OML/cmm/b/it/12 X[] [] X[] \OT1/cmr/m/n/12 = [] [] + [] []\OML/cmm/m/it/12 ;
 
  []
@@ -6716,15 +6725,15 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[254]
-Overfull \hbox (47.03752pt too wide) detected at line 13134
+[256]
+Overfull \hbox (47.03752pt too wide) detected at line 13115
 [][][][][]
  []
 
-Package mdframed Info: mdframed works in twoside mode on input line 13151.
+Package mdframed Info: mdframed works in twoside mode on input line 13132.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 13151.
+(mdframed)              on input line 13132.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6738,8 +6747,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[255]
-Overfull \hbox (58.88911pt too wide) in paragraph at lines 13244--13244
+[257]
+Overfull \hbox (58.88911pt too wide) in paragraph at lines 13225--13225
 []  []\T1/cmtt/m/n/12 if[] [](n[] []!=[] []sn)[] []stop[][]([][]"number of spat
 ial units in W is different to the number of data"[][])[][] 
  []
@@ -6757,12 +6766,12 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[256]
-Underfull \vbox (badness 10000) detected at line 13283
+[258]
+Underfull \vbox (badness 10000) detected at line 13264
  []
 
 
-Underfull \vbox (badness 10000) detected at line 13283
+Underfull \vbox (badness 10000) detected at line 13264
  []
 
 
@@ -6778,14 +6787,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[257]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 13354--13354
+[259]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 13335--13335
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 13361--13361
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 13342--13342
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -6803,8 +6812,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[258]
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 13378--13378
+[260]
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 13359--13359
 []\T1/cmtt/m/n/12 ## sem.sfgls(formula = y ~ x1 + x2 + x3, data = data, M = M, 
 verbose = FALSE)[] 
  []
@@ -6822,8 +6831,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[259]
-Overfull \hbox (21.84816pt too wide) in paragraph at lines 13406--13406
+[261]
+Overfull \hbox (21.84816pt too wide) in paragraph at lines 13387--13387
 []\T1/cmtt/m/n/12 ## Call:GMerrorsar(formula = y ~ x1 + x2 + x3, data = data, l
 istw = mat2listw(M,[] 
  []
@@ -6841,8 +6850,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[260]
-Overfull \hbox (74.86092pt too wide) in paragraph at lines 13529--13532
+[262]
+Overfull \hbox (74.86092pt too wide) in paragraph at lines 13510--13513
 \T1/cmr/m/n/12 where $\OML/cmm/b/it/12 R[] \OT1/cmr/m/n/12 = (\OML/cmm/b/it/12 
 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^U\OML/cmm/b/it/12 M[]\OT1/cmr/m/n/1
 2 )$\T1/cmr/m/n/12 . At $\OML/cmm/b/it/12 ^^R \OT1/cmr/m/n/12 = \OML/cmm/b/it/1
@@ -6863,7 +6872,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[261]
+[263]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6877,8 +6886,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[262]
-Overfull \hbox (128.88036pt too wide) in paragraph at lines 13712--13712
+[264]
+Overfull \hbox (128.88036pt too wide) in paragraph at lines 13693--13693
 []  []\T1/cmtt/m/n/12 Vp1[(k[] []+[] []1[][])[][]:[][](k[] []+[] []2[][]), (k[]
  []+[] []1[][])[][]:[][](k[] []+[] []2[][])][] []<-[] [](mu4.hat[] []-[] []3[] 
 []*[] []sigma2[][]^[][]2[][])[] []*[] []crossprod[][](omega)[]   []\T1/cmtt/m/i
@@ -6898,14 +6907,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[263]
-Overfull \hbox (58.88911pt too wide) in paragraph at lines 13746--13746
+[265]
+Overfull \hbox (58.88911pt too wide) in paragraph at lines 13727--13727
 []  []\T1/cmtt/m/n/12 if[] [](n[] []!=[] []sn)[] []stop[][]([][]"number of spat
 ial units in W is different to the number of data"[][])[][] 
  []
 
 
-Overfull \hbox (135.05385pt too wide) in paragraph at lines 13769--13769
+Overfull \hbox (135.05385pt too wide) in paragraph at lines 13750--13750
 []  []\T1/cmtt/m/it/12 # OGMM: GMM estimator with weighting matrix using the in
 verse of the var-cov of moment functions[][] 
  []
@@ -6923,7 +6932,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[264]
+[266]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -6937,8 +6946,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[265]
-Overfull \hbox (52.71562pt too wide) in paragraph at lines 13861--13861
+[267]
+Overfull \hbox (52.71562pt too wide) in paragraph at lines 13842--13842
 []    []\T1/cmtt/m/n/12 var[]   []<-[] []solve[][]([][]crossprod[][](D))[] []%*
 %[] []t[][](D)[] []%*%[] []Omega[] []%*%[] []D[] []%*%[] []solve[][]([][]crossp
 rod[][](D))[] []/[] []n[][] 
@@ -6957,14 +6966,14 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[266]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 13912--13912
+[268]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 13893--13893
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 13919--13919
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 13900--13900
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
  []
@@ -6982,16 +6991,22 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[267]
+[269]
+Overfull \hbox (3.32768pt too wide) in paragraph at lines 13941--13941
+[]\T1/cmtt/m/n/12 ## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, es
+timator = "gmm")[] 
+ []
+
+
 Overfull \hbox (3.32768pt too wide) in paragraph at lines 13960--13960
 []\T1/cmtt/m/n/12 ## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, es
 timator = "gmm")[] 
  []
 
 
-Overfull \hbox (3.32768pt too wide) in paragraph at lines 13979--13979
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 14019--14019
 []\T1/cmtt/m/n/12 ## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, es
-timator = "gmm")[] 
+timator = "ogmm")[] 
  []
 
 
@@ -7001,45 +7016,11 @@ timator = "ogmm")[]
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 14057--14057
-[]\T1/cmtt/m/n/12 ## sem.gmm(formula = y ~ x1 + x2 + x3, data = data, M = M, es
-timator = "ogmm")[] 
- []
-
-
-Overfull \hbox (21.84816pt too wide) in paragraph at lines 14080--14080
+Overfull \hbox (21.84816pt too wide) in paragraph at lines 14061--14061
 []\T1/cmtt/m/n/12 ## Call:GMerrorsar(formula = y ~ x1 + x2 + x3, data = data, l
 istw = mat2listw(M,[] 
  []
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[268]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[269]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7124,16 +7105,44 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [275]
-Package mdframed Info: mdframed works in twoside mode on input line 14446.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 14446.
-Package mdframed Info: mdframed works in twoside mode on input line 14477.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 14477.
 
-Overfull \hbox (56.84451pt too wide) in paragraph at lines 14478--14479
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[276]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[277]
+Package mdframed Info: mdframed works in twoside mode on input line 14427.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 14427.
+Package mdframed Info: mdframed works in twoside mode on input line 14458.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 14458.
+
+Overfull \hbox (56.84451pt too wide) in paragraph at lines 14459--14460
 [][][][]\T1/cmss/bx/n/10.95 Assumption 6.27 []--- Het-eroskedas-tic Er-rors ([]
 []Ar-raiz et al.[][], [][]2010[][]). [][][][]\T1/cmr/m/n/12 The er-ror term $[]
 $
@@ -7152,56 +7161,26 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[276]
-Package mdframed Info: Not enough space on this page on input line 14479.
-Package mdframed Info: mdframed works in twoside mode on input line 14485.
+[278]
+Package mdframed Info: Not enough space on this page on input line 14460.
+Package mdframed Info: mdframed works in twoside mode on input line 14466.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 14485.
+(mdframed)              on input line 14466.
+Package mdframed Info: mdframed works in twoside mode on input line 14492.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 14492.
+Package mdframed Info: mdframed works in twoside mode on input line 14500.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 14500.
 Package mdframed Info: mdframed works in twoside mode on input line 14511.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 14511.
-Package mdframed Info: mdframed works in twoside mode on input line 14519.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 14519.
-Package mdframed Info: mdframed works in twoside mode on input line 14530.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 14530.
-Package mdframed Info: Not enough space on this page on input line 14537.
+Package mdframed Info: Not enough space on this page on input line 14518.
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[277]
-Package mdframed Info: Not enough space on this page on input line 14537.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[278]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7216,12 +7195,42 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [279]
-Package mdframed Info: mdframed works in twoside mode on input line 14614.
+Package mdframed Info: Not enough space on this page on input line 14518.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[280]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[281]
+Package mdframed Info: mdframed works in twoside mode on input line 14595.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 14614.
+(mdframed)              on input line 14595.
 
-Overfull \hbox (46.32382pt too wide) detected at line 14648
+Overfull \hbox (46.32382pt too wide) detected at line 14629
 [][]
  []
 
@@ -7238,8 +7247,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[280]
-Overfull \hbox (66.58148pt too wide) detected at line 14759
+[282]
+Overfull \hbox (66.58148pt too wide) detected at line 14740
 [] \OT1/cmr/m/n/12 = [] [] = [] [] \OML/cmm/m/it/12 ;
  []
 
@@ -7256,42 +7265,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[281]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[282]
-Package mdframed Info: mdframed works in twoside mode on input line 14897.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 14897.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [283]
-Package mdframed Info: Not enough space on this page on input line 14909.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7306,7 +7280,42 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [284]
-Overfull \hbox (0.44019pt too wide) in paragraph at lines 15004--15006
+Package mdframed Info: mdframed works in twoside mode on input line 14878.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 14878.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[285]
+Package mdframed Info: Not enough space on this page on input line 14890.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[286]
+Overfull \hbox (0.44019pt too wide) in paragraph at lines 14985--14987
 []\T1/cmr/m/n/12 The fol-low-ing func-tion pro-vides the ob-jec-tive func-tion 
 to be op-ti-mize: $\OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^U\OT
 1/cmr/m/n/12 ) = \OML/cmm/b/it/12 m[]\OT1/cmr/m/n/12 ^^G[]\OML/cmm/b/it/12 m[]$
@@ -7314,7 +7323,7 @@ to be op-ti-mize: $\OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^U\OT
  []
 
 
-Overfull \hbox (15.67467pt too wide) in paragraph at lines 15061--15061
+Overfull \hbox (15.67467pt too wide) in paragraph at lines 15042--15042
 []  []\T1/cmtt/m/n/12 out[] []<-[] []list[][]([][]Upsi[] []= Upsi,[] []a1[] []=
  a1,[] []a2[] []= a2,[] []epsi[] []= epsi,[] []P[] []= P,[] []Sigma[] []= Sigma
 )[][] 
@@ -7333,42 +7342,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[285]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[286]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
 [287]
-Underfull \vbox (badness 10000) detected at line 15258
- []
-
-
-Underfull \vbox (badness 10000) detected at line 15258
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7383,11 +7357,25 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [288]
-Underfull \vbox (badness 10000) detected at line 15258
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[289]
+Underfull \vbox (badness 10000) detected at line 15239
  []
 
 
-Underfull \vbox (badness 10000) detected at line 15258
+Underfull \vbox (badness 10000) detected at line 15239
  []
 
 
@@ -7403,8 +7391,29 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[289]
-Overfull \hbox (15.67467pt too wide) in paragraph at lines 15290--15290
+[290]
+Underfull \vbox (badness 10000) detected at line 15239
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 15239
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[291]
+Overfull \hbox (15.67467pt too wide) in paragraph at lines 15271--15271
 []  []\T1/cmtt/m/n/12 Psi.rd[]      []<-[] []([][]1[] []/[] []n)[] []*[] []cros
 sprod[][](H, fitL[][]$[][]Sigma)[] []%*%[] []cbind[][](fitL[][]$[][]a1, fitL[][
 ]$[][]a2)[][] 
@@ -7423,55 +7432,16 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[290]
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 15339--15339
+[292]
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 15320--15320
 []                                   []\T1/cmtt/m/n/12 signif.stars[] []=[] []g
 etOption[][]([][]"show.signif.stars"[][]),[][] 
  []
 
 
-Overfull \hbox (9.50117pt too wide) in paragraph at lines 15346--15346
+Overfull \hbox (9.50117pt too wide) in paragraph at lines 15327--15327
 []  []\T1/cmtt/m/n/12 printCoefmat[][](x[][]$[][]CoefTable,[] []digit[] []= dig
 its,[] []P.value[] []=[] []TRUE[][],[] []has.Pvalue[] []=[] []TRUE[][])[][] 
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[291]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[292]
-Overfull \hbox (34.19514pt too wide) in paragraph at lines 15397--15397
-[]\T1/cmtt/m/n/12 ## Error in dimnames(x) <- dn: length of 'dimnames' [1] not e
-qual to array extent[] 
- []
-
-
-Overfull \hbox (28.02165pt too wide) in paragraph at lines 15402--15402
-[]\T1/cmtt/m/n/12 ## Error in h(simpleError(msg, call)): error in evaluating th
-e argument 'object'
  []
 
 
@@ -7502,8 +7472,15 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [294]
-Overfull \hbox (43.26747pt too wide) detected at line 15645
-[][][][][]
+Overfull \hbox (34.19514pt too wide) in paragraph at lines 15378--15378
+[]\T1/cmtt/m/n/12 ## Error in dimnames(x) <- dn: length of 'dimnames' [1] not e
+qual to array extent[] 
+ []
+
+
+Overfull \hbox (28.02165pt too wide) in paragraph at lines 15383--15383
+[]\T1/cmtt/m/n/12 ## Error in h(simpleError(msg, call)): error in evaluating th
+e argument 'object'
  []
 
 
@@ -7520,7 +7497,21 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
 [295]
-Overfull \hbox (37.76729pt too wide) detected at line 15713
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[296]
+Overfull \hbox (43.26747pt too wide) detected at line 15626
 [][][][][]
  []
 
@@ -7537,13 +7528,31 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[296]
-Overfull \hbox (17.72952pt too wide) detected at line 15743
+[297]
+Overfull \hbox (37.76729pt too wide) detected at line 15694
 [][][][][]
  []
 
 
-Overfull \hbox (51.78606pt too wide) detected at line 15758
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[298]
+Overfull \hbox (17.72952pt too wide) detected at line 15724
+[][][][][]
+ []
+
+
+Overfull \hbox (51.78606pt too wide) detected at line 15739
 [][][][] [][]\OT1/cmr/m/n/12 ([])[]\OML/cmm/b/it/12 M[]u[] \OT1/cmr/m/n/12 = []
  [] [] []\OML/cmm/b/it/12 H[]M[]u[]
  []
@@ -7561,8 +7570,8 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[297]
-Overfull \hbox (33.33177pt too wide) in paragraph at lines 15760--15761
+[299]
+Overfull \hbox (33.33177pt too wide) in paragraph at lines 15741--15742
 []\T1/cmr/m/n/12 Note that $\U/msb/m/n/12 E [] \OT1/cmr/m/n/12 = 0$ \T1/cmr/m/n
 /12 and $\U/msb/m/n/12 E [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 n[]\OML/cmm/b/it
 /12 H[]M[]^^F[]M[]H[]$\T1/cmr/m/n/12 ,
@@ -7582,7 +7591,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[298] [299
+[300] [301
 
 ]
 
@@ -7598,35 +7607,7 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[300]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[301]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-
-Package fancyhdr Warning: \footskip is too small (14.22636pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\footskip}{14.49998pt}.
-
-[302])
+[302]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7654,11 +7635,21 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\footskip}{14.49998pt}.
 
-[304
+[304])
 
-] (./SpatialEconometrics.ind [305
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-]
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[305]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -7674,6 +7665,24 @@ Package fancyhdr Warning: \footskip is too small (14.22636pt):
 
 [306
 
+] (./SpatialEconometrics.ind [307
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+
+Package fancyhdr Warning: \footskip is too small (14.22636pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\footskip}{14.49998pt}.
+
+[308
+
 ]) (./SpatialEconometrics.aux)
 
 LaTeX Warning: There were undefined references.
@@ -7683,10 +7692,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 45823 strings out of 476025
- 1040188 string characters out of 5790016
+ 45852 strings out of 476025
+ 1041125 string characters out of 5790016
  1898388 words of memory out of 5000000
- 64151 multiletter control sequences out of 15000+600000
+ 64175 multiletter control sequences out of 15000+600000
  553355 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,20n,136p,1572b,922s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -7741,10 +7750,10 @@ per/sftt0800.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-supe
 r/sftt1000.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/
 sftt1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/zapfchan/uzcmi
 8a.pfb>
-Output written on SpatialEconometrics.pdf (316 pages, 2848385 bytes).
+Output written on SpatialEconometrics.pdf (318 pages, 2880992 bytes).
 PDF statistics:
- 4734 PDF objects out of 5155 (max. 8388607)
- 4212 compressed objects within 43 object streams
- 1285 named destinations out of 1440 (max. 500000)
- 1364 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 4760 PDF objects out of 5155 (max. 8388607)
+ 4230 compressed objects within 43 object streams
+ 1287 named destinations out of 1440 (max. 500000)
+ 1379 words of extra memory for PDF output out of 10000 (max. 10000000)
 
