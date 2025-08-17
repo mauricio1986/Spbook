@@ -24,10 +24,10 @@ f(y_{in}, \vx_{in}, \vtheta_0) = \epsilon_{in}, \quad i = 1, \ldots, n,
 %
 where $f(y_{in}, \vx_{in}, \vtheta_0)$ represents a system of spatial equations, $y_{in}$ is the dependent variable for unit $i$, $\vx_{in}$ is a vector of explanatory variables, $\epsilon_{in}$ is a disturbance term, $\vtheta_0$ is a $k \times 1$ unknown parameter vector, and $f(\cdot)$ is a known function.
 
-Assume there exists a $1 \times s$ vector of instruments $\vh_{in}$, and let $w_{in}$ denote all observable variables, including instruments, for the $i$-th unit. For simplicity, assume $\epsilon_{in}$ is i.i.d. $(0, \sigma^2)$, and $\vh_{in}$ is non-stochastic (these assumptions can be relaxed). The explanatory variables may take the form $\vx_{in} = \left[ \vx_i, \bar{\vx}_{in}, \bar{y}_{in} \right]$, where $\vx_i$ is exogenous, $\bar{\vx}_{in} = \sum_j w_{ij} \vx_j$, and  $\bar{y}_{in} = \sum_j w_{ij} y_{jn}$ are spatial lags, with $w_{ij}$ denoting spatial weights and $w_{ii} = 0$ for all $i = 1, \ldots, n$.
+Assume there exists a $1 \times p$ vector of instruments $\vh_{in}$, and let $w_{in}$ denote all observable variables, including instruments, for the $i$-th unit. For simplicity, assume $\epsilon_{in}$ is i.i.d. $(0, \sigma^2)$, and $\vh_{in}$ is non-stochastic (these assumptions can be relaxed). The explanatory variables may take the form $\vx_{in} = \left[ \vx_i, \bar{\vx}_{in}, \bar{y}_{in} \right]$, where $\vx_i$ is exogenous, $\bar{\vx}_{in} = \sum_j w_{ij} \vx_j$, and  $\bar{y}_{in} = \sum_j w_{ij} y_{jn}$ are spatial lags, with $w_{ij}$ denoting spatial weights and $w_{ii} = 0$ for all $i = 1, \ldots, n$.
 
 
-Suppose that there exists a vector $s \times 1$ of sample moments
+Suppose that there exists a vector $p \times 1$ of sample moments
 \begin{equation}\label{eq:sample_moments_gmm}
 \vg_n(\vtheta) = \vg_n(w_1, \ldots ,w_n, \vtheta) 
 = \begin{pmatrix}
@@ -37,17 +37,17 @@ g_{sn}(w_1,\ldots,w_n, \vtheta)
 \end{pmatrix},
 \end{equation}
 %
-with $s \geq k$ for identification. Further assume:
+with $p \geq k$ for identification. Further assume:
 \begin{equation*}
 \E\left[\vg_n(w_1,\ldots ,w_n, \vtheta)\right] = \vzeros \iff \vtheta = \vtheta_0,
 \end{equation*}
 %
-that is, the model is identified. Let $\mUpsilon_n$ be some $s \times s$ symmetric positive semidefinite weighting matrix, then the corresponding GMM estimator is defined as:
+that is, the model is identified. Let $\mUpsilon_n$ be some $p \times p$ symmetric positive semidefinite weighting matrix, then the corresponding GMM estimator is defined as:
 \begin{equation}\label{eq:gmm_one_step}
-\widehat{\vtheta}_n = \underset{\vtheta \in \mTheta}{\argmin}\;\;\underset{(1\times s)}{\vg_n(w_1,\ldots,w_n, \vtheta)}^\top\underset{(s\times s)}{\mUpsilon_n}\underset{(s\times 1)}{\vg_n(w_1,\ldots,w_n, \vtheta)}.
+\widehat{\vtheta}_n = \underset{\vtheta \in \mTheta}{\argmin}\;\;\underset{(1\times p)}{\vg_n(w_1,\ldots,w_n, \vtheta)}^\top\underset{(p\times p)}{\mUpsilon_n}\underset{(p\times 1)}{\vg_n(w_1,\ldots,w_n, \vtheta)}.
 \end{equation}
 %
-where $\mTheta$ is the parameter space. If $s = k$ (i.e., the model is just identified),  the weighting matrix $\mUpsilon_n$ is irrelevant and $\widehat{\vtheta}_n$ can be found as a solution to the moment condition:
+where $\mTheta$ is the parameter space. If $p = k$ (i.e., the model is just identified),  the weighting matrix $\mUpsilon_n$ is irrelevant and $\widehat{\vtheta}_n$ can be found as a solution to the moment condition:
 \begin{equation}
 \vg_n(w_1,\ldots,w_n, \widehat{\vtheta}) = \vzeros.
 \end{equation}
@@ -107,10 +107,10 @@ Moreover, Monte Carlo studies indicate that the efficiency loss associated with 
 
 Assuming that $\widehat{\vtheta}_n$ is an interior point, the first-order condition for maximization of the objective function is:
 \begin{equation}\label{eq:foc_review}
-  \underset{(k\times 1)}{\vzeros} = \underset{(k\times 1)}{\frac{\partial Q_n(\widehat{\vtheta}_n)}{\partial \vtheta}} = - \underset{(k\times s)}{\mG_n(\widehat{\vtheta}_n)^\top}\underset{(s\times s)}{\mUpsilon_n}\underset{(s\times 1)}{\vg_n(\widehat{\vtheta}_n)},
+  \underset{(k\times 1)}{\vzeros} = \underset{(k\times 1)}{\frac{\partial Q_n(\widehat{\vtheta}_n)}{\partial \vtheta}} = - \underset{(k\times p)}{\mG_n(\widehat{\vtheta}_n)^\top}\underset{(p\times p)}{\mUpsilon_n}\underset{(p\times 1)}{\vg_n(\widehat{\vtheta}_n)},
 \end{equation}
 %
-where $Q_n = \vg_n(\vtheta)^\top\mUpsilon_n\vg_n(\vtheta)$, and $\mG_n(\vtheta)$ is the Jacobian of $\vg_n(\vtheta)$:
+where $Q_n(\vtheta) = \vg_n(\vtheta)^\top\mUpsilon_n\vg_n(\vtheta)$, and $\mG_n(\vtheta)$ is the Jacobian of $\vg_n(\vtheta)$:
 \begin{equation*}
   \mG_n(\vtheta) \equiv  \frac{\partial \vg_n(\vtheta)}{\partial \vtheta^\top}.
 \end{equation*}
@@ -174,7 +174,7 @@ The most relevant literature on one-step GMM estimators in spatial econometrics 
 \subsection{Asypmtotic Distribution of Two-Step GMM Estimator}\label{section:2step-gmm}
 %===================================
 
-The usual approach to deriving the limiting distribution of two-step GMM estimators is to manipulate the score of the objective function by expanding the sample moment vector around the true parameter, using a Taylor expansion.\footnote{For more on two-step estimation see \citet[][section 6]{newey1994large}}
+The usual approach of deriving the limiting distribution of two-step GMM estimators is to manipulate the score of the objective function by expanding the sample moment vector around the true parameter, using a Taylor expansion.\footnote{For more on two-step estimation see \citet[][section 6]{newey1994large}}
 
 Consider the two-step GMM estimators for $\lambda_0$ defined in Equation (\ref{eq:gmm_two_step_a}). Applying this approach, and assuming typical regularity conditions, we get:
 \begin{equation}\label{eq:taylor_gmm_1}
@@ -440,7 +440,7 @@ Let $\mH_n$ be a matrix of instruments, then:
 \end{assumption}
 %-------------------------------------------
 
-The Rank Condition of Assumption \ref{assu:iv_instr} establishes that there exists a least $p$ columns that are linearly independent such that $p \leq k + 1$. That is, the model can be just- or over-identified. In addition, since $\mH_n$ is composed of a subset of linearly independent columns of $(\mX_n, \mW_n\mX_n, \mW^2_n\mX_n, \ldots)$, it does not depend on the parameters of the model, and hence, it is non-stochastic. This simplifies the asymptotic properties of the 2SLS estimator. This contrast with the Best 2SLS estimator, which requires consistent estimate of the parameters. See Section \ref{sec:BS2SLS}.   
+The Rank Condition of Assumption \ref{assu:iv_instr} establishes that there exists a least $p$ columns that are linearly independent such that $p \ge k + 1$. That is, the model can be just- or over-identified. In addition, since $\mH_n$ is composed of a subset of linearly independent columns of $(\mX_n, \mW_n\mX_n, \mW^2_n\mX_n, \ldots)$, it does not depend on the parameters of the model, and hence, it is non-stochastic. This simplifies the asymptotic properties of the 2SLS estimator. This contrast with the Best 2SLS estimator, which requires consistent estimate of the parameters. See Section \ref{sec:BS2SLS}.   
 
 Assumption \ref{assu:iv_instr_lim} establishes conditions for \textbf{identification} of the model. The first condition in Assumption \ref{assu:iv_instr_lim} ensures that the instrument matrix $\mH_n$ remains well-conditioned as the sample size increases, preventing issues such as multicollinearity among the instruments. Importantly, since $\mH_n$ contains spatially lagged explanatory variables, this condition also implies that implies that $\mW_n\mX_n$ and $\mX_n$ cannot be linearly dependent. This condition would be violated if for example $\mW_n\mX_n$ included a spatial lag of a constant term or if the model is the pure SLM.  
 

@@ -1398,6 +1398,7 @@ sml_ll <- function(theta, y, X, W, gradient = TRUE, hessian = TRUE){
   Ay  <- A %*% y
   Xb  <- X %*% betas
   res <- Ay - Xb
+  Wy  <- W %*% y
   
   # Make log-likelihood
   detA <- det(A)
@@ -1405,21 +1406,21 @@ sml_ll <- function(theta, y, X, W, gradient = TRUE, hessian = TRUE){
   
   # Gradient
   if (gradient){
-    C           <-  W %*% solve(A)
-    grad.betas  <- (1 / sig.sq) * t(X) %*% res
-    grad.rho    <- - sum(diag(C)) + (1 / sig.sq) * t(res) %*% W %*% y
-    grad.sig.sq <- (1 / (2 * sig.sq ^2 )) * (t(res) %*% res - N * sig.sq)
+    C           <-  solve(A) %*% W
+    grad.betas  <- (1 / sig.sq) * crossprod(X, res)
+    grad.rho    <- - sum(diag(C)) + (1 / sig.sq) * crossprod(res, Wy)
+    grad.sig.sq <- (1 / (2 * sig.sq ^2 )) * (crossprod(res) - N * sig.sq)
     attr(ll, 'gradient') <- c(grad.betas, grad.rho, grad.sig.sq)
   }
   # Hessian
   if (hessian){
     H    <- matrix(NA, nrow = (K + 2), ncol = (K + 2))
-    h_bb <- - (1 / sig.sq) * t(X) %*% X
-    h_bs <- - (1 / sig.sq ^ 2) * t(X) %*% res
-    h_br <- - (1 / sig.sq) * t(X) %*% W %*% y 
-    h_ss <- (N / (2 * sig.sq ^ 2)) - (1 / sig.sq ^ 3) * t(res) %*% res
-    h_sr <-  - t(res) %*% W %*% y / sig.sq ^ 2
-    h_rr <- - sum(diag(C %*% C)) - (1 / sig.sq) * (t(y) %*% t(W) %*% W %*% y)
+    h_bb <- - (1 / sig.sq) * crossprod(X)
+    h_bs <- - (1 / sig.sq ^ 2) * crossprod(X, res)
+    h_br <- - (1 / sig.sq) * crossprod(X, Wy)
+    h_ss <- (N / (2 * sig.sq ^ 2)) - (1 / sig.sq ^ 3) * crossprod(res)
+    h_sr <-  - crossprod(res, Wy) / sig.sq ^ 2
+    h_rr <- - sum(diag(C %*% C)) - (1 / sig.sq) * crossprod(Wy)
     H[1:K, 1:K]     <- h_bb
     H[1:K, K + 1]   <- h_br
     H[1:K, K + 2]   <- h_bs
@@ -1655,9 +1656,9 @@ sar.mle.con <- function(formula, data, W)
   
   # Generate estimates
   A          <- (diag(n) - rho_hat * W)
-  Ay         <- crossprod(t(A), y)
+  Ay         <- A %*% y
   beta_hat   <- solve(crossprod(X)) %*% crossprod(X, Ay) 
-  error      <- Ay - crossprod(t(X), beta_hat)
+  error      <- Ay - X %*% beta_hat
   sigma2_hat <- crossprod(error) / n                    
   
   # Save results
@@ -1693,14 +1694,14 @@ vcov.slmc.mle <- function(object, ...){
   k          <- ncol(X)
   
   # Hessian
-  C       <- crossprod(t(W), solve(A)) # C = WA^{-1}
+  C       <- W %*% solve(A)
   alpha   <-  sum(omega ^ 2 / ((1 - rho_hat * omega) ^ 2))
   if (is.complex(alpha)) alpha <- Re(alpha)
-  b_b     <- drop(1 / sigma2_hat) * crossprod(X) # k * k
-  b_rho   <- drop(1 / sigma2_hat) * (t(X) %*% C %*% X %*% beta_hat) # k * 1
+  b_b     <- drop(1 / sigma2_hat) * crossprod(X) # k * k 
+  b_rho   <- drop(1 / sigma2_hat) * (crossprod(X, C) %*% X %*% beta_hat) # k * 1
   sig_sig <- n / (2 * sigma2_hat ^ 2) # 1 * 1
   sig_rho <- drop(1 / sigma2_hat) * sum(diag(C)) # 1 * 1
-  rho_rho <- sum(diag(crossprod(C))) +  alpha +
+  rho_rho <- sum(diag(crossprod(C))) + alpha +
     drop(1 / sigma2_hat) * crossprod(C %*% X %*% beta_hat) # 1*1
   row_1   <- cbind(b_b, rep(0, k), b_rho)
   row_2   <- cbind(t(rep(0, k)), sig_sig, sig_rho)
@@ -1922,27 +1923,23 @@ where $\lambda = 0.8$, $\alpha = 0.5$, $\beta = 1$ and $x_i \sim \rN(0, 2^2)$. U
  \section{Consistency of SLM Model}\label{appendix-consistency}
 %-------------------------------------------------------------------------
 
-The consistency $\widehat{\vtheta}_n$ can be established from the uniform convergence of the concentrated log-likelihood of $\rho$ with the QMLE of $\vbeta_0$ and $\sigma_0^2$ concentrated out, because one can have the QMLEs of $\vbeta$ and $\sigma^2$ once $\rho$ is given. Thus, we show that $\frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho)$ converges in probability to zero uniformly on $\Gamma$ (where $Q_n(\rho)$ is the expectation of the concentrated log-likelihood), and the identification-uniqueness condition holds. 
+The consistency of $\widehat{\vtheta}_n$ follows from the uniform convergence of the concentrated log-likelihood function with respect to $\rho$, after concentrating out the QMLEs of $\vbeta$ and $\sigma^2$ for each fixed $\rho$ (see \cite{lee2004asymptotic}). Since the QMLEs of $\vbeta$ and $\sigma^2$ are available in closed form conditional on $\rho$, it suffices to establish that $\frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho)$ converges in probability to zero uniformly on $\Gamma$ (where $Q_n(\rho)$ is the expectation of the concentrated log-likelihood), and the identification-uniqueness condition holds. 
 
 \paragraph{Uniform convergence}
 
-In this first part, we need to show that
+The first step is to establish the uniform convergence in probability of the concentrated log-likelihood to its expectation. Specifically, we need to show that
 \begin{equation*}
-  \frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho) \pto 0,
+  \sup_{\rho\in\Gamma}\left|\frac{1}{n}\ell_n(\rho) - \frac{1}{n}Q_n(\rho)\right| \pto 0,
 \end{equation*}
 %
 uniformly on $\Gamma$, where $\ell_n(\rho)$ is the concentrated log-likelihood and $Q_n(\rho)$ is the expectation of the log-likelihood function evaluated in the optimal values of $\vbeta$ and $\sigma^2$, $Q_n(\rho) = \underset{\vbeta, \sigma^2}{\max}\; \E\left[\ell_n(\vtheta)\right]$.
 
-For simplicity in the notation, let 
-\begin{equation*}
- \mA_n = \mA_n(\rho) = (\mI - \rho\mW) \quad \mbox{and} \quad  \mA_{n0} = \mA_n(\rho_0) = (\mI - \rho_0\mW). 
-\end{equation*}
-
-For further reference, recall that the log-likelihood function is 
+For notational convenience, define $\mA_n = \mA_n(\rho) = (\mI - \rho\mW)$ and $\mA_{n0} = \mA_n(\rho_0) = (\mI - \rho_0\mW)$. The log-likelihood for $\vtheta$ is 
 \begin{equation*}
 \ell_n(\vtheta) = -\frac{n}{2}\ln (2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\vepsi_n^\top\vepsi_n + \ln\left|\mA_n\right|,
 \end{equation*}
-with $\vepsi_n = \mA_n\vy_n - \mX_n\vbeta$. The concentrated log-likelihood can be written as
+%
+where $\vepsi_n = \mA_n\vy_n - \mX_n\vbeta$. Concentrating out $\vbeta$ and $\sigma^2$ yields
 \begin{equation}\label{eq:concentrated-mle-consistency}
  \ell_n(\rho) =-\frac{n}{2}\left(\ln(2\pi) + 1\right) - \frac{n}{2}\ln\left[\widetilde{\sigma}^2_n(\rho)\right] + \ln\left|\mA_n\right|,
 \end{equation}
@@ -1967,7 +1964,7 @@ The expectation of $\ell_n(\vtheta)$ is:
   \end{aligned}
 \end{equation}
 
-We need to work on $\E\left(\vepsi_n^\top\vepsi_n\right)$. To do so, note that under the true DGP $\vy_n = \mA_{n0}^{-1}\mX_n\vbeta_0 + \mA_{n0}^{-1}\vepsi_n$, then
+To compute $\E\left(\vepsi_n^\top\vepsi_n\right)$, note that under the true DGP $\vy_n = \mA_{n0}^{-1}\mX_n\vbeta_0 + \mA_{n0}^{-1}\vepsi_n$, so that 
 \begin{equation}\label{eq:equality-for-consistency}
 \begin{aligned}
 \E(\vy_n) & = \vmu_{\vy}     = \mA_{n0}^{-1}\mX_n\vbeta_0, \\
@@ -1992,7 +1989,7 @@ Then, using Lemma \ref{lemma:second-mom-lee} for the expectation of quadratic fo
 \end{aligned}
 \end{equation*}
 
-Then, the FONC for the optimal solutions of $\E(\ell_n(\vtheta))$ in Equation \eqref{eq:expectation-log-slm} are
+Then, the FONC for the optimal solutions of $\E\left[\ell_n(\vtheta)\right]$ in Equation \eqref{eq:expectation-log-slm} are
 \begin{equation*}
 \begin{aligned}
 \frac{\partial  \E\left[\ell_n(\vtheta)\right]}{\partial \vbeta} & = -2\mX_n^\top\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0 +  2\mX_n^\top\mX_n\vbeta, \\
@@ -2018,7 +2015,7 @@ where $\sigma_n^2(\lambda) = \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho))$.
 
 Since $\vbeta^*_n$ and $\sigma_n^{2*}$ represent the maximum values of the expected value of the log-likelihood function, $Q_n(\rho) = \max_{\vbeta, \sigma^2}\E(\ell_n(\vtheta))$ is 
 \begin{equation*}
-  Q_n(\rho) = -\frac{n}{2}\left(\ln(2\pi) + 1\right) - \frac{n}{2}\ln(\sigma^{2*}_n(\rho)) + \log\left|\mA_n\right|.
+  Q_n(\rho) = -\frac{n}{2}\left(\ln(2\pi) + 1\right) - \frac{n}{2}\ln(\sigma^{2*}_n(\rho)) + \log\left|\mA_n\right|,
 \end{equation*}
 %
 and
@@ -2026,15 +2023,13 @@ and
 \frac{1}{n}\left[\ell_n(\rho) - Q_n(\rho)\right] = -\frac{1}{2}\left[\ln( \widetilde{\sigma}^{2}) - \ln(\sigma^{2*}_n(\rho)) \right],
 \end{equation*}
 
-To prove that $\frac{1}{n}\left[\ell_n(\rho) - Q_n(\rho)\right]\pto 0$, we need to show that $\widetilde{\sigma}^{2}\pto \sigma^{2*}_n$. 
-
-We can show that $\mA_n\mA_{n0}^{-1} = \mI_n + (\rho_0 - \rho)\mC_n(\rho_0)$, then we can also write
+To prove that $\frac{1}{n}\left[\ell_n(\rho) - Q_n(\rho)\right]\pto 0$, we need to show that $\widetilde{\sigma}^{2}\pto \sigma^{2*}_n$. We can show that $\mA_n\mA_{n0}^{-1} = \mI_n + (\rho_0 - \rho)\mC_n(\rho_0)$, then we can also write
 \begin{equation*}
 \begin{aligned}
   (\mI_n - \mP_{nX})\mA_n\vy_n & = \mM_n\mA_n\vy_n, \\
                                & = \mM_n\mA_n\mA_{n0}^{-1}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n, \\
 & = \mM_n\left(\mI_n + (\rho_0 - \rho)\mC_n(\rho_0)\right)\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n,       \\
-& = (\rho_0 - \rho)\mM_n\mC_{n0}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n, 
+& = (\rho_0 - \rho)\mM_n\mC_{n0}\mX_n\vbeta_0 + \mM_n\mA_n\mA_{n0}^{-1}\vepsi_n. 
 \end{aligned}
 \end{equation*}
 
@@ -2054,31 +2049,34 @@ where the last equality comes from Equation \eqref{eq:sigma-star-consistency}.
 It can be shown that 
 \begin{equation}
     \begin{aligned}
-      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n \pto \vzeros \\
+      \frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n \pto \vzeros, \\
       \frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n \pto \vzeros. 
     \end{aligned}
 \end{equation}
 
-This implies that $\frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n  =o_p(1)$ and $\frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n = o_p(1)$.
-
-$B_{n1}$ can be expanded as
+This implies that $\frac{1}{n}\mX_n^\top\mC_n^\top\vepsi_n  =o_p(1)$ and $\frac{1}{n}\mX_n^\top\mC_n^\top\mC_n\vepsi_n = o_p(1)$. $B_{n1}$ can be expanded as
 \begin{equation*}
 \begin{aligned}
-B_{n1}  = &  \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n \\
-        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\left(\mI_n + (\rho_0 - \rho)\mC_n (\rho_0)\right)\vepsi_n \\
-        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n + (\rho_0 - \rho)\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mC_n(\rho_0)\vepsi_n 
+B_{n1}  = &  \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n, \\
+        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\left(\mI_n + (\rho_0 - \rho)\mC_n (\rho_0)\right)\vepsi_n, \\
+        = & \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n + (\rho_0 - \rho)\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\mC_n(\rho_0)\vepsi_n.
 \end{aligned} 
 \end{equation*}
 
 The first and second moments of the first element of $B_{n1}$ are
 \begin{equation*}
 \begin{aligned}
-\E\left[\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\right] & = \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\E(\vepsi_n) = \vzeros \\
-\var\left[\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\right] & = \frac{1}{n^2}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\E(\vepsi_n\vepsi_n\top)\mM_n^\top(\mC_{n0}\mX_n\vbeta_0) = o(1)
+\E\left[\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\right] & = \frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\E(\vepsi_n) = \vzeros, \\
+\var\left[\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\right] & = \frac{1}{n^2}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\E(\vepsi_n\vepsi_n^\top)\mM_n^\top(\mC_{n0}\mX_n\vbeta_0) = o(1).
 \end{aligned}
 \end{equation*}
 
-Since $(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n$ is uniformly bounded, then by Chebyshev's inequality \ref{definition:chebyshev_ineq} $n^{-1}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\pto \vzeros$. A similar reasoning can be applied to the second element of element of $B_{n1}$. Then
+Since $(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n$ is uniformly bounded, then by Chebyshev's inequality \ref{definition:chebyshev_ineq}
+\begin{equation*}
+n^{-1}(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n\vepsi_n\pto \vzeros.
+\end{equation*}
+
+A similar reasoning can be applied to the second element of element of $B_{n1}$. Then
 \begin{equation*}
   B_{n1} =  o_p(1) + o_p(1) = o_p(1)\quad \mbox{uniformly in $\rho \in \Gamma$.}
 \end{equation*}
@@ -2086,18 +2084,18 @@ Since $(\mC_{n0}\mX_n\vbeta_0)^\top\mM_n$ is uniformly bounded, then by Chebyshe
 $B_{n2}$ can be expanded as
 \begin{equation*}
 \begin{aligned}
-B_{n2} - \sigma^2_n(\lambda) = & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho))\\
-= & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top(\mI_n - \mP_{nX})\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)) \\
-= & \left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n -   \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)\right] - \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mP_{nX}\mA_n\mA_{n0}^{-1}\vepsi_n 
+B_{n2} - \sigma^2_n(\lambda) = & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mM_n\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)),\\
+= & \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top(\mI_n - \mP_{nX})\mA_n\mA_{n0}^{-1}\vepsi_n -  \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)), \\
+= & \left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n -   \frac{1}{n}\sigma_0^2\tr(\mD_n(\rho_0, \rho)\right] - \frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mP_{nX}\mA_n\mA_{n0}^{-1}\vepsi_n. 
 \end{aligned}
 \end{equation*}
 
 Using Lemma \ref{lemma:second-mom-lee} to the first element of $B_{n2}$ yields
 \begin{equation*}
 \begin{aligned}
-\E\left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n\right] &  = \frac{1}{n}\sigma_0^2\tr(\mD_{n}(\rho_0, \rho)) \\
+\E\left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n\right] &  = \frac{1}{n}\sigma_0^2\tr(\mD_{n}(\rho_0, \rho)), \\
 \var\left[\frac{1}{n}\vepsi_n^\top(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1}\vepsi_n\right]& = \frac{1}{n^2}\sigma_0^4\left[\tr\left[(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1})(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1})^\top\right] +  \right. \\
-& \left. \tr\left[(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1})^2\right]\right] = o(1)
+& \left. \tr\left[(\mA_{n0}^\top)^{-1}\mA_n^\top\mA_n\mA_{n0}^{-1})^2\right]\right] = o(1).
 \end{aligned}
 \end{equation*}
 
@@ -2114,16 +2112,16 @@ where we use the fact that if $Z_n = O(n^k)$ then $Z_n = o_p(n^{k + \delta})$ fo
 Consequently, 
 \begin{equation*}
 \begin{aligned}
-\ln( \widetilde{\sigma}^{2}) - \ln(\sigma^{2*}_n(\rho)) & = \ln\left(\frac{\widetilde{\sigma}^{2}}{\sigma^{2*}_n(\rho)}\right) \\
-& = \ln\left(\frac{\sigma^{2*}_n + B_{n1} + (B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right) \\
-& = \ln\left(1 + \frac{B_{n1}) }{\sigma^{2*}_n(\rho)} + \frac{(B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right) \\
-& = o_p(1)
+\ln( \widetilde{\sigma}^{2}) - \ln(\sigma^{2*}_n(\rho)) & = \ln\left(\frac{\widetilde{\sigma}^{2}}{\sigma^{2*}_n(\rho)}\right). \\
+& = \ln\left(\frac{\sigma^{2*}_n + B_{n1} + (B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right). \\
+& = \ln\left(1 + \frac{B_{n1}) }{\sigma^{2*}_n(\rho)} + \frac{(B_{n2} - \sigma^2_n(\lambda)) }{\sigma^{2*}_n(\rho)}\right) .\\
+& = o_p(1).
 \end{aligned}
 \end{equation*}
 %
 and
 \begin{equation*}
-\sup_{\rho\in \Gamma} \left\lbrace \frac{1}{n}\left|  \ell_n(\rho) - Q_n(\rho)\right|\right\rbrace = o_p(1)
+\sup_{\rho\in \Gamma} \left\lbrace \frac{1}{n}\left|  \ell_n(\rho) - Q_n(\rho)\right|\right\rbrace = o_p(1).
 \end{equation*}
 
 \paragraph{Identification}
@@ -2138,7 +2136,7 @@ Consider the log-likelihood function of a pure SLM process $\vy_n = \rho\mW_n\vy
 Consider $Q_{p,n}(\rho) = \max_{\sigma^2}\E_p\left[\ell_{p, n}(\rho, \sigma^2)\right]$. Then
 \begin{equation*}
 \begin{aligned}
-  Q_{p,n}(\rho)  = &\max_{\sigma^2} \E_p\left[\ell_{p, n}(\rho, \sigma^2)\right] \\
+  Q_{p,n}(\rho)  = &\max_{\sigma^2} \E_p\left[\ell_{p, n}(\rho, \sigma^2)\right], \\
                  \leq & \E_p\left[\max_{\sigma^2}\ell_{p, n}(\rho, \sigma^2)\right],\quad \mbox{by Jensen's inequality} \\
                   = & Q_{p, n}(\rho_0), \quad \mbox{for all $\rho$}. 
 \end{aligned}
@@ -2157,8 +2155,8 @@ It is also clear that:
 At $\rho_0, \sigma^{2*}_n(\rho) = \sigma_0^2$ (see Equation \eqref{eq:sigma-star-consistency}). Then, 
 \begin{equation*}
 \begin{aligned}
-\frac{1}{n}Q_n(\rho) - \frac{1}{n}Q_n(\rho_0) & = -\frac{1}{2}(\ln \sigma_n(\rho) - \ln \sigma_0^2) + \frac{1}{n}\left(\ln \left|\mA_n\right| - \ln \left|\mA_0\right|\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right] \\
-& = \frac{1}{n}\left(Q_{p,n}(\rho) - Q_{p, n}(\rho_0)\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right] 
+\frac{1}{n}Q_n(\rho) - \frac{1}{n}Q_n(\rho_0) & = -\frac{1}{2}(\ln \sigma_n(\rho) - \ln \sigma_0^2) + \frac{1}{n}\left(\ln \left|\mA_n\right| - \ln \left|\mA_0\right|\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right], \\
+& = \frac{1}{n}\left(Q_{p,n}(\rho) - Q_{p, n}(\rho_0)\right)- \frac{1}{2}\left[\ln \sigma_n^{2*}(\rho) - \ln \sigma_n^2(\rho)\right]. 
 \end{aligned}
 \end{equation*}
 
@@ -2193,20 +2191,18 @@ It follows that
  \section{Expected Value of Hessian for SLM}\label{appendix-EH-sml}
 %-------------------------------------------------------------------------
 
-In this Section we drop the subindex $n$ and use the results from Section \ref{sec:Hessian}. The following definitions and relations for the Spatial Lag Model are very useful:
-
-Since $\vepsi  =  \mA_0\vy - \mX\vbeta_0$, it follows that
+In this Section we drop the subindex $n$ and use the results from Section \ref{sec:Hessian}. It is important to recall that
 \begin{align*}
-	\E\left(\vepsi\right)      & = \vzeros \\
+	\E\left(\vepsi\right)      & = \vzeros, \\
 	\E\left(\vepsi\vepsi^\top\right) &= \sigma^2_0\mI_n, \\
-	\E\left(\vepsi^\top\vepsi\right) &= \E(\tr(\vepsi^\top\mI_n\vepsi)) = n\E(\vepsi\vepsi^\top)
+	\E\left(\vepsi^\top\vepsi\right) &= \E(\tr(\vepsi^\top\mI_n\vepsi)) = n\E(\vepsi\vepsi^\top).
 \end{align*}
 
 Using Lemma \ref{lemma:second-mom-lee} for the expectation of quadratic forms, yields
 \begin{equation}
 \begin{aligned}
 	\vy & =  \mA_0^{-1}\mX\vbeta_0 + \mA_0^{-1}\vepsi, \\
-	\E\left(\vy\right)   & = \vmu_{\vu} = \mA_0^{-1}\mX\vbeta_0, \\
+	\E\left(\vy\right)   & = \vmu_{\vy} = \mA_0^{-1}\mX\vbeta_0, \\
 	\E\left(\vy^\top\vy\right) & = \mSigma_{\vy} = \mA_0^{-1}\sigma^2_0\mI_n(\mA_0^{-1})^\top, \\
 	\E\left(\vy\vy^\top\right) & = \left(\mA_0^{-1}\mX\vbeta_0\right) \left(\mA_0^{-1}\mX\vbeta_0\right)^\top + \mA_0^{-1}\sigma^2_0\mI_n(\mA_0^{-1})^\top.
 \end{aligned}
@@ -2215,44 +2211,44 @@ Using Lemma \ref{lemma:second-mom-lee} for the expectation of quadratic forms, y
 We now derive the most difficult expectations. From \eqref{eq:sar_der_beta_rho} and letting $\mC_0 = \mW\mA^{-1}_0$
 \begin{equation}\label{eq:E_der_beta_rho}
 \begin{aligned}
-\E\left(\frac{\partial^2  \ell(\vtheta_0)}{\partial \vbeta \partial \rho}\right) & = - \frac{1}{\sigma^2_0} \mX^\top\E\left(\mW\vy\right) \\
-& = - \frac{1}{\sigma^2_0} \mX^\top\mW\mA^{-1}_0\mX\vbeta_0 \\
-& = - \frac{1}{\sigma^2_0} \mX^\top(\mC_0\mX\vbeta_0)
+\E\left(\frac{\partial^2  \ell(\vtheta_0)}{\partial \vbeta \partial \rho}\right) & = - \frac{1}{\sigma^2_0} \mX^\top\E\left(\mW\vy\right), \\
+& = - \frac{1}{\sigma^2_0} \mX^\top\mW\mA^{-1}_0\mX\vbeta_0, \\
+& = - \frac{1}{\sigma^2_0} \mX^\top(\mC_0\mX\vbeta_0).
 \end{aligned}	
 \end{equation}
 
 For \eqref{eq:sar_der_sigma_sigma} we obtain:
 \begin{equation}\label{eq:E_der_sigma_sigma}
   \begin{aligned}
-\E\left(\frac{\partial^2 \ell(\vtheta_0)}{\partial (\sigma^2)^2}\right) & = \E\left[\frac{n}{2(\sigma^2_0) ^2} - \frac{1}{(\sigma^2_0)^3} \vepsi^\top \vepsi\right] \\
-& = \frac{n}{2\sigma^4_0} - \frac{1}{\sigma^6_0}\E\left[\vepsi^\top \vepsi\right] \\
-& = \frac{n}{2\sigma^4_0} - \frac{n}{\sigma^6_0} \sigma^2_0 \mI_n \\
-& = - \frac{n}{2\sigma^4_0} 
+\E\left(\frac{\partial^2 \ell(\vtheta_0)}{\partial (\sigma^2)^2}\right) & = \E\left[\frac{n}{2(\sigma^2_0) ^2} - \frac{1}{(\sigma^2_0)^3} \vepsi^\top \vepsi\right], \\
+& = \frac{n}{2\sigma^4_0} - \frac{1}{\sigma^6_0}\E\left[\vepsi^\top \vepsi\right], \\
+& = \frac{n}{2\sigma^4_0} - \frac{n}{\sigma^6_0} \sigma^2_0 \mI_n, \\
+& = - \frac{n}{2\sigma^4_0}. 
   \end{aligned}
 \end{equation}
 
-From (\ref{eq:sar_der_sigma_rho}):
+From \eqref{eq:sar_der_sigma_rho}:
 \begin{equation}\label{eq:E_der_sigma_rho}
 	\begin{aligned}
-	\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \sigma^2 \partial \rho}\right] &= \E\left[-\frac{\vepsi^\top\mW\vy}{\sigma^4_0}\right] \\
-	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mW(\mA^{-1}_0\mX\vbeta_0 + \mA^{-1}_0\vepsi)\right] \\
-	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\mX\vbeta_0 + \vepsi^\top\mC_0\vepsi\right] \\
-	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\vepsi\right] \\
-	& = - \frac{1}{\sigma^4_0}\tr\left(\mC_0\right) \E\left(\vepsi\vepsi^\top\right) \\
-	& = - \tr(\mC_0)/\sigma^2_0
+	\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \sigma^2 \partial \rho}\right] &= \E\left[-\frac{\vepsi^\top\mW\vy}{\sigma^4_0}\right], \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mW(\mA^{-1}_0\mX\vbeta_0 + \mA^{-1}_0\vepsi)\right], \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\mX\vbeta_0 + \vepsi^\top\mC_0\vepsi\right], \\
+	& = - \frac{1}{\sigma^4_0}\E\left[\vepsi^\top\mC_0\vepsi\right], \\
+	& = - \frac{1}{\sigma^4_0}\tr\left(\mC_0\right) \E\left(\vepsi\vepsi^\top\right), \\
+	& = - \tr(\mC_0)/\sigma^2_0.
 	\end{aligned}
 \end{equation}
 
 From \eqref{eq:sar_der_rho_rho}:
 \begin{equation}\label{eq:E_der_rho_rho}
   \begin{aligned}
-\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \rho ^2}\right]  & =  \E\left[- \tr\left[(\mW\mA_0^{-1})^2\right] - \frac{1}{\sigma^2_0}(\vy^{\top}\mW^{\top}\mW\vy)\right] \\
-  & =  - \tr\left[(\mW\mA^{-1}_0)^2\right] - \frac{1}{\sigma^2_0} \E\left[\vy^{\top}\mW^{\top}\mW\vy\right] \\
-  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0} \left(\tr(\mW^{\top}\mW\mSigma_{\vy}) + \mu_{\vy}^\top\mW^{\top}\mW\vmu_{\vy}\right) \\
-  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0}\left(\sigma_0^2\tr(\mW^{\top}\mW\mA_0^{-1}(\mA_0^{-1})^\top) + (\mA_0^{-1}\mX\vbeta_0)^\top\mW^{\top}\mW\mA_0^{-1}\mX\vbeta_0\right) \\
- & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}\left(\vbeta_0^\top\mX^\top\mC_0^\top\mC_0\mX\vbeta_0 + \sigma_0^2\tr(\mC_0^\top\mC_0)\right) \\
- & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0) - \tr(\mC_0^\top\mC_0) \\
- & = - \tr(\mC_0^s\mC_0) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0)
+\E\left[\frac{\partial^2 \ell(\vtheta_0)}{\partial \rho ^2}\right]  & =  \E\left[- \tr\left[(\mW\mA_0^{-1})^2\right] - \frac{1}{\sigma^2_0}(\vy^{\top}\mW^{\top}\mW\vy)\right], \\
+  & =  - \tr\left[(\mW\mA^{-1}_0)^2\right] - \frac{1}{\sigma^2_0} \E\left[\vy^{\top}\mW^{\top}\mW\vy\right], \\
+  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0} \left(\tr(\mW^{\top}\mW\mSigma_{\vy}) + \mu_{\vy}^\top\mW^{\top}\mW\vmu_{\vy}\right), \\
+  & = - \tr(\mC_0^2) -\frac{1}{\sigma^2_0}\left(\sigma_0^2\tr(\mW^{\top}\mW\mA_0^{-1}(\mA_0^{-1})^\top) + (\mA_0^{-1}\mX\vbeta_0)^\top\mW^{\top}\mW\mA_0^{-1}\mX\vbeta_0\right), \\
+ & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}\left(\vbeta_0^\top\mX^\top\mC_0^\top\mC_0\mX\vbeta_0 + \sigma_0^2\tr(\mC_0^\top\mC_0)\right), \\
+ & = - \tr(\mC_0^2) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0) - \tr(\mC_0^\top\mC_0), \\
+ & = - \tr(\mC_0^s\mC_0) - \frac{1}{\sigma^2_0}(\mC_0\mX\vbeta_0)^\top(\mC_0\mX\vbeta_0),
 \end{aligned}
 \end{equation}
 %
@@ -2314,91 +2310,91 @@ In this Appendix, we will derive the variance of the score function. That is
   \end{aligned}
 \end{equation}
 %
-where $\mSigma_{\theta, n}= - \E\left[(1/n)\mH(\vtheta_0)\right]$ is given in Equation \eqref{eq:expected-hessian-slm-asy}. The following results are important. For i.i.d $\vepsi_n = (\epsilon_1, ..., \epsilon_n)$, it can be shown that
-\begin{equation}
-\begin{aligned}
-\E(\epsilon_i\epsilon_j) & = 
-\begin{cases}
-  \sigma_0^2 & \mbox{for $i = j$}, \\
-  0          &  \mbox{for $i\neq j$}
-\end{cases} \\
-\E(\epsilon_i\epsilon_j\epsilon_s) & =
-\begin{cases}
-  \mu_3 & \mbox{for $i = j = s$}, \\
-  0          &  \mbox{otherwise}
-\end{cases} \\
-\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t) & =
-\begin{cases}
-  \mu_4 & \mbox{for $i = j = s = t$}, \\
-   \sigma_0^4          &  \mbox{for $i=j \neq s=t$ or $i =s\neq j= t$ or $i = t \neq s = t$}, \\
-   0 & \mbox{otherwise}
-\end{cases} \\
-\end{aligned}
-\end{equation}
+where $\mSigma_{\theta, n}= - \E\left[(1/n)\mH(\vtheta_0)\right]$ is given in Equation \eqref{eq:expected-hessian-slm-asy}. 
 
-If $\epsilon_i \sim \rN(0, \sigma_0^2)$, we have $\E(\epsilon_i^3) = \mu_3 = 0$ and $\E(\epsilon_i^4) = \mu_4 = 3\sigma_0^4$. Thus
+% The following results are important. For i.i.d $\vepsi_n = (\epsilon_1, ..., \epsilon_n)$, it can be shown that
+% \begin{equation}
+% \begin{aligned}
+% \E(\epsilon_i\epsilon_j) & = 
+% \begin{cases}
+%   \sigma_0^2 & \mbox{for $i = j$}, \\
+%   0          &  \mbox{for $i\neq j$}
+% \end{cases} \\
+% \E(\epsilon_i\epsilon_j\epsilon_s) & =
+% \begin{cases}
+%   \mu_3 & \mbox{for $i = j = s$}, \\
+%   0          &  \mbox{otherwise}
+% \end{cases} \\
+% \E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t) & =
+% \begin{cases}
+%   \mu_4 & \mbox{for $i = j = s = t$}, \\
+%    \sigma_0^4          &  \mbox{for $i=j \neq s=t$ or $i =s\neq j= t$ or $i = t \neq s = t$}, \\
+%    0 & \mbox{otherwise}
+% \end{cases} \\
+% \end{aligned}
+% \end{equation}
+% 
+% If $\epsilon_i \sim \rN(0, \sigma_0^2)$, we have $\E(\epsilon_i^3) = \mu_3 = 0$ and $\E(\epsilon_i^4) = \mu_4 = 3\sigma_0^4$. 
+
+Given Lemma \ref{lemma:second-mom-lee} and \ref{lemma:O-lemma-lee-quadratic}, the following results hold
 \begin{equation}\label{eq:moments-linear-cuadratic}
 \begin{aligned}
-  \E(\vepsi_n^\top\mA_n\vepsi_n) & = \E\left[\sum_{i = 1}^n\sum_{j = 1}^na_{ij}\epsilon_i\epsilon_j\right] = \sum_{i = 1}^na_{ii}\E(\epsilon_i\epsilon_i) = \sigma^2_0\sum_{i = i}a_{ii} = \sigma_0^2\tr(\mA_n), \\
-  \E(\vepsi_n\vepsi_n^\top\mA_n\vepsi_n) & = \sum_{s = 1}^n\sum_{i = 1}^n\sum_{j = 1}^n a_{ij}\E(\epsilon_i\epsilon_j\epsilon_s) = \sum_i a_{ii}\E(\epsilon_i^3), \\
-  & =  \mu_3\tr(\mA_n) \\
-\E(\vepsi_n^\top\mA_n^\top\vepsi_n\vepsi_n^\top\mA^\top\vepsi_n) & = \sum_i\sum_j\sum_s\sum_ta_{ij}a_{st}\E(\epsilon_i\epsilon_j\epsilon_s\epsilon_t), \\
-& = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA_n^2)\right], \\
+  \E(\vepsi_n^\top\mA_n\vepsi_n) & = \sigma_0^2\tr(\mA_n), \\
+  \E(\vepsi_n\vepsi_n^\top\mA_n\vepsi_n) & =  \diag(\mA_n)\mu_3, \\
+\E(\vepsi_n^\top\mA_n^\top\vepsi_n\vepsi_n^\top\mA^\top\vepsi_n) & = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n\mA_n^\top)+\tr(\mA_n^2)\right], \\
 & = (\mu_4 - 3\sigma^4)\sum_{i = 1}^na_{ii}^2 + \sigma^4\left[\tr^2(\mA_n) + \tr(\mA_n^s\mA_n)\right] 
 \end{aligned}
 \end{equation}
 %
-where $\mA_n^s = (\mA_n + \mA_n^\top)$.
-
-Then, the expectation for the elements of $  \frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}$ are
-\begin{equation}
+where $\mA_n^s = (\mA_n + \mA_n^\top)$. Then, the expectation for the elements of $  \frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta}\cdot\frac{1}{\sqrt{n}}\frac{\partial \ell_n (\vtheta_0)}{\partial \vtheta^\top}$ are
+\begin{equation*}
 \begin{aligned}
-\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right)^\top\right] & = \frac{1}{\sigma_0^4}\frac{1}{n}\E(\mX_n^\top\vepsi\vepsi^\top\mX_n), \\
-& = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n.
+\E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right)^\top\right] & = \frac{1}{\sigma_0^4}\frac{1}{n}\E(\mX_n^\top\vepsi\vepsi^\top\mX_n) = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n.
 \end{aligned}
-\end{equation}
+\end{equation*}
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right]  = &  \frac{1}{\sigma_0^4}\frac{1}{n}\left[\E(\mX_n^\top\vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)) + \E(\mX_n^\top\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n) - \right. \\
 & \left. \sigma_0^2\E(\mX_n^\top\vepsi_n\tr(\mC_{n0})) \right], \\
 & = \frac{1}{\sigma_0^4}\frac{1}{n}\left[\mX_n^\top\E(\vepsi_n\vepsi_n^\top)(\mC_{n0}\mX_n\vbeta_0) + \mX_n^\top\E(\vepsi_n\vepsi_n^\top\mC_{n0}\vepsi_n)\right], \\
 & = \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{\sigma_0^4}\frac{\mu_3}{n}\mX^\top\diag(\mC_{n0}).
 \end{aligned}
-\end{equation}
+\end{equation*}
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \vbeta}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{\sigma_0^6}\frac{1}{n}\E\left[\frac{1}{2}\mX_n^\top\vepsi_n\vepsi_n^\top\vepsi_n - \frac{n\sigma_0^2}{2}\mX_n^\top\vepsi_n\right], \\
 & = \frac{\mu_3}{\sigma_0^6}\frac{1}{2n}\mX_n^\top\vones_n.
 \end{aligned}
-\end{equation}
+\end{equation*}
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & =  \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
 \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \sigma^2}\right)^\top\right] & = \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 Note that:
 \begin{align*}
-\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top  = &  (\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0) + (\vepsi_n^\top\mC_{n0}\vepsi)^2 + \sigma_{0}^4\tr^2(\mC_{n0}) \\
+\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)\left(\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top  = &  \frac{1}{\sigma_0^4}\left[(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0) + (\vepsi_n^\top\mC_{n0}\vepsi)^2 + \sigma_{0}^4\tr^2(\mC_{n0})\right. \\
 & + 2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n - 2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n  \\
-& - 2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n
+& \left.- 2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n\right]
 \end{align*}
-Taking the expectation for each element of this gives and given the results in Equation \eqref{eq:moments-linear-cuadratic}
+
+Taking the expectation for each element, and given the results in Equation \eqref{eq:moments-linear-cuadratic}, yields
 \begin{align*}
- \E\left[(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)\right] & = \sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) \\
- \E\left[(\vepsi_n^\top\mC_{n0}\vepsi)^2\right] & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \\
-  \E\left[\sigma_{0}^4\tr^2(\mC_{n0})\right] & = \sigma_0^4\tr^2(\mC_{n0}) \\
-  \E\left[2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n\right] & = 2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) \\
-  \E\left[2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\right] & = \vzeros \\
-  \E\left[2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n\right] & = 2\sigma_0^4\tr^2(\mC_{n0})
+ \E\left[(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top(\mC_{n0}\mX_n\vbeta_0)\right] & = \sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0), \\
+ \E\left[(\vepsi_n^\top\mC_{n0}\vepsi)^2\right] & = (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right], \\
+  \E\left[\sigma_{0}^4\tr^2(\mC_{n0})\right] & = \sigma_0^4\tr^2(\mC_{n0}), \\
+  \E\left[2(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\vepsi_n^\top\mC_{n0}^\top\vepsi_n\right] & = 2\mu_3(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}), \\
+  \E\left[2\sigma_{0}^2\tr(\mC_{n0})(\mC_{n0}\mX_n\vbeta_0)^\top \vepsi_n\right] & = \vzeros, \\
+  \E\left[2\sigma_{0}^2\tr(\mC_{n0})\vepsi_n^\top\mC_{n0}\vepsi_n\right] & = 2\sigma_0^4\tr^2(\mC_{n0}).
 \end{align*}
 
 Using these results, we obtain 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
   \E\left[\left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right) \left(\frac{1}{\sqrt{n}}\frac{\partial \ell_n(\vtheta_0)}{\partial \rho}\right)^\top\right] & = \frac{1}{\sigma_0^4n}\left[\sigma_0^2(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) - \sigma_0^4\tr^2(\mC_{n0})\right. \\
   & + \left. (\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{n,ii}^2 + \sigma^4_0\left[\tr^2(\mC_{n0}) + \tr(\mC_{n0}^s\mC_{n0})\right] \right. \\
@@ -2406,17 +2402,17 @@ Using these results, we obtain
  & =   \frac{1}{\sigma_0^2}\frac{1}{n}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) \\
  &  + \frac{1}{\sigma_0^4}\frac{1}{n}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{1}{\sigma_0^4}\frac{2\mu_3}{n}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0})
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 Then, 
-\begin{equation}
+\begin{equation*}
 \mJ_{\theta, n} = 
 \begin{pmatrix}
   \frac{1}{\sigma_0^2}\frac{1}{n}\mX_n^\top\mX_n & \frac{1}{n\sigma_0^2}\mX_n^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
   *  & \frac{1}{n\sigma_0^2}(\mC_{n0}\mX_n\vbeta_0)^\top(\mC_{n0}\mX_n\vbeta_0) + \frac{1}{n}\tr(\mC_{n0}^s\mC_{n0}) +  J_{22, n} & \frac{1}{n\sigma_0^2}\tr(\mC_{n0})+ J_{23,n} \\
   * & * & \frac{1}{2\sigma_0^4}+ \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
 \end{pmatrix}
-\end{equation}
+\end{equation*}
 %
 where 
 \begin{align*}
@@ -2426,14 +2422,14 @@ J_{23, n} &= \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \m
 
 Thus, we can write $\mJ_{\theta, n} = \mSigma_{\theta, n} + \mOmega_{\theta, n}$ with
 \scriptsize
-\begin{equation}
+\begin{equation*}
 \mOmega_{\theta, n} = 
 \begin{pmatrix}
   \mZeros & \frac{\mu_3}{n\sigma_0^4}\mX^\top\diag(\mC_{n0}) & \frac{\mu_3}{2n\sigma_0^6}\mX_n^\top\vones_n \\
   * & \frac{1}{n\sigma_0^4}(\mu_4 - 3\sigma^4_0)\sum_{i = 1}^nc_{ii,0}^2 + \frac{2\mu_3}{n\sigma_0^4}(\mC_{n0}\mX_n\vbeta_0)^\top\diag(\mC_{n0}) & \frac{1}{2n\sigma_0^6}\left[(\mu_4 - 3\sigma_0^4)\tr(\mC_{n0}) + \mu_3\vones^\top(\mC_{n0}\mX_n\vbeta_0)\right] \\
   * & * & \frac{(\mu_4 - 3\sigma_0^4)}{4\sigma_0^8}
 \end{pmatrix}.
-\end{equation}
+\end{equation*}
 \normalsize
 
 
